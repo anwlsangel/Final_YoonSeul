@@ -481,7 +481,7 @@
             </div>                
             <div id="main-header">                                
                 <div id="main-navi">
-                    <div><a href=""><img src="/resources/image/logo.png"id="logo"></a></div>                    
+                    <div><a href=""><img src="resources/image/logo.png"id="logo"></a></div>                    
                     <div class="navi"><a href="">공연정보</a></div>
                     <div class="navi"><a href="">소개</a></div>
                     <div class="navi"><a href="">공지사항</a></div>                      
