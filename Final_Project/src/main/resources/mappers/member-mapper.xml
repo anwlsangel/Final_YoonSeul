@@ -79,7 +79,7 @@
 	<select id="idCheck" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
 		  FROM MEMBER
-		 WHERE USER_ID = #{checkId}
+		 WHERE USER_ID = #{userId}
 	</select>
 	</mapper>
 

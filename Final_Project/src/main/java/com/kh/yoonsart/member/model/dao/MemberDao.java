@@ -24,9 +24,9 @@ public class MemberDao {
 		}
 	
 	// MemberDao 아이디 체크용 메소드 0604 - 무진
-	public int idCheck(SqlSessionTemplate sqlSession, String checkId) {
+	public int idCheck(SqlSessionTemplate sqlSession, String userId) {
 		
-		return sqlSession.selectOne("memberMapper.idCheck", checkId);
+		return sqlSession.selectOne("memberMapper.idCheck", userId);
 	}
 	
 	// MemberDao 회원정보 수정용 메소드 0604 - 무진

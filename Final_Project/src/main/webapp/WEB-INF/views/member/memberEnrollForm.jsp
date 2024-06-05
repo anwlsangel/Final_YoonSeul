@@ -146,9 +146,9 @@
                 <tr>
                     <th class="required">이름 *</th>
                     <td colspan="4">
-                        <input id="memberName"
+                        <input id="userName"
                                type="text"
-                               name="memberName"
+                               name="userName"
                                required
                                placeholder="한글 2~5글자">
                     </td>
@@ -156,9 +156,9 @@
                 <tr>
                     <th class="required">아이디 *</th>
                     <td colspan="3">
-                        <input id="memberId"
+                        <input id="userId"
                     		    type="text"
-                    		    name="memberId"
+                    		    name="userId"
                     		    required
                     		    placeholder="영문자, 숫자를 포함하여 총 4~12자로">
                     </td>
@@ -399,33 +399,36 @@
     </script>
     
     <script>
-        let checkId = false;
-        let checkPhone = false;
-        let checkEmail = false;
+        //let checkId = false;
+        //let checkPhone = false;
+        //let checkEmail = false;
         //아이디 중복 검사
+        // memberEnrollForm.jsp idCheck() 변경 아이디 중복 검사 0605 - 무진
         function idCheck() {
-            let $memberId = $("#memberId");
-            $.ajax({
-                url: "<%=request.getContextPath()%>/checkId.me",
-                type: "post",
-                data: {memberId: $memberId.val()},
-                success: function(result) {
-                    if(result > 0) {
-                        alert("이미 사용중인 아이디입니다.");
-                        $memberId.focus();
-                    } else {
-                        if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
-                            $memberId.attr("readonly", true);
-                            checkId = true;
-                        } else {
-                            $memberId.focus();
-                            checkId = false;
-                        }
-                    }
-                },
-                error: function() {}
-            });
-        }
+	    let $userId = $("#userId");
+	    $.ajax({
+	        url: "<%=request.getContextPath()%>/idCheck.me",
+	        type: "post",
+	        data: { userId: $userId.val() },
+	        success: function(result) {
+	            if(result > 0) {
+	                alert("이미 사용중인 아이디입니다.");
+	                $userId.focus();
+	            } else {
+	                if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
+	                    $userId.attr("readonly", true);
+	                    checkId = true;
+	                } else {
+	                    $userId.focus();
+	                    checkId = false;
+	                }
+	            }
+	        },
+	        error: function() {
+	            alert("아이디 중복 확인 중 오류가 발생했습니다.");
+	        }
+	    });
+}
         
         //비밀번호 일치 검사
         $(function() {

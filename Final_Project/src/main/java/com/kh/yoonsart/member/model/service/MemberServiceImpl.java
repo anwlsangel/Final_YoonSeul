@@ -45,9 +45,10 @@ public class MemberServiceImpl implements MemberService{
 	}
 	
 	// MemberServiceImpl 아이디 중복 검사용 서비스 0604 - 무진
+	// MemberServiceImpl idCheck() 변경 아이디 중복 검사 0605 - 무진
 	@Override
-	public int idCheck(String checkId) {
+	public int idCheck(String userId) {
 		
-		return memberDao.idCheck(sqlSession, checkId);
+		return memberDao.idCheck(sqlSession, userId);
 	}
 }

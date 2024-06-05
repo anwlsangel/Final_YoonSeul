@@ -10,6 +10,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -147,27 +148,14 @@ public class MemberController {
 		}
 		
 		// MemberController 아이디 체크용 메소드 0604 -무진
+		// MemberController checkId() 변경 아이디 중복 검사 0605 - 무진
 		@ResponseBody
-		@GetMapping(value = "idCheck.me", produces = "text/html; charset=UTF-8")
-		public String idCheck(String checkId) {
-			
-			//> 중복확인 할 아이디 값이 전달 됨
-			
-			/*
-			 * int count = memberService.idCheck(checkId);
-			 * 
-			 * // count 가 1일 경우 : 이미 존재하는 아이디 (사용 불가) // count 가 0일 경우 : 존재 하지 않는 아이디 (사용
-			 * 가능) if(count > 0) { // 사용불가능 "NNNNN"
-			 * 
-			 * return "NNNNN";
-			 * 
-			 * }else { // 사용 가능 "NNNNY" return "NNNNY"; }
-			 */
-			int count = memberService.idCheck(checkId);
-			
-			return (count > 0) ? "NNNNN": "NNNNY";
-				
-		}
+		@PostMapping(value = "idCheck.me", produces = "text/html; charset=UTF-8")
+	    public String checkId(@RequestParam("userId") String userId) {
+	        System.out.println(memberService.idCheck(userId));
+			return memberService.idCheck(userId)>0?"1":"0";
+	        
+	    }
 		
 		// MemberController 마이페이지조회용 메소드 0604 - 무진
 		@GetMapping("myPage.me")
