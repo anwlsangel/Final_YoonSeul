@@ -108,6 +108,21 @@
     .title2 {
         margin-left: 55px;
     }
+    
+    /* 버튼의 기본 스타일 */
+    #idCheckButton {
+        background: linear-gradient(0deg, #630000, #810000);
+        color: #fff;
+        cursor: pointer;
+    }
+    /* 버튼이 비활성화 상태일 때의 스타일 */
+    #idCheckButton:disabled {
+        background: #ccc;
+        color: #666;
+        cursor: not-allowed;
+    }
+
+    
 </style>
 </head>
 <body>
@@ -153,18 +168,21 @@
                                placeholder="한글 2~5글자">
                     </td>
                 </tr>
-                <tr>
-                    <th class="required">아이디 *</th>
-                    <td colspan="3">
-                        <input id="userId"
-                    		    type="text"
-                    		    name="userId"
-                    		    required
-                    		    placeholder="영문자, 숫자를 포함하여 총 4~12자로">
-                    </td>
-                    <td><button type="button"
-                    			onclick="idCheck();">중복확인</button></td>
-                </tr>
+	               <tr>
+					    <th class="required">아이디 *</th>
+					    <td colspan="3">
+					        <input id="userId"
+					               type="text"
+					               name="userId"
+					               required
+					               placeholder="영문자, 숫자를 포함하여 총 4~12자로"
+					               oninput="toggleIdCheckButton()">
+					    </td>
+					    <td><button type="button"
+					                id="idCheckButton"
+					                onclick="idCheck();"
+					                disabled>중복확인</button></td>
+					</tr>
                 <tr>
                     <th class="required">비밀번호 *</th>
                     <td colspan="4">
@@ -231,6 +249,13 @@
                     </td>
                 </tr>
                 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                <script>
+				    function toggleIdCheckButton() {
+				        const userId = document.getElementById('userId').value;
+				        const idCheckButton = document.getElementById('idCheckButton');
+				        idCheckButton.disabled = userId.length < 5;
+				    }
+				</script>
                 <script>
                     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
                     function execDaumPostcode() {
@@ -399,9 +424,9 @@
     </script>
     
     <script>
-        //let checkId = false;
-        //let checkPhone = false;
-        //let checkEmail = false;
+        let checkId = false;
+        let checkPhone = false;
+        let checkEmail = false;
         //아이디 중복 검사
         // memberEnrollForm.jsp idCheck() 변경 아이디 중복 검사 0605 - 무진
         function idCheck() {

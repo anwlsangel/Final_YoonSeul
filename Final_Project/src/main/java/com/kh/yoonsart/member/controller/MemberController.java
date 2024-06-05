@@ -152,7 +152,6 @@ public class MemberController {
 		@ResponseBody
 		@PostMapping(value = "idCheck.me", produces = "text/html; charset=UTF-8")
 	    public String checkId(@RequestParam("userId") String userId) {
-	        System.out.println(memberService.idCheck(userId));
 			return memberService.idCheck(userId)>0?"1":"0";
 	        
 	    }
