@@ -110,13 +110,13 @@
     }
     
     /* 버튼의 기본 스타일 */
-    #idCheckButton {
+    #idCheckButton, #enrollBtn {
         background: linear-gradient(0deg, #630000, #810000);
         color: #fff;
         cursor: pointer;
     }
     /* 버튼이 비활성화 상태일 때의 스타일 */
-    #idCheckButton:disabled {
+    #idCheckButton:disabled, #enrollBtn:disabled  {
         background: #ccc;
         color: #666;
         cursor: not-allowed;
@@ -249,6 +249,7 @@
                     </td>
                 </tr>
                 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
+                <!-- 아이디 중복확인 버튼이 비활성화 일때 보여지는 스타일을 위한 스크립트 0605 - 무진 -->
                 <script>
 				    function toggleIdCheckButton() {
 				        const userId = document.getElementById('userId').value;
@@ -367,11 +368,11 @@
             </script>
             <br><br>
             <div id="btns" align="center">
-            	<button id="enrollBtn" type="submit"
-                        onclick="return validate();"
-                        style="width: 300px; height: 50px; font-size: 20px; font-weight: 900;"
-                        disabled>가입하기</button>
-            </div>
+			    <button id="enrollBtn" type="submit"
+			            onclick="return validate();"
+			            style="width: 300px; height: 50px; font-size: 20px; font-weight: 900;"
+			            disabled>가입하기</button>
+			</div>
             <br><br>
         </form>
     </div>
