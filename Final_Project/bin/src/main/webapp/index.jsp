@@ -7,7 +7,7 @@
 <!-- 0603  -->
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>윤슬아트홀MAIN</title>
+    <title>윤슬아트홀</title>
 </head>
 <!-- jQuery library -->
     <!-- 온라인 방식 -->
@@ -481,7 +481,7 @@
             </div>                
             <div id="main-header">                                
                 <div id="main-navi">
-                    <div><a href=""><img src="/resources/image/logo.png"id="logo"></a></div>                    
+                    <div><a href=""><img src="resources/image/logo.png"id="logo"></a></div>                    
                     <div class="navi"><a href="">공연정보</a></div>
                     <div class="navi"><a href="">소개</a></div>
                     <div class="navi"><a href="">공지사항</a></div>                      
