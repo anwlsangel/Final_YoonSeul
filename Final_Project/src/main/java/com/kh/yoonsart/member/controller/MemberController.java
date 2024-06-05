@@ -102,7 +102,6 @@ public class MemberController {
 	// 회원 가입용 메소드 0604 - 무진
 	@GetMapping("enrollForm.me")
 	public String enrollForm() {
-		
 		// 여기서는 단순히 회원가입페이지만 포워딩
 		// /WEB-INF/views/member/memberEnrollForm.jsp
 		
