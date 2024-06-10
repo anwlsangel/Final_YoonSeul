@@ -557,34 +557,6 @@
                         </div>
                         <div class="review-line"></div>
                     </div>
-                    <div class="review">
-                        <div class="review-star">★★★★☆</div>
-                        <div class="review-content">
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                        </div>
-                        <div class="review-info">
-                            <div class="review-writer">user01</div>
-                            <div class="review-createDate">2024.06.05</div>
-                        </div>
-                        <div class="review-line"></div>
-                    </div>
                 </div>
                 
                 <br><br>
@@ -688,9 +660,6 @@
     	
     
     <div>
-    <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE</button>
-    </div>
-        <div>
     	<button onclick="refund();">user01 결제 환불</button>
     </div>
     <script>
@@ -734,6 +703,7 @@
     		});
     	}
     </script>
+    
     	
     
 

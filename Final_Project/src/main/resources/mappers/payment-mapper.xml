@@ -29,6 +29,13 @@
 		     , #{userId})
 	</insert>
 	
+	<!-- 환불일 업데이트 -->
+	<update id="updateReserveRefund" parameterType="string">
+		UPDATE BUYLIST
+		   SET RESERVE_REFUND = SYSDATE
+		 WHERE BUYLIST_ID = #{merchant_uid}
+	</update>
+	
 	
 </mapper>
 
