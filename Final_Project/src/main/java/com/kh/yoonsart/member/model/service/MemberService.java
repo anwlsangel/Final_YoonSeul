@@ -21,5 +21,9 @@ public interface MemberService {
 		
 		// 아이디 중복체크 서비스(select) - ajax
 		int idCheck(String checkId);
+		// 전화번호 중복체크 서비스(select) - ajax
+		int checkPhone(String phone);
+		// 이메일 중복체크 서비스(select) - ajax
+		int checkEmail(String email);
 		
 }

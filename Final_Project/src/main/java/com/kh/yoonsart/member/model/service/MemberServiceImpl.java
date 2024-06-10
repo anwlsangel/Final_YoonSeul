@@ -51,4 +51,18 @@ public class MemberServiceImpl implements MemberService{
 		
 		return memberDao.idCheck(sqlSession, userId);
 	}
+	
+	// MemberServiceImpl 전화번호 중복 검사용 메소드 0610 - 무진
+	@Override
+	public int checkPhone(String phone) {
+		
+		 return memberDao.checkPhone(sqlSession,phone);
+	}
+	
+	// MemberServiceImpl 이메일 중복 검사용 메소드 0610 - 무진
+	@Override
+	public int checkEmail(String email) {
+		
+		return memberDao.checkEmail(sqlSession, email);
+	}
 }

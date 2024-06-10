@@ -2,6 +2,8 @@ package com.kh.yoonsart.member.model.vo;
 
 import java.sql.Date;
 
+import com.google.gson.annotations.JsonAdapter;
+
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
