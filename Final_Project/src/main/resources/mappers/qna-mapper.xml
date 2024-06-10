@@ -24,5 +24,9 @@
 		  FROM QNA
 		 WHERE STATUS = '1'
 	</select>	
+<<<<<<< HEAD
 	</mapper>
 	 
+=======
+</mapper>
+>>>>>>> 4a288dbda227dfe7b83e8422695db23a2cc90eba
