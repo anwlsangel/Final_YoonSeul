@@ -1,0 +1,48 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="paymentMapper">
+
+	<!--
+	 BUYLIST 테이블의 조회 결과를 BuyList VO 객체로 옮겨주는 ResultMap 
+	 -->
+	<resultMap type="buylist" id="buylistResultSet">
+		<result column="BUYLIST_ID" property="butListId"/>
+		<result column="RESERVE_CODE" property="reserveCode"/>
+		<result column="RESERVE_CONCERT_ID" property="reserveConcertName"/>
+		<result column="RESERVE_TICKET" property="reserveTicket"/>
+		<result column="RESERVE_SUM" property="reserveSum"/>
+		<result column="RESERVE_PAYMENT" property="reservePayment"/>
+		<result column="RESERVE_REFUND" property="reserveRefund"/>
+		<result column="USER_ID" property="userId"/>
+	</resultMap>
+	
+	<!-- 결제정보 저장 -->
+	<insert id="insertPaymentInfo" parameterType="buylist">
+		INSERT INTO BUYLIST
+		VALUES(#{buyListId}
+		     , #{reserveCode}
+		     , #{reserveConcertName}
+		     , #{reserveTicket}
+		     , #{reserveSum}
+		     , SYSDATE
+		     , NULL
+		     , #{userId})
+	</insert>
+	
+	
+</mapper>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
