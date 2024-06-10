@@ -518,6 +518,14 @@
             <div class="swiper-scrollbar"></div>
         </div>    
     </div>
+    
+	<script>
+	   	$(function() {
+	   		$(".overlay").click(function() {
+	   			location.href = "concertDetailView.co";
+	   		});
+	   	});
+    </script>
 
     <div class="main-top-img">        
             <div class="top-img">
