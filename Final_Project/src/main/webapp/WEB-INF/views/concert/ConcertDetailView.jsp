@@ -409,9 +409,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-                    <button class="detail-menu" onclick=".reviews">관람후기</button>
+                    <a href="#reviews"><button class="detail-menu">관람후기</button></a>
                     <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu" onclick="#text">문의</button>
+                    <a href="#text"><button class="detail-menu">문의</button></a>
                 </div>
 
                 <div class="detail-info">
@@ -490,7 +490,7 @@
                 
                 
                 <!-- 관람후기 목록  -->
-                <div class="reviews" style="margin: auto; width: 900px">
+                <div id="reviews" class="reviews" style="margin: auto; width: 900px">
                     <h2>관람후기 <span style="color: #810000;">32</span></h2>
                     <hr><br>
 
@@ -683,15 +683,15 @@
                  &gt;
             </a>    
         </div>
-<<<<<<< HEAD
-    	
     
     <div>
     <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE</button>
     </div>
-        <div>
+    <!-- 
+    <div>
     	<button onclick="refund();">user01 결제 환불</button>
     </div>
+     -->
     <script>
     	const apiKey = "5866740403361550";
     	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
@@ -733,11 +733,6 @@
     		});
     	}
     </script>
-    	
-    
-=======
-        
->>>>>>> a1da99e6db761865333ec3040773603bbc0a205a
 
 
     <div class="footer">
@@ -756,7 +751,7 @@
 	        	// param
 		          pg: "html5_inicis",
 		          pay_method: "card",
-		          merchant_uid: "111434224132", //주문번호 == BUYLIST_ID
+		          merchant_uid: "1114aaa34224132", //주문번호 == BUYLIST_ID
 		          name: "공연이름222", //공연이름 == RESERVE_CONCERT_NAME
 		          amount: myAmount,
 		          buyer_email: "gildonggmailcom",
@@ -799,7 +794,7 @@
 	            });
 	          } else {
 	            // 결제 실패시
-	            console.log("결제실패");
+	            console.log("결제취소");
 	          }
 	        }
 	      );

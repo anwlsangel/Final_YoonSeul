@@ -409,9 +409,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-                    <button class="detail-menu" onclick=".reviews">관람후기</button>
+                    <a href="#reviews"><button class="detail-menu">관람후기</button></a>
                     <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu" onclick="#text">문의</button>
+                    <a href="#text"><button class="detail-menu">문의</button></a>
                 </div>
 
                 <div class="detail-info">
@@ -490,7 +490,7 @@
                 
                 
                 <!-- 관람후기 목록  -->
-                <div class="reviews" style="margin: auto; width: 900px">
+                <div id="reviews" class="reviews" style="margin: auto; width: 900px">
                     <h2>관람후기 <span style="color: #810000;">32</span></h2>
                     <hr><br>
 
@@ -713,6 +713,7 @@
     </div>
     
     <script>
+    /*
       function payment() {
 	      //const myAmount = Number(document.getElementById("amount").value);
 	      const myAmount = 100;
@@ -724,7 +725,7 @@
 	        	// param
 		          pg: "html5_inicis",
 		          pay_method: "card",
-		          merchant_uid: "111434224132", //주문번호 == BUYLIST_ID
+		          merchant_uid: "1114aaa34224132", //주문번호 == BUYLIST_ID
 		          name: "공연이름222", //공연이름 == RESERVE_CONCERT_NAME
 		          amount: myAmount,
 		          buyer_email: "gildonggmailcom",
@@ -767,8 +768,84 @@
 	            });
 	          } else {
 	            // 결제 실패시
-	            console.log("결제실패");
+	            console.log("결제취소");
 	          }
+	        }
+	      );
+      }
+    */
+    
+    //결제 전 검증 추가
+    function payment() {
+	      //const myAmount = Number(document.getElementById("amount").value);
+	      const myAmount = 100;
+	
+	      const IMP = window.IMP; // 생략 가능
+	      IMP.init("imp84822672"); // Example: imp00000000
+	      IMP.request_pay(
+	        {
+	        	// param
+		          pg: "html5_inicis",
+		          pay_method: "card",
+		          merchant_uid: "1114bbbe43r34224132", //주문번호 == BUYLIST_ID
+		          name: "공연이름222", //공연이름 == RESERVE_CONCERT_NAME
+		          amount: myAmount,
+		          buyer_email: "gildonggmailcom",
+		          buyer_name: "HongGildong",
+		          buyer_tel: "01042424242",
+		          buyer_addr: "Seoul",
+		          buyer_postcode: "01181",
+		          
+		          //m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소
+	        }, function(rsp) {
+	        	console.log(rsp);
+	        	
+	        	//결제검증
+	        	$.ajax({
+	        		type: "POST",
+	        		data: { imp_uid: "imp84822672" },
+	        		//url: "/verifyIamport/" + rsp.imp_uid
+	        		url: "paymentCheck.pa"
+	        	}).done(function(data) {
+	        		
+	        		console.log(data);
+	        		console.log("----------");
+	        		console.log("res.paid_amount : " + res.paid_amount);
+	        		console.log("data.response.amount : " + data.response.amount);
+	        		console.log("----------");
+	        		
+	        		if(res.paid_amount == data.response.amount){
+	                    console.log("결제 및 결제검증완료");
+
+	                  	//결제 성공 시 비즈니스 로직
+	                 	//db 저장
+	                    $.ajax({
+           	            	url: "insertPaymentInfo.pa",
+           	            	type: "post",
+           	            	data: {
+           	            		buyListId: rsp.merchant_uid, //주문번호
+           	            		reserveCode: rsp.pg_tid, //결제코드 (환불 시 필요)
+           	            		reserveConcertName: rsp.name, //예약된 공연 이름
+           	      	            reserveTicket: 1, //예약된 티켓 수
+           	      	            reserveSum: myAmount, //결제 금액 합
+           	      	            userId: "user02" //회원ID
+           	            	},
+           	            	success: function(result) {
+           	            		if(result == "success") {
+           	            			console.log("결제정보 저장 성공");
+           	            		} else {
+           	            			console.log("결제정보 저장 실패");
+           	            		}
+           	            	},
+           	            	error: function() {
+           	            		console.log("결제정보 저장 AJAX 통신 실패");
+           	            	}
+           	            });
+
+	                } else {
+	                    console.log("결제 실패");
+	                }
+	        	});
 	        }
 	      );
       }
