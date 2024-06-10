@@ -10,7 +10,11 @@
     	<typeAlias type="com.kh.yoonsart.member.model.vo.Member" alias="member" />
     	<typeAlias type="com.kh.yoonsart.payment.model.vo.BuyList" alias="buylist" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.Concert" alias="concert" />
+<<<<<<< HEAD
     	<typeAlias type="com.kh.yoonsart.QNA.model.vo.QNA" alias="qna" />
+=======
+    	<typeAlias type="com.kh.yoonsart.QNA.model.vo.QNA" alias="qna"/>
+>>>>>>> 29964c905ec03f76346b0b77b28cbebdf77b563d
     </typeAliases>
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>

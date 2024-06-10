@@ -25,7 +25,6 @@
 <style>
 	.outer {
         width: 1000px;
-        /*border: 1px solid red;*/
         margin: auto;
         margin-top: 90px;
     }
@@ -80,17 +79,17 @@
         background:  linear-gradient(0deg, #630000, #810000);
     }
     body {
-            background-color: #F4F4F4;
-            margin: 0;
-            padding: 0;
+        background-color: #F4F4F4;
+        margin: 0;
+        padding: 0;
     }
     .container {
-            max-width: 1000px;
-            margin: 20px auto;
-            padding: 20px;
-            background-color: #fff;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-            min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
+        max-width: 1000px;
+        margin: 20px auto;
+        padding: 20px;
+        background-color: #fff;
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
     }
     #enroll-form input[type="radio"] {
         width: 5%;
@@ -129,9 +128,22 @@
 	    color: red;
 	}
 
-	    
-
-    
+	 .is-invalid {
+        border-color: #dc3545;
+    }
+    .is-valid {
+        border-color: #28a745;
+    }
+    .invalid-feedback {
+        display: none;
+        width: 100%;
+        margin-top: 0.25rem;
+        font-size: 80%;
+        color: #dc3545;
+    }
+    .invalid-feedback.active {
+        display: block;
+    }
 </style>
 </head>
 <body>
@@ -175,6 +187,7 @@
                                name="userName"
                                required
                                placeholder="한글 2~5글자">
+                        <div class="invalid-feedback">잘못된 형식의 이름입니다.</div>
                     </td>
                 </tr>
 	               <tr>
@@ -186,6 +199,7 @@
 					               required
 					               placeholder="영문자, 숫자를 포함하여 총 4~12자로"
 					               oninput="toggleIdCheckButton()">
+					        <div class="invalid-feedback">잘못된 형식의 아이디입니다.</div>
 					    </td>
 					    <td><button type="button"
 					                id="idCheckButton"
@@ -201,6 +215,7 @@
 				               name="userPwd"
 				               required
 				               placeholder="영문자, 숫자, 특수문자로 총 6~15자">
+				        <div class="invalid-feedback">잘못된 형식의 비밀번호입니다.</div>
 				    </td>
 				</tr>
 				<tr>
@@ -209,39 +224,16 @@
 				        <input id="userPwd_check"
 				               type="password"
 				               required>
+				        <div class="invalid-feedback" id="pwdCheckFeedback">비밀번호가 일치하지 않습니다.</div>
 				    </td>
 				</tr>
-				<tr>
-				    <td colspan="4">
-				        <div id="checkPwd-area">
-				            <p id="checkPwdMsg"></p>
-				        </div>
+				<tr id="checkPwd-area" style="display: none;">
+				    <td></td>
+				    <td colspan="3">
+				        <p id="checkPwdMsg"></p>
 				    </td>
+				    <td></td>
 				</tr>
-
-				<tr>
-				    <td colspan="4">
-				        <div id="checkPwd-area">
-				            <p id="checkPwdMsg"></p>
-				        </div>
-				    </td>
-				</tr>
-
-				<tr>
-				    <td colspan="4">
-				        <div id="checkPwd-area">
-				            <p id="checkPwdMsg"></p>
-				        </div>
-				    </td>
-				</tr>
-
-                <tr id="checkPwd-area" style="display: none;">
-                	<td></td>
-                	<td colspan="3">
-                		<p id="checkPwdMsg"></p>
-                	</td>
-                	<td></td>
-                </tr>
                 
                 <tr>
                     <th>생년월일</th>
@@ -330,6 +322,7 @@
 				               name="phone"
 				               placeholder="- 제외하고 숫자 11글자"
 				               required>
+				        <div class="invalid-feedback">잘못된 형식의 전화번호입니다.</div>
 				    </td>
 				    <td><button type="button"
 				                onclick="phoneCheck();">중복확인</button></td>
@@ -338,6 +331,7 @@
 				    <th class="required">이메일 *</th>
 				    <td colspan="3">
 				        <input id="email" type="email" name="email" required>
+				        <div class="invalid-feedback">잘못된 형식의 이메일입니다.</div>
 				    </td>
 				    <td><button type="button"
 				                onclick="emailCheck();">중복확인</button></td>
@@ -394,7 +388,6 @@
             <br><br>
             <div id="btns" align="center">
 			    <button id="enrollBtn" type="submit"
-			            onclick="return validate();"
 			            style="width: 300px; height: 50px; font-size: 20px; font-weight: 900;"
 			            disabled>가입하기</button>
 			</div>
@@ -409,46 +402,156 @@
     
     <!-- 유효성검사 -->
     <script>
+    $(document).ready(function() {
         function validate() {
+            let isValid = true;
             let userId = $("#userId").val();
             let userPwd = $("#userPwd").val();
             let userPwd_check = $("#userPwd_check").val();
             let userName = $("#userName").val();
             let userPhone = $("#phone").val();
+            let userEmail = $("#email").val();
 
-            let checkId = /^[a-z0-9]{4,11}$/i; //영문자, 숫자를 포함하여 총 4~12자
-            let checkPwd = /^\S{6,15}$/; //영문자, 숫자, 특수문자로 총 8~15자
-            let checkName = /^[가-힣]{2,5}$/; //한글로만 이루어져야 하며 2~5글자
-            let checkPhone = /^[0-9]{11}$/; //숫자 11글자
+            let checkId = /^[a-z0-9]{4,11}$/i;
+            let checkPwd = /^\S{6,15}$/;
+            let checkName = /^[가-힣]{2,5}$/;
+            let checkPhone = /^[0-9]{11}$/;
+            let checkEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
 
-            if(!checkId.test(memberId)) {
-                alert("아이디 형식이 잘못되었습니다.");
-                $("#userId").select();
-                return false;
+            if (!checkId.test(userId)) {
+                $("#userId").addClass("is-invalid");
+                $("#userId").next(".invalid-feedback").addClass("active").text("잘못된 형식의 아이디입니다.");
+                isValid = false;
+            } else {
+                $("#userId").removeClass("is-invalid").addClass("is-valid");
+                $("#userId").next(".invalid-feedback").removeClass("active");
             }
-            if(!checkPwd.test(memberPwd)) {
-                alert("비밀번호 형식이 잘못되었습니다.");
-                $("#userPwd").select();
-                return false;
+
+            if (!checkPwd.test(userPwd)) {
+                $("#userPwd").addClass("is-invalid");
+                $("#userPwd").next(".invalid-feedback").addClass("active").text("잘못된 형식의 비밀번호입니다.");
+                isValid = false;
+            } else {
+                $("#userPwd").removeClass("is-invalid").addClass("is-valid");
+                $("#userPwd").next(".invalid-feedback").removeClass("active");
             }
-            if(memberPwd != memberPwd_check) {
-                alert("비밀번호가 일치하지 않습니다.");
-                $("#userPwd_check").select();
-                return false;
+
+            if (userPwd !== userPwd_check) {
+                $("#userPwd_check").addClass("is-invalid");
+                $("#pwdCheckFeedback").addClass("active").text("비밀번호가 일치하지 않습니다.");
+                isValid = false;
+            } else {
+                $("#userPwd_check").removeClass("is-invalid").addClass("is-valid");
+                $("#pwdCheckFeedback").removeClass("active");
             }
-            if(!checkName.test(memberName)) {
-                alert("이름 형식이 잘못되었습니다.");
-                $("#userName").select();
-                return false;
+
+            if (!checkName.test(userName)) {
+                $("#userName").addClass("is-invalid");
+                $("#userName").next(".invalid-feedback").addClass("active").text("잘못된 형식의 이름입니다.");
+                isValid = false;
+            } else {
+                $("#userName").removeClass("is-invalid").addClass("is-valid");
+                $("#userName").next(".invalid-feedback").removeClass("active");
             }
-            if(!checkPhone.test(memberPhone)) {
-                alert("전화번호 형식이 잘못되었습니다.");
-                $("#phone").select();
-                return false;
+
+            if (!checkPhone.test(userPhone)) {
+                $("#phone").addClass("is-invalid");
+                $("#phone").next(".invalid-feedback").addClass("active").text("잘못된 형식의 전화번호입니다.");
+                isValid = false;
+            } else {
+                $("#phone").removeClass("is-invalid").addClass("is-valid");
+                $("#phone").next(".invalid-feedback").removeClass("active");
+            }
+
+            if (!checkEmail.test(userEmail)) {
+                $("#email").addClass("is-invalid");
+                $("#email").next(".invalid-feedback").addClass("active").text("잘못된 형식의 이메일입니다.");
+                isValid = false;
+            } else {
+                $("#email").removeClass("is-invalid").addClass("is-valid");
+                $("#email").next(".invalid-feedback").removeClass("active");
+            }
+
+            return isValid;
+        }
+
+        function checkInfo() {
+            let formIsValid = validate();
+            if (formIsValid && checkId && checkPhone && checkEmail && checkMandatoryCheckboxes()) {
+                $("#enrollBtn").removeAttr("disabled");
+            } else {
+                $("#enrollBtn").attr("disabled", true);
             }
         }
+
+        $('#userId, #userPwd, #userPwd_check, #userName, #phone, #email').on('focus', function() {
+            $(this).next(".invalid-feedback").removeClass("active");
+        });
+
+        $('#userId, #userPwd, #userPwd_check, #userName, #phone, #email').on('input', function() {
+            validate();
+        });
+
+        $('.checkbox[required]').change(function() {
+            checkInfo();
+        });
+
+        setInterval(checkInfo, 1000);
+
+        $('#enroll-form').on('submit', function(e) {
+            e.preventDefault();
+            if (validate()) {
+                let formData = $(this).serializeArray();
+                let jsonData = {};
+                $.each(formData, function() {
+                    jsonData[this.name] = this.value;
+                });
+
+                // 주소 필드 그룹화 및 결합
+                let fullAddress = [
+                    jsonData.postcode,
+                    jsonData.roadAddress,
+                    jsonData.jibunAddress,
+                    jsonData.detailAddress,
+                    jsonData.extraAddress
+                ].filter(Boolean).join(' '); // 빈 문자열을 제거하고 공백으로 결합
+
+                jsonData['address'] = fullAddress;
+
+                // 불필요한 개별 주소 필드 삭제
+                delete jsonData.postcode;
+                delete jsonData.roadAddress;
+                delete jsonData.jibunAddress;
+                delete jsonData.detailAddress;
+                delete jsonData.extraAddress;
+
+                $.ajax({
+                    url: $(this).attr('action'),
+                    type: 'POST',
+                    data: JSON.stringify(jsonData),
+                    contentType: 'application/json',
+                    dataType: 'json',
+                    success: function(response) {
+                        if (response.status === 'success') {
+                            alertify.alert('알림', '회원가입이 성공적으로 완료되었습니다.', function() {
+                                window.location.href = '<%=request.getContextPath()%>/index.jsp';
+                            });
+                        } else if (response.status === 'duplicate') {
+                            alert('중복된 값이 존재합니다. 다시 시도해주세요.');
+                        } else {
+                            alert(response.message);
+                        }
+                    },
+                    error: function(xhr, status, error) {
+                        alert('회원가입 중 오류가 발생했습니다.');
+                        console.error('Error:', error);
+                        console.error('Response:', xhr.responseText);
+                    }
+                });
+            }
+        });
+    });
     </script>
-    
     <script>
     let checkId = false;
     let checkPhone = false;
@@ -569,78 +672,6 @@
 	        });
 	        return allChecked;
 	    }
-
-    // 회원가입 가능 여부 체크
-    function checkInfo() {
-        if (checkId && checkPhone && checkEmail && checkMandatoryCheckboxes()) {
-            $("#enrollBtn").removeAttr("disabled");
-        } else {
-            $("#enrollBtn").attr("disabled", true);
-        }
-    }
-
-    $(function() {
-        setInterval(checkInfo, 1000);
-
-        // 체크박스 변경 시에도 가입 버튼 활성화 여부 확인
-        $('.checkbox[required]').change(function() {
-            checkInfo();
-        });
-    });
-	    
-	
-	 // 회원가입 성공 메시지 및 메인 페이지로 리다이렉트
-		$('form').on('submit', function(e) {
-	    e.preventDefault();
-	    let formData = $(this).serializeArray();
-	    let jsonData = {};
-	    $.each(formData, function() {
-	        jsonData[this.name] = this.value;
-	    });
-	
-	    // 주소 필드 그룹화 및 결합
-	    let fullAddress = [
-	        jsonData.postcode,
-	        jsonData.roadAddress,
-	        jsonData.jibunAddress,
-	        jsonData.detailAddress,
-	        jsonData.extraAddress
-	    ].filter(Boolean).join(' '); // 빈 문자열을 제거하고 공백으로 결합
-	
-	    jsonData['address'] = fullAddress;
-	
-	    // 불필요한 개별 주소 필드 삭제
-	    delete jsonData.postcode;
-	    delete jsonData.roadAddress;
-	    delete jsonData.jibunAddress;
-	    delete jsonData.detailAddress;
-	    delete jsonData.extraAddress;
-	
-	    $.ajax({
-	        url: $(this).attr('action'),
-	        type: 'POST',
-	        data: JSON.stringify(jsonData),
-	        contentType: 'application/json',
-	        dataType: 'json',
-	        success: function(response) {
-	            if (response.status === 'success') {
-	                alertify.alert('알림', '회원가입이 성공적으로 완료되었습니다.', function() {
-	                    window.location.href = '<%=request.getContextPath()%>/index.jsp';
-	                });
-	            } else if (response.status === 'duplicate') {
-	                alert('중복된 값이 존재합니다. 다시 시도해주세요.');
-	            } else {
-	                alert(response.message);
-	            }
-	        },
-	        error: function(xhr, status, error) {
-	            alert('회원가입 중 오류가 발생했습니다.');
-	            console.error('Error:', error);
-	            console.error('Response:', xhr.responseText);
-	        }
-	    });
-	});
-	</script>
-
+    </script>
 </body>
 </html>
