@@ -14,7 +14,11 @@
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
         <mapper resource="/mappers/payment-mapper.xml"/>
+<<<<<<< HEAD
         <mapper resource="/mappers/concert-mapper.xml"/>
+=======
+        <mapper resource="/mappers/qna-mapper.xml"/>
+>>>>>>> 160eb4afb357095558cbead8ce68408a7cfe276a
     </mappers>
    
 </configuration>
