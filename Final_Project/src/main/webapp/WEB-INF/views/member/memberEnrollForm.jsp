@@ -121,6 +121,24 @@
         color: #666;
         cursor: not-allowed;
     }
+    /* memberEnrollForm.jsp 비밀번호 중복 검사 관련 스타일 추가 0610 - 무진 */
+    #checkPwd-area {
+    display: none;
+	}
+	
+	#checkPwdMsg {
+	    font-weight: bold;
+	}
+	
+	#checkPwdMsg.match {
+	    color: green;
+	}
+	
+	#checkPwdMsg.nomatch {
+	    color: red;
+	}
+
+	    
 
     
 </style>
@@ -149,7 +167,7 @@
 
         <h3 class="title2">&nbsp;&nbsp;기본 정보</h3>
 
-        <form id="enroll-form" action="">
+        <form id="enroll-form" action="<%=request.getContextPath()%>/insert.me" method="post">
             <table class="memberInfo" align="center" width="600">
                 <tr>
                     <td></td>
@@ -183,25 +201,49 @@
 					                onclick="idCheck();"
 					                disabled>중복확인</button></td>
 					</tr>
-                <tr>
-                    <th class="required">비밀번호 *</th>
-                    <td colspan="4">
-                        <input id="memberPwd"
-                    		   type="password"
-                    		   name="memberPwd"
-                    		   required
-                    		   placeholder="영문자, 숫자, 특수문자로 총 6~15자">
-                    </td>
-                </tr>
-                <tr>
-                    <th class="required">비밀번호 확인</th>
-                    <td colspan="4">
-                        <input id="memberPwd_check"
-                               type="password"
-                               required>
-                 
-                            </td>
-                </tr>
+					<!-- memberEnrollForm.jsp 비밀번호 중복 검사 관련 로직 추가 0610 - 무진  -->
+                 <tr>
+				    <th class="required">비밀번호 *</th>
+				    <td colspan="4">
+				        <input id="userPwd"
+				               type="password"
+				               name="userPwd"
+				               required
+				               placeholder="영문자, 숫자, 특수문자로 총 6~15자">
+				    </td>
+				</tr>
+				<tr>
+				    <th class="required">비밀번호 확인</th>
+				    <td colspan="4">
+				        <input id="userPwd_check"
+				               type="password"
+				               required>
+				    </td>
+				</tr>
+				<tr>
+				    <td colspan="4">
+				        <div id="checkPwd-area">
+				            <p id="checkPwdMsg"></p>
+				        </div>
+				    </td>
+				</tr>
+
+				<tr>
+				    <td colspan="4">
+				        <div id="checkPwd-area">
+				            <p id="checkPwdMsg"></p>
+				        </div>
+				    </td>
+				</tr>
+
+				<tr>
+				    <td colspan="4">
+				        <div id="checkPwd-area">
+				            <p id="checkPwdMsg"></p>
+				        </div>
+				    </td>
+				</tr>
+
                 <tr id="checkPwd-area" style="display: none;">
                 	<td></td>
                 	<td colspan="3">
@@ -213,15 +255,6 @@
                 <tr>
                     <th>생년월일</th>
                     <td colspan="4"><input type="date" min="14" max="100" name="age"></td>
-                </tr>
-                <tr>
-                    <th>성별</th>
-                    <td colspan="4" height="25">
-                        <input type="radio" name="gender" id="M" value="M">
-                         <label for="M">남자</label>
-                         <input type="radio" name="gender" id="F" value="F">
-                        <label for="F">여자</label>
-                    </td>
                 </tr>
                 <tr>
                     <th rowspan="3">주소</th>
@@ -299,25 +332,25 @@
                     }
                 </script>
                 <tr>
-                    <th class="required">전화번호 *</th>
-                    <td colspan="3">
-                        <input id="phone"
-                    		   type="number"
-                    		   name="phone"
-                    		   placeholder="- 제외하고 숫자 11글자"
-                               required>
-                    </td>
-                    <td><button type="button"
-                    			onclick="phoneCheck();">중복확인</button></td>
-                </tr>
+				    <th class="required">전화번호 *</th>
+				    <td colspan="3">
+				        <input id="phone"
+				               type="number"
+				               name="phone"
+				               placeholder="- 제외하고 숫자 11글자"
+				               required>
+				    </td>
+				    <td><button type="button"
+				                onclick="phoneCheck();">중복확인</button></td>
+				</tr>
                 <tr>
-                    <th class="required">이메일 *</th>
-                    <td colspan="3">
-                        <input id="email" type="email" name="email" required>
-                    </td>
-                    <td><button type="button"
-                    			onclick="emailCheck();">중복확인</button></td>
-                </tr>
+				    <th class="required">이메일 *</th>
+				    <td colspan="3">
+				        <input id="email" type="email" name="email" required>
+				    </td>
+				    <td><button type="button"
+				                onclick="emailCheck();">중복확인</button></td>
+				</tr>
             </table>
 
             <br><br>
@@ -385,11 +418,11 @@
     <!-- 유효성검사 -->
     <script>
         function validate() {
-            let memberId = $("#memberId").val();
-            let memberPwd = $("#memberPwd").val();
-            let memberPwd_check = $("#memberPwd_check").val();
-            let memberName = $("#memberName").val();
-            let memberPhone = $("#phone").val();
+            let userId = $("#userId").val();
+            let userPwd = $("#userPwd").val();
+            let userPwd_check = $("#userPwd_check").val();
+            let userName = $("#userName").val();
+            let userPhone = $("#phone").val();
 
             let checkId = /^[a-z0-9]{4,11}$/i; //영문자, 숫자를 포함하여 총 4~12자
             let checkPwd = /^\S{6,15}$/; //영문자, 숫자, 특수문자로 총 8~15자
@@ -398,22 +431,22 @@
 
             if(!checkId.test(memberId)) {
                 alert("아이디 형식이 잘못되었습니다.");
-                $("#memberId").select();
+                $("#userId").select();
                 return false;
             }
             if(!checkPwd.test(memberPwd)) {
                 alert("비밀번호 형식이 잘못되었습니다.");
-                $("#memberPwd").select();
+                $("#userPwd").select();
                 return false;
             }
             if(memberPwd != memberPwd_check) {
                 alert("비밀번호가 일치하지 않습니다.");
-                $("#memberPwd_check").select();
+                $("#userPwd_check").select();
                 return false;
             }
             if(!checkName.test(memberName)) {
                 alert("이름 형식이 잘못되었습니다.");
-                $("#memberName").select();
+                $("#userName").select();
                 return false;
             }
             if(!checkPhone.test(memberPhone)) {
@@ -425,115 +458,160 @@
     </script>
     
     <script>
-        let checkId = false;
-        let checkPhone = false;
-        let checkEmail = false;
-        //아이디 중복 검사
-        // memberEnrollForm.jsp idCheck() 변경 아이디 중복 검사 0605 - 무진
-        function idCheck() {
-	    let $userId = $("#userId");
-	    $.ajax({
-	        url: "<%=request.getContextPath()%>/idCheck.me",
-	        type: "post",
-	        data: { userId: $userId.val() },
-	        success: function(result) {
-	            if(result > 0) {
-	                alert("이미 사용중인 아이디입니다.");
-	                $userId.focus();
-	            } else {
-	                if(confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
-	                    $userId.attr("readonly", true);
-	                    checkId = true;
-	                } else {
+    let checkId = false;
+    let checkPhone = false;
+    let checkEmail = false;
+
+	 // 아이디 중복 확인
+	    function idCheck() {
+	        let $userId = $("#userId");
+	        $.ajax({
+	            url: "<%=request.getContextPath()%>/idCheck.me",
+	            type: "post",
+	            data: { userId: $userId.val() },
+	            success: function(result) {
+	                if (result > 0) {
+	                    alert("이미 사용중인 아이디입니다.");
 	                    $userId.focus();
-	                    checkId = false;
+	                } else {
+	                    if (confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
+	                        $userId.attr("readonly", true);
+	                        checkId = true;
+	                    } else {
+	                        $userId.focus();
+	                        checkId = false;
+	                    }
 	                }
+	            },
+	            error: function() {
+	                alert("아이디 중복 확인 중 오류가 발생했습니다.");
 	            }
-	        },
-	        error: function() {
-	            alert("아이디 중복 확인 중 오류가 발생했습니다.");
-	        }
+	        });
+	    }
+	
+	    // 비밀번호 일치 검사
+	    $(function() {
+	        $('#userPwd, #userPwd_check').keyup(function() {
+	            let password = $("#userPwd").val();
+	            let confirmPassword = $("#userPwd_check").val();
+	            let msg = $("#checkPwdMsg");
+	
+	            if (password === confirmPassword && password !== "") {
+	                msg.text("비밀번호가 일치합니다.").removeClass("nomatch").addClass("match");
+	            } else if (password === "" || confirmPassword === "") {
+	                msg.text("").removeClass("match nomatch");
+	            } else {
+	                msg.text("비밀번호가 일치하지 않습니다.").removeClass("match").addClass("nomatch");
+	            }
+	
+	            if (password === "" && confirmPassword === "") {
+	                $("#checkPwd-area").hide();
+	            } else {
+	                $("#checkPwd-area").show();
+	            }
+	        });
 	    });
-}
-        
-        //비밀번호 일치 검사
-        $(function() {
-            $('#memberPwd, #memberPwd_check').keyup(function() {
-                let a = $("#memberPwd").val();
-                let b = $("#memberPwd_check").val();
-                let msg = $("#checkPwdMsg");
-                if(a == b) {
-                    msg.text("일치");
-                } else {
-                    msg.text("불일치");
-                }
-            });
-        });
-        
-        //전화번호 중복 검사
-        function phoneCheck() {
-            let $phone = $("#phone");
-            $.ajax({
-                url: "<%=request.getContextPath()%>/checkPhone.me",
-                type: "post",
-                data: {phone: $phone.val()},
-                success: function(result) {
-                    if(result > 0) {
-                        alert("이미 사용중인 번호입니다.");
-                        $phone.focus();
-                    } else {
-                        if(confirm("사용 가능한 번호입니다. 사용하시겠습니까?")) {
-                            $phone.attr("readonly", true);
-                            checkPhone = true;
-                        } else {
-                            $phone.focus();
-                            checkPhone = false;
-                        }
-                    }
-                },
-                error: function() {}
-            });
-        }
-        
-        //이메일 중복체크
-        function emailCheck() {
-            let $email = $("#email");
-            $.ajax({
-            	// memberEnrollForm.jsp URL 주소값 변경 0605 - 무진
-                url: "<%=request.getContextPath()%>/checkEmail.me",
-                type: "post",
-                data: {email: $email.val()},
-                success: function(result) {
-                    if(result > 0) {
-                        alert("이미 사용중인 이메일입니다.");
-                        $email.focus();
-                    } else {
-                        if(confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")) {
-                            $email.attr("readonly", true);
-                            checkEmail = true;
-                        } else {
-                            $email.focus();
-                            checkEmail = false;
-                        }
-                    }
-                },
-                error: function() {}
-            });
-        }
-            
-        //회원가입 가능 여부 체크
-        $(function() {
-            setInterval(checkInfo, 1000);
-        });
-        
-        function checkInfo() {
-            if(checkId && checkPhone && checkEmail) {
-                $("#enrollBtn").removeAttr("disabled");
+	
+	 // 전화번호 중복 확인
+	    function phoneCheck() {
+	        let $phone = $("#phone");
+	        $.ajax({
+	            url: "<%=request.getContextPath()%>/checkPhone.me",
+	            type: "post",
+	            data: { phone: $phone.val() },
+	            success: function(result) {
+	                if (result > 0) {
+	                    alert("이미 사용중인 번호입니다.");
+	                    $phone.focus();
+	                } else {
+	                    if (confirm("사용 가능한 번호입니다. 사용하시겠습니까?")) {
+	                        $phone.attr("readonly", true);
+	                        checkPhone = true;
+	                    } else {
+	                        $phone.focus();
+	                        checkPhone = false;
+	                    }
+	                }
+	            },
+	            error: function() {
+	                alert("전화번호 중복 확인 중 오류가 발생했습니다.");
+	            }
+	        });
+	    }
+
+	    // 이메일 중복 확인
+	    function emailCheck() {
+	        let $email = $("#email");
+	        $.ajax({
+	            url: "<%=request.getContextPath()%>/checkEmail.me",
+	            type: "post",
+	            data: { email: $email.val() },
+	            success: function(result) {
+	                if (result > 0) {
+	                    alert("이미 사용중인 이메일입니다.");
+	                    $email.focus();
+	                } else {
+	                    if (confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")) {
+	                        $email.attr("readonly", true);
+	                        checkEmail = true;
+	                    } else {
+	                        $email.focus();
+	                        checkEmail = false;
+	                    }
+	                }
+	            },
+	            error: function() {
+	                alert("이메일 중복 확인 중 오류가 발생했습니다.");
+	            }
+	        });
+	    }
+	
+	    // 회원가입 가능 여부 체크
+	    $(function() {
+	        setInterval(checkInfo, 1000);
+	    });
+	
+	    function checkInfo() {
+	        if (checkId && checkPhone && checkEmail) {
+	            $("#enrollBtn").removeAttr("disabled");
+	        } else {
+	            $("#enrollBtn").attr("disabled", true);
+	        }
+	    }
+	
+	 // 회원가입 성공 메시지 및 메인 페이지로 리다이렉트
+		$(document).on('submit', '#enroll-form', function(e) {
+    e.preventDefault(); // 폼 기본 제출 동작 방지
+    let formData = $(this).serializeArray();
+    let jsonData = {};
+    $.each(formData, function() {
+        jsonData[this.name] = this.value;
+    });
+    $.ajax({
+        url: $(this).attr('action'),
+        type: 'POST',
+        data: JSON.stringify(jsonData),
+        contentType: 'application/json',
+        dataType: 'json',
+        success: function(response) {
+            if (response.status === 'success') {
+                alertify.alert('알림', '회원가입이 성공적으로 완료되었습니다.', function() {
+                    window.location.href = '<%=request.getContextPath()%>/index.jsp';
+                });
+            } else if (response.status === 'duplicate') {
+                alert('중복된 값이 존재합니다. 다시 시도해주세요.');
             } else {
-                $("#enrollBtn").attr("disabled", true);
+                alert(response.message);
             }
+        },
+        error: function(xhr, status, error) {
+            alert('회원가입 중 오류가 발생했습니다.');
+            console.error('Error:', error);
+            console.error('Response:', xhr.responseText);
         }
-    </script>
+    });
+});
+	</script>
 
 </body>
 </html>

@@ -81,6 +81,19 @@
 		  FROM MEMBER
 		 WHERE USER_ID = #{userId}
 	</select>
+	
+	<!-- 전화번호 중복 검사용 메소드 0610 - 무진 -->
+	 <select id="checkPhone" parameterType="String" resultType="_int">
+        SELECT COUNT(*) 
+        FROM MEMBER 
+        WHERE PHONE = #{phone}
+    </select>
+	<!-- 이메일 중복 검사용 메소드 0610 - 무진 -->
+	<select id="checkEmail" parameterType="String" resultType="_int">
+        SELECT COUNT(*) 
+        FROM MEMBER 
+        WHERE EMAIL = #{email}
+    </select>
 	</mapper>
 
 	

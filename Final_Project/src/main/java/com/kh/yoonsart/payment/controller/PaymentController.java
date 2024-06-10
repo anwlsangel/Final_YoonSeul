@@ -21,7 +21,7 @@ public class PaymentController {
 	//공연 상세페이지 포워딩
 	@GetMapping(value="concertDetailView.co")
 	public String concertDetailView() {
-		return "consert/ConsertDetailView";
+		return "concert/ConcertDetailView";
 	}
 	
 	//결제 정보 DB에 저장

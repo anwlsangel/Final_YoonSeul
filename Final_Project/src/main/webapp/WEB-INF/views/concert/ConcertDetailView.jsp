@@ -658,8 +658,8 @@
 	        	// param
 		          pg: "html5_inicis",
 		          pay_method: "card",
-		          merchant_uid: "11111112", //주문번호 == BUYLIST_ID
-		          name: "tiket", //공연이름 == RESERVE_CONCERT_NAME
+		          merchant_uid: "1111111224132", //주문번호 == BUYLIST_ID
+		          name: "공연이름222", //공연이름 == RESERVE_CONCERT_NAME
 		          amount: myAmount,
 		          buyer_email: "gildonggmailcom",
 		          buyer_name: "HongGildong",
@@ -685,8 +685,8 @@
 	            		reserveCode: rsp.pg_tid, //결제코드 (환불 시 필요)
 	            		reserveConcertName: rsp.name, //예약된 공연 이름
 	      	            reserveTicket: 1, //예약된 티켓 수
-	      	            reserveSum: rsp.amount, //결제 금액 합
-	      	            userId: "user01" //회원ID
+	      	            reserveSum: myAmount, //결제 금액 합
+	      	            userId: "user02" //회원ID
 	            	},
 	            	success: function(result) {
 	            		if(result == "success") {

@@ -34,4 +34,16 @@ public class MemberDao {
 		
 		  return sqlSession.update("memberMapper.updateMember", m);
 	}
+
+	// MemberDao 전화번호 중복 검사용 메소드 0610 - 무진
+	public int checkPhone(SqlSessionTemplate sqlSession,String phone) {
+		
+		return sqlSession.selectOne("memberMapper.checkPhone", phone);
+	}
+
+	// MemberDao 이메일 중복 검사용 메소드 0610 - 무진
+	public int checkEmail(SqlSessionTemplate sqlSession, String email) {
+		
+		return sqlSession.selectOne("memberMapper.checkEmail", email);
+	}
 }

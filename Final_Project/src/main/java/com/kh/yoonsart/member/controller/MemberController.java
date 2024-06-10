@@ -1,15 +1,22 @@
 package com.kh.yoonsart.member.controller;
 
+import java.util.HashMap;
+import java.util.Map;
+
 import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.DuplicateKeyException;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
@@ -110,41 +117,39 @@ public class MemberController {
 	}	
 	
 	// Member Controller 회원가입 처리용 메소드 0604 - 무진
-		@PostMapping("insert.me")
-		public String insertMember(Member m, Model model, HttpSession session) {
-			
-			// 요청시 전달값 뽑기
-			
-//			System.out.println("평문 : " + m.getUserPwd());
-			
-			// 암호화 과정 
-			String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
-//			System.out.println("암호문 : " + encPwd);
-			
-			// 커맨드 객체 방식으로 전달받은 m 의 userPwd 필드값을 encPwd 값으로 셋팅
-			m.setUserPwd(encPwd);
-			
-			int result = memberService.insertMember(m);
-			
-			// 결과에 따른 응답페이지 지정
-			if(result > 0) { // 성공
-				// 일회성 알람문구 담아서 메인페이지로 url 재요청
-				session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
-				
-				// url 재요청
-				return "redirect:/";
-			} else { // 실패
-				
-				// 에러문구를 담아서 에러페이지로 포워딩
-				model.addAttribute("errorMsg","회원가입 실패");
-				
-				// 포워딩
-				// /WEB-INF/views/common/errorPage.jsp
-				return "common/errorPage";
-				
-			}
-			
-		}
+	@PostMapping("insert.me")
+	@ResponseBody
+	public ResponseEntity<Map<String, String>> insertMember(@RequestBody Member m, HttpSession session) {
+	    Map<String, String> response = new HashMap<>();
+
+	    // 암호화 과정 
+	    String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
+	    m.setUserPwd(encPwd);
+
+	    try {
+	        int result = memberService.insertMember(m);
+
+	        if (result > 0) { // 성공
+	            session.setAttribute("alertMsg", "성공적으로 회원가입이 되었습니다.");
+	            response.put("status", "success");
+	            return ResponseEntity.ok(response);
+	        } else { // 실패
+	            response.put("status", "fail");
+	            response.put("message", "회원가입 실패");
+	            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	        }
+	    } catch (DuplicateKeyException e) {
+	        // 중복 키 에러 처리
+	        response.put("status", "duplicate");
+	        response.put("message", "중복된 회원이 존재합니다. 다시 시도해주세요.");
+	        return ResponseEntity.status(HttpStatus.CONFLICT).body(response);
+	    } catch (Exception e) {
+	        // 기타 예외 처리
+	        response.put("status", "error");
+	        response.put("message", "회원가입 중 오류가 발생했습니다.");
+	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
+	    }
+	}
 		
 		// MemberController 아이디 체크용 메소드 0604 -무진
 		// MemberController checkId() 변경 아이디 중복 검사 0605 - 무진
@@ -194,6 +199,20 @@ public class MemberController {
 				return "common/errorPage";
 			}
 		}
+		
+		// MemberController 전화번호 중복 검사용 메소드 0610 - 무진
+			@PostMapping("/checkPhone.me")
+		    @ResponseBody
+		    public String checkPhone(@RequestParam("phone") String phone) {
+				return memberService.checkPhone(phone) > 0 ? "1" : "0";
+		  }
+		 
+		// MemberController 이메일 중복 검사용 메소드 0610 - 무진
+		@PostMapping("/checkEmail.me")
+		 @ResponseBody
+		 public String checkEmail(@RequestParam("email") String email) {
+			return memberService.checkEmail(email) > 0 ? "1" : "0";
+		    }
 }
 
 
