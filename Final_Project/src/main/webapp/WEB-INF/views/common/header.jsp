@@ -105,18 +105,18 @@ html,body{
        
        /* 사이드 메뉴바 스타일 */
        #snb {
-    width: 180px;
-    background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
-    padding: 20px;
-    color: #810000;
-    position: absolute; /* 절대 위치로 고정 */
-    top: 300px; /* 페이지 상단에서의 위치를 조정 */
-    left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    text-align: center;
-    border-radius: 10px;
-    transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
-}
+        width: 180px;
+        background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
+        padding: 20px;
+        color: #810000;
+        position: absolute; /* 절대 위치로 고정 */
+        top: 300px; /* 페이지 상단에서의 위치를 조정 */
+        left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        text-align: center;
+        border-radius: 10px;
+        transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
+    }
 
         #snb h2 {
             color: #810000;
@@ -166,17 +166,22 @@ html,body{
             background: rgba(128, 128, 128, 0.2); /* 호버 시 배경색을 짙은 회색 계열로 변경 */
         }
 
-    .main-login {
+        .main-login {
         display: flex;
         justify-content: space-between;
-        width: 150px; 
+        width: 200px; 
         margin-right: 30px;
     }
 
     .main-login a {
-        font-size: 15px; /* Adjust the font size as needed */
         text-decoration: none;
-        color: white;
+        font-size: 18px;
+        margin-right: 100px;
+        margin: auto;  
+        color: white;    
+    }
+    .main-login a:hover {
+        cursor: pointer;
     }
 
 </style>
