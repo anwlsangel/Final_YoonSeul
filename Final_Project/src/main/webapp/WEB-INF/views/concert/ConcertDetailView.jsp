@@ -302,7 +302,49 @@
         }
     
     
+		/*--------문의 목록----------*/
+		.btn-top {
+        padding-top: 5px;
+        padding-right: 60px;
+        padding-bottom: 40px;
+    	}
 
+	    #qbtn {
+	        margin: auto;
+	        display: block;
+	        width: 90px;
+	        height: 35px;
+	        font-size: 15px;
+	        font-weight: bolder;
+	        background: linear-gradient(0deg, #630000, #810000);
+	        color: #EEEBDD;
+	        border: none;
+	        border-radius: 7px;
+	        float: right;
+	    }   
+	
+	    .question-list>table {
+	        text-align: center;
+	        width: 90%; 
+	    }
+	
+	    #text {
+	        padding-left: 45px;
+	    } 
+		
+		/* 페이징바 */
+	    .paging-area>a {
+	        color :#810000;
+	        font-weight: bolder;
+	        font-size: 18px;
+	        text-decoration: none;
+	    }
+	
+	    .paging-area>a:hover {
+	        color : #EEEBDD; 
+	    }
+		
+	
     </style>
 </head>
 <body>
@@ -422,9 +464,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-                    <button class="detail-menu">관람후기</button>
+                    <button class="detail-menu" onclick=".reviews">관람후기</button>
                     <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu">문의</button>
+                    <button class="detail-menu" onclick="#text">문의</button>
                 </div>
 
                 <div class="detail-info">
@@ -632,7 +674,73 @@
     
    		<!----------------------------------------------------->
     	<!-- 문의 목록 -->
-    
+    	<br><br>
+
+        <div id="text">
+        <p>
+         	궁금한점을 해결해드립니다. <br>
+       		먼저 FAQ를 확인하시면 보다 유용한 정보를 빠르게 확인할 수 있습니다. <br>
+        </p>
+        </div>
+
+        <!-- 문의하기 버튼 -->
+        <div class="btn-top">
+            <span>
+                <button type="submit" id="qbtn">문의하기</button>
+            </span>
+        </div>
+
+        <br clear="both">
+
+        <!-- 문의글 목록 -->
+        <div class="question-list">
+            <table class="table table-hover" align="center">
+                <thead>
+                    <tr>
+                        <th width="70px;" height="30px;">No.</th>
+                        <th width="350px;">제목</th>
+                        <th width="150px;">날짜</th>
+                        <th width="100px;">조회수</th>
+                        <th width="120px;">답변 여부</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td>1</td>
+                        <td>문의사항 제목1</td>
+                        <td>작성일</td>
+                        <td>조회수</td>
+                        <td>완료</td>
+                    </tr>
+                    <tr>
+                        <td>2</td>
+                        <td>문의사항 제목2</td>
+                        <td>작성일</td>
+                        <td>조회수</td>
+                        <td>완료</td>
+                    </tr>
+                    <tr>
+                        <td>3</td>
+                        <td>문의사항 제목3</td>
+                        <td>작성일</td>
+                        <td>조회수</td>
+                        <td></td>
+                    </tr>
+                </tbody>
+            </table>
+        </div>
+
+         <!-- 페이징바 -->
+         <div class="paging-area" align="center">
+            <a href="">
+                &lt;
+            </a>
+            <a href="">1</a>
+            <a href="">
+                 &gt;
+            </a>    
+        </div>
+    	
     
     
     	
