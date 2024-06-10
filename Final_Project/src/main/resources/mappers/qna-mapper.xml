@@ -23,6 +23,12 @@
 		SELECT COUNT(*)
 		  FROM QNA
 		 WHERE STATUS = '1'
+<<<<<<< HEAD
 	</select>
 </mapper>	 
 
+=======
+	</select>	
+	</mapper>
+	 
+>>>>>>> 4d6edcb72cec5f7292fdd0bdd33bf680b448fe3e
