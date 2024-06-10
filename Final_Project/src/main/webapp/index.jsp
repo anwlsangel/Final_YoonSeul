@@ -494,7 +494,8 @@
                     <div class="main-login">
                     	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
                     	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
-                    	<div><a href="">회원가입</a></div>       
+                    	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
+                    	<div><a id="signupLink">회원가입</a></div>       
                 	</div>
                     </c:when>
                 	<c:otherwise>
@@ -701,13 +702,18 @@
         }); 
     </script>
     <!-- index.jsp 회원가입 버튼용 자바스크립트 구문 추가 0604 - 무진 -->
+    <!-- index.jsp 회원가입 동작용 자바스크립트 구문 추가 0610 - 무진 -->
     <script>
    
         $('#signupButton').click(function() {
             window.location.href = 'enrollForm.me';
         });
-   
+        $('#signupLink').click(function(event) {
+            event.preventDefault(); // 기본 링크 동작 방지
+            window.location.href = 'enrollForm.me';
+        });
 	</script>
+	
     
 
     <div class="footer">
