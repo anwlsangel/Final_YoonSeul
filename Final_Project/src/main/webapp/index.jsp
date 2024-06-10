@@ -502,15 +502,22 @@
 	                    	<div><a id="signupLink">회원가입</a></div>       
 	                	</div>
 	                    </c:when>
-	                	<c:otherwise>
-	                	<!-- 로그인 후 -->
-	                
+
+                		<c:otherwise>
+                		<!-- 로그인 후 -->
 	                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
-	                    <a href="myPage.me">마이페이지</a>
-	                    <a href="logout.me">로그아웃</a>
-	               
-	                	</c:otherwise>
-            		</c:choose>
+	                    <c:choose>
+	                    	<c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
+	                    		<a href="adminPage.ad">마이페이지</a>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<a href="myPage.me">마이페이지</a>
+	                    	</c:otherwise>
+	                    </c:choose>
+                    		<a href="logout.me">로그아웃</a>
+                	   </c:otherwise>
+            	</c:choose>
+
                 </div> 
 
     
