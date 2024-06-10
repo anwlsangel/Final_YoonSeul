@@ -39,9 +39,11 @@ public class MemberServiceImpl implements MemberService{
 	}
 
 	@Override
+	@Transactional
 	public int deleteMember(String userId) {
 		
-		return 0;
+		return memberDao.deleteMember(sqlSession, userId);
+		
 	}
 	
 	// MemberServiceImpl 아이디 중복 검사용 서비스 0604 - 무진

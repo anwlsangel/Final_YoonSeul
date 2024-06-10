@@ -94,6 +94,10 @@
         FROM MEMBER 
         WHERE EMAIL = #{email}
     </select>
+    
+    
+    
+    
 	</mapper>
 
 	

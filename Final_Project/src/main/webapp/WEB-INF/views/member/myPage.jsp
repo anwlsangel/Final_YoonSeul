@@ -72,7 +72,7 @@
 
 				    <label for="email"> &nbsp; Email : </label>
 				    <input type="text" class="form-control" id="email" value="${sessionScope.loginUser.email}" name="email">
-				    <div class="invalid-feedback" id="emailFeedback">중복된 이메일이 있습니다.</div> <!-- 추가된 부분 --> <br>
+				    <div class="invalid-feedback" id="emailFeedback">중복된 이메일이 있습니다.</div> <!-- 추가된 부분 --><br>
 
                     <label for="phone"> &nbsp; Phone : </label>
 				    <input type="tel" class="form-control" id="phone" value="${sessionScope.loginUser.phone}" name="phone">
@@ -129,12 +129,22 @@
 	    let emailValid = true;
 	    let phoneValid = true;
 
+	    // 기존 값 저장
+	    const initialEmail = $('#email').val();
+	    const initialPhone = $('#phone').val();
+	    const initialUserName = $('#userName').val();
+	    const initialAddress = $('#address').val();
+
 	    $('#email').on('input', function() {
 	        checkDuplicate('email', $(this).val());
 	    });
 
 	    $('#phone').on('input', function() {
 	        checkDuplicate('phone', $(this).val());
+	    });
+
+	    $('#userName, #address').on('input', function() {
+	        checkForChanges();
 	    });
 
 	    function checkDuplicate(type, value) {
@@ -148,20 +158,24 @@
 	                    if (type === 'email') {
 	                        $('#email').addClass('is-invalid');
 	                        $('#email').removeClass('is-valid');
+	                        $('#emailFeedback').show();
 	                        emailValid = false;
 	                    } else if (type === 'phone') {
 	                        $('#phone').addClass('is-invalid');
 	                        $('#phone').removeClass('is-valid');
+	                        $('#phoneFeedback').show();
 	                        phoneValid = false;
 	                    }
 	                } else {
 	                    if (type === 'email') {
 	                        $('#email').addClass('is-valid');
 	                        $('#email').removeClass('is-invalid');
+	                        $('#emailFeedback').hide();
 	                        emailValid = true;
 	                    } else if (type === 'phone') {
 	                        $('#phone').addClass('is-valid');
 	                        $('#phone').removeClass('is-invalid');
+	                        $('#phoneFeedback').hide();
 	                        phoneValid = true;
 	                    }
 	                }
@@ -170,9 +184,22 @@
 	        });
 	    }
 
+	    function checkForChanges() {
+	        const currentEmail = $('#email').val();
+	        const currentPhone = $('#phone').val();
+	        const currentUserName = $('#userName').val();
+	        const currentAddress = $('#address').val();
+
+	        if (currentEmail !== initialEmail || currentPhone !== initialPhone || currentUserName !== initialUserName || currentAddress !== initialAddress) {
+	            $('button[type="submit"]').prop('disabled', false);
+	        } else {
+	            $('button[type="submit"]').prop('disabled', true);
+	        }
+	    }
+
 	    function toggleSubmitButton() {
 	        if (emailValid && phoneValid) {
-	            $('button[type="submit"]').prop('disabled', false);
+	            checkForChanges();
 	        } else {
 	            $('button[type="submit"]').prop('disabled', true);
 	        }

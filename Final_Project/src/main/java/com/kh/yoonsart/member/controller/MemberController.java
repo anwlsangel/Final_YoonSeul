@@ -213,6 +213,50 @@ public class MemberController {
 		 public String checkEmail(@RequestParam("email") String email) {
 			return memberService.checkEmail(email) > 0 ? "1" : "0";
 		    }
+		
+		// 회원 탈퇴용 메소드
+		@PostMapping("delete.me")
+		public String deleteMember(Member m, HttpSession session, Model model) {
+			
+			
+			// 비밀번호 먼저 대조
+			// 평문은 가지고 있으니 암호화된 비번 구하기 : session 의 loginUser 의 userPwd 필드에 있음
+			String encPwd = ((Member)session.getAttribute("loginUser")).getUserPwd();
+			
+			if(bcryptPasswordEncoder.matches(m.getUserPwd(), encPwd)) {
+				// 비밀번호가 맞을 경우
+				// > 탈퇴 처리 아까만든 업데이트문 실행
+				int result = memberService.deleteMember(m.getUserId());
+				
+				if(result > 0) { // 탈퇴 처리 성공
+					
+					// 알람문구 담아서 로그아웃 처리 
+					session.setAttribute("alertMsg", "성공적으로 탈퇴되었습니다. 그동안 이용해 주셔서 감사합니다.");
+					session.removeAttribute("loginUser");
+					// 메인페이지로 url 재요청
+					return "redirect:/";
+				} else { // 탈퇴 처리 실패
+					
+					// 에러문구를 담아서
+					model.addAttribute("errorMsg", "회원 탈퇴 실패");
+					
+					// 에러페이지로 포워딩
+					// /WEB-INF/views/common/errorPage.jsp
+					
+					return "common/errorPage";
+					
+				}
+				
+			}else {
+				// 비밀번호가 틀릴 경우
+				// 일회성 알암 문구로 비밀번호 틀렸다고 알려주고 
+				session.setAttribute("alertMsg", "비밀번호를 잘못 입력하셨습니다. 다시 확인해 주세요");
+				// 마이페이지로 url 재요청
+				
+				return "redirect:/myPage.me";
+			}
+			
+		}
 }
 
 
