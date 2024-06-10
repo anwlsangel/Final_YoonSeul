@@ -7,15 +7,6 @@
 <head>
     <meta charset="UTF-8">
     <title>Document</title>
-    <!-- jQuery library -->
-    <!-- 온라인 방식 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <!-- 부트스트랩 및 각종 연동구문 추가 0603 -무진 -->
      <!-- alertify 연동 구문 -->
      <!-- 부트스트랩에서 제공하고 있는 스타일 -->
@@ -153,7 +144,7 @@
 		</c:if>
     <!-- 회원가입 폼(임시)  0604 - 무진 -->
     <!-- 메뉴바 -->
-    <!--<jsp:include page="" />-->
+    <jsp:include page="../common/header.jsp" />
 
     <div class="outer">
         <div class="container">
@@ -399,6 +390,7 @@
                     });
                 });
             </script>
+            
             <br><br>
             <div id="btns" align="center">
 			    <button id="enrollBtn" type="submit"
@@ -566,18 +558,36 @@
 	        });
 	    }
 	
-	    // 회원가입 가능 여부 체크
-	    $(function() {
-	        setInterval(checkInfo, 1000);
-	    });
-	
-	    function checkInfo() {
-	        if (checkId && checkPhone && checkEmail) {
-	            $("#enrollBtn").removeAttr("disabled");
-	        } else {
-	            $("#enrollBtn").attr("disabled", true);
-	        }
+	     // 필수 체크박스 확인
+	    function checkMandatoryCheckboxes() {
+	        let allChecked = true;
+	        $('.checkbox[required]').each(function() {
+	            if (!$(this).is(':checked')) {
+	                allChecked = false;
+	                return false;
+	            }
+	        });
+	        return allChecked;
 	    }
+
+    // 회원가입 가능 여부 체크
+    function checkInfo() {
+        if (checkId && checkPhone && checkEmail && checkMandatoryCheckboxes()) {
+            $("#enrollBtn").removeAttr("disabled");
+        } else {
+            $("#enrollBtn").attr("disabled", true);
+        }
+    }
+
+    $(function() {
+        setInterval(checkInfo, 1000);
+
+        // 체크박스 변경 시에도 가입 버튼 활성화 여부 확인
+        $('.checkbox[required]').change(function() {
+            checkInfo();
+        });
+    });
+	    
 	
 	 // 회원가입 성공 메시지 및 메인 페이지로 리다이렉트
 		$(document).on('submit', '#enroll-form', function(e) {
