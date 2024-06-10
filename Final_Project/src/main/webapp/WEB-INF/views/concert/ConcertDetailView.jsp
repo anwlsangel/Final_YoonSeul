@@ -424,10 +424,10 @@
                 <br><br>
                 
                 
-                <!----------------------------------------------------->
+          <!----------------------------------------------------->
                 
-                <!-- 관람 후기 작성 -->
-                 <!-- 별점 선택 -->
+         <!-- 관람 후기 작성 -->
+         <!-- 별점 선택 -->
         <div id="star-area" align="center">
 
             <p id="star-text">별점을 선택해주세요.</p>
@@ -590,13 +590,12 @@
                 <br><br>
                 
                 <!-- 댓글 수정 모달창 -->
+              	<!--
                 <div class="modal" id="updateForm">
         			<div class="modal-dialog">
         		<div class="modal-content" style="height: 200px; margin-top: 50px;">
-			        <!-- Modal body -->
 			        <div class="modal-body">
 			         	<form action="" method="post" class="modal-center">
-			         	<!-- <form onsubmit="updateReply();"> -->
 			         		<div align="center">
 			         			<input type="hidden" id="" name="" val="">
 			         			<input type="hidden" id="" name="eventNo" val="">
@@ -609,18 +608,17 @@
 							</div>
 						</form>
 			        </div>
-			        
         		</div>
         	</div>
-
             </div>
+            -->
         </div>
     </div>
     
    		<!----------------------------------------------------->
     	<!-- 문의 목록 -->
     	<br><br>
-
+		
         <div id="text">
         <p>
          	궁금한점을 해결해드립니다. <br>
@@ -685,6 +683,7 @@
                  &gt;
             </a>    
         </div>
+<<<<<<< HEAD
     	
     
     <div>
@@ -736,6 +735,9 @@
     </script>
     	
     
+=======
+        
+>>>>>>> a1da99e6db761865333ec3040773603bbc0a205a
 
 
     <div class="footer">
