@@ -19,23 +19,10 @@ public class ConcertServiceImpl implements ConcertService{
 	public ConcertDao concertDao;
 	
 	@Override
-	public ArrayList<Concert> selectList() {
+	public ArrayList<Concert> selectList(String category, String sort) {
 
-		return concertDao.selectList(sqlSession);
+		return concertDao.selectList(sqlSession, category, sort);
 	}
-
-	@Override
-	public ArrayList<Concert> filterSelectList(String category) {
-
-		return concertDao.filterSelectList(sqlSession, category);
-	}
-
-	@Override
-	public ArrayList<Concert> selectListAll() {
-
-		return concertDao.selectListAll(sqlSession);
-	}
-	
 	
 
 }

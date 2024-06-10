@@ -18,35 +18,18 @@ public class ConcertController {
 	@Autowired
 	private ConcertService concertService;
 	
-	
 	@GetMapping("list.co")
-	public String selectList(Model model) {
-		
-		ArrayList<Concert> list = concertService.selectList();
+	public String selectList(@RequestParam("category") String category, @RequestParam("sort") String sort, Model model) {
+										
+		ArrayList<Concert> list = concertService.selectList(category, sort);
 		
 		System.out.println(list);
 		
-		// model.addAttribute("list", list);
-		
+		model.addAttribute("list", list);
+			
 		return "concert/ConcertListView";
 		
 	}
 	
-	@GetMapping("/filterConcerts")
-    @ResponseBody
-    public ArrayList<Concert> filterSelectList(@RequestParam("category") String category) {
-        
-		System.out.println(concertService.filterSelectList(category));
-		
-		return concertService.filterSelectList(category);
-        
-    }
-	
-	@GetMapping("/selectListAll")
-	@ResponseBody
-	public ArrayList<Concert> selectListAll() {
-		
-		return concertService.selectListAll();
-	}
 
 }

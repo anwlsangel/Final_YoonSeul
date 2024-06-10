@@ -20,14 +20,31 @@
 	<select id="selectList" parameterType="concert"
 	  		resultMap="concertResultSet">
 	SELECT *
-	FROM CONCERT_INFO	
+    FROM CONCERT_INFO
+    <where>
+        <choose>
+            <when test="category != null and category != '전체'">
+                category = #{category}
+            </when>
+            <otherwise>
+                1 = 1 <!-- 전체 조회일 경우 항상 참인 조건문 -->
+            </otherwise>
+        </choose>
+    </where>
+    <choose>
+        <when test="sort == 'popularity'">
+            ORDER BY START_DATE DESC
+        </when>
+        <when test="sort == 'date'">
+            ORDER BY START_DATE DESC
+        </when>
+        <when test="sort == 'price'">
+            ORDER BY PRICE ASC
+        </when>
+        <otherwise>
+            ORDER BY CONCERT_ID DESC
+        </otherwise>
+    </choose>
 	</select>
-	
-	<!-- 필터링이 적용된 쿼리문 -->
-	<select id="filterSelectList" parameterType="concert" resultMap="concertResultSet">
-        SELECT *
-        FROM CONCERT_INFO
-        WHERE CATEGORY = #{category}
-    </select>
 	
 	</mapper>

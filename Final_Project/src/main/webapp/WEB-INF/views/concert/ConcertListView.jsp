@@ -153,33 +153,43 @@
 
 <jsp:include page="../common/header.jsp" />
 
+<c:set var="sort" value="${param.sort != null ? param.sort : 'date'}" />
+
 <div class="container">
 <div class="concert-navi">
         <div class="concert-navi-category">
-        	<button onclick="selectList()">전체보기</button> 
-            <button onclick="filterConcerts('콘서트')">콘서트</button>
-            <button onclick="filterConcerts('연극')">연극</button>
-            <button onclick="filterConcerts('뮤지컬')">뮤지컬</button>
-            <button onclick="filterConcerts('로맨스')">로맨스</button>
-            <button onclick="filterConcerts('아동')">아동</button>
-            <button onclick="filterConcerts('전시')">전시</button>
-        </div>               
+            <a href="list.co?category=전체&sort=${sort}">전체</a>
+            <a href="list.co?category=콘서트&sort=${sort}">콘서트</a>
+            <a href="list.co?category=연극&sort=${sort}">연극</a>
+            <a href="list.co?category=뮤지컬&sort=${sort}">뮤지컬</a>
+            <a href="list.co?category=로맨스&sort=${sort}">로맨스</a>
+            <a href="list.co?category=아동&sort=${sort}">아동</a>
+            <a href="list.co?category=전시&sort=${sort}">전시</a>
+        </div>              
         <input type="text" value="공연 검색" style="text-align: center;">
     </div>
     <hr>
     <div class="concert-navi-2">
         <div class="concert-navi-category-2"> 
-            <button>인기 순</button>
-            <button>최신 순</button>
-            <button>가격 순</button>
+            <a href="list.co?category=${param.category}&sort=popularity">인기순</a>
+            <a href="list.co?category=${param.category}&sort=date">최신순</a>
+            <a href="list.co?category=${param.category}&sort=price">저렴한 가격순</a>
         </div>                    
     </div>
     <hr>
 
     <h1 id="page-title" style="text-align: center; color: black;">전체보기</h1>
     <div id="concert-list" class="concert-list">
-      
-    </div>   
+    <c:forEach var="co" items="${requestScope.list}">
+        <div class="concert-list-detail">
+            <a href="list.co?cno=${co.concertId}">
+                <img src="${co.thumbnailRoot}" style="width: 100%; height: 100%;">
+            </a>
+            <div class="detail-title">${co.concertName}</div>
+            <div class="detail-text">${co.startDate}</div>
+        </div>
+    </c:forEach>
+</div>
 </div>
 	<script>
 	$(function() {
@@ -198,107 +208,8 @@
                 pageTitle.textContent = category;
             });
         });
-    });    
-    
-    
-    // 필터링용 ajax
-    function filterConcerts(category) {
-    	
-    $.ajax({
-        url: '${pageContext.request.contextPath}/filterConcerts',
-        type: 'GET',
-        data: { category: category },
-        success: function(response) {
-            const concertList = document.getElementById("concert-list");
-            if (concertList) {
-                concertList.innerHTML = '';
-
-                response.forEach(function(concert) {
-                	
-                	// console.log(concert.startDate); // "6월 10, 2024"
-                	// console.log(concert.startDate.split(" ")); // ['6월', '10,', '2024']
-                	
-                	// console.log(concert.startDate.split(" ")[0].replace("월", ""));
-                	// console.log(concert.startDate.split(" ")[1].replace(",", ""));
-                	// console.log(concert.startDate.split(" ")[2]);
-                	let month = concert.startDate.split(" ")[0].replace("월", "");
-                	let date = concert.startDate.split(" ")[1].replace(",", "");
-                	let year = concert.startDate.split(" ")[2];
-                	
-                	if(month < 10) { month = "0" + month; }
-                	if(date < 10) { date = "0" + date; }
-                	
-                	let startDate = year + "-" + month + "-" + date;
-                	console.log(startDate)
-                	
-                    const concertDetail = document.createElement('div');
-                    concertDetail.classList.add('concert-list-detail');
-					
-                    concertDetail.innerHTML = 
-                        '<a href="list.co?cno=' + concert.concertId + '">' +
-                        '<img src="' + concert.thumbnailRoot + '" style="width: 100%; height: 100%;">' +
-                   		'</a>' +
-                    	'<div class="detail-title">' + concert.concertName + '</div>' +
-                    	'<div class="detail-text">' + startDate + '</div>';
-                    ;
-
-                    concertList.appendChild(concertDetail);
-                    console.log(concertDetail);
-                });
-                console.log("성공", response);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("ajax 통신 실패!");
-        }
-    });
-}
-    
-    // 전체 조회용 ajax
-    function selectList() {
-    $.ajax({
-        url: '<%= request.getContextPath() %>/selectListAll',
-        type: 'GET',
-        success: function(response) {
-            const concertList = document.getElementById("concert-list");
-            if (concertList) {
-                concertList.innerHTML = '';
-                response.forEach(function(concert) {
-                	
-
-                	let month = concert.startDate.split(" ")[0].replace("월", "");
-                	let date = concert.startDate.split(" ")[1].replace(",", "");
-                	let year = concert.startDate.split(" ")[2];
-                	
-                	if(month < 10) { month = "0" + month; }
-                	if(date < 10) { date = "0" + date; }
-                	
-                	let startDate = year + "-" + month + "-" + date;
-                	console.log(startDate)
-                	
-                	
-                    const concertDetail = document.createElement('div');
-                    concertDetail.classList.add('concert-list-detail');
-
-                    concertDetail.innerHTML = 
-                        '<a href="list.co?cno=' + concert.concertId + '">' +
-                        '<img src="' + concert.thumbnailRoot + '" style="width: 100%; height: 100%;">' +
-                   		'</a>' +
-                    	'<div class="detail-title">' + concert.concertName + '</div>' +
-                    	'<div class="detail-text">' + startDate + '</div>';
-                    ;
-
-                    concertList.appendChild(concertDetail);
-                });
-                console.log("성공", response);
-            }
-        },
-        error: function(jqXHR, textStatus, errorThrown) {
-            console.log("ajax 통신 실패!");
-        }
-    });
-}    
-    
+    });            
+   
 </script> 
 </body>
 </html>
