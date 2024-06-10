@@ -489,24 +489,29 @@
                     <div class="navi"><a href="">유실물센터</a></div>    
                     <!-- 로그인 전후 화면 변경 0603 -무진 -->
                     <c:choose>
-            		<c:when test="${empty sessionScope.loginUser }">
-                    <!-- 로그인 전 -->             
-                    <div class="main-login">
-                    	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
-                    	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
-                    	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
-                    	<div><a id="signupLink">회원가입</a></div>       
-                	</div>
-                    </c:when>
-                	<c:otherwise>
-                	<!-- 로그인 후 -->
-                
-                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
-                    <a href="myPage.me">마이페이지</a>
-                    <a href="logout.me">로그아웃</a>
-               
-                	</c:otherwise>
-            </c:choose>
+	            		<c:when test="${empty sessionScope.loginUser }">
+	                    <!-- 로그인 전 -->             
+	                    <div class="main-login">
+	                    	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
+	                    	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
+	                    	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
+	                    	<div><a id="signupLink">회원가입</a></div>       
+	                	</div>
+	                    </c:when>
+                		<c:otherwise>
+                		<!-- 로그인 후 -->
+	                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
+	                    <c:choose>
+	                    	<c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
+	                    		<a href="adminPage.ad">마이페이지</a>
+	                    	</c:when>
+	                    	<c:otherwise>
+	                    		<a href="myPage.me">마이페이지</a>
+	                    	</c:otherwise>
+	                    </c:choose>
+                    		<a href="logout.me">로그아웃</a>
+                	   </c:otherwise>
+            	</c:choose>
                 </div> 
 
     

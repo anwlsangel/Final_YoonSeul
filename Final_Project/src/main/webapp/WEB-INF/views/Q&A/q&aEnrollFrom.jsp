@@ -94,6 +94,9 @@
 </style>
 </head>
 <body>
+
+<jsp:include page="" />
+
 <div class="outer">
         
         <br><br>
@@ -125,5 +128,7 @@
             </form>
         </div>
     </div>
+    
+    <jsp:include page="" />
 </body>
 </html>

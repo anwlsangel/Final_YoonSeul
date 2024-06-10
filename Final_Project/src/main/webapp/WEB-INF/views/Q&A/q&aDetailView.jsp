@@ -78,6 +78,9 @@
 </style>
 </head>
 <body>
+
+<jsp:include page="" />
+
  <div class="outer">
 	
 	 <div class="list-detail">
@@ -170,5 +173,7 @@
 	
 </div>
 
+
+<jsp:include page="" />
 </body>
 </html>
