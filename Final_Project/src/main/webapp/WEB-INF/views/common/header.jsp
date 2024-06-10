@@ -197,7 +197,6 @@ html,body{
         </div>       
     </div> 
 
-    <div class="container">
         <!-- 사이드 메뉴바 -->
         <div id="snb">
             <h2>
