@@ -397,7 +397,7 @@
     border: 1px solid red;
     height: 50px;
     margin-top: 13px;
-}
+	}
 
     .main-login {
         display: flex;
@@ -410,11 +410,14 @@
         text-decoration: none;
         font-size: 18px;
         margin-right: 100px;
-        margin: auto;      
+        margin: auto; 
     }
     .main-login a:hover {
         cursor: pointer;
     }
+    #main-navi label {
+		color: white;
+	}
 
 
 </style>
@@ -495,7 +498,7 @@
                     <c:choose>
 	            		<c:when test="${empty sessionScope.loginUser }">
 	                    <!-- 로그인 전 -->             
-	                    <div class="main-login">
+	                    <div>
 	                    	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
 	                    	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
 	                    	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
@@ -505,7 +508,7 @@
 
                 		<c:otherwise>
                 		<!-- 로그인 후 -->
-	                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
+	                    <label class="navi-login">${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
 	                    <c:choose>
 	                    	<c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
 	                    		<a href="adminPage.ad">마이페이지</a>
