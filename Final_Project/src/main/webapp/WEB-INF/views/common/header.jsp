@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,9 @@ html,body{
         align-items: center;     
         z-index: 2; 
         background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);
+    }
+    #header a {
+    	color: white;
     }
     #navitb {
         width: 100%;
@@ -183,6 +187,9 @@ html,body{
     .main-login a:hover {
         cursor: pointer;
     }
+    #header label {
+	 color: white;
+	}
 
 </style>
 <body>
@@ -194,10 +201,25 @@ html,body{
             <div class="navi"><a href="">소개</a></div>
             <div class="navi"><a href="">공지사항</a></div>                      
             <div class="navi"><a href="">대관</a></div>                 
-            <div class="main-login">
-                <div><a href="">로그인</a></div>   
-                <div><a href="">회원가입</a></div>       
-            </div>
+             <c:choose>
+           		<c:when test="${empty sessionScope.loginUser }">
+                   <!-- 로그인 전 -->             
+                   <div class="main-login">
+                   	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
+                   	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
+                   	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
+                   	<div><a id="signupLink">회원가입</a></div>       
+               	</div>
+                   </c:when>
+               	<c:otherwise>
+               	<!-- 로그인 후 -->
+               
+                   <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
+                   <a href="myPage.me">마이페이지</a>
+                   <a href="logout.me">로그아웃</a>
+              
+               	</c:otherwise>
+       		</c:choose>
         </div>       
     </div> 
 

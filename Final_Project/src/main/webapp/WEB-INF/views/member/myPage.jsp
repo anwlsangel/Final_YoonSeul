@@ -7,15 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-<!-- jQuery library -->
-    <!-- 온라인 방식 -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-    <!-- Popper JS -->
-    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
-    <!-- Latest compiled JavaScript -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-    <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-    <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <!-- 부트스트랩 및 각종 연동구문 추가 0603 -무진 -->
      <!-- alertify 연동 구문 -->
      <!-- 부트스트랩에서 제공하고 있는 스타일 -->
@@ -31,6 +22,16 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+	<style type="text/css">
+		.container {
+            max-width: 1000px;
+            margin: 20px auto;
+            padding: 20px;
+            background-color: #fff;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
+    }
+	</style>
 </head>
 <body>
 	<!-- myPage.jsp 일회성 알람문구 처리 script 0604 - 무진 -->
@@ -41,8 +42,8 @@
 			<c:remove var="alertMsg" scope="session"/>
 		</c:if>
     <!-- 마이페이지 (임시) 0604 JSP - 무진 -->
-    <jsp:include page="" />
-
+    <jsp:include page="../common/header.jsp" />
+	<div class="container">
     <div class="content">
         <br><br>
         <div class="innerOuter">
@@ -75,7 +76,7 @@
             </form>
         </div>
         <br><br>
-        
+        </div>	
     </div>
 
     <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
