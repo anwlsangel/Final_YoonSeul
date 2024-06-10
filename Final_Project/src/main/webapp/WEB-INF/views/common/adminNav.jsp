@@ -32,14 +32,12 @@
     <script src="<%= request.getContextPath() %>/resources/js/sb-admin-2.min.js"></script>
    
     <style>
-
-
         #dd{
-            background-color: rgb(150, 214, 177);
+            background-color:#810000;
         }
 
         #accordionSidebar{
-            background-color: rgb(150, 214, 177);
+            background-color:#810000;
         }
     </style>
     
@@ -57,7 +55,7 @@
                 <div class="sidebar-brand-icon rotate-n-15">
                     <i class="fas fa-laugh-wink"></i>
                 </div>
-                <div class="sidebar-brand-text mx-3">SALAGO Admin</div>
+                <div class="sidebar-brand-text mx-3">YOONSEUl Admin</div>
             </a>
 
             <!-- Divider -->
@@ -75,7 +73,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                회원 관리
+                	회원 관리
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -89,7 +87,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/memberList.ad">회원 전체 조회</a>
+                        <a class="collapse-item" href="">회원 전체 조회</a>
                     </div>
                 </div>
             </li>
@@ -98,7 +96,7 @@
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                상품 관리
+                	공연 관리
             </div>
 
             <!-- Nav Item - Pages Collapse Menu -->
@@ -106,76 +104,76 @@
                 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#product"
                 	aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-laugh-beam"></i>
-                    <span>상품 관리</span>
+                    <span>공연 관리</span>
                 </a>
                 <div id="product" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/selectProduct">상품 관리</a>
+                        <a class="collapse-item" href="">공연 추가</a>
+                        <a class="collapse-item" href="">공연 목록조회</a>
+                        <a class="collapse-item" href="">공연 일정(캘린더)</a>
                     </div>
                 </div>
             </li>
             
+            <hr class="sidebar-divider">
+            
+            <!-- Heading -->
+            <div class="sidebar-heading">
+                	게시판 및 후기
+            </div>
+            <!-- Nav Item - Pages Collapse Menu -->
+            <li class="nav-item">
+                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#board"
+                	aria-expanded="true" aria-controls="collapseUtilities">
+                    <i class="fas fa-fw fa-laugh-beam"></i>
+                    <span>게시판 관리</span>
+                </a>
+                <div id="board" class="collapse" aria-labelledby="headingUtilities"
+                    data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <h6 class="collapse-header"></h6>
+                        <a class="collapse-item" href="">공지사항</a>
+                        <a class="collapse-item" href="">유실물</a>
+                        <a class="collapse-item" href="">관람후기</a>
+                        <a class="collapse-item" href="">Q&A</a>
+                    </div>
+                </div>
+                </li>
+            
 			<hr class="sidebar-divider">
+		
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                구독 관리
+                	예매 내역 관리
             </div>
-
             <!-- Nav Item - Pages Collapse Menu -->
             <li class="nav-item">
                 <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#Subscribe"
                 	aria-expanded="true" aria-controls="collapseUtilities">
                     <i class="fas fa-fw fa-laugh-beam"></i>
-                    <span>구독 관리</span>
+                    <span>예매 내역 관리</span>
                 </a>
                 <div id="Subscribe" class="collapse" aria-labelledby="headingUtilities"
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/management.sub?pn=1">구독 상품 전체 조회</a>
-                    </div>
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/adminSubForm.sub?pn=1">구독 조회</a>
-                    </div>
-                </div>
-                
-            </li>
-            <!-- Divider -->
-            <hr class="sidebar-divider">
-			
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                블랙리스트
-            </div>
-
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#blacklist"
-                	aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-laugh-beam"></i>
-                    <span>블랙리스트 관리</span>
-                </a>
-                <div id="blacklist" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"></h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/select.me">블랙리스트 등록/해지</a>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/blacklist.ad">블랙리스트 조회</a>
+                        <a class="collapse-item" href="">예매 내역 조회</a>
+                        <a class="collapse-item" href="">티켓 상세 조회</a>
+                        <a class="collapse-item" href="">환불</a>
                     </div>
                 </div>
             </li>
-
             <!-- Divider -->
             <hr class="sidebar-divider">
+            </li>
 
 
             <!-- Heading -->
             <div class="sidebar-heading">
-                결제 관리
+                                  결제 관리
             </div>
 
              <!-- Nav Item - Pages Collapse Menu -->
@@ -189,18 +187,17 @@
                 <div id="parking-ad-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">결제 관리 기능 :</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/orderList.ad">결제 내역 조회</a>
+                        <a class="collapse-item" href="">결제 내역 조회</a>
                     </div>
                 </div>
             </li>
-
-
+			
             <!-- Divider -->
             <hr class="sidebar-divider d-none d-md-block">
             
             <!-- Heading -->
             <div class="sidebar-heading">
-                통계 조회
+               	 통계 조회
             </div>
             
             <!-- Nav Item - Pages Collapse Menu -->
@@ -214,7 +211,7 @@
                 <div id="select-avg-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">통계 조회 :</h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/salesVolume.ad">상품별 판매량 조회</a>
+                        <a class="collapse-item" href="">상품별 판매량 조회</a>
                     </div>
                 </div>
             </li>
@@ -229,30 +226,12 @@
                 </a>
                 <div id="select-visit-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">통계 조회 :</h6>
+                        <h6 class="collapse-header"> 방문 통계 :</h6>
                         <a class="collapse-item" href="">일일방문자 수 조회</a>
                     </div>
                 </div>
             </li>
-            <!-- Heading -->
-            <div class="sidebar-heading">
-                게시판
-            </div>
-            <!-- Nav Item - Pages Collapse Menu -->
-            <li class="nav-item">
-                <a class="nav-link collapsed" href="" data-toggle="collapse" data-target="#board"
-                	aria-expanded="true" aria-controls="collapseUtilities">
-                    <i class="fas fa-fw fa-laugh-beam"></i>
-                    <span>게시판 관리</span>
-                </a>
-                <div id="board" class="collapse" aria-labelledby="headingUtilities"
-                    data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"></h6>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/noticeList.ad">공지사항</a>
-                        <a class="collapse-item" href="<%= request.getContextPath() %>/eventList.ad">이벤트</a>
-                    </div>
-                </div>
+            
             </li>
             <!-- Divider -->
             <hr class="sidebar-divider">

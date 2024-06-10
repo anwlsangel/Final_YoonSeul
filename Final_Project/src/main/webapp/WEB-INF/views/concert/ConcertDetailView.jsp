@@ -396,12 +396,12 @@
 
                 <div class="booking-area" align="center">
                     <div style="height: 100px; border: 1px solid orange;">
-                        날짜 선택
+                        	날짜 선택
                     </div>
                     <br>
                     <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="payment();">
-                            예매하기
+                           	 예매하기
                     </button>
                 </div>
 
@@ -409,9 +409,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-                    <button class="detail-menu" onclick=".reviews">관람후기</button>
+                    <button class="detail-menu" onclick="=">관람후기</button>
                     <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu" onclick="#text">문의</button>
+                    <button class="detail-menu" onclick="=">문의</button>
                 </div>
 
                 <div class="detail-info">

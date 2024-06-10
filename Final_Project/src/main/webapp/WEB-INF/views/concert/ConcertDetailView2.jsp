@@ -99,7 +99,7 @@
         float: right;
     }
     .review-update>a {
-        color: gray;
+    	color : gray;
         text-decoration: none;
         margin-right: 10px;
     }
@@ -293,13 +293,9 @@
 	        font-weight: bolder;
 	        font-size: 18px;
 	        text-decoration: none;
-	    }
+	    }		
 	
-	    .paging-area>a:hover {
-	        color : #EEEBDD; 
-	    }
-		
-	
+			
     </style>
 </head>
 <body>
@@ -409,9 +405,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-                    <button class="detail-menu" onclick=".reviews">관람후기</button>
+                    <button class="detail-menu">관람후기</button>
                     <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu" onclick="#text">문의</button>
+                    <button class="detail-menu">문의</button>
                 </div>
 
                 <div class="detail-info">
@@ -428,21 +424,21 @@
                 
                 <!-- 관람 후기 작성 -->
                  <!-- 별점 선택 -->
-        <div id="star-area" align="center">
+        		<div id="star-area" align="center">
 
-            <p id="star-text">별점을 선택해주세요.</p>
+            	<p id="star-text">별점을 선택해주세요.</p>
             
-            <div class="star-rating">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
+            	<div class="star-rating">
+	                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+	                    title="5 stars">&#9733;</label>
+	                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+	                    title="4 stars">&#9733;</label>
+	                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+	                    title="3 stars">&#9733;</label>
+	                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+	                    title="2 stars">&#9733;</label>
+	                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+	                    title="1 star">&#9733;</label>
             </div>
         </div>
 
