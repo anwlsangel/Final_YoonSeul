@@ -148,6 +148,160 @@
         text-decoration: none;
         margin-right: 10px;
     }
+    
+     .btn-green {
+            width: 70px;
+            height: 30px;
+            font-size: 16px;
+            font-weight: bolder;
+            float: right;
+            border: none;
+            background: linear-gradient(0deg, #630000, #810000);
+            color: white;
+        }
+
+        .paging-area a {
+            text-decoration: none;
+            color: gray;
+            font-size: 15px;
+            font-weight: 600;
+        }
+
+        #reply-list {
+            width: 900px;
+            border-collapse: separate;
+            border-spacing: 0px 20px;
+        }
+
+        #reply-list th {
+            vertical-align: top;
+        }
+
+        #reply-list>thead>tr>th {
+            width: 88%;
+        }
+
+        #reply-list>thead>tr>td {
+            width: 12%;
+        }
+
+        #reply-list>thead textarea {
+            height: 70px;
+            resize: none;
+        }
+
+        #reply-list>thead button {
+            height: 50px;
+        }
+
+        #reply-list>thead textarea,
+        #reply-list>thead button {
+            width: 95%;
+            box-sizing: border-box;
+            border-radius: 5px;
+        }
+
+        #reply-list>tbody>tr>th {
+            width: 13%;
+            text-align: center;
+            padding: 10px;
+        }
+
+        #reply-list>tbody>tr {
+            vertical-align: top;
+            height: 45px;
+            margin: 5px;
+        }
+
+        #review-list {
+            padding-top: 15px;
+        }
+
+        #review-list>table {
+            padding-left: 200px;
+        }
+
+        /* 별점 */
+        #star-area {
+            padding-top: 40px;
+            padding-left: 90px; 
+            font-size: 25px;
+        }
+
+        #star-area input[type="radio"] {
+            opacity: 0;
+            margin: 0;
+        }
+
+        .star-rating {
+            direction: rtl;
+            display: inline-block;
+            font-size: 2rem;
+        }
+
+        .star-rating input[type="radio"] {
+            display: none;
+        }
+
+        .star-rating label {
+            color: #ddd;
+            cursor: pointer;
+            font-size: 2rem;
+        }
+
+        .star-rating label:hover,
+        .star-rating label:hover~label {
+            color: #ffc700;
+        }
+
+        .star-rating input[type="radio"]:checked~label {
+            color: #ffc700;
+        }
+
+        .star-rating input[type="radio"]:checked+label:hover,
+        .star-rating input[type="radio"]:checked+label:hover~label,
+        .star-rating input[type="radio"]:checked~label:hover,
+        .star-rating input[type="radio"]:checked~label:hover~label {
+            color: #ffed85;
+        }
+
+        #star-text {
+            font-size: 15px;
+            padding: 0px;
+            margin : 0px;
+        }   
+
+        #star-avg {
+            padding-bottom: 20px;
+            border : 1px solid gray;
+            border-radius: 5px;
+            margin: 5px;
+            padding: 5px;
+            width: 450px;
+            text-align: center;
+            padding-left: 50px;
+        }
+       
+        .rating {
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            /* margin: auto; */
+            font-size: 1.5em;
+            /* width: 200px; */
+        }
+
+        /* 별 색깔 지정 */
+        .rating-stars {
+            color: rgb(255, 222, 36);
+            font-weight: bold;
+        }
+
+        .container-star-avg table {
+            width: 100%;
+        }
+    
+    
 
     </style>
 </head>
@@ -282,6 +436,73 @@
 
                 <br><br>
                 
+                
+                <!----------------------------------------------------->
+                
+                <!-- 관람 후기 작성 -->
+                 <!-- 별점 선택 -->
+        <div id="star-area" align="center">
+
+            <p id="star-text">별점을 선택해주세요.</p>
+            
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+                    title="5 stars">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                    title="4 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                    title="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                    title="2 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                    title="1 star">&#9733;</label>
+            </div>
+        </div>
+
+        <!-- 댓글 작성-->
+        <div id="reply-area" align="center">
+
+            <table align="center" id="reply-list">
+                <thead>
+                    <tr>
+                        <th colspan="2">
+                            <textarea id="replyContent" style="margin-left: 30px;" required></textarea>
+                        </th>
+                        <td align="center">
+                            <button type="button" onclick="" class="btn-green" disabled>등록</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
+                                readonly>로그인 후 이용 가능합니다</textarea>
+                        </th>
+                        <td align="center">
+                            <button type="button" class="btn-green" disabled>등록</button>
+                        </td>
+                    </tr>
+                    <tr>
+                        <th colspan="2">
+                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
+                                readonly></textarea>
+                        </th>
+                        <td align="center">
+                            <button type="button" class="btn-green" disabled>등록</button>
+                        </td>
+                    </tr>
+                </thead>
+                <tbody>
+                    <tr>
+                        <td colspan="3">
+                        </td>
+                    </tr>
+                </tbody>
+            </table>
+
+            <hr>
+                
+                
+                <!-- 관람후기 목록  -->
                 <div class="reviews" style="margin: auto; width: 900px">
                     <h2>관람후기 <span style="color: #810000;">32</span></h2>
                     <hr><br>
@@ -380,10 +601,42 @@
                 </div>
                 
                 <br><br>
+                
+                <!-- 댓글 수정 모달창 -->
+                <div class="modal" id="updateForm">
+        			<div class="modal-dialog">
+        		<div class="modal-content" style="height: 200px; margin-top: 50px;">
+			        <!-- Modal body -->
+			        <div class="modal-body">
+			         	<form action="" method="post" class="modal-center">
+			         	<!-- <form onsubmit="updateReply();"> -->
+			         		<div align="center">
+			         			<input type="hidden" id="" name="" val="">
+			         			<input type="hidden" id="" name="eventNo" val="">
+			         			<textarea name="newReplyContent" id="newReplyContent" rows="4" cols="50" required></textarea>
+			         		</div>
+							<div align="center" style="margin: 10px;">
+								<button type="submit"
+									style="background: linear-gradient(0deg, #630000, #810000); color: white; width: 400px; height: 50px">
+									댓글 수정</button>
+							</div>
+						</form>
+			        </div>
+			        
+        		</div>
+        	</div>
 
             </div>
         </div>
     </div>
+    
+   		<!----------------------------------------------------->
+    	<!-- 문의 목록 -->
+    
+    
+    
+    	
+    
 
 
     <div class="footer">
