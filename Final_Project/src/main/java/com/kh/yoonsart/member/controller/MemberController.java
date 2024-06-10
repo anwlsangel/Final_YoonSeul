@@ -150,7 +150,7 @@ public class MemberController {
 	        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 	    }
 	}
-		
+
 		// MemberController 아이디 체크용 메소드 0604 -무진
 		// MemberController checkId() 변경 아이디 중복 검사 0605 - 무진
 		@ResponseBody

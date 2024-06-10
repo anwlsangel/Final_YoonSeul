@@ -248,30 +248,30 @@
                     <td colspan="4"><input type="date" min="14" max="100" name="age"></td>
                 </tr>
                 <tr>
-                    <th rowspan="3">주소</th>
-                    <td colspan="3">
-                        <input type="text" id="postcode" name="postcode" placeholder="우편번호">
-                    </td>
-                    <td>
-                        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
-                    </td>
-                    <td colspan="2">
-                        <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" width="30%">
-                    </td>
-                </tr>
-                <tr>
-                    <td colspan="2">
-                        <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
-                    </td>
-                    <td colspan="2">
-                        <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
-                    </td>
-                </tr>
+			    <th rowspan="3">주소</th>
+			    <td colspan="3">
+			        <input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${sessionScope.loginUser.postcode}">
+			    </td>
+			    <td>
+			        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+			    </td>
+			</tr>
+			<tr>
+			    <td colspan="2">
+			        <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${sessionScope.loginUser.roadAddress}">
+			    </td>
+			    <td colspan="2">
+			        <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${sessionScope.loginUser.jibunAddress}" width="30%">
+			    </td>
+			</tr>
+			<tr>
+			    <td colspan="2">
+			        <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${sessionScope.loginUser.detailAddress}">
+			    </td>
+			    <td colspan="2">
+			        <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" value="${sessionScope.loginUser.extraAddress}">
+			    </td>
+			</tr>
                 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                 <!-- 아이디 중복확인 버튼이 비활성화 일때 보여지는 스타일을 위한 스크립트 0605 - 무진 -->
                 <script>
@@ -590,37 +590,56 @@
 	    
 	
 	 // 회원가입 성공 메시지 및 메인 페이지로 리다이렉트
-		$(document).on('submit', '#enroll-form', function(e) {
-    e.preventDefault(); // 폼 기본 제출 동작 방지
-    let formData = $(this).serializeArray();
-    let jsonData = {};
-    $.each(formData, function() {
-        jsonData[this.name] = this.value;
-    });
-    $.ajax({
-        url: $(this).attr('action'),
-        type: 'POST',
-        data: JSON.stringify(jsonData),
-        contentType: 'application/json',
-        dataType: 'json',
-        success: function(response) {
-            if (response.status === 'success') {
-                alertify.alert('알림', '회원가입이 성공적으로 완료되었습니다.', function() {
-                    window.location.href = '<%=request.getContextPath()%>/index.jsp';
-                });
-            } else if (response.status === 'duplicate') {
-                alert('중복된 값이 존재합니다. 다시 시도해주세요.');
-            } else {
-                alert(response.message);
-            }
-        },
-        error: function(xhr, status, error) {
-            alert('회원가입 중 오류가 발생했습니다.');
-            console.error('Error:', error);
-            console.error('Response:', xhr.responseText);
-        }
-    });
-});
+		$('form').on('submit', function(e) {
+	    e.preventDefault();
+	    let formData = $(this).serializeArray();
+	    let jsonData = {};
+	    $.each(formData, function() {
+	        jsonData[this.name] = this.value;
+	    });
+	
+	    // 주소 필드 그룹화 및 결합
+	    let fullAddress = [
+	        jsonData.postcode,
+	        jsonData.roadAddress,
+	        jsonData.jibunAddress,
+	        jsonData.detailAddress,
+	        jsonData.extraAddress
+	    ].filter(Boolean).join(' '); // 빈 문자열을 제거하고 공백으로 결합
+	
+	    jsonData['address'] = fullAddress;
+	
+	    // 불필요한 개별 주소 필드 삭제
+	    delete jsonData.postcode;
+	    delete jsonData.roadAddress;
+	    delete jsonData.jibunAddress;
+	    delete jsonData.detailAddress;
+	    delete jsonData.extraAddress;
+	
+	    $.ajax({
+	        url: $(this).attr('action'),
+	        type: 'POST',
+	        data: JSON.stringify(jsonData),
+	        contentType: 'application/json',
+	        dataType: 'json',
+	        success: function(response) {
+	            if (response.status === 'success') {
+	                alertify.alert('알림', '회원가입이 성공적으로 완료되었습니다.', function() {
+	                    window.location.href = '<%=request.getContextPath()%>/index.jsp';
+	                });
+	            } else if (response.status === 'duplicate') {
+	                alert('중복된 값이 존재합니다. 다시 시도해주세요.');
+	            } else {
+	                alert(response.message);
+	            }
+	        },
+	        error: function(xhr, status, error) {
+	            alert('회원가입 중 오류가 발생했습니다.');
+	            console.error('Error:', error);
+	            console.error('Response:', xhr.responseText);
+	        }
+	    });
+	});
 	</script>
 
 </body>

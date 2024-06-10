@@ -31,6 +31,19 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
     }
+    .is-invalid {
+    border-color: #dc3545;
+	}
+	.is-valid {
+	    border-color: #28a745;
+	}
+	.invalid-feedback {
+	    display: none;
+	    width: 100%;
+	    margin-top: 0.25rem;
+	    font-size: 80%;
+	    color: #dc3545;
+	}
 	</style>
 </head>
 <body>
@@ -49,35 +62,35 @@
         <div class="innerOuter">
             <h2>마이페이지</h2>
             <br>
-
             <form action="update.me" method="post">
                 <div class="form-group">
                     <label for="userId">* ID : </label>
                     <input type="text" class="form-control" id="userId" value="${sessionScope.loginUser.userId}" name="userId" readonly> <br>
 
                     <label for="userName">* Name : </label>
-                    <input type="text" class="form-control" id="userName" value="${ sessionScope.loginUser.userName }" name="userName" required> <br>
+                    <input type="text" class="form-control" id="userName" value="${sessionScope.loginUser.userName}" name="userName" required> <br>
 
-                    <label for="email"> &nbsp; Email : </label>
-                    <input type="text" class="form-control" id="email" value="${ sessionScope.loginUser.email }" name="email"> <br>
+				    <label for="email"> &nbsp; Email : </label>
+				    <input type="text" class="form-control" id="email" value="${sessionScope.loginUser.email}" name="email">
+				    <div class="invalid-feedback" id="emailFeedback">중복된 이메일이 있습니다.</div> <!-- 추가된 부분 --> <br>
 
                     <label for="phone"> &nbsp; Phone : </label>
-                    <input type="tel" class="form-control" id="phone" value="${sessionScope.loginUser.phone }" name="phone"> <br>
+				    <input type="tel" class="form-control" id="phone" value="${sessionScope.loginUser.phone}" name="phone">
+				    <div class="invalid-feedback" id="phoneFeedback">중복된 전화 번호가 있습니다.</div> <!-- 추가된 부분 --> <br>
                     
                     <label for="address"> &nbsp; Address : </label>
-                    <input type="text" class="form-control" id="address" value="${sessionScope.loginUser.address }" name="address"> <br>
-                    
+                    <input type="text" class="form-control" id="address" value="${sessionScope.loginUser.address}" name="address"> <br>
                 </div> 
                 <br>
                 <div class="btns" align="center">
-                    <button type="submit" class="btn btn-primary">수정하기</button>
+                    <button type="submit" class="btn btn-primary" disabled>수정하기</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
                 </div>
             </form>
         </div>
-        <br><br>
-        </div>	
     </div>
+    <br><br>
+</div>
 
     <!-- 회원탈퇴 버튼 클릭 시 보여질 Modal -->
     <div class="modal fade" id="deleteForm">
@@ -111,7 +124,69 @@
             </div>
         </div>
     </div>
+	<script type="text/javascript">
+	$(document).ready(function() {
+	    let emailValid = true;
+	    let phoneValid = true;
 
+	    $('#email').on('input', function() {
+	        checkDuplicate('email', $(this).val());
+	    });
+
+	    $('#phone').on('input', function() {
+	        checkDuplicate('phone', $(this).val());
+	    });
+
+	    function checkDuplicate(type, value) {
+	        let url = type === 'email' ? 'checkEmail.me' : 'checkPhone.me';
+	        $.ajax({
+	            url: url,
+	            method: 'POST',
+	            data: { [type]: value },
+	            success: function(response) {
+	                if (response === "1") {
+	                    if (type === 'email') {
+	                        $('#email').addClass('is-invalid');
+	                        $('#email').removeClass('is-valid');
+	                        emailValid = false;
+	                    } else if (type === 'phone') {
+	                        $('#phone').addClass('is-invalid');
+	                        $('#phone').removeClass('is-valid');
+	                        phoneValid = false;
+	                    }
+	                } else {
+	                    if (type === 'email') {
+	                        $('#email').addClass('is-valid');
+	                        $('#email').removeClass('is-invalid');
+	                        emailValid = true;
+	                    } else if (type === 'phone') {
+	                        $('#phone').addClass('is-valid');
+	                        $('#phone').removeClass('is-invalid');
+	                        phoneValid = true;
+	                    }
+	                }
+	                toggleSubmitButton();
+	            }
+	        });
+	    }
+
+	    function toggleSubmitButton() {
+	        if (emailValid && phoneValid) {
+	            $('button[type="submit"]').prop('disabled', false);
+	        } else {
+	            $('button[type="submit"]').prop('disabled', true);
+	        }
+	    }
+
+	    $('form').on('submit', function(e) {
+	        if (!emailValid || !phoneValid) {
+	            e.preventDefault();
+	            alertify.error('중복된 이메일 또는 전화번호가 있습니다.');
+	        }
+	    });
+	});
+
+	</script>
     <jsp:include page="" />
 
 </body>
