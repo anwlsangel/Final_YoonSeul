@@ -9,10 +9,13 @@
      <typeAliases>
     	<typeAlias type="com.kh.yoonsart.member.model.vo.Member" alias="member" />
     	<typeAlias type="com.kh.yoonsart.payment.model.vo.BuyList" alias="buylist" />
+    	<typeAlias type="com.kh.yoonsart.concert.model.vo.Concert" alias="concert" />
     </typeAliases>
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
         <mapper resource="/mappers/payment-mapper.xml"/>
+        <mapper resource="/mappers/concert-mapper.xml"/>
     </mappers>
    
 </configuration>
+

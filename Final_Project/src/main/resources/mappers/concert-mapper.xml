@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="concertMapper">
+
+<resultMap type="concert" id="concertResultSet">
+		<result column="CONCERT_ID" property="concertId"/>
+		<result column="CONCERT_NAME" property="concertName"/>
+		<result column="AGE_LIMIT" property="ageLimit"/>
+		<result column="PRICE" property="price"/>
+		<result column="THUMBNAIL_ROOT" property="thumbnailRoot"/>
+		<result column="DETAIL_ROOT" property="detailRoot"/>
+		<result column="PLAYTIME" property="playTime"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="CATEGORY" property="category"/>
+		<result column="HOLE_NAME" property="holeName"/>
+	</resultMap>
+	
+	<!-- 첫 리스트 조회용 쿼리문 -->
+	<select id="selectList" parameterType="concert"
+	  		resultMap="concertResultSet">
+	SELECT *
+	FROM CONCERT_INFO	
+	</select>
+	
+	<!-- 필터링이 적용된 쿼리문 -->
+	<select id="filterSelectList" parameterType="concert" resultMap="concertResultSet">
+        SELECT *
+        FROM CONCERT_INFO
+        WHERE CATEGORY = #{category}
+    </select>
+	
+	</mapper>
