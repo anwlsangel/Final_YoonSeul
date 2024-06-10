@@ -104,20 +104,19 @@ html,body{
         }
        
        /* 사이드 메뉴바 스타일 */
-        #snb {
-            width: 180px;
-            background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
-            padding: 20px;
-            color: #810000;
-            position: absolute; /* 절대 위치로 고정 */
-            top: 300px; /* 페이지 상단에서의 위치를 조정 */
-            left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
-            height: 410px; /* 화면 높이에 맞게 조정 */
-            overflow-y: auto; /* 스크롤을 자동으로 */
-            box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-            text-align: center;
-            border-radius: 10px;
-        }
+       #snb {
+    width: 180px;
+    background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
+    padding: 20px;
+    color: #810000;
+    position: absolute; /* 절대 위치로 고정 */
+    top: 300px; /* 페이지 상단에서의 위치를 조정 */
+    left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+    text-align: center;
+    border-radius: 10px;
+    transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
+}
 
         #snb h2 {
             color: #810000;
@@ -144,16 +143,16 @@ html,body{
             background: #630000;
         }
         #snb ul li ul {
-            display: none;
-            padding-left: 20px;
-            max-height: 0;
-            overflow: hidden;
-            transition: max-height 0.3s ease;
-        }
+		    display: block;
+		    padding-left: 20px;
+		    max-height: 0;
+		    overflow: hidden;
+		    transition: max-height 0.3s ease;
+		}
         #snb ul li.active > ul {
-            display: block;
-            max-height: 300px; /* 하위 메뉴의 최대 높이를 설정하여 펼쳐짐 */
-        }
+		    display: block;
+		    max-height: 300px; /* 하위 메뉴의 최대 높이를 설정하여 펼쳐짐 */
+		}
         #snb ul li.active > a {
             background: rgba(128, 128, 128, 0.2); /* 활성화된 링크 배경색을 짙은 회색 계열로 변경 */
         }
@@ -250,52 +249,57 @@ html,body{
         
 
        // 사이드 메뉴바 스크립트
-        document.addEventListener('DOMContentLoaded', function () {
-            const items = document.querySelectorAll('#snb .hasThird > a');
-            items.forEach(item => {
-                item.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    const parent = this.parentElement;
-                    const subMenu = parent.querySelector('ul.depth3');
-                    const isActive = parent.classList.contains('active');
-                    
-                    document.querySelectorAll('#snb .hasThird').forEach(el => {
-                        el.classList.remove('active');
-                        const innerSubMenu = el.querySelector('ul.depth3');
-                        if (innerSubMenu) {
-                            innerSubMenu.style.display = 'none';
-                        }
-                    });
+       document.addEventListener('DOMContentLoaded', function () {
 
-                    if (!isActive) {
-                        parent.classList.add('active');
-                        if (subMenu) {
-                            subMenu.style.display = 'block';
-                            adjustSidebarHeight();
-                        }
-                    } else {
-                        adjustSidebarHeight();
-                    }
-                });
+    const items = document.querySelectorAll('#snb .hasThird > a');
+    items.forEach(item => {
+        item.addEventListener('click', function (e) {
+            e.preventDefault();
+
+            const parent = this.parentElement;
+            const subMenu = parent.querySelector('ul.depth3');
+            const isActive = parent.classList.contains('active');
+
+            document.querySelectorAll('#snb .hasThird').forEach(el => {
+                el.classList.remove('active');
+                const innerSubMenu = el.querySelector('ul.depth3');
+                if (innerSubMenu) {
+                    innerSubMenu.style.maxHeight = '0px';
+                }
             });
 
-            const subItems = document.querySelectorAll('#snb .depth3 a');
-            subItems.forEach(subItem => {
-                subItem.addEventListener('click', function () {
-                    window.location.href = this.getAttribute('href');
-                });
-            });
-
-            function adjustSidebarHeight() {
-                const snb = document.getElementById('snb');
-                const activeItems = snb.querySelectorAll('.hasThird.active ul');
-                let totalHeight = 410; // 기본 높이
-                activeItems.forEach(item => {
-                    totalHeight += item.scrollHeight;
-                });
-                snb.style.height = `${totalHeight}px`;
+            if (!isActive) {
+                parent.classList.add('active');
+                if (subMenu) {
+                    subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
+                }
+            } else {
+                if (subMenu) {
+                    subMenu.style.maxHeight = '0px';
+                }
             }
+
+            adjustSidebarHeight();
         });
+    });
+
+    const subItems = document.querySelectorAll('#snb .depth3 a');
+    subItems.forEach(subItem => {
+        subItem.addEventListener('click', function () {
+            window.location.href = this.getAttribute('href');
+        });
+    });
+
+    function adjustSidebarHeight() {
+        const snb = document.getElementById('snb');
+        const activeItems = snb.querySelectorAll('.hasThird.active ul');
+        let totalHeight = 410; // 기본 높이
+        activeItems.forEach(item => {
+            totalHeight += item.scrollHeight;
+        });
+        snb.style.height = `${totalHeight}px`;
+    }
+});
 
     </script>
 
