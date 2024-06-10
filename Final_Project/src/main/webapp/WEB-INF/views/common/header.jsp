@@ -204,7 +204,7 @@ html,body{
         <!-- 사이드 메뉴바 -->
         <div id="snb">
             <h2>
-                <img src="img/8px+텍스트.png" alt="윤슬아트홀" style="display: block; margin: 0 auto;">
+                <img src="resources/image/8px.png" alt="윤슬아트홀" style="display: block; margin: 0 auto;">
             </h2>
             <ul class="depth2">
                 <li class="hasThird">

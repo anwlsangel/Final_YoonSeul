@@ -12,4 +12,8 @@ public class PaymentDao {
 		return sqlSession.insert("paymentMapper.insertPaymentInfo", bl);
 	}
 
+	public int updateReserveRefund(SqlSessionTemplate sqlSession, String merchant_uid) {
+		return sqlSession.update("paymentMapper.updateReserveRefund", merchant_uid);
+	}
+
 }
