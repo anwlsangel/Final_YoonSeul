@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -34,6 +35,9 @@ html,body{
         align-items: center;     
         z-index: 2; 
         background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);
+    }
+    #header a {
+    	color: white;
     }
     #navitb {
         width: 100%;
@@ -105,18 +109,18 @@ html,body{
        
        /* 사이드 메뉴바 스타일 */
        #snb {
-    width: 180px;
-    background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
-    padding: 20px;
-    color: #810000;
-    position: absolute; /* 절대 위치로 고정 */
-    top: 300px; /* 페이지 상단에서의 위치를 조정 */
-    left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    text-align: center;
-    border-radius: 10px;
-    transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
-}
+        width: 180px;
+        background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
+        padding: 20px;
+        color: #810000;
+        position: absolute; /* 절대 위치로 고정 */
+        top: 300px; /* 페이지 상단에서의 위치를 조정 */
+        left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
+        box-shadow: 2px 0 5px rgba(0,0,0,0.1);
+        text-align: center;
+        border-radius: 10px;
+        transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
+    }
 
         #snb h2 {
             color: #810000;
@@ -166,18 +170,26 @@ html,body{
             background: rgba(128, 128, 128, 0.2); /* 호버 시 배경색을 짙은 회색 계열로 변경 */
         }
 
-    .main-login {
+        .main-login {
         display: flex;
         justify-content: space-between;
-        width: 150px; 
+        width: 200px; 
         margin-right: 30px;
     }
 
     .main-login a {
-        font-size: 15px; /* Adjust the font size as needed */
         text-decoration: none;
-        color: white;
+        font-size: 18px;
+        margin-right: 100px;
+        margin: auto;  
+        color: white;    
     }
+    .main-login a:hover {
+        cursor: pointer;
+    }
+    #header label {
+	 color: white;
+	}
 
 </style>
 <body>
@@ -189,10 +201,25 @@ html,body{
             <div class="navi"><a href="">소개</a></div>
             <div class="navi"><a href="">공지사항</a></div>                      
             <div class="navi"><a href="">대관</a></div>                 
-            <div class="main-login">
-                <div><a href="">로그인</a></div>   
-                <div><a href="">회원가입</a></div>       
-            </div>
+             <c:choose>
+           		<c:when test="${empty sessionScope.loginUser }">
+                   <!-- 로그인 전 -->             
+                   <div class="main-login">
+                   	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
+                   	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
+                   	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
+                   	<div><a id="signupLink">회원가입</a></div>       
+               	</div>
+                   </c:when>
+               	<c:otherwise>
+               	<!-- 로그인 후 -->
+               
+                   <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
+                   <a href="myPage.me">마이페이지</a>
+                   <a href="logout.me">로그아웃</a>
+              
+               	</c:otherwise>
+       		</c:choose>
         </div>       
     </div> 
 

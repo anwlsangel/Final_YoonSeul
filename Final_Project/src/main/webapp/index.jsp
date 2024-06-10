@@ -201,7 +201,6 @@
         #category-button.reverse:hover span {
             margin-top: 16px;
         }
-}
 
     /* footer */
     .footer {
@@ -400,17 +399,22 @@
     margin-top: 13px;
 }
 
-.main-login {
-    display: flex;
-    justify-content: space-between;
-    width: 150px; 
-    margin-right: 30px;
-}
+    .main-login {
+        display: flex;
+        justify-content: space-between;
+        width: 200px; 
+        margin-right: 30px;
+    }
 
-.main-login a {
-    font-size: 15px; /* Adjust the font size as needed */
-    text-decoration: none;
-}
+    .main-login a {
+        text-decoration: none;
+        font-size: 18px;
+        margin-right: 100px;
+        margin: auto;      
+    }
+    .main-login a:hover {
+        cursor: pointer;
+    }
 
 
 </style>
@@ -483,7 +487,7 @@
             <div id="main-header">                                
                 <div id="main-navi">
                     <div><a href=""><img src="resources/image/logo.png"id="logo"></a></div>                    
-                    <div class="navi"><a href="list.co">공연정보</a></div>
+                    <div class="navi"><a href="list.co?category=콘서트">공연정보</a></div>
                     <div class="navi"><a href="">소개</a></div>
                     <div class="navi"><a href="">공지사항</a></div>                      
                     <div class="navi"><a href="">유실물센터</a></div>    
@@ -498,6 +502,7 @@
 	                    	<div><a id="signupLink">회원가입</a></div>       
 	                	</div>
 	                    </c:when>
+
                 		<c:otherwise>
                 		<!-- 로그인 후 -->
 	                    <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
@@ -512,6 +517,7 @@
                     		<a href="logout.me">로그아웃</a>
                 	   </c:otherwise>
             	</c:choose>
+
                 </div> 
 
     
