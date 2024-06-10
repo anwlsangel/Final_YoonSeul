@@ -409,15 +409,9 @@
 
                 <div class="menu-area" style="border-bottom: 2px solid;">
                     <button class="detail-menu" style="border-top: 2px solid gray;">상세정보</button>
-<<<<<<< HEAD
                     <a href="#reviews"><button class="detail-menu">관람후기</button></a>
                     <button class="detail-menu">예매/취소 안내</button>
                     <a href="#text"><button class="detail-menu">문의</button></a>
-=======
-                    <button class="detail-menu" onclick="=">관람후기</button>
-                    <button class="detail-menu">예매/취소 안내</button>
-                    <button class="detail-menu" onclick="=">문의</button>
->>>>>>> 160eb4afb357095558cbead8ce68408a7cfe276a
                 </div>
 
                 <div class="detail-info">

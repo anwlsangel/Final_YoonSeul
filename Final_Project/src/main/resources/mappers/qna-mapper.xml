@@ -23,4 +23,4 @@
 		  FROM QNA
 		 WHERE STATUS = '1'
 	</select>	
-	 
+</mapper>
