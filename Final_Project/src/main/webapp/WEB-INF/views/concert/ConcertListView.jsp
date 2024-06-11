@@ -210,7 +210,7 @@
                 <div class="detail-title">${co.concertName}</div>
                 <div class="detail-text">${co.startDate}</div>
             </div>
-        </c:forEach>
+        </c:forEach >
     </div>
 </div>
 <script>

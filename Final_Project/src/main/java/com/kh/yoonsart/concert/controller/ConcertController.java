@@ -8,6 +8,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
+import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
 
@@ -38,10 +39,7 @@ public class ConcertController {
 		ArrayList<Concert> list = concertService.searchList(keyword, category, sort);
 		
 		model.addAttribute("list", list);
-		
-		System.out.println(keyword);
-		System.out.println(list);
-		
+						
 		return "concert/ConcertListView";
 		
 	}
@@ -50,6 +48,9 @@ public class ConcertController {
 	public String concertDetail(@RequestParam("cno") int cno, Model model) {
         Concert concert = concertService.concertDetail(cno);
         model.addAttribute("concert", concert);
+        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
+        model.addAttribute("qnaList", qnaList);
+        System.out.println(qnaList);
         
         return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
     }

@@ -53,5 +53,13 @@
 		              #{concertId})
 	</insert>
 	
+	<!-- 문의 조회용 쿼리문 -->
+    <select id="selectQnaList" parameterType="_int" resultMap="qnaResultSet">
+    	SELECT * 
+		  FROM QNA Q 
+		  JOIN CONCERT_INFO C USING(CONCERT_ID)
+		 WHERE CONCERT_ID = #{concertId}
+	</select>
+	
 	
 </mapper>	 

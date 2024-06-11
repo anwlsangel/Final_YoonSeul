@@ -7,6 +7,7 @@ import java.util.Map;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
+import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.vo.Concert;
 
 @Repository
@@ -28,8 +29,6 @@ public class ConcertDao {
 		params.put("keyword", keyword);
 		params.put("category", category);
         params.put("sort", sort);
-		
-        System.out.println((ArrayList)sqlSession.selectList("concertMapper.searchList", params));
         
 		return (ArrayList)sqlSession.selectList("concertMapper.searchList", params); 
 		
@@ -41,6 +40,11 @@ public class ConcertDao {
 		// System.out.println("여기까진 오지?" + cno);
 
 		return sqlSession.selectOne("concertMapper.concertDetail", cno);
+	}
+
+	public ArrayList<QNA> selectQnaList(SqlSessionTemplate sqlSession, int cno) {
+				
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", cno);
 	}
 	
 

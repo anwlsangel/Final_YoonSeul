@@ -2,6 +2,7 @@ package com.kh.yoonsart.concert.model.service;
 
 import java.util.ArrayList;
 
+import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.vo.Concert;
 
 public interface ConcertService {
@@ -11,5 +12,7 @@ public interface ConcertService {
 	ArrayList<Concert> searchList(String keyword, String category, String sort);
 
 	Concert concertDetail(int concertId);
+	
+	ArrayList<QNA> selectQnaList(int cno);
 	
 }
