@@ -237,9 +237,9 @@ hr {
                 <!-- Modal body -->
                 <div class="modal-body">
                     <label for="userId" class="mr-sm-2">ID : </label>
-                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId" value="${ cookie.saveId.value }" required> <br>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="" name="userId" value="${ cookie.saveId.value }" required> <br>
                     <label for="userPwd" class="mr-sm-2">Password : </label>
-                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd" required>
+                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="" name="userPwd" required>
                     <br>
                     <c:choose>
                         <c:when test="${ not empty cookie.saveId }">
@@ -274,9 +274,9 @@ hr {
 			                <!-- Modal body -->
 			                <div class="modal-body">
 			                    <label for="userName" class="mr-sm-2">이름 : </label>
-			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name" id="userName" name="userName" required> <br>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name"  name="userName" required> <br>
 			                    <label for="phone" class="mr-sm-2">전화번호 : </label>
-			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Phone" id="phone" name="phone" required>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Phone"  name="phone" required>
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
@@ -300,11 +300,11 @@ hr {
 			                <!-- Modal body -->
 			                <div class="modal-body">
 			                    <label for="userName" class="mr-sm-2">이름 : </label>
-			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name" id="userName" name="userName" required> <br>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name"  name="userName" required> <br>
 			                    <label for="userId" class="mr-sm-2">아이디 : </label>
-			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId" name="userId" required> <br>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID"  name="userId" required> <br>
 			                    <label for="email" class="mr-sm-2">이메일 : </label>
-			                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter Email" id="email" name="email" required>
+			                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter Email"  name="email" required>
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
