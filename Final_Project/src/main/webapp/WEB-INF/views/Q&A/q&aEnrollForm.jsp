@@ -114,6 +114,8 @@
                         <td>
                             <input type="text" id="title" name="qnaTitle" placeholder="문의글 제목" required>
                         </td>
+                    </tr>
+                      <tr>
                         <td>
                         	<input type="text" id="userId" class="form-control" value="${ sessionScope.loginUser.userId }" name="userId" readonly>
                         </td>

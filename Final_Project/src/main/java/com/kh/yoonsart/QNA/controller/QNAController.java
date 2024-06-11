@@ -70,6 +70,31 @@ public class QNAController {
 		return mv;
 	}
 	
+	@GetMapping("detail.qa")
+	public ModelAndView selectBoard(int qno, ModelAndView mv) {
+		
+		 System.out.println(qno);
+		
+//		// 1. 해당 게시글 조회수 증가용 서비스 호출 및 결과 받기 
+//		int result = boardService.increaseCount(bno);
+//		
+//		if(result > 0) { // 조회수 증가 성공
+//			
+//			// 게시글 상세조회 페이지에서 보여질 해당 게시글 정보를 조회해와야함
+//			Board b = boardService.selectBoard(bno);
+//			
+//			// 조회된 데이터를 담아서 응답페이지로 포워딩
+//			// /WEB-INF/views/board/boardDetailView.jsp
+//			mv.addObject("b", b).setViewName("board/boardDetailView");
+//			
+//		} else { // 조회수 증가 실패
+//			
+//			// 에러 문구를 담아서 에러문구로 포워딩
+//			mv.addObject("errorMsg", "게시글 상세 조회 실패").setViewName("common/errorPage");
+//		}
+//		return mv;
+	}
+	
 	
 	
 	
