@@ -77,7 +77,7 @@ public class PaymentController {
 		}
 	}
 	
-	//token 얻어내기
+	//access token 발급
 	@ResponseBody
 	@PostMapping(value="getToken.pa", produces="text/html; charset=UTF-8")
 	public String getToken(String apiKey, String apiSecret) {
