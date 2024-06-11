@@ -8,6 +8,7 @@
 <script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
 <script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 <script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
     <style>
     body {
@@ -305,6 +306,7 @@
     <div class="outer">
         <div class="container">
             <div id="title-area" style="margin-top: 100px;">
+            	<input type="hidden" id="concertID" value="1"> <!-- 주문번호생성시 필요 -->
                 <h2>스튜디오 지브리 애니메이션의 거장 타카하타 이사오전</h2>
                 <h6 style="color: gray;">2024.04.26 ~ 2024.08.03 | 세종문화회관 세종미술관 1관 2관</h6>
                 <hr class="info-hr"><br>
@@ -716,7 +718,11 @@
     
   	//결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
     function payment() {
-  		//merchant_uid
+  		//주문번호(BUYLIST_ID) 랜덤생성
+  		let concertName = $("#concertID").val();
+  		let formattedDate = moment().format('YYYYMMDD');
+  		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
+  		let randomUid = concertName + formattedDate + randomNum;
   		
 	    //const myAmount = Number(document.getElementById("amount").value);
 	    const myAmount = 100;
@@ -728,7 +734,7 @@
 	      	// param
 	         pg: "html5_inicis",
 	         pay_method: "card",
-	         merchant_uid: "111hjsdjsi2", //주문번호 == BUYLIST_ID
+	         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
 	         name: "공연이름333", //공연이름 == RESERVE_CONCERT_NAME
 	         amount: myAmount,
 	         buyer_email: "gildonggmailcom",
