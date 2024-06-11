@@ -13,6 +13,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.mail.SimpleMailMessage;
 import org.springframework.mail.javamail.JavaMailSender;
 import org.springframework.mail.javamail.MimeMessageHelper;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -28,7 +29,8 @@ public class EmailController {
 	// 단, 동기화 문제 떄문에 동기화 기능을 제공하게끔 객체를 생성 할 것
 	// (동시에 여러 사람이 인증 요청을 보냈을 경우 인증번호를 동시에 put 할 수 있게끔)
 	private Map<String, String> certNoList = Collections.synchronizedMap(new HashMap<>());
-	
+	@Autowired
+	private BCryptPasswordEncoder bcryptPasswordEncoder;
 
 	// 참고) 만약에 인증 시 제한시간을 걸고 싶다면?
 	// > CERT 테이블을 만들어야함(EMAIL, CERT_NO, CREATE_DATE)
@@ -106,7 +108,10 @@ public class EmailController {
 	@ResponseBody
 	@PostMapping(value = "resetPwd.do", produces = "text/html; charset=UTF-8")
 	public String resetPwd(String email, String newPwd) {
-	    boolean isSuccess = memberService.resetPassword(email, newPwd);
+		// 암호화 과정 
+	    String encPwd = bcryptPasswordEncoder.encode(newPwd);
+	    
+	    boolean isSuccess = memberService.resetPassword(email, encPwd);
 	    if (isSuccess) {
 	        return "비밀번호 변경 성공";
 	    } else {

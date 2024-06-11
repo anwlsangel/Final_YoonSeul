@@ -304,7 +304,7 @@ hr {
 			                    <label for="userId" class="mr-sm-2">아이디 : </label>
 			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID"  name="userId" required> <br>
 			                    <label for="email" class="mr-sm-2">이메일 : </label>
-			                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter Email"  name="email" required>
+			                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter Email" id="email" name="email" required>
 			                </div>
 			                <!-- Modal footer -->
 			                <div class="modal-footer">
@@ -480,7 +480,6 @@ $(document).ready(function() {
         const name = $('#findPwdForm #userName').val();
         const userId = $('#findPwdForm #userId').val();
         const email = $('#findPwdForm #email').val();
-
         $.ajax({
             type: "POST",
             url: "cert.do",
