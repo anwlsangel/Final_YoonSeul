@@ -411,10 +411,22 @@
                         	날짜 선택
                     </div>
                     <br>
-                    <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                    <c:choose>
+			           <c:when test="${empty sessionScope.loginUser }">
+			           <!-- 로그인 전 -->             
+			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                            onclick="alert('로그인 후 예매 가능합니다.');">
+                            	예매하기
+                    	</button>
+			           </c:when>
+			           <c:otherwise>
+			           <!-- 로그인 후 -->
+			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="payment();">
-                           	 예매하기
-                    </button>
+                            	예매하기
+                    	</button>
+			           </c:otherwise>
+			       </c:choose>
                 </div>
 
                 <br><br><br><br><br><br>
@@ -772,16 +784,16 @@
   		let randomUid = concertName + formattedDate + randomNum;
     	
 	    //const myAmount = Number(document.getElementById("amount").value);
-	    const myAmount = 100;
+	    const myAmount = 100; //총 결제금액
 	
 	    const IMP = window.IMP; // 생략 가능
-	    IMP.init("imp84822672"); // Example: imp00000000
+	    IMP.init("imp84822672"); // 식별코드
 	    IMP.request_pay(
 	      {
 	      	// param
 	         pg: "html5_inicis",
 	         pay_method: "card",
-	         merchant_uid: "concertName240617random", //주문번호 == BUYLIST_ID
+	         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
 	         name: "공연이름", //공연이름 == RESERVE_CONCERT_NAME
 	         amount: myAmount,
 	         buyer_email: "gildonggmailcom",
@@ -811,7 +823,7 @@
 	     	            	type: "post",
 	     	            	data: {
 	     	            		buyListId: rsp.merchant_uid, //주문번호
-	     	            		reserveCode: rsp.pg_tid, //결제코드 (환불 시 필요)
+	     	            		reserveCode: rsp.pg_tid, //결제코드
 	     	            		reserveConcertName: rsp.name, //예약된 공연 이름
 	     	      	            reserveTicket: 1, //예약된 티켓 수
 	     	      	            reserveSum: myAmount, //결제 금액 합
