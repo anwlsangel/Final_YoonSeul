@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "https://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<select id="testSelect" parameterType="string" resultType="string">
+	 select count(input) from test where input =#{input}
+	</select>
+	<insert id="testInsert" parameterType ="string">
+	 insert into test values(#{input})
+	</insert>
+	<delete id="testDelete" parameterType="string">
+	 delete test where input = #{input}
+	</delete>
+	<update id="testUpdate"  parameterType="string">
+	update test set input = CONCAT(#{input},'1') where input = #{input}
+	</update>
+</mapper>

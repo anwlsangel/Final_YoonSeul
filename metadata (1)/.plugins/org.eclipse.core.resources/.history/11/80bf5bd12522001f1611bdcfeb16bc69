@@ -1,0 +1,101 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="memberMapper">
+
+	<!--
+	 MEMBER 테이블의 조회 결과를 Member VO 객체로 옮겨주는 ResultMap 
+	 -->
+	<resultMap type="member" id="memberResultSet">
+		<result column="USER_ID" property="userId"/>
+		<result column="USER_PWD" property="userPwd"/>
+		<result column="USER_NAME" property="userName"/>
+		<result column="EMAIL" property="email"/>
+		<result column="USER_BIRTH" property="userBirth"/>
+		<result column="PHONE" property="phone"/>
+		<result column="ADRESS" property="adress"/>
+		<result column="ENROLL_DATE" property="enrollDate"/>
+		<result column="STATUS" property="status"/>
+	</resultMap>
+	
+	<!-- 로그인용 쿼리문 -->
+
+	<select id="loginMember" parameterType="member"
+	  		resultMap="memberResultSet">
+	<!--
+	암호화 작업 전 : 아이디, 비번 둘다 동등 비교
+	 SELECT *
+	FROM MEMBER
+	WHERE USER_ID = #{userId}
+	AND USER_PWD = #{userPwd}
+	AND STATUS = 'Y' -->
+	
+	<!-- 암호화 작업 후 : 오로지 아이디만 가지고 조회 -->
+	<!-- member-mapper 아이디 조회 쿼리문 변경 0604 - 무진 -->
+	SELECT *
+	FROM MEMBER
+	WHERE USER_ID = #{userId}
+	AND STATUS = '1'
+	
+	</select>
+
+	<!-- 회원 가입용 쿼리문 mapper 0604 - 무진 -->
+	<insert id="insertMember" parameterType="member">
+		INSERT INTO MEMBER(USER_ID,
+	                       USER_PWD,
+	                       USER_NAME,
+	                       EMAIL,
+	                       USER_BIRTH,
+	                       PHONE,
+	                       ADDRESS)
+	                VALUES(#{userId},
+	                       #{userPwd},
+	                       #{userName},
+	                       #{email},
+	                       #{userBirth},
+	                       #{phone},
+	                       #{address})
+	</insert>
+	<!-- 회원정보 수정용 쿼리문 -->
+	<update id="updateMember" parameterType="member">
+		UPDATE MEMBER
+		    SET USER_NAME = #{userName}
+		        , EMAIL = #{email} 
+		        , AGE = #{age}
+		        , PHONE = #{phone}
+		        , ADDRESS = #{address}
+		        , GENDER = #{gender}
+		        , MODIFY_DATE = SYSDATE
+		WHERE USER_ID = #{userId}
+		 AND STATUS = 'Y'
+	</update>
+	
+	<!-- 회원 탈퇴용 쿼리문 -->
+	<update id="deleteMember" parameterType="string">
+		UPDATE MEMBER
+	    SET STATUS = 'N'
+		WHERE USER_ID = #{userId}
+		 AND STATUS = 'Y'
+	</update>
+	
+	<!-- 아이디 중복확인용 쿼리문 -->
+	<select id="idCheck" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+		 WHERE USER_ID = #{checkId}
+	</select>
+	</mapper>
+
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
+	
