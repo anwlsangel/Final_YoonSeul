@@ -647,7 +647,7 @@
 
         <!-- 문의글 목록 -->
         <div class="question-list">
-            <table class="table table-hover" align="center">
+            <table id="qnaList" class="table table-hover" align="center">
                 <thead>
                     <tr>
                         <th width="70px;" height="30px;">No.</th>
@@ -664,12 +664,29 @@
                     <td>${q.qnaTitle}</td>
                     <td>${q.createDate}</td>
                     <td>${q.userId}</td>
-                    <td style="color : orange;">${q.answerDate}</td>
+                    <td style="color : #810000;">
+                    <c:if test="${not empty q.answerDate}">
+                    	완료
+                    </c:if>
+                    </td>
                 </tr>
             </c:forEach>
                 </tbody>
             </table>
         </div>
+        
+       <script>
+       		$(function(){
+       			
+       			$("#qnaList>tbody>tr").click(function(){
+       				
+       				let qno = $(this).children().eq(0).text();
+       				location.href = "detail.qa?qno=" + qno;
+       			});
+       		});
+       </script>
+        
+        
 
          <!-- 페이징바 -->
          <div class="paging-area" align="center">

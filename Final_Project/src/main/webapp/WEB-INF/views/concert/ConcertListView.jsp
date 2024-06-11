@@ -91,7 +91,7 @@
     .concert-navi a:hover {
         background-color: #f0f0f0; /* 호버 시 배경색 */
         cursor: pointer;
-        
+        text-decoration: none; /* 링크 밑줄 제거 */        
     }
     
     .concert-navi-2 {
@@ -110,17 +110,18 @@
     }
 
     .concert-navi-2 a {
-        font-size: large;
+        font-size: 15px;
         text-decoration: none; /* 링크 밑줄 제거 */
         color: inherit; /* 부모 요소의 색상 상속 */
         padding: 5px 10px; /* 패딩 추가 */
         transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+        
     }
 
     .concert-navi-2 a:hover {
         background-color: #f0f0f0; /* 호버 시 배경색 */
         cursor: pointer;
-        
+        text-decoration: none; /* 링크 밑줄 제거 */
     }
 
     .search {
@@ -194,7 +195,9 @@
         <div class="concert-navi-category-2"> 
             <a href="list.co?category=${category}&sort=popularity">인기순</a>
             <a href="list.co?category=${category}&sort=date">최신순</a>
-            <a href="list.co?category=${category}&sort=price">저렴한 가격순</a>             
+            <a href="list.co?category=${category}&sort=price">저렴한 가격순</a>
+            <a href="list.co?category=${category}&sort=price">스탠딩</a> 
+            <a href="list.co?category=${category}&sort=price">좌석</a>              
         </div>                    
     </div>
     <hr>
