@@ -8,22 +8,22 @@
     <meta charset="UTF-8">
     <title>Document</title>
     <!-- 부트스트랩 및 각종 연동구문 추가 0603 -무진 -->
-     <!-- alertify 연동 구문 -->
-     <!-- 부트스트랩에서 제공하고 있는 스타일 -->
+    <!-- alertify 연동 구문 -->
+    <!-- 부트스트랩에서 제공하고 있는 스타일 -->
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
     <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JavaScript -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-	
-	<!-- CSS -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
-	<!-- Semantic UI theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
+    <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    
+    <!-- CSS -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
+    <!-- Default theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
+    <!-- Semantic UI theme -->
+    <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
-	.outer {
+    .outer {
         width: 1000px;
         margin: auto;
         margin-top: 90px;
@@ -35,8 +35,8 @@
     #enroll-form a {
         color: #810000;
     }
-	#enroll-form input {
-		width: 100%;
+    #enroll-form input {
+        width: 100%;
         box-sizing: border-box;
         padding: 5px;
         border-radius: 0px;
@@ -44,7 +44,7 @@
         outline: none;
         padding-left: 10px;
         border-bottom: 1px solid;
-	}
+    }
     #enroll-form select {
         height: 100%;
         border-radius: 5px;
@@ -112,23 +112,20 @@
         cursor: not-allowed;
     }
     /* memberEnrollForm.jsp 비밀번호 중복 검사 관련 스타일 추가 0610 - 무진 */
-    #checkPwd-area {
-    display: none;
-	}
-	
-	#checkPwdMsg {
-	    font-weight: bold;
-	}
-	
-	#checkPwdMsg.match {
-	    color: green;
-	}
-	
-	#checkPwdMsg.nomatch {
-	    color: red;
-	}
+    #checkPwdMsg {
+        font-weight: bold;
+        display: none;
+    }
+    
+    #checkPwdMsg.match {
+        color: green;
+    }
+    
+    #checkPwdMsg.nomatch {
+        color: red;
+    }
 
-	 .is-invalid {
+     .is-invalid {
         border-color: #dc3545;
     }
     .is-valid {
@@ -147,13 +144,13 @@
 </style>
 </head>
 <body>
-	<!-- myPage.jsp 일회성 알람문구 처리 script 0604 - 무진 -->
-		<c:if test="${not empty sessionScope.alertMsg }">
-			<script>
-			alertify.alert('알림', '${sessionScope.alertMsg}', function(){ alertify.success('Ok'); });
-			</script>
-			<c:remove var="alertMsg" scope="session"/>
-		</c:if>
+    <!-- myPage.jsp 일회성 알람문구 처리 script 0604 - 무진 -->
+        <c:if test="${not empty sessionScope.alertMsg }">
+            <script>
+            alertify.alert('알림', '${sessionScope.alertMsg}', function(){ alertify.success('Ok'); });
+            </script>
+            <c:remove var="alertMsg" scope="session"/>
+        </c:if>
     <!-- 회원가입 폼(임시)  0604 - 무진 -->
     <!-- 메뉴바 -->
     <jsp:include page="../common/header.jsp" />
@@ -190,89 +187,87 @@
                         <div class="invalid-feedback">잘못된 형식의 이름입니다.</div>
                     </td>
                 </tr>
-	               <tr>
-					    <th class="required">아이디 *</th>
-					    <td colspan="3">
-					        <input id="userId"
-					               type="text"
-					               name="userId"
-					               required
-					               placeholder="영문자, 숫자를 포함하여 총 4~12자로"
-					               oninput="toggleIdCheckButton()">
-					        <div class="invalid-feedback">잘못된 형식의 아이디입니다.</div>
-					    </td>
-					    <td><button type="button"
-					                id="idCheckButton"
-					                onclick="idCheck();"
-					                disabled>중복확인</button></td>
-					</tr>
-					<!-- memberEnrollForm.jsp 비밀번호 중복 검사 관련 로직 추가 0610 - 무진  -->
+                   <tr>
+                        <th class="required">아이디 *</th>
+                        <td colspan="3">
+                            <input id="userId"
+                                   type="text"
+                                   name="userId"
+                                   required
+                                   placeholder="영문자, 숫자를 포함하여 총 4~12자로"
+                                   oninput="toggleIdCheckButton()">
+                            <div class="invalid-feedback">잘못된 형식의 아이디입니다.</div>
+                        </td>
+                        <td><button type="button"
+                                    id="idCheckButton"
+                                    onclick="idCheck();"
+                                    disabled>중복확인</button></td>
+                    </tr>
+                    <!-- memberEnrollForm.jsp 비밀번호 중복 검사 관련 로직 추가 0610 - 무진  -->
                  <tr>
-				    <th class="required">비밀번호 *</th>
-				    <td colspan="4">
-				        <input id="userPwd"
-				               type="password"
-				               name="userPwd"
-				               required
-				               placeholder="영문자, 숫자, 특수문자로 총 6~15자">
-				        <div class="invalid-feedback">잘못된 형식의 비밀번호입니다.</div>
-				    </td>
-				</tr>
-				<tr>
-				    <th class="required">비밀번호 확인</th>
-				    <td colspan="4">
-				        <input id="userPwd_check"
-				               type="password"
-				               required>
-				        <div class="invalid-feedback" id="pwdCheckFeedback">비밀번호가 일치하지 않습니다.</div>
-				    </td>
-				</tr>
-				<tr id="checkPwd-area" style="display: none;">
-				    <td></td>
-				    <td colspan="3">
-				        <p id="checkPwdMsg"></p>
-				    </td>
-				    <td></td>
-				</tr>
+                    <th class="required">비밀번호 *</th>
+                    <td colspan="4">
+                        <input id="userPwd"
+                               type="password"
+                               name="userPwd"
+                               required
+                               placeholder="영문자, 숫자, 특수문자로 총 6~15자">
+                        <div class="invalid-feedback">잘못된 형식의 비밀번호입니다.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <th class="required">비밀번호 확인</th>
+                    <td colspan="4">
+                        <input id="userPwd_check"
+                               type="password"
+                               required>
+                        <div class="invalid-feedback">비밀번호가 일치하지 않습니다.</div>
+                    </td>
+                </tr>
+                <tr>
+                    <td colspan="4">
+                        <p id="checkPwdMsg" style="display:none;"></p>
+                    </td>
+                </tr>
                 
                 <tr>
                     <th>생년월일</th>
                     <td colspan="4"><input type="date" min="14" max="100" name="age"></td>
                 </tr>
                 <tr>
-			    <th rowspan="3">주소</th>
-			    <td colspan="3">
-			        <input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${sessionScope.loginUser.postcode}">
-			    </td>
-			    <td>
-			        <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
-			    </td>
-			</tr>
-			<tr>
-			    <td colspan="2">
-			        <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${sessionScope.loginUser.roadAddress}">
-			    </td>
-			    <td colspan="2">
-			        <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${sessionScope.loginUser.jibunAddress}" width="30%">
-			    </td>
-			</tr>
-			<tr>
-			    <td colspan="2">
-			        <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${sessionScope.loginUser.detailAddress}">
-			    </td>
-			    <td colspan="2">
-			        <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" value="${sessionScope.loginUser.extraAddress}">
-			    </td>
-			</tr>
+                <th rowspan="3">주소</th>
+                <td colspan="3">
+                    <input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${sessionScope.loginUser.postcode}">
+                </td>
+                <td>
+                    <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${sessionScope.loginUser.roadAddress}">
+                </td>
+                <td colspan="2">
+                    <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${sessionScope.loginUser.jibunAddress}" width="30%">
+                </td>
+            </tr>
+            <tr>
+                <td colspan="2">
+                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${sessionScope.loginUser.detailAddress}">
+                </td>
+                <td colspan="2">
+                    <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" value="${sessionScope.loginUser.extraAddress}">
+                </td>
+            </tr>
                 <script src="//t1.daumcdn.net/mapjsapi/bundle/postcode/prod/postcode.v2.js"></script>
                 <!-- 아이디 중복확인 버튼이 비활성화 일때 보여지는 스타일을 위한 스크립트 0605 - 무진 -->
                 <script>
-				    function toggleIdCheckButton() {
-				        const userId = document.getElementById('userId').value;
-				        const idCheckButton = document.getElementById('idCheckButton');
-				        idCheckButton.disabled = userId.length < 5;
-				    }
-				</script>
+                    function toggleIdCheckButton() {
+                        const userId = document.getElementById('userId').value;
+                        const idCheckButton = document.getElementById('idCheckButton');
+                        idCheckButton.disabled = userId.length < 5;
+                    }
+                </script>
                 <script>
                     //본 예제에서는 도로명 주소 표기 방식에 대한 법령에 따라, 내려오는 데이터를 조합하여 올바른 주소를 구성하는 방법을 설명합니다.
                     function execDaumPostcode() {
@@ -315,27 +310,27 @@
                     }
                 </script>
                 <tr>
-				    <th class="required">전화번호 *</th>
-				    <td colspan="3">
-				        <input id="phone"
-				               type="number"
-				               name="phone"
-				               placeholder="- 제외하고 숫자 11글자"
-				               required>
-				        <div class="invalid-feedback">잘못된 형식의 전화번호입니다.</div>
-				    </td>
-				    <td><button type="button"
-				                onclick="phoneCheck();">중복확인</button></td>
-				</tr>
+                    <th class="required">전화번호 *</th>
+                    <td colspan="3">
+                        <input id="phone"
+                               type="number"
+                               name="phone"
+                               placeholder="- 제외하고 숫자 11글자"
+                               required>
+                        <div class="invalid-feedback">잘못된 형식의 전화번호입니다.</div>
+                    </td>
+                    <td><button type="button"
+                                onclick="phoneCheck();">중복확인</button></td>
+                </tr>
                 <tr>
-				    <th class="required">이메일 *</th>
-				    <td colspan="3">
-				        <input id="email" type="email" name="email" required>
-				        <div class="invalid-feedback">잘못된 형식의 이메일입니다.</div>
-				    </td>
-				    <td><button type="button"
-				                onclick="emailCheck();">중복확인</button></td>
-				</tr>
+                    <th class="required">이메일 *</th>
+                    <td colspan="3">
+                        <input id="email" type="email" name="email" required>
+                        <div class="invalid-feedback">잘못된 형식의 이메일입니다.</div>
+                    </td>
+                    <td><button type="button"
+                                onclick="emailCheck();">중복확인</button></td>
+                </tr>
             </table>
 
             <br><br>
@@ -387,10 +382,10 @@
             
             <br><br>
             <div id="btns" align="center">
-			    <button id="enrollBtn" type="submit"
-			            style="width: 300px; height: 50px; font-size: 20px; font-weight: 900;"
-			            disabled>가입하기</button>
-			</div>
+                <button id="enrollBtn" type="submit"
+                        style="width: 300px; height: 50px; font-size: 20px; font-weight: 900;"
+                        disabled>가입하기</button>
+            </div>
             <br><br>
         </form>
     </div>
@@ -438,11 +433,11 @@
 
             if (userPwd !== userPwd_check) {
                 $("#userPwd_check").addClass("is-invalid");
-                $("#pwdCheckFeedback").addClass("active").text("비밀번호가 일치하지 않습니다.");
+                $("#userPwd_check").next(".invalid-feedback").addClass("active").text("비밀번호가 일치하지 않습니다.");
                 isValid = false;
             } else {
                 $("#userPwd_check").removeClass("is-invalid").addClass("is-valid");
-                $("#pwdCheckFeedback").removeClass("active");
+                $("#userPwd_check").next(".invalid-feedback").removeClass("active");
             }
 
             if (!checkName.test(userName)) {
@@ -557,121 +552,115 @@
     let checkPhone = false;
     let checkEmail = false;
 
-	 // 아이디 중복 확인
-	    function idCheck() {
-	        let $userId = $("#userId");
-	        $.ajax({
-	            url: "<%=request.getContextPath()%>/idCheck.me",
-	            type: "post",
-	            data: { userId: $userId.val() },
-	            success: function(result) {
-	                if (result > 0) {
-	                    alert("이미 사용중인 아이디입니다.");
-	                    $userId.focus();
-	                } else {
-	                    if (confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
-	                        $userId.attr("readonly", true);
-	                        checkId = true;
-	                    } else {
-	                        $userId.focus();
-	                        checkId = false;
-	                    }
-	                }
-	            },
-	            error: function() {
-	                alert("아이디 중복 확인 중 오류가 발생했습니다.");
-	            }
-	        });
-	    }
-	
-	    // 비밀번호 일치 검사
-	    $(function() {
-	        $('#userPwd, #userPwd_check').keyup(function() {
-	            let password = $("#userPwd").val();
-	            let confirmPassword = $("#userPwd_check").val();
-	            let msg = $("#checkPwdMsg");
-	
-	            if (password === confirmPassword && password !== "") {
-	                msg.text("비밀번호가 일치합니다.").removeClass("nomatch").addClass("match");
-	            } else if (password === "" || confirmPassword === "") {
-	                msg.text("").removeClass("match nomatch");
-	            } else {
-	                msg.text("비밀번호가 일치하지 않습니다.").removeClass("match").addClass("nomatch");
-	            }
-	
-	            if (password === "" && confirmPassword === "") {
-	                $("#checkPwd-area").hide();
-	            } else {
-	                $("#checkPwd-area").show();
-	            }
-	        });
-	    });
-	
-	 // 전화번호 중복 확인
-	    function phoneCheck() {
-	        let $phone = $("#phone");
-	        $.ajax({
-	            url: "<%=request.getContextPath()%>/checkPhone.me",
-	            type: "post",
-	            data: { phone: $phone.val() },
-	            success: function(result) {
-	                if (result > 0) {
-	                    alert("이미 사용중인 번호입니다.");
-	                    $phone.focus();
-	                } else {
-	                    if (confirm("사용 가능한 번호입니다. 사용하시겠습니까?")) {
-	                        $phone.attr("readonly", true);
-	                        checkPhone = true;
-	                    } else {
-	                        $phone.focus();
-	                        checkPhone = false;
-	                    }
-	                }
-	            },
-	            error: function() {
-	                alert("전화번호 중복 확인 중 오류가 발생했습니다.");
-	            }
-	        });
-	    }
+     // 아이디 중복 확인
+        function idCheck() {
+            let $userId = $("#userId");
+            $.ajax({
+                url: "<%=request.getContextPath()%>/idCheck.me",
+                type: "post",
+                data: { userId: $userId.val() },
+                success: function(result) {
+                    if (result > 0) {
+                        alert("이미 사용중인 아이디입니다.");
+                        $userId.focus();
+                    } else {
+                        if (confirm("사용 가능한 아이디입니다. 사용하시겠습니까?")) {
+                            $userId.attr("readonly", true);
+                            checkId = true;
+                        } else {
+                            $userId.focus();
+                            checkId = false;
+                        }
+                    }
+                },
+                error: function() {
+                    alert("아이디 중복 확인 중 오류가 발생했습니다.");
+                }
+            });
+        }
+    
+        // 비밀번호 일치 검사
+        $(function() {
+            $('#userPwd, #userPwd_check').keyup(function() {
+                let password = $("#userPwd").val();
+                let confirmPassword = $("#userPwd_check").val();
+                let msg = $("#checkPwdMsg");
+    
+                if (password === confirmPassword && password !== "") {
+                    msg.text("비밀번호가 일치합니다.").removeClass("nomatch").addClass("match").hide();
+                } else if (password === "" || confirmPassword === "") {
+                    msg.text("").removeClass("match nomatch").hide();
+                } else {
+                    msg.text("비밀번호가 일치하지 않습니다.").removeClass("match").addClass("nomatch").hide();
+                }
+            });
+        });
+    
+     // 전화번호 중복 확인
+        function phoneCheck() {
+            let $phone = $("#phone");
+            $.ajax({
+                url: "<%=request.getContextPath()%>/checkPhone.me",
+                type: "post",
+                data: { phone: $phone.val() },
+                success: function(result) {
+                    if (result > 0) {
+                        alert("이미 사용중인 번호입니다.");
+                        $phone.focus();
+                    } else {
+                        if (confirm("사용 가능한 번호입니다. 사용하시겠습니까?")) {
+                            $phone.attr("readonly", true);
+                            checkPhone = true;
+                        } else {
+                            $phone.focus();
+                            checkPhone = false;
+                        }
+                    }
+                },
+                error: function() {
+                    alert("전화번호 중복 확인 중 오류가 발생했습니다.");
+                }
+            });
+        }
 
-	    // 이메일 중복 확인
-	    function emailCheck() {
-	        let $email = $("#email");
-	        $.ajax({
-	            url: "<%=request.getContextPath()%>/checkEmail.me",
-	            type: "post",
-	            data: { email: $email.val() },
-	            success: function(result) {
-	                if (result > 0) {
-	                    alert("이미 사용중인 이메일입니다.");
-	                    $email.focus();
-	                } else {
-	                    if (confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")) {
-	                        $email.attr("readonly", true);
-	                        checkEmail = true;
-	                    } else {
-	                        $email.focus();
-	                        checkEmail = false;
-	                    }
-	                }
-	            },
-	            error: function() {
-	                alert("이메일 중복 확인 중 오류가 발생했습니다.");
-	            }
-	        });
-	    }
-	
-	     // 필수 체크박스 확인
-	    function checkMandatoryCheckboxes() {
-	        let allChecked = true;
-	        $('.checkbox[required]').each(function() {
-	            if (!$(this).is(':checked')) {
-	                allChecked = false;
-	                return false;
-	            }
-	        });
-	        return allChecked;
-	    }
+        // 이메일 중복 확인
+        function emailCheck() {
+            let $email = $("#email");
+            $.ajax({
+                url: "<%=request.getContextPath()%>/checkEmail.me",
+                type: "post",
+                data: { email: $email.val() },
+                success: function(result) {
+                    if (result > 0) {
+                        alert("이미 사용중인 이메일입니다.");
+                        $email.focus();
+                    } else {
+                        if (confirm("사용 가능한 이메일입니다. 사용하시겠습니까?")) {
+                            $email.attr("readonly", true);
+                            checkEmail = true;
+                        } else {
+                            $email.focus();
+                            checkEmail = false;
+                        }
+                    }
+                },
+                error: function() {
+                    alert("이메일 중복 확인 중 오류가 발생했습니다.");
+                }
+            });
+        }
+    
+         // 필수 체크박스 확인
+        function checkMandatoryCheckboxes() {
+            let allChecked = true;
+            $('.checkbox[required]').each(function() {
+                if (!$(this).is(':checked')) {
+                    allChecked = false;
+                    return false;
+                }
+            });
+            return allChecked;
+        }
     </script>
 </body>
 </html>
