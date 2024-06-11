@@ -106,7 +106,9 @@
 
             <h1 align="center" style="color: #810000">문의글 작성</h1>
 
+
             <form action="insert.qa" method="post">
+            <input type="hidden" name="concertId" value="1">
                 <table align="center">
                     <tr>
                         <td>

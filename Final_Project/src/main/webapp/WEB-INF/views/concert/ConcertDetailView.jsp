@@ -694,6 +694,8 @@
     	const apiKey = "5866740403361550";
     	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
     	let token="";
+    	
+    	//access token 발급
     	function getToken() {
     		$.ajax({
     			url: "getToken.pa",
@@ -712,6 +714,7 @@
     		});
     	}
     	
+    	//환불
     	function refund() {
     		getToken();
     		$.ajax({
@@ -739,7 +742,7 @@
     
     <script>
     
-    //결제 전 검증 추가
+    //결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
     function payment() {
 	      //const myAmount = Number(document.getElementById("amount").value);
 	      const myAmount = 100;
