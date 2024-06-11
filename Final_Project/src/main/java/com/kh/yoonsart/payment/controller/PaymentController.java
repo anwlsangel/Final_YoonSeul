@@ -54,6 +54,16 @@ public class PaymentController {
 	public String concertDetailView2() {
 		return "concert/ConcertDetailView2";
 	}
+	//공연 상세페이지 포워딩
+	@GetMapping(value="concertDetailView3.co")
+	public String concertDetailView3() {
+		return "concert/ConcertDetailView3";
+	}
+	//공연 상세페이지 포워딩
+	@GetMapping(value="concertDetailView4.co")
+	public String concertDetailView4() {
+		return "concert/ConcertDetailView4";
+	}
 	
 	//결제검증
 	@ResponseBody

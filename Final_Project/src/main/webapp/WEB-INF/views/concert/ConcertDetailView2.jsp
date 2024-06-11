@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -394,12 +395,12 @@
 
                 <div class="booking-area" align="center">
                     <div style="height: 100px; border: 1px solid orange;">
-                        날짜 선택
+                        	날짜 선택
                     </div>
                     <br>
                     <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="payment();">
-                            예매하기
+                            	예매하기
                     </button>
                 </div>
 
