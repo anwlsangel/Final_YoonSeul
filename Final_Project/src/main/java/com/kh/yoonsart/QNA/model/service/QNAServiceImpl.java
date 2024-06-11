@@ -41,7 +41,7 @@ public class QNAServiceImpl implements QNAService{
 	@Override
 	public QNA selectlQNA(int qnaId) {
 		
-		return null;
+		return qnaDao.selectQNA(sqlSession, qnaId);
 	}
 
 	@Override

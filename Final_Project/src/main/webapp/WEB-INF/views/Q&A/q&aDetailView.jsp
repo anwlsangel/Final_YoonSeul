@@ -6,7 +6,7 @@
 <meta charset="UTF-8">
 <title>내 문의글 보기(상세조회)</title>
  <style>
-     body{
+   body{
             background-color: #F4F4F4;
             margin: 0;
             padding: 0;
@@ -41,6 +41,11 @@
         margin-top: 20px
     }  
 
+    .answer {
+        margin: auto;
+        width: 80%;    
+    }
+
     .answer-info>div {
         display: inline-block;
         font-size: 15px;
@@ -71,15 +76,23 @@
     .a-answer textarea {
         height: 70px;
         resize: none;
-        width: 650px;
+        width: 600px;
         box-sizing: border-box;
         border-radius: 5px;
     }   
+
+    #qnaTitle {
+        padding-left: 13px;
+    }
+
+    .list-detail>hr {
+        width: 100%;
+    }  
 </style>
 </head>
 <body>
 
-<jsp:include page="" />
+<jsp:include page="../common/header.jsp" />
 
  <div class="outer">
 	
@@ -89,7 +102,7 @@
 
         <br clear="both">
 
-        <h3>제목</h3>
+        <h4>제목</h4>
         <br>
       
         <span style="float: right;">작성일</span>
@@ -112,7 +125,7 @@
 
         <hr>
        
-         <!-- 관리자로 로그인한 경우 답변 작성 가능 
+         <!-- 관리자로 로그인한 경우 답변 작성 가능  -->
         <div class="answer-form">
 
             <form action="">
@@ -128,12 +141,12 @@
             </div>
          </form>
         </div>
-       -->
+      
 
         <!-- 답변 내용-->
         <div class="answer">
 
-            <h3 style="color: #810000">↪ 답변내용</h3>
+            <h5 style="color: #810000; padding-top: 10px;">↳ 문의 답변</h5>
 
             <div class="answer-content">
                 연소자의 근로는 특별한 보호를 받는다.

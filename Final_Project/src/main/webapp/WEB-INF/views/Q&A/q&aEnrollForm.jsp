@@ -108,16 +108,16 @@
 
 
             <form action="insert.qa" method="post">
-            <input type="hidden" name="concertId" value="1">
+            <input type="hidden" name="concertId" value="2">
                 <table align="center">
+                  <tr>
+                     <td>
+                        <input type="text" id="userId" class="form-control" value="${ sessionScope.loginUser.userId }" name="userId" readonly>
+                     </td>
+                    </tr>
                     <tr>
                         <td>
-                            <input type="text" id="title" name="qnaTitle" placeholder="문의글 제목" required>
-                        </td>
-                    </tr>
-                      <tr>
-                        <td>
-                        	<input type="text" id="userId" class="form-control" value="${ sessionScope.loginUser.userId }" name="userId" readonly>
+                           <input type="text" id="title" name="qnaTitle" placeholder="문의글 제목" required>
                         </td>
                     </tr>
                     <tr>

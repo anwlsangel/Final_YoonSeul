@@ -307,7 +307,7 @@
 <body>
 
 	<jsp:include page="../common/header.jsp" />
-
+	
     <div class="outer">
         <div class="container">
         
@@ -641,7 +641,7 @@
         <!-- 문의하기 버튼 -->
         <div class="btn-top">
         	<span>
-               	<a href="enrollform.qa"><button type="button" id="qbtn" >문의하기</button></a>
+               	<a href="enrollform.qa"><button type="button" id="qbtn">문의하기</button></a>
             </span>
         </div>
 
@@ -680,8 +680,7 @@
        <script>
        		$(function(){
        			
-       			$("#qnaList>tbody>tr").click(function(){
-       				
+       			$("#qnaList>tbody>tr").click(function(){       				
        				let qno = $(this).children().eq(0).text();
        				location.href = "detail.qa?qno=" + qno;
        			});
@@ -711,6 +710,7 @@
     	<button onclick="refund();">user01 결제 환불</button>
     </div>
      -->
+     
     <script>
     	const apiKey = "5866740403361550";
     	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";

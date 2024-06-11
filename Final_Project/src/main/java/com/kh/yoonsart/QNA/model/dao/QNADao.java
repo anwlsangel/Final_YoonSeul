@@ -31,9 +31,16 @@ public class QNADao {
 	
 	// 문의글 작성 
 	public int insertQNA(SqlSessionTemplate sqlSession, QNA q) {
+		
+		System.out.println(q.getConcertId());
 		return sqlSession.insert("qnaMapper.insertQNA", q);
 	}
 	
+	// 상세조회
+	public QNA selectQNA(SqlSessionTemplate sqlSession, int qnaId) {
+		
+		return sqlSession.selectOne("qnaMapper.selectQna", qnaId);
+	}
 	
 	
 }
