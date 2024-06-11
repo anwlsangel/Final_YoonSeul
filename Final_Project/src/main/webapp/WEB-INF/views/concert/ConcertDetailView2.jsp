@@ -398,10 +398,29 @@
                         	날짜 선택
                     </div>
                     <br>
+                    
+                    <c:choose>
+			           <c:when test="${empty sessionScope.loginUser }">
+			           <!-- 로그인 전 -->             
+			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                            onclick="alert('로그인 후 예매 가능합니다.');">
+                            	예매하기(로그인전)
+                    	</button>
+			           </c:when>
+			           <c:otherwise>
+			           <!-- 로그인 후 -->
+			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                            onclick="payment();">
+                            	예매하기(로그인후)
+                    	</button>
+			           </c:otherwise>
+			       </c:choose>
+        			<!-- 
                     <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="payment();">
                             	예매하기
                     </button>
+                     -->
                 </div>
 
                 <br><br><br><br><br><br>
