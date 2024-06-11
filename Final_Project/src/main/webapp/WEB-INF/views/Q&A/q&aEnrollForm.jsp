@@ -95,7 +95,7 @@
 </head>
 <body>
 
-<jsp:include page="" />
+<jsp:include page="../common/header.jsp" />
 
 <div class="outer">
         
@@ -106,16 +106,19 @@
 
             <h1 align="center" style="color: #810000">문의글 작성</h1>
 
-            <form action="" method="">
+            <form action="insert.qa" method="post">
                 <table align="center">
                     <tr>
                         <td>
-                            <input type="text" placeholder="문의글 제목" required>
+                            <input type="text" id="title" name="qnaTitle" placeholder="문의글 제목" required>
+                        </td>
+                        <td>
+                        	<input type="text" id="userId" class="form-control" value="${ sessionScope.loginUser.userId }" name="userId" readonly>
                         </td>
                     </tr>
                     <tr>
                         <td colspan="2">
-                            <textarea placeholder="문의 사항"></textarea>
+                            <textarea id="content" name="qnaContent"  placeholder="문의 사항"></textarea>
                             <!-- <input type="text" placeholder="문의 사항"> -->
                         </td>
                     </tr>
@@ -129,6 +132,6 @@
         </div>
     </div>
     
-    <jsp:include page="" />
+   <!-- 푸터 들어갈 자리  -->
 </body>
 </html>

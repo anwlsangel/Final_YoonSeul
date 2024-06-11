@@ -628,8 +628,8 @@
 
         <!-- 문의하기 버튼 -->
         <div class="btn-top">
-            <span>
-                <button type="submit" id="qbtn">문의하기</button>
+        	<span>
+               	<a href="enrollform.qa"><button type="button" id="qbtn" >문의하기</button></a>
             </span>
         </div>
 
@@ -643,32 +643,20 @@
                         <th width="70px;" height="30px;">No.</th>
                         <th width="350px;">제목</th>
                         <th width="150px;">날짜</th>
-                        <th width="100px;">조회수</th>
+                        <th width="100px;">작성자</th>
                         <th width="120px;">답변 여부</th>
                     </tr>
                 </thead>
                 <tbody>
+                <c:forEach var="q" items="${requestScope.list}">
                     <tr>
-                        <td>1</td>
-                        <td>문의사항 제목1</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td>완료</td>
+                        <td>${q.qnaId}</td>
+                        <td>${q.qnaTitle}</td>
+                        <td>${q.createDate}</td>
+                        <td>${q.userId}</td>
+                        <td style="color : orange;">${q.answerDate}</td>
                     </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>문의사항 제목2</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td>완료</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>문의사항 제목3</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td></td>
-                    </tr>
+                </c:forEach>
                 </tbody>
             </table>
         </div>

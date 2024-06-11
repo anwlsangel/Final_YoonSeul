@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.yoonsart.QNA.model.dao.QNADao;
 import com.kh.yoonsart.QNA.model.vo.QNA;
@@ -28,13 +29,13 @@ public class QNAServiceImpl implements QNAService{
 	@Override
 	public ArrayList<QNA> selectList(PageInfo pi) {
 		
-		return null;
+		return qnaDao.selectList(sqlSession, pi);
 	}
 
 	@Override
+	@Transactional
 	public int insertQNA(QNA q) {
-		
-		return 0;
+		return qnaDao.insertQNA(sqlSession, q);
 	}
 
 	@Override
