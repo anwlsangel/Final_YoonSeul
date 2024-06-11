@@ -460,8 +460,8 @@ $('#signupLink').click(function(event) {
 });
 $(document).ready(function() {
     $('#findIdButton').click(function() {
-        const name = $('#findIdForm #userName').val();
-        const phone = $('#findIdForm #phone').val();
+        const name = $('#findIdForm input[name=userName]').val();
+        const phone = $('#findIdForm input[name=phone]').val();
         
         $.ajax({
             type: "POST",
