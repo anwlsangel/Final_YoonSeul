@@ -309,6 +309,15 @@
 
     <div class="outer">
         <div class="container">
+        
+        	 <!-- 알림 메시지 표시 -->
+			  <c:if test="${not empty sessionScope.alertMsg}">
+			      <script>
+			          alert('${sessionScope.alertMsg}');
+			      </script>
+			      <c:remove var="alertMsg" scope="session"/>
+			  </c:if>
+        
             <div id="title-area" style="margin-top: 100px;">
                 <h2>스튜디오 지브리 애니메이션의 거장 타카하타 이사오전</h2>
                 <h6 style="color: gray;">2024.04.26 ~ 2024.08.03 | 세종문화회관 세종미술관 1관 2관</h6>

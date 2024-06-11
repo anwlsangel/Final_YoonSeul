@@ -49,6 +49,10 @@ public class ConcertController {
         Concert concert = concertService.concertDetail(cno);
         model.addAttribute("concert", concert);
         ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
+        
+        // 페이징처리구문 추가 
+        
+        
         model.addAttribute("qnaList", qnaList);
         System.out.println(qnaList);
         
