@@ -34,4 +34,23 @@
 		</interceptor>
 	</interceptors>
 	
+	<!-- email 전송 관련 빈 등록 - 0611 무진 -->
+	<beans:bean class="org.springframework.mail.javamail.JavaMailSenderImpl" id="mailSender">
+		<beans:property name="host" value="smtp.gmail.com"/>
+		<beans:property name="port" value="25"/>
+		<beans:property name="username" value="anwlsangel@gmail.com"/>
+		<beans:property name="password" value="yjcuoheizuhwcqgi"/>
+		
+		<!-- email  정송 시 필요한 SMTP 관련 설정값 
+			Properties prop = new Properties();
+			이뜻임
+			prop.setProperty-->
+		<beans:property name="javaMailProperties">
+			<beans:props>
+				<beans:prop key="mail.transport.protocol">smtp</beans:prop>
+				<beans:prop key="mail.smtp.auth">true</beans:prop>
+				<beans:prop key="mail.smtp.starttls.enable">true</beans:prop>
+			</beans:props>
+		</beans:property>
+	</beans:bean>
 </beans:beans>
