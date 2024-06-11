@@ -22,4 +22,8 @@ public class NavigationController {
     public String showYoonSeulArtHallLocation() {
     	return "infohall/YoonSeulArtHallLocation"; // WEB-INF 경로와 .jsp 확장자를 제외한 JSP 파일의 경로
     }
+    @GetMapping("convenience")
+    public String showConvenience() {
+    	return "infohall/Convenience";
+    }
 }

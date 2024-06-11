@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.review.model.vo.Review;
 
 @Controller
 public class ConcertController {
@@ -46,9 +47,16 @@ public class ConcertController {
 	
 	@GetMapping("detail.co")
 	public String concertDetail(@RequestParam("cno") int cno, Model model) {
+		
+		// 상세 조회
         Concert concert = concertService.concertDetail(cno);
         model.addAttribute("concert", concert);
+        
+        // Q&A 조회
         ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
+        
+        // 후기 조회
+        ArrayList<Review> rvList = concertService.selectReview(cno);
         
         // 페이징처리구문 추가 
         

@@ -54,6 +54,14 @@ public class PaymentController {
 	public String concertDetailView2() {
 		return "concert/ConcertDetailView2";
 	}
+	@GetMapping(value="concertDetailView3.co")
+	public String concertDetailView3() {
+		return "concert/ConcertDetailView3";
+	}
+	@GetMapping(value="concertDetailView4.co")
+	public String concertDetailView4() {
+		return "concert/ConcertDetailView4";
+	}
 	
 	//결제검증
 	@ResponseBody

@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="reviewMapper">
+
+	<resultMap type="review" id="reviewResultSet">
+	 	<result column="REVIEW_ID" property="reviewId"/>
+	 	<result column="REVIEW_CONTENT" property="reviewContent"/>
+	 	<result column="REVIEW_POINT" property="reviewPoint"/>
+	 	<result column="WRITE_DATE" property="writeDate"/>
+	 	<result column="USER_ID" property="userId"/>
+	 	<result column="CONCERT_ID" property="concertId"/>
+	 </resultMap>
+	 
+	 <select id="selectReview" resultType="_int" resultMap="reviewResultSet">
+	 	SELECT *
+	 	  FROM REVIEW
+	 </select>
+
+</mapper>

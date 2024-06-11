@@ -11,6 +11,7 @@
     	<typeAlias type="com.kh.yoonsart.payment.model.vo.BuyList" alias="buylist" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.Concert" alias="concert" />
     	<typeAlias type="com.kh.yoonsart.QNA.model.vo.QNA" alias="qna" />
+    	<typeAlias type="com.kh.yoonsart.review.model.vo.Review" alias="review" />
 
     </typeAliases>
     <mappers>
@@ -18,6 +19,7 @@
         <mapper resource="/mappers/payment-mapper.xml"/>
         <mapper resource="/mappers/concert-mapper.xml"/>
         <mapper resource="/mappers/qna-mapper.xml"/>
+        <mapper resource="/mappers/review-mapper.xml" />
     </mappers>
    
 </configuration>

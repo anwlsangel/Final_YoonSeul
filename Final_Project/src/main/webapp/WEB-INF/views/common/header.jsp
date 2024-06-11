@@ -373,7 +373,7 @@ hr {
                     <a href="#" title="주차장">주차장</a>
                 </li>
                 <li>
-                    <a href="#" title="편의시설">편의시설</a>
+                    <a href="convenience" title="편의시설">편의시설</a>
                 </li>
                 <li>
                     <a href="#" title="영상정보처리기기 운영/관리 방침">영상정보처리기기 운영/관리 방침</a>
