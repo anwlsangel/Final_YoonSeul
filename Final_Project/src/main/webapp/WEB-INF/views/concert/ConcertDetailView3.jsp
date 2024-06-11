@@ -101,7 +101,7 @@
         float: right;
     }
     .review-update>a {
-    	color : gray;
+        color: gray;
         text-decoration: none;
         margin-right: 10px;
     }
@@ -295,9 +295,13 @@
 	        font-weight: bolder;
 	        font-size: 18px;
 	        text-decoration: none;
-	    }		
+	    }
 	
-			
+	    .paging-area>a:hover {
+	        color : #EEEBDD; 
+	    }
+		
+	
     </style>
 </head>
 <body>
@@ -306,6 +310,15 @@
 
     <div class="outer">
         <div class="container">
+        
+        	 <!-- 알림 메시지 표시 -->
+			  <c:if test="${not empty sessionScope.alertMsg}">
+			      <script>
+			          alert('${sessionScope.alertMsg}');
+			      </script>
+			      <c:remove var="alertMsg" scope="session"/>
+			  </c:if>
+        
             <div id="title-area" style="margin-top: 100px;">
             	<input type="hidden" id="concertID" value="1"> <!-- 주문번호생성시 필요 -->
                 <h2>스튜디오 지브리 애니메이션의 거장 타카하타 이사오전</h2>
@@ -400,7 +413,7 @@
                     <br>
                     <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="payment();">
-                            	예매하기
+                           	 예매하기
                     </button>
                 </div>
 
@@ -411,7 +424,6 @@
                     <a href="#reviews"><button class="detail-menu">관람후기</button></a>
                     <button class="detail-menu">예매/취소 안내</button>
                     <a href="#text"><button class="detail-menu">문의</button></a>
-
                 </div>
 
                 <div class="detail-info">
@@ -424,25 +436,25 @@
                 <br><br>
                 
                 
-                <!----------------------------------------------------->
+          <!----------------------------------------------------->
                 
-                <!-- 관람 후기 작성 -->
-                 <!-- 별점 선택 -->
-        		<div id="star-area" align="center">
+         <!-- 관람 후기 작성 -->
+         <!-- 별점 선택 -->
+        <div id="star-area" align="center">
 
-            	<p id="star-text">별점을 선택해주세요.</p>
+            <p id="star-text">별점을 선택해주세요.</p>
             
-            	<div class="star-rating">
-	                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-	                    title="5 stars">&#9733;</label>
-	                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-	                    title="4 stars">&#9733;</label>
-	                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-	                    title="3 stars">&#9733;</label>
-	                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-	                    title="2 stars">&#9733;</label>
-	                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-	                    title="1 star">&#9733;</label>
+            <div class="star-rating">
+                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+                    title="5 stars">&#9733;</label>
+                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+                    title="4 stars">&#9733;</label>
+                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+                    title="3 stars">&#9733;</label>
+                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+                    title="2 stars">&#9733;</label>
+                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+                    title="1 star">&#9733;</label>
             </div>
         </div>
 
@@ -557,18 +569,45 @@
                         </div>
                         <div class="review-line"></div>
                     </div>
+                    <div class="review">
+                        <div class="review-star">★★★★☆</div>
+                        <div class="review-content">
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                            연소자의 근로는 특별한 보호를 받는다.
+                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
+                            모든 국민은 직업선택의 자유를 가진다.
+                        </div>
+                        <div class="review-info">
+                            <div class="review-writer">user01</div>
+                            <div class="review-createDate">2024.06.05</div>
+                        </div>
+                        <div class="review-line"></div>
+                    </div>
                 </div>
                 
                 <br><br>
                 
                 <!-- 댓글 수정 모달창 -->
+              	<!--
                 <div class="modal" id="updateForm">
         			<div class="modal-dialog">
         		<div class="modal-content" style="height: 200px; margin-top: 50px;">
-			        <!-- Modal body -->
 			        <div class="modal-body">
 			         	<form action="" method="post" class="modal-center">
-			         	<!-- <form onsubmit="updateReply();"> -->
 			         		<div align="center">
 			         			<input type="hidden" id="" name="" val="">
 			         			<input type="hidden" id="" name="eventNo" val="">
@@ -581,18 +620,17 @@
 							</div>
 						</form>
 			        </div>
-			        
         		</div>
         	</div>
-
             </div>
+            -->
         </div>
     </div>
     
    		<!----------------------------------------------------->
     	<!-- 문의 목록 -->
     	<br><br>
-
+		
         <div id="text">
         <p>
          	궁금한점을 해결해드립니다. <br>
@@ -602,8 +640,8 @@
 
         <!-- 문의하기 버튼 -->
         <div class="btn-top">
-            <span>
-                <button type="submit" id="qbtn">문의하기</button>
+        	<span>
+               	<a href="enrollform.qa"><button type="button" id="qbtn" >문의하기</button></a>
             </span>
         </div>
 
@@ -611,41 +649,46 @@
 
         <!-- 문의글 목록 -->
         <div class="question-list">
-            <table class="table table-hover" align="center">
+            <table id="qnaList" class="table table-hover" align="center">
                 <thead>
                     <tr>
                         <th width="70px;" height="30px;">No.</th>
                         <th width="350px;">제목</th>
                         <th width="150px;">날짜</th>
-                        <th width="100px;">조회수</th>
+                        <th width="100px;">작성자</th>
                         <th width="120px;">답변 여부</th>
                     </tr>
                 </thead>
                 <tbody>
-                    <tr>
-                        <td>1</td>
-                        <td>문의사항 제목1</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td>완료</td>
-                    </tr>
-                    <tr>
-                        <td>2</td>
-                        <td>문의사항 제목2</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td>완료</td>
-                    </tr>
-                    <tr>
-                        <td>3</td>
-                        <td>문의사항 제목3</td>
-                        <td>작성일</td>
-                        <td>조회수</td>
-                        <td></td>
-                    </tr>
+                <c:forEach var="q" items="${qnaList}">       
+                <tr>
+                    <td>${q.qnaId}</td>
+                    <td>${q.qnaTitle}</td>
+                    <td>${q.createDate}</td>
+                    <td>${q.userId}</td>
+                    <td style="color : #810000;">
+                    <c:if test="${not empty q.answerDate}">
+                    	완료
+                    </c:if>
+                    </td>
+                </tr>
+            </c:forEach>
                 </tbody>
             </table>
         </div>
+        
+       <script>
+       		$(function(){
+       			
+       			$("#qnaList>tbody>tr").click(function(){
+       				
+       				let qno = $(this).children().eq(0).text();
+       				location.href = "detail.qa?qno=" + qno;
+       			});
+       		});
+       </script>
+        
+        
 
          <!-- 페이징바 -->
          <div class="paging-area" align="center">
@@ -657,11 +700,15 @@
                  &gt;
             </a>    
         </div>
-    	
     
+    <div>
+    <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE</button>
+    </div>
+    <!-- 
     <div>
     	<button onclick="refund();">user01 결제 환불</button>
     </div>
+     -->
     <script>
     	const apiKey = "5866740403361550";
     	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
@@ -706,9 +753,6 @@
     		});
     	}
     </script>
-    
-    	
-    
 
 
     <div class="footer">
@@ -717,14 +761,14 @@
     
     <script>
     
-  	//결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
+    //결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
     function payment() {
-  		//주문번호(BUYLIST_ID) 랜덤생성
+    	//주문번호(BUYLIST_ID) 랜덤생성
   		let concertName = $("#concertID").val();
   		let formattedDate = moment().format('YYYYMMDD');
   		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
   		let randomUid = concertName + formattedDate + randomNum;
-  		
+    	
 	    //const myAmount = Number(document.getElementById("amount").value);
 	    const myAmount = 100;
 	
@@ -735,14 +779,14 @@
 	      	// param
 	         pg: "html5_inicis",
 	         pay_method: "card",
-	         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
-	         name: "공연이름333", //공연이름 == RESERVE_CONCERT_NAME
+	         merchant_uid: "concertName240617random", //주문번호 == BUYLIST_ID
+	         name: "공연이름", //공연이름 == RESERVE_CONCERT_NAME
 	         amount: myAmount,
 	         buyer_email: "gildonggmailcom",
 	         buyer_name: "HongGildong",
 	         buyer_tel: "01042424242",
 	         buyer_addr: "Seoul",
-	         buyer_postcode: "01181",
+	         buyer_postcode: "00000",
 	         
 	         //m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소
 	      }, function(rsp) {
