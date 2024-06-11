@@ -237,16 +237,16 @@ html,body{
             </h2>
             <ul class="depth2">
                 <li class="hasThird">
-                    <a href="#" title="윤슬아트홀 소개">윤슬아트홀 소개</a>
+                    <a href="<%=request.getContextPath()%>/infohall" title="윤슬아트홀 소개">윤슬아트홀 소개</a>
                 </li>
                 <li class="hasThird">
                     <a href="#" title="공연장" class="over">공연장</a>
                     <ul class="depth3">
                         <li>
-                            <a href="#" title="콘서트홀">콘서트홀</a>
+                            <a href="<%=request.getContextPath()%>/starlight" title="콘서트홀">별빛홀</a>
                         </li>
                         <li>
-                            <a href="#" title="스탠딩홀">스탠딩홀</a>
+                            <a href="<%=request.getContextPath()%>/moonlight" title="스탠딩홀">달빛마당</a>
                         </li>
                     </ul>
                 </li>
@@ -265,10 +265,10 @@ html,body{
                     </ul>
                 </li>
                 <li class="hasThird">
-                    <a href="#" title="오시는길">오시는길</a>
+                    <a href="" title="오시는길">오시는길</a>
                     <ul class="depth3">
                         <li>
-                            <a href="#" title="오시는길">오시는길</a>
+                            <a href="<%=request.getContextPath()%>/halllocation" title="오시는길">오시는길</a>
                         </li>
                         <li>
                             <a href="#" title="주차안내">주차안내</a>
@@ -288,6 +288,14 @@ html,body{
     const items = document.querySelectorAll('#snb .hasThird > a');
     items.forEach(item => {
         item.addEventListener('click', function (e) {
+            // 클릭된 항목의 href 값 가져오기
+            const hrefValue = this.getAttribute('href');
+
+            // 서브 메뉴가 없는 경우 이동
+            if (this.nextElementSibling === null) {
+                return;
+            }
+
             e.preventDefault();
 
             const parent = this.parentElement;
@@ -314,12 +322,18 @@ html,body{
             }
 
             adjustSidebarHeight();
+
+            // 서브 메뉴가 없는 경우 이동
+            if (hrefValue && this.nextElementSibling === null) {
+                window.location.href = hrefValue;
+            }
         });
     });
 
     const subItems = document.querySelectorAll('#snb .depth3 a');
     subItems.forEach(subItem => {
-        subItem.addEventListener('click', function () {
+        subItem.addEventListener('click', function (e) {
+            e.preventDefault();
             window.location.href = this.getAttribute('href');
         });
     });
