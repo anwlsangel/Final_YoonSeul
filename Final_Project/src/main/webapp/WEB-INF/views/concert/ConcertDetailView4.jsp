@@ -702,9 +702,7 @@
         </div>
     
     <div>
-    <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE 2</button>
-    <button onclick="location.href = 'concertDetailView3.co';">TEST PAGE 3</button>
-    <button onclick="location.href = 'concertDetailView4.co';">TEST PAGE 4</button>
+    <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE</button>
     </div>
     <!-- 
     <div>
