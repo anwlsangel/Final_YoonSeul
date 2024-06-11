@@ -6,6 +6,7 @@ import java.util.Locale;
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -30,12 +31,18 @@ public class PaymentController {
 	@Autowired
 	private PaymentService paymentService;
 	
-	private IamportClient api;
-
+	//결제검증 시 필요
+	@Value("${iamport.key}")
+    private String restApiKey = "5866740403361550";
+    @Value("${iamport.secret}")
+    private String restApiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
+    
+    private IamportClient iamportClient;
+    
     public PaymentController() {
-        // REST API 키와 REST API secret 를 아래처럼 순서대로 입력한다.
-        this.api = new IamportClient("5866740403361550","to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp");
+        this.iamportClient = new IamportClient(restApiKey, restApiSecret);
     }
+    //------
 	
 	//공연 상세페이지 포워딩
 	@GetMapping(value="concertDetailView.co")
@@ -48,15 +55,11 @@ public class PaymentController {
 		return "concert/ConcertDetailView2";
 	}
 	
-	//결제 정보 검증
+	//결제검증
 	@ResponseBody
-    //@RequestMapping(value="/verifyIamport/imp84822672")
-	@PostMapping(value="paymentCheck.pa")
-    public IamportResponse<Payment> paymentByImpUid(Model model
-										          , Locale locale
-										          , HttpSession session
-										          , @PathVariable(value= "imp_uid") String imp_uid) throws IamportResponseException, IOException {
-        return api.paymentByImpUid(imp_uid);
+    @PostMapping(value="checkAmount")
+    public IamportResponse<Payment> paymentByImpUid(String imp_uid) throws IamportResponseException, IOException {
+    	return iamportClient.paymentByImpUid(imp_uid);
     }
 	
 	//결제 정보 DB에 저장
