@@ -751,7 +751,7 @@
 	        	// param
 		          pg: "html5_inicis",
 		          pay_method: "card",
-		          merchant_uid: "1114aaa34224132", //주문번호 == BUYLIST_ID
+		          merchant_uid: "1114aaa3224132", //주문번호 == BUYLIST_ID
 		          name: "공연이름222", //공연이름 == RESERVE_CONCERT_NAME
 		          amount: myAmount,
 		          buyer_email: "gildonggmailcom",
