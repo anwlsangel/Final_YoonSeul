@@ -62,6 +62,7 @@ public class ConcertController {
         
         
         model.addAttribute("qnaList", qnaList);
+        model.addAttribute("cno",cno);
         // System.out.println(qnaList);
         
         return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름

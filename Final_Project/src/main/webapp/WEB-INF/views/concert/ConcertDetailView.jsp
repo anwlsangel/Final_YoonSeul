@@ -653,7 +653,7 @@
         <!-- 문의하기 버튼 -->
         <div class="btn-top">
         	<span>
-               	<a href="enrollform.qa"><button type="button" id="qbtn">문의하기</button></a>
+               	<a href="enrollform.qa?cno=${cno}"><button type="button" id="qbtn">문의하기</button></a>
             </span>
         </div>
 

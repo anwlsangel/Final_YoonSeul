@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -108,7 +109,7 @@
 
 
             <form action="insert.qa" method="post">
-            <input type="hidden" name="concertId" value="2">
+            <input type="hidden" id="hidden" name="concertId" value="${cno}">
                 <table align="center">
                   <tr>
                      <td>
@@ -135,7 +136,6 @@
             </form>
         </div>
     </div>
-    
-   <!-- 푸터 들어갈 자리  -->
+   <jsp:include page="../common/footer.jsp" />
 </body>
 </html>

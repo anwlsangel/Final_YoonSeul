@@ -102,10 +102,10 @@
 
         <br clear="both">
 
-        <h4>제목</h4>
+        <h4>${q.qnaTitle}</h4>
         <br>
       
-        <span style="float: right;">작성일</span>
+        <span style="float: right;">${q.createDate}</span>
 
         <br clear="both;">
 
@@ -117,7 +117,7 @@
 
         <div class="question-content">
         <p>
-			내용나오기~~
+			${q.qnaContent}
         </p>
         </div>
 
@@ -187,6 +187,6 @@
 </div>
 
 
-<jsp:include page="" />
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

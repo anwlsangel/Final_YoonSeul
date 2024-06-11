@@ -44,8 +44,10 @@ public class QNAController {
 	
 	
 	@GetMapping("enrollform.qa")
-	public String enrollForm(ModelAndView mv) {
-		return "Q&A/q&aEnrollForm";
+	public ModelAndView enrollForm(ModelAndView mv,String cno) {
+		mv.addObject("cno", cno);
+		mv.setViewName("Q&A/q&aEnrollForm");
+		return mv;
 	}
 	
 	@PostMapping(value="insert.qa")
@@ -72,9 +74,10 @@ public class QNAController {
 	@GetMapping("detail.qa")
 	public ModelAndView selectBoard(@RequestParam("qno") int qno, ModelAndView mv) {
 		
-		System.out.println(qno);
+		// System.out.println(qno);
 		
 		QNA q = qnaService.selectlQNA(qno);
+		System.out.println(q);
 		mv.addObject("q", q).setViewName("Q&A/q&aDetailView") ;
 	
 		return mv;
