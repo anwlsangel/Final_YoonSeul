@@ -414,12 +414,7 @@
                     	</button>
 			           </c:otherwise>
 			       </c:choose>
-        			<!-- 
-                    <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                            onclick="payment();">
-                            예매하기
-                    </button>
-                     -->
+			       
                 </div>
 
                 <br><br><br><br><br><br>
