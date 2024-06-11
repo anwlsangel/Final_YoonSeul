@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -648,15 +649,15 @@
                     </tr>
                 </thead>
                 <tbody>
-                <c:forEach var="q" items="${requestScope.list}">
-                    <tr>
-                        <td>${q.qnaId}</td>
-                        <td>${q.qnaTitle}</td>
-                        <td>${q.createDate}</td>
-                        <td>${q.userId}</td>
-                        <td style="color : orange;">${q.answerDate}</td>
-                    </tr>
-                </c:forEach>
+                <c:forEach var="q" items="${qnaList}">       
+                <tr>
+                    <td>${q.qnaId}</td>
+                    <td>${q.qnaTitle}</td>
+                    <td>${q.createDate}</td>
+                    <td>${q.userId}</td>
+                    <td style="color : orange;">${q.answerDate}</td>
+                </tr>
+            </c:forEach>
                 </tbody>
             </table>
         </div>

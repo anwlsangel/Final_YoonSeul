@@ -6,6 +6,7 @@ import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.dao.ConcertDao;
 import com.kh.yoonsart.concert.model.vo.Concert;
 
@@ -34,6 +35,12 @@ public class ConcertServiceImpl implements ConcertService{
 	public Concert concertDetail(int cno) {
 
 		return concertDao.concertDetail(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<QNA> selectQnaList(int cno) {
+
+		return concertDao.selectQnaList(sqlSession, cno);
 	}
 	
 

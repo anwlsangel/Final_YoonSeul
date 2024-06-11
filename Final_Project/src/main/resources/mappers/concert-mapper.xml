@@ -62,7 +62,7 @@
             <otherwise>
                 ORDER BY CONCERT_ID DESC
             </otherwise>
-        </choose>
+        </choose> 
     </select>
     
     <!-- 상세조회용 쿼리문 -->
@@ -71,4 +71,5 @@
         FROM CONCERT_INFO
         WHERE CONCERT_ID = #{concertId}
     </select>
+        	      
 </mapper>
