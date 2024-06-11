@@ -9,6 +9,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.review.model.vo.Review;
 
 @Repository
 public class ConcertDao {
@@ -45,6 +46,13 @@ public class ConcertDao {
 	public ArrayList<QNA> selectQnaList(SqlSessionTemplate sqlSession, int cno) {
 				
 		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", cno);
+	}
+
+	public ArrayList<Review> selectReview(SqlSessionTemplate sqlSession, int cno) {
+
+		System.out.println((ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno));
+		return (ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno);
+		
 	}
 	
 

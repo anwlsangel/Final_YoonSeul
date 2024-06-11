@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.review.model.vo.Review;
 
 public interface ConcertService {
 
@@ -14,5 +15,7 @@ public interface ConcertService {
 	Concert concertDetail(int concertId);
 	
 	ArrayList<QNA> selectQnaList(int cno);
+
+	ArrayList<Review> selectReview(int cno);
 	
 }

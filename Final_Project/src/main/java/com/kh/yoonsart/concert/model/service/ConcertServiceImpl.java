@@ -9,6 +9,7 @@ import org.springframework.stereotype.Service;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.dao.ConcertDao;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.review.model.vo.Review;
 
 @Service
 public class ConcertServiceImpl implements ConcertService{
@@ -41,6 +42,12 @@ public class ConcertServiceImpl implements ConcertService{
 	public ArrayList<QNA> selectQnaList(int cno) {
 
 		return concertDao.selectQnaList(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<Review> selectReview(int cno) {
+
+		return concertDao.selectReview(sqlSession, cno);
 	}
 	
 
