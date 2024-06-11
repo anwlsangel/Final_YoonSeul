@@ -21,6 +21,27 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectList", params);
 		
 	}
+
+	public ArrayList<Concert> searchList(SqlSessionTemplate sqlSession, String keyword, String category, String sort) {
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("keyword", keyword);
+		params.put("category", category);
+        params.put("sort", sort);
+		
+        System.out.println((ArrayList)sqlSession.selectList("concertMapper.searchList", params));
+        
+		return (ArrayList)sqlSession.selectList("concertMapper.searchList", params); 
+		
+		
+	}
+
+	public Concert concertDetail(SqlSessionTemplate sqlSession, int cno) {
+		
+		// System.out.println("여기까진 오지?" + cno);
+
+		return sqlSession.selectOne("concertMapper.concertDetail", cno);
+	}
 	
 
 }

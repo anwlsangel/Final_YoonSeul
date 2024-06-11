@@ -23,6 +23,18 @@ public class ConcertServiceImpl implements ConcertService{
 
 		return concertDao.selectList(sqlSession, category, sort);
 	}
+
+	@Override
+	public ArrayList<Concert> searchList(String keyword, String category, String sort) {
+
+		return concertDao.searchList(sqlSession, keyword, category, sort);
+	}
+
+	@Override
+	public Concert concertDetail(int cno) {
+
+		return concertDao.concertDetail(sqlSession, cno);
+	}
 	
 
 }

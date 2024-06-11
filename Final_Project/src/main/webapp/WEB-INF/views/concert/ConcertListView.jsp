@@ -40,7 +40,7 @@
 
     .concert-list-detail img {
         width: 100%;
-        height: auto;
+        height: 230px;
         object-fit: cover;
         cursor: pointer;
     }
@@ -93,15 +93,6 @@
         cursor: pointer;
         
     }
-
-    .concert-navi input {
-        margin-left: auto;
-        margin-top: 20px;
-        padding: 5px;
-        font-size: large;
-        width: 20%; /* 원하는 너비로 설정 */
-        box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
-    }
     
     .concert-navi-2 {
         display: flex;
@@ -132,14 +123,36 @@
         
     }
 
-    .concert-navi-2 input {
-        margin-left: auto;
-        margin-top: 20px;
+    .search {
+        display: flex;
+        justify-content: flex-end;
+        align-items: center;
+        margin: 30px;
+    }
+    
+    .search input {
         padding: 5px;
         font-size: large;
         width: 20%; /* 원하는 너비로 설정 */
-        box-sizing: border-box; /* 패딩을 포함한 너비 계산 */
+        box-sizing: border-box;
+        margin-right: 10px; /* 버튼과의 간격 조절 */
     }
+    
+    .search button {
+        padding: 5px 10px;
+        font-size: large;
+        border: none;
+        background-color: lightgray;
+        color: black;
+        cursor: pointer;
+        border-radius: 5px; /* 둥근 모서리 추가 */
+        transition: background-color 0.3s ease; /* 배경색 전환 효과 */
+    }
+
+    .search button:hover {
+        background-color: gray; /* 호버 시 배경색 */
+    }    
+    
     .container {
             max-width: 1000px;
             margin: 20px auto;
@@ -154,9 +167,10 @@
 <jsp:include page="../common/header.jsp" />
 
 <c:set var="sort" value="${param.sort != null ? param.sort : 'date'}" />
+<c:set var="category" value="${param.category != null ? param.category : '전체보기'}" />
 
 <div class="container">
-<div class="concert-navi">
+    <div class="concert-navi">
         <div class="concert-navi-category">
             <a href="list.co?category=전체&sort=${sort}">전체</a>
             <a href="list.co?category=콘서트&sort=${sort}">콘서트</a>
@@ -165,51 +179,56 @@
             <a href="list.co?category=로맨스&sort=${sort}">로맨스</a>
             <a href="list.co?category=아동&sort=${sort}">아동</a>
             <a href="list.co?category=전시&sort=${sort}">전시</a>
-        </div>              
-        <input type="text" value="공연 검색" style="text-align: center;">
+        </div>                     
     </div>
+    <form action="search.co">
+        <div class="search">
+            <input type="text" name="keyword" placeholder="공연 제목" style="text-align: center;">
+            <input type="hidden" name="category" value="${category}">
+            <input type="hidden" name="sort" value="${sort}">
+            <button type="submit">검색</button>
+        </div>
+    </form>
     <hr>
     <div class="concert-navi-2">
         <div class="concert-navi-category-2"> 
-            <a href="list.co?category=${param.category}&sort=popularity">인기순</a>
-            <a href="list.co?category=${param.category}&sort=date">최신순</a>
-            <a href="list.co?category=${param.category}&sort=price">저렴한 가격순</a>
+            <a href="list.co?category=${category}&sort=popularity">인기순</a>
+            <a href="list.co?category=${category}&sort=date">최신순</a>
+            <a href="list.co?category=${category}&sort=price">저렴한 가격순</a>             
         </div>                    
     </div>
     <hr>
 
-    <h1 id="page-title" style="text-align: center; color: black;">전체보기</h1>
+    <h1 id="page-title" style="text-align: center; color: black;">${category}</h1>
+
     <div id="concert-list" class="concert-list">
-    <c:forEach var="co" items="${requestScope.list}">
-        <div class="concert-list-detail">
-            <a href="list.co?cno=${co.concertId}">
-                <img src="${co.thumbnailRoot}" style="width: 100%; height: 100%;">
-            </a>
-            <div class="detail-title">${co.concertName}</div>
-            <div class="detail-text">${co.startDate}</div>
-        </div>
-    </c:forEach>
+        <c:forEach var="co" items="${requestScope.list}">
+            <div class="concert-list-detail">
+                <a href="detail.co?cno=${co.concertId}">
+                    <img src="${co.thumbnailRoot}">
+                </a>
+                <div class="detail-title">${co.concertName}</div>
+                <div class="detail-text">${co.startDate}</div>
+            </div>
+        </c:forEach>
+    </div>
 </div>
-</div>
-	<script>
-	$(function() {
-		
-		selectList();
-	})
-	
+<script>
+    $(function() {
+        selectList();
+    });
+
     document.addEventListener('DOMContentLoaded', function() {
-        const categoryButtons = document.querySelectorAll('.concert-navi-category button');
+        const categoryLinks = document.querySelectorAll('.concert-navi-category a');
         const pageTitle = document.getElementById('page-title');
 
-        categoryButtons.forEach(button => {
-            button.addEventListener('click', function(event) {
-                event.preventDefault();
+        categoryLinks.forEach(link => {
+            link.addEventListener('click', function(event) {
                 const category = this.innerText.trim();
                 pageTitle.textContent = category;
             });
         });
-    });            
-   
-</script> 
+    });
+</script>
 </body>
 </html>
