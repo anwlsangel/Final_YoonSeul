@@ -491,7 +491,7 @@
                 <div id="main-navi">
                     <div><a href=""><img src="resources/image/logo.png"id="logo"></a></div>                    
                     <div class="navi"><a href="list.co?category=전체&sort=date">공연정보</a></div>
-                    <div class="navi"><a href="">소개</a></div>
+                    <div class="navi"><a href="<%=request.getContextPath()%>/infohall">소개</a></div>
                     <div class="navi"><a href="">공지사항</a></div>                      
                     <div class="navi"><a href="">유실물센터</a></div>    
                     <!-- 로그인 전후 화면 변경 0603 -무진 -->

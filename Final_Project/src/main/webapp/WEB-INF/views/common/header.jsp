@@ -198,7 +198,7 @@ html,body{
         <div id="navitb">
             <div><a href="<%= request.getContextPath() %>"><img src="resources/image/logo.png" id="logo"></a></div>                    
             <div class="navi"><a href="">공연정보</a></div>
-            <div class="navi"><a href="">소개</a></div>
+            <div class="navi"><a href="<%=request.getContextPath()%>/infohall">소개</a></div>
             <div class="navi"><a href="">공지사항</a></div>                      
             <div class="navi"><a href="">대관</a></div>                 
             <!-- 로그인 전후 화면 변경 0603 -무진 -->
