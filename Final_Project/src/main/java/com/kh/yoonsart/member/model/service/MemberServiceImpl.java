@@ -20,7 +20,7 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public Member loginMember(Member m) {
 		
-		return memberDao.loginMember(sqlSession, m);
+		return memberDao.loginMember(m);
 		
 	}
 
@@ -28,21 +28,21 @@ public class MemberServiceImpl implements MemberService{
 	@Transactional
 	public int insertMember(Member m) {
 		// 회원가입용 서비스 MemberServiceImpl 0604 - 무진
-		return memberDao.insertMember(sqlSession, m);
+		return memberDao.insertMember(m);
 	}
 
 	@Override
 	@Transactional
 	public int updateMember(Member m) {
 		// MemberServiceImpl 회원 정보 수정용 서비스 0604 - 무진
-		return memberDao.updateMember(sqlSession, m);
+		return memberDao.updateMember(m);
 	}
 
 	@Override
 	@Transactional
 	public int deleteMember(String userId) {
 		
-		return memberDao.deleteMember(sqlSession, userId);
+		return memberDao.deleteMember(userId);
 		
 	}
 	
@@ -51,20 +51,33 @@ public class MemberServiceImpl implements MemberService{
 	@Override
 	public int idCheck(String userId) {
 		
-		return memberDao.idCheck(sqlSession, userId);
+		return memberDao.idCheck(userId);
 	}
 	
 	// MemberServiceImpl 전화번호 중복 검사용 메소드 0610 - 무진
 	@Override
 	public int checkPhone(String phone) {
 		
-		 return memberDao.checkPhone(sqlSession,phone);
+		 return memberDao.checkPhone(phone);
 	}
 	
 	// MemberServiceImpl 이메일 중복 검사용 메소드 0610 - 무진
 	@Override
 	public int checkEmail(String email) {
 		
-		return memberDao.checkEmail(sqlSession, email);
+		return memberDao.checkEmail(email);
+	}
+
+	@Override
+	public String findIdByNameAndPhone(String userName, String phone) {
+		
+		return memberDao.findIdByNameAndPhone(userName, phone);
+	}
+
+	@Override
+	public boolean resetPassword(String email, String newPwd) {
+		
+		int result = memberDao.updatePasswordByEmail(email, newPwd);
+        return result > 0;
 	}
 }

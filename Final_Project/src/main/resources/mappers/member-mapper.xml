@@ -95,6 +95,17 @@
         WHERE EMAIL = #{email}
     </select>
     
+     <select id="findIdByNameAndPhone" resultType="String">
+        SELECT USER_ID
+        FROM MEMBER
+        WHERE USER_NAME = #{userName} AND PHONE = #{phone} AND STATUS = 1
+    </select>
+
+    <update id="updatePasswordByEmail">
+        UPDATE MEMBER
+        SET USER_PWD = #{newPwd}
+        WHERE EMAIL = #{email} AND STATUS = 1
+    </update>
     
     
     

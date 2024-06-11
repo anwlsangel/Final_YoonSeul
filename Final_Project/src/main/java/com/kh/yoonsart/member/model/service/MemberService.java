@@ -25,5 +25,9 @@ public interface MemberService {
 		int checkPhone(String phone);
 		// 이메일 중복체크 서비스(select) - ajax
 		int checkEmail(String email);
+		// 아이디 찾기 기능
+		String findIdByNameAndPhone(String userName, String phone);
+		// 비밀번호 초기화 기능
+		boolean resetPassword(String email, String newPwd);
 		
 }

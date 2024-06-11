@@ -100,7 +100,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">회원탈퇴</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
+                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
                 </div>
 
                 <form action="delete.me" method="post">
@@ -154,7 +154,10 @@
 	            method: 'POST',
 	            data: { [type]: value },
 	            success: function(response) {
-	                if (response === "1") {
+	                console.log(`Response for ${type}:`, response);  // 디버깅 메시지 추가
+	                // 만약 response가 문자열이 아니거나 null/undefined인 경우 처리
+	                let isDuplicate = response.trim() === "1";
+	                if (isDuplicate) {
 	                    if (type === 'email') {
 	                        $('#email').addClass('is-invalid');
 	                        $('#email').removeClass('is-valid');
@@ -180,6 +183,21 @@
 	                    }
 	                }
 	                toggleSubmitButton();
+	            },
+	            error: function(xhr, status, error) {
+	                console.error(`Error checking ${type}:`, error);
+	                if (type === 'email') {
+	                    $('#email').addClass('is-invalid');
+	                    $('#email').removeClass('is-valid');
+	                    $('#emailFeedback').show();
+	                    emailValid = false;
+	                } else if (type === 'phone') {
+	                    $('#phone').addClass('is-invalid');
+	                    $('#phone').removeClass('is-valid');
+	                    $('#phoneFeedback').show();
+	                    phoneValid = false;
+	                }
+	                toggleSubmitButton();
 	            }
 	        });
 	    }
@@ -189,6 +207,9 @@
 	        const currentPhone = $('#phone').val();
 	        const currentUserName = $('#userName').val();
 	        const currentAddress = $('#address').val();
+
+	        console.log("Current values:", { currentEmail, currentPhone, currentUserName, currentAddress });
+	        console.log("Initial values:", { initialEmail, initialPhone, initialUserName, initialAddress });
 
 	        if (currentEmail !== initialEmail || currentPhone !== initialPhone || currentUserName !== initialUserName || currentAddress !== initialAddress) {
 	            $('button[type="submit"]').prop('disabled', false);
@@ -212,7 +233,6 @@
 	        }
 	    });
 	});
-
 	</script>
     <jsp:include page="" />
 
