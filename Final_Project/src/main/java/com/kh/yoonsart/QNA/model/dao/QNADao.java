@@ -32,7 +32,7 @@ public class QNADao {
 	// 문의글 작성 
 	public int insertQNA(SqlSessionTemplate sqlSession, QNA q) {
 		
-		System.out.println(q.getConcertId());
+		// System.out.println(q.getConcertId());
 		return sqlSession.insert("qnaMapper.insertQNA", q);
 	}
 	
@@ -41,6 +41,8 @@ public class QNADao {
 		
 		return sqlSession.selectOne("qnaMapper.selectQna", qnaId);
 	}
+	
+	
 	
 	
 }

@@ -4,10 +4,12 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
+import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.review.model.vo.Review;
 
@@ -45,6 +47,14 @@ public class ConcertDao {
 
 	public ArrayList<QNA> selectQnaList(SqlSessionTemplate sqlSession, int cno) {
 				
+//		int limit = pi.getBoardLimit();
+//		int offset = (pi.getCurrentPage() - 1) * limit;
+//			
+//		RowBounds rowBounds = new RowBounds(offset, limit);
+//			
+//		return (ArrayList)sqlSession.selectList("qnaMapper.selectList", cno, rowBounds);
+		
+		
 		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", cno);
 	}
 
@@ -53,6 +63,12 @@ public class ConcertDao {
 		System.out.println((ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno));
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno);
 		
+	}
+	
+	// 문의글 총 갯수
+	public int selectListCount(SqlSessionTemplate sqlSession) {
+				
+		return sqlSession.selectOne("concertMapper.selectListCount");
 	}
 	
 

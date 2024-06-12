@@ -71,5 +71,12 @@
         FROM CONCERT_INFO
         WHERE CONCERT_ID = #{concertId}
     </select>
-        	      
+        	
+     <!-- 게시글 갯수 -->
+	 <select id="selectListCount" resultType="_int">
+		SELECT COUNT(*)
+		  FROM QNA
+		 WHERE STATUS = '1'
+	</select>    	
+          
 </mapper>

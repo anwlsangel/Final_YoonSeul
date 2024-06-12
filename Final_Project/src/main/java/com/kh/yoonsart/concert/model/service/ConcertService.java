@@ -3,6 +3,7 @@ package com.kh.yoonsart.concert.model.service;
 import java.util.ArrayList;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
+import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.review.model.vo.Review;
 
@@ -17,5 +18,11 @@ public interface ConcertService {
 	ArrayList<QNA> selectQnaList(int cno);
 
 	ArrayList<Review> selectReview(int cno);
+
+	// QNA 리스트 총 갯수
+//	int selectListCount();
+//	ArrayList<QNA> selectQnaList(int cno, PageInfo pi);
+	
+	
 	
 }

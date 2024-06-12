@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
+import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.common.template.Pagination;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.review.model.vo.Review;
@@ -46,7 +48,7 @@ public class ConcertController {
 	}
 	
 	@GetMapping("detail.co")
-	public String concertDetail(@RequestParam("cno") int cno, Model model) {
+	public String concertDetail(@RequestParam("cno") int cno, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
 		
 		// 상세 조회
         Concert concert = concertService.concertDetail(cno);
@@ -59,7 +61,16 @@ public class ConcertController {
         ArrayList<Review> rvList = concertService.selectReview(cno);
         
         // 페이징처리구문 추가 
-        
+//        int listCount = concertService.selectListCount();
+//		int pageLimit = 10;
+//		int boardLimit = 5;
+//		
+//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+//		
+//		ArrayList<QNA> list = concertService.selectQnaList(pi);
+//		
+//		model.addAttribute("pi", pi);
+//		model.addAttribute("list", list);
         
         model.addAttribute("qnaList", qnaList);
         model.addAttribute("cno",cno);
