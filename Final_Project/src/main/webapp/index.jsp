@@ -34,391 +34,405 @@
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
-
-    html,body{
-        margin: 0;
-        padding: 0;
-    }
-    div {
-        box-sizing: border-box;
-    }
-    #main-header{
-        width: 100%;
-        height: 100px;
-        display: flex;        
-        align-items: center;     
-        z-index: 2; 
-    }
-    
-    #main-navi {
-        width: 100%;
-        display: flex;
-        justify-content: space-between;
-        align-items: center;
-        padding: 0 30px;
-    }
-
-    .navi a {
-        text-decoration: none;
-        font-size: 25px;
-        margin-right: 100px;
-        position: relative;        
-        padding: 6px 12px;        
-    }
-    .navi a::after {
-        content: "";
-        position: absolute;
-        bottom: 0;
-        left: 50%;
-        transform: translateX(-50%);
-        width: 0;
-        height: 4px;
-        background: #EEEBDD;
-        transition: all .5s ease-out;        
-    }
-
-    #main-navi a:hover::after {
-        width: 100%;
-    }
-
-    #logo{
-        position: relative;
-        top: 5px;
-        width: 120px;
-        height: 100%;
-        text-decoration: none;
-    }
-
-    .swiper-slide>img {
-        width: 100%;
-        height: 700px;
-    }
-    
-    #mainImage {
-        position: relative;
-        width: 100%;
-        margin:auto;
-    }
-    #main-header {
-        top:0;
-        left:0;
-        position: absolute;
-    }
-    #main-header a {        
-        color : #EEEBDD;
-    }
-    .jbFixed{
-        position: fixed;
-        top: 0px;
-        width: 100%;
-        background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);     
-        justify-content: space-between;
-        align-items: center;  
-      }
-    
-    div[class^=swiper-button] {
-        color : white;
-    }  
-
-    .swiper {
-        z-index: 2;
-    }
-
-    .main-page-schedule{
-        margin: auto;
-        width: 80%;
-        height: 650px;
-        align-items: center;
-        margin-top: 300px;
-        object-fit: cover;
-    }
-
-    .schedule-main {
-        text-align: center;        
-    }
-
-    .main-page-schedule .schedule-list .schedule {
-        justify-content: space-between;
-        width: 280px;        
-        align-items: center;
-        padding: 0 30px;
-        float: left;
-        /* border: 1px solid red; */            
-    }
-
-    .schedule img {
-        transition: all 0.3s linear;        
-    }
-    .schedule:hover img {
-        transform: scale(1.1);
-    }
-
-    .schedule-list {
-        display: flex;
-        justify-content: center;
-        flex-wrap: wrap;
-        gap: 3px;
-        margin: 10px;
-        height: 700px;
-    }
-    .schedule {
-        box-sizing: border-box;   
-        height: 300px;    
-    }
-
-    .category {
-        width: 100%;
-        height: 100px;   
-        display: flex;
-        flex-wrap: wrap;          
-    }
-    #category-button {
-            margin: auto;
-            width: 150px;
-            background: #810000;
-            color: #fff;
-            font-size: 16px;
-            padding: 16px 32px;
-            line-height: 16px;
-            border-radius: 24px;
-            display: block;
-            outline: none;
-            appearance: none;
-            border: none;
-            text-decoration: none;
-            letter-spacing: .5px;
-            box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
-            transform: translateY(0) translateZ(0);
-            transition: transform .44s ease, box-shadow .44s ease;
-        }
-        #category-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 4px 20px -2px rgba(12, 12, 12, 0.5);
-        }
-        #category-button.reverse {
-            font-size: 16px;
-        }
-        #category-button.reverse:hover span {
-            margin-top: 16px;
-        }
-
-    /* footer */
-    .footer {
-            background-color: #810000;
-            color: white;
-            text-align: center;
-            padding: 10px 0;
-            margin-top: 20px;
-            box-sizing : border-box;
-            width : 100%;
-            height : 180px;
-        }
-
-        .footer>div { width : 100%; }
-        #footer_1 { height : 20%; }
-        #footer_2 { 
-            height : 60%;
-            display: flex;
-            align-items: center; /* 이미지와 텍스트 수직 정렬 */
-            flex-wrap: wrap; /* 필요시 줄 바꿈 */
-            gap: px; /* 요소 간 간격 */
-            margin: 0;
-            justify-content: center;
-        }
-        #footer_3 {
-            height : 20%;
-            font-size: 12px;
-        }
-
-
-        #footer_2>p {
-            /* border : 1px solid blue; */
-            width : 100%;
-            margin : 0px;
-            box-sizing : border-box;
-        }
-        #footer_p1 {
-            height : 80%; 
-            padding : 5px 15px;
-            text-align: left;
-            display: flex;
-            font-size : 11px;
-            flex-direction: column;
-        }
-
-
-        #footer_1>a {
-            text-decoration : none;
-            color : white;
-            font-weight : 600;
-            margin : 15px;
-            vertical-align : middle;
-            /*
-                수직 구조에서 가운데로 오게끔 해주는 속성
-            */
-        }
-        .footer_logo {
-            display: inline-block;
-            align-self: flex-start;
-            margin: 0 20px; 
-        }
-        #footer_text {
-            display: inline-block;
-            flex-direction: column;
-            gap: 10px; /* 텍스트 요소 간 간격 */
-            margin-right: 120px;
-        }
-
-        #schedule-button {
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        width: 100%;
-        height: 50px;
-        align-self: center;
-        margin: 50px;
-        display: flex;
-        flex-wrap: wrap;  
-}
-    #sc-button {
-            margin-top: 10px;
-            background: #810000;
-            color: #fff;
-            font-size: 16px;
-            padding: 16px 32px;
-            font-family: 'Roboto';
-            font-weight: 500;
-            line-height: 16px;
-            border-radius: 24px;
-            display: block;
-            outline: none;
-            appearance: none;
-            border: none;
-            text-decoration: none;
-            letter-spacing: .5px;
-            box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
-            transform: translateY(0) translateZ(0);
-            transition: transform .44s ease, box-shadow .44s ease;
-        }
-        #sc-button:hover {
-            transform: translateY(-4px);
-            box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
-        }
-        #sc-button span {
-            display: inline-block;
-            transition: margin-top .44s ease;
-        }
-        #sc-button:hover span {
-            margin-top: -16px;
-        }
-        #sc-button.reverse span {
-            margin-top: 16px;
-        }
-        #sc-button.reverse:hover span {
-            margin-top: 32px;
-        }
-
-	/* 0605 공지사항 스타일 안먹는 곳 일부 수정  (문동균)*/
-
-.main-notice {
-    width: 80%;
-    height: 500px;
-    margin: auto;
-    border: 1px solid #630000;
-    margin-top: 150px;
-}
-
-.main-notice h1{
-    text-align: center;    
-}
-
-.notice-list {
-    width: 100%;
-    text-align: center;  
-    height: 100%;     
-    position: relative;
-}
-
-.notice-list tbody{
-    height: 80%;
-}
-
-.notice-list thead{
-    height: 20%;
-}
-
-.main-top-img {
-    width: 100%;
-    height: 500px;
-    /* border: 1px solid red; */
-    margin-top: 50px;
-    display: flex;
-    justify-content: center;
-}
-
-.top-img {
-    width: 20%;
-    height: 100%;
-    display: block;
-    margin-left: auto;
-    margin-right: auto;
-}
-
-.overlay {
-        position: absolute;
-        top: 0;
-        left: 0;
-        width: 100%;
-        height: 100%;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        background: rgb(0, 0, 0, 0.5);
-        opacity: 0;
-}
-
-.top-img:hover .overlay {
-    opacity: 1;
-    color: white;
-    text-align: center;
-}
-
-
-.top-img {
-    position: relative;
-}
-
-.top-img img {
-    width: 100%;
-    object-fit: cover
-}
-
-.detail-text {
-    border: 1px solid red;
-    height: 50px;
-    margin-top: 13px;
-	}
-
-    .main-login {
-        display: flex;
-        justify-content: space-between;
-        width: 200px; 
-        margin-right: 30px;
-    }
-
-    .main-login a {
-        text-decoration: none;
-        font-size: 18px;
-        margin-right: 100px;
-        margin: auto; 
-    }
-    .main-login a:hover {
-        cursor: pointer;
-    }
-    #main-navi label {
-		color: white;
-	}
-
+		html, body {
+		    margin: 0;
+		    padding: 0;
+		}
+		
+		div {
+		    box-sizing: border-box;
+		}
+		
+		#main-header {
+		    width: 100%;
+		    height: 80px; /* 헤더 높이 조정 */
+		    display: flex;        
+		    align-items: center;     
+		    z-index: 2;
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		}
+		
+		#main-navi {
+		    width: 100%;
+		    display: flex;
+		    justify-content: space-between;
+		    align-items: center;
+		    padding: 0 30px;
+		}
+		
+		.navi a, .main-login a, .logged-in-links a {
+		    text-decoration: none;
+		    font-size: 18px;
+		    position: relative;
+		    padding: 6px 12px;
+		    color: white;
+		}
+		
+		.navi a {
+		    font-size: 25px;
+		    margin-right: 100px;
+		}
+		
+		.navi a::after, .main-login a::after, .logged-in-links a::after {
+		    content: "";
+		    position: absolute;
+		    bottom: 0;
+		    left: 50%;
+		    transform: translateX(-50%);
+		    width: 0;
+		    height: 4px;
+		    background: #EEEBDD;
+		    transition: all .5s ease-out;
+		}
+		
+		.navi a:hover::after, .main-login a:hover::after, .logged-in-links a:hover::after {
+		    width: 100%;
+		}
+		
+		#logo {
+		    position: relative;
+		    top: 10px;
+		    width: 80px;
+		    height: 80px;
+		    text-decoration: none;
+		}
+		
+		.swiper-slide > img {
+		    width: 100%;
+		    height: 700px;
+		}
+		
+		#mainImage {
+		    position: relative;
+		    width: 100%;
+		    margin: auto;
+		}
+		
+		.jbFixed {
+		    position: fixed;
+		    top: 0px;
+		    width: 100%;
+		    background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);     
+		    justify-content: space-between;
+		    align-items: center;  
+		}
+		
+		div[class^=swiper-button] {
+		    color: white;
+		}  
+		
+		.swiper {
+		    z-index: 2;
+		}
+		
+		.main-page-schedule {
+		    margin: auto;
+		    width: 80%;
+		    height: 650px;
+		    align-items: center;
+		    margin-top: 300px;
+		    object-fit: cover;
+		    text-align: center;
+		}
+		
+		.schedule-list {
+		    display: flex;
+		    justify-content: center;
+		    flex-wrap: wrap;
+		    gap: 3px;
+		    margin: 10px;
+		    height: 700px;
+		}
+		
+		.schedule {
+		    box-sizing: border-box;   
+		    height: 300px;
+		    width: 280px;        
+		    align-items: center;
+		    padding: 0 30px;
+		    float: left;
+		}
+		
+		.schedule img {
+		    transition: all 0.3s linear;        
+		}
+		
+		.schedule:hover img {
+		    transform: scale(1.1);
+		}
+		
+		.category {
+		    width: 100%;
+		    height: 100px;   
+		    display: flex;
+		    flex-wrap: wrap;          
+		}
+		
+		#category-button {
+		    margin: auto;
+		    width: 150px;
+		    background: #810000;
+		    color: #fff;
+		    font-size: 16px;
+		    padding: 16px 32px;
+		    line-height: 16px;
+		    border-radius: 24px;
+		    display: block;
+		    outline: none;
+		    appearance: none;
+		    border: none;
+		    text-decoration: none;
+		    letter-spacing: .5px;
+		    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
+		    transform: translateY(0) translateZ(0);
+		    transition: transform .44s ease, box-shadow .44s ease;
+		}
+		
+		#category-button:hover {
+		    transform: translateY(-4px);
+		    box-shadow: 0 4px 20px -2px rgba(12, 12, 12, 0.5);
+		}
+		
+		#category-button.reverse {
+		    font-size: 16px;
+		}
+		
+		#category-button.reverse:hover span {
+		    margin-top: 16px;
+		}
+		
+		.footer {
+		    background-color: #810000;
+		    color: white;
+		    text-align: center;
+		    padding: 10px 0;
+		    margin-top: 20px;
+		    box-sizing: border-box;
+		    width: 100%;
+		    height: 180px;
+		}
+		
+		.footer > div { width: 100%; }
+		
+		#footer_1 { height: 20%; }
+		
+		#footer_2 { 
+		    height: 60%;
+		    display: flex;
+		    align-items: center;
+		    flex-wrap: wrap;
+		    margin: 0;
+		    justify-content: center;
+		}
+		
+		#footer_3 {
+		    height: 20%;
+		    font-size: 12px;
+		}
+		
+		#footer_2 > p {
+		    width: 100%;
+		    margin: 0px;
+		    box-sizing: border-box;
+		}
+		
+		#footer_p1 {
+		    height: 80%; 
+		    padding: 5px 15px;
+		    text-align: left;
+		    display: flex;
+		    font-size: 11px;
+		    flex-direction: column;
+		}
+		
+		#footer_1 > a {
+		    text-decoration: none;
+		    color: white;
+		    font-weight: 600;
+		    margin: 15px;
+		    vertical-align: middle;
+		}
+		
+		.footer_logo {
+		    display: inline-block;
+		    align-self: flex-start;
+		    margin: 0 20px;
+		}
+		
+		#footer_text {
+		    display: inline-block;
+		    flex-direction: column;
+		    gap: 10px;
+		    margin-right: 120px;
+		}
+		
+		#schedule-button {
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    width: 100%;
+		    height: 50px;
+		    align-self: center;
+		    margin: 50px;
+		    flex-wrap: wrap;
+		}
+		
+		#sc-button {
+		    margin-top: 10px;
+		    background: #810000;
+		    color: #fff;
+		    font-size: 16px;
+		    padding: 16px 32px;
+		    font-family: 'Roboto';
+		    font-weight: 500;
+		    line-height: 16px;
+		    border-radius: 24px;
+		    display: block;
+		    outline: none;
+		    appearance: none;
+		    border: none;
+		    text-decoration: none;
+		    letter-spacing: .5px;
+		    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
+		    transform: translateY(0) translateZ(0);
+		    transition: transform .44s ease, box-shadow .44s ease;
+		}
+		
+		#sc-button:hover {
+		    transform: translateY(-4px);
+		    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
+		}
+		
+		#sc-button span {
+		    display: inline-block;
+		    transition: margin-top .44s ease;
+		}
+		
+		#sc-button:hover span {
+		    margin-top: -16px;
+		}
+		
+		#sc-button.reverse span {
+		    margin-top: 16px;
+		}
+		
+		#sc-button.reverse:hover span {
+		    margin-top: 32px;
+		}
+		
+		.main-notice {
+		    width: 80%;
+		    height: 500px;
+		    margin: auto;
+		    border: 1px solid #630000;
+		    margin-top: 150px;
+		}
+		
+		.main-notice h1 {
+		    text-align: center;    
+		}
+		
+		.notice-list {
+		    width: 100%;
+		    text-align: center;  
+		    height: 100%;     
+		    position: relative;
+		}
+		
+		.notice-list tbody {
+		    height: 80%;
+		}
+		
+		.notice-list thead {
+		    height: 20%;
+		}
+		
+		.main-top-img {
+		    width: 100%;
+		    height: 500px;
+		    margin-top: 50px;
+		    display: flex;
+		    justify-content: center;
+		}
+		
+		.top-img {
+		    width: 20%;
+		    height: 100%;
+		    display: block;
+		    margin-left: auto;
+		    margin-right: auto;
+		    position: relative;
+		}
+		
+		.overlay {
+		    position: absolute;
+		    top: 0;
+		    left: 0;
+		    width: 100%;
+		    height: 100%;
+		    display: flex;
+		    justify-content: center;
+		    align-items: center;
+		    background: rgb(0, 0, 0, 0.5);
+		    opacity: 0;
+		}
+		
+		.top-img:hover .overlay {
+		    opacity: 1;
+		    color: white;
+		    text-align: center;
+		}
+		
+		.top-img img {
+		    width: 100%;
+		    object-fit: cover
+		}
+		
+		.detail-text {
+		    border: 1px solid red;
+		    height: 50px;
+		    margin-top: 13px;
+		}
+		
+		/* 로그인 및 회원가입 링크 스타일 및 효과 추가 */
+		.main-login {
+		    display: flex;
+		    align-items: center;
+		    justify-content: space-between;
+		    width: 300px; /* 영역을 넓힘 */
+		    margin-right: 30px;
+		}
+		
+		.main-login a {
+		    margin-right: 20px; /* 간격 조정 */
+		    top: 10px; 
+		}
+		
+		.main-login-logged-in {
+		    display: flex;
+		    align-items: center;
+		    margin-left: auto; /* 오른쪽으로 이동 */
+		    margin-right: 60px; /* 오른쪽으로 더 이동 */
+		}
+		
+		.welcome-message {
+		    color: white;
+		    margin-right: 20px;
+		     margin-top: 15px;
+		}
+		
+		.logged-in-links {
+		    display: flex;
+		    flex-direction: column;
+		    align-items: flex-start;
+		}
+		
+		.logged-in-links a {
+		    margin-left: 0;
+		    margin-top: 5px;
+		}
 
 </style>
 <body>    
@@ -431,159 +445,158 @@
 		</c:if>
 <!-- 로그인 모달창 추가 0603 -무진 -->
     <!-- 로그인 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 a 클릭 시 보임) -->
-<!-- 로그인 모달창 -->
-<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="loginModalLabel">Login</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form action="login.me" method="post">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="userId">ID:</label>
-                        <input type="text" class="form-control" name="userId" placeholder="Enter ID" value="${ cookie.saveId.value }" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="userPwd">Password:</label>
-                        <input type="password" class="form-control"  name="userPwd" placeholder="Enter Password" required>
-                    </div>
-                    <div class="form-group form-check">
-                        <input type="checkbox" class="form-check-input" id="saveId" name="saveId" value="y" ${ not empty cookie.saveId ? 'checked' : '' }>
-                        <label class="form-check-label" for="saveId">아이디 저장</label>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <div class="d-flex justify-content-between w-100">
-                        <div class="d-flex flex-column">
-                            <button type="button" class="btn btn-link mb-2" data-toggle="modal" data-target="#findIdModal">아이디 찾기</button>
-                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#findPwdModal">비밀번호 찾기</button>
-                        </div>
-                        <div class="d-flex align-items-center">
-                            <button type="submit" class="btn btn-primary mr-2">로그인</button>
-                            <button type="button" class="btn btn-info mr-2" id="signupButton">회원가입</button>
-                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-                        </div>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+		<!-- 로그인 모달창 -->
+		<div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="loginModalLabel">Login</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form action="login.me" method="post">
+		                <!-- Modal body -->
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="userId">ID:</label>
+		                        <input type="text" class="form-control" name="userId" placeholder="Enter ID" value="${ cookie.saveId.value }" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="userPwd">Password:</label>
+		                        <input type="password" class="form-control"  name="userPwd" placeholder="Enter Password" required>
+		                    </div>
+		                    <div class="form-group form-check">
+		                        <input type="checkbox" class="form-check-input" id="saveId" name="saveId" value="y" ${ not empty cookie.saveId ? 'checked' : '' }>
+		                        <label class="form-check-label" for="saveId">아이디 저장</label>
+		                    </div>
+		                </div>
+		                <!-- Modal footer -->
+		                <div class="modal-footer">
+		                    <div class="d-flex justify-content-between w-100">
+		                        <div class="d-flex flex-column">
+		                            <button type="button" class="btn btn-link mb-2" data-toggle="modal" data-target="#findIdModal">아이디 찾기</button>
+		                            <button type="button" class="btn btn-link" data-toggle="modal" data-target="#findPwdModal">비밀번호 찾기</button>
+		                        </div>
+		                        <div class="d-flex align-items-center">
+		                            <button type="submit" class="btn btn-primary mr-2">로그인</button>
+		                            <button type="button" class="btn btn-info mr-2" id="signupButton">회원가입</button>
+		                            <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+		                        </div>
+		                    </div>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
 
-<!-- 아이디 찾기 모달창 -->
-<div class="modal fade" id="findIdModal" tabindex="-1" role="dialog" aria-labelledby="findIdModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content" style="min-height: 432px;">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="findIdModalLabel">아이디 찾기</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="findIdForm">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="userName">이름:</label>
-                        <input type="text" class="form-control" name="userName" placeholder="Enter Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="phone">전화번호:</label>
-                        <input type="text" class="form-control"  name="phone" placeholder="Enter Phone" required>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="findIdButton">아이디 찾기</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
-
-
-<!-- 비밀번호 찾기 모달창 -->
-<div class="modal fade" id="findPwdModal" tabindex="-1" role="dialog" aria-labelledby="findPwdModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="findPwdModalLabel">비밀번호 찾기</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="findPwdForm">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="userName">이름:</label>
-                        <input type="text" class="form-control"  name="userName" placeholder="Enter Name" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="userId">아이디:</label>
-                        <input type="text" class="form-control"  name="userId" placeholder="Enter ID" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="email">이메일:</label>
-                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="findPwdButton">인증번호 발송</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+		<!-- 아이디 찾기 모달창 -->
+		<div class="modal fade" id="findIdModal" tabindex="-1" role="dialog" aria-labelledby="findIdModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content" style="min-height: 432px;">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="findIdModalLabel">아이디 찾기</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form id="findIdForm">
+		                <!-- Modal body -->
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="userName">이름:</label>
+		                        <input type="text" class="form-control" name="userName" placeholder="Enter Name" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="phone">전화번호:</label>
+		                        <input type="text" class="form-control"  name="phone" placeholder="Enter Phone" required>
+		                    </div>
+		                </div>
+		                <!-- Modal footer -->
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-primary" id="findIdButton">아이디 찾기</button>
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
 
 
-<!-- 비밀번호 변경 모달창 -->
-<div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="resetPwdModalLabel" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered" role="document">
-        <div class="modal-content">
-            <!-- Modal Header -->
-            <div class="modal-header">
-                <h5 class="modal-title" id="resetPwdModalLabel">비밀번호 변경</h5>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                    <span aria-hidden="true">&times;</span>
-                </button>
-            </div>
-            <form id="resetPwdForm">
-                <!-- Modal body -->
-                <div class="modal-body">
-                    <div class="form-group">
-                        <label for="authKey">인증번호:</label>
-                        <input type="text" class="form-control" id="authKey" name="authKey" placeholder="Enter Auth Key" required>
-                    </div>
-                    <div class="form-group">
-                        <label for="newPwd">새 비밀번호:</label>
-                        <input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="Enter New Password" required>
-                    </div>
-                </div>
-                <!-- Modal footer -->
-                <div class="modal-footer">
-                    <button type="button" class="btn btn-primary" id="resetPwdButton">비밀번호 변경</button>
-                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                </div>
-            </form>
-        </div>
-    </div>
-</div>
+		<!-- 비밀번호 찾기 모달창 -->
+		<div class="modal fade" id="findPwdModal" tabindex="-1" role="dialog" aria-labelledby="findPwdModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="findPwdModalLabel">비밀번호 찾기</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form id="findPwdForm">
+		                <!-- Modal body -->
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="userName">이름:</label>
+		                        <input type="text" class="form-control"  name="userName" placeholder="Enter Name" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="userId">아이디:</label>
+		                        <input type="text" class="form-control"  name="userId" placeholder="Enter ID" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="email">이메일:</label>
+		                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
+		                    </div>
+		                </div>
+		                <!-- Modal footer -->
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-primary" id="findPwdButton">인증번호 발송</button>
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
 
-<!-- 인덱스 시작 -->
 
+		<!-- 비밀번호 변경 모달창 -->
+		<div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="resetPwdModalLabel" aria-hidden="true">
+		    <div class="modal-dialog modal-dialog-centered" role="document">
+		        <div class="modal-content">
+		            <!-- Modal Header -->
+		            <div class="modal-header">
+		                <h5 class="modal-title" id="resetPwdModalLabel">비밀번호 변경</h5>
+		                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+		                    <span aria-hidden="true">&times;</span>
+		                </button>
+		            </div>
+		            <form id="resetPwdForm">
+		                <!-- Modal body -->
+		                <div class="modal-body">
+		                    <div class="form-group">
+		                        <label for="authKey">인증번호:</label>
+		                        <input type="text" class="form-control" id="authKey" name="authKey" placeholder="Enter Auth Key" required>
+		                    </div>
+		                    <div class="form-group">
+		                        <label for="newPwd">새 비밀번호:</label>
+		                        <input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="Enter New Password" required>
+		                    </div>
+		                </div>
+		                <!-- Modal footer -->
+		                <div class="modal-footer">
+		                    <button type="button" class="btn btn-primary" id="resetPwdButton">비밀번호 변경</button>
+		                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+		                </div>
+		            </form>
+		        </div>
+		    </div>
+		</div>
+
+	<!-- 인덱스 시작 -->
     <div id="mainPage">
     <div id="mainImage">
         <div class="swiper">
@@ -602,35 +615,41 @@
                     <div class="navi"><a href="">공지사항</a></div>                      
                     <div class="navi"><a href="">유실물센터</a></div>    
                     <!-- 로그인 전후 화면 변경 0603 -무진 -->
-                    <c:choose>
-	            		<c:when test="${empty sessionScope.loginUser }">
-	                    <!-- 로그인 전 -->             
-	                    <div>
-	                    	<!-- 인덱스.jsp 로그인 버튼 누르면 모달창 보여지게끔 세팅 0605 -무진 -->
-	                    	<div><a data-toggle="modal" data-target="#loginModal">로그인</a></div>                    
-	                    	<!-- index.jsp 회원가입 이동하게끔 id 추가 0610 - 무진 -->
-	                    	<div><a id="signupLink">회원가입</a></div>       
-	                	</div>
-	                    </c:when>
+                     <div class="main-login">
+			            <c:choose>
+						    <c:when test="${empty sessionScope.loginUser }">
+						        <!-- 로그인 전 -->
+						        <div class="main-login">
+						            <!-- 로그인 버튼 -->
+						            <div><a href="#" data-toggle="modal" data-target="#loginModal">로그인</a></div>
+						            <!-- 회원가입 버튼 -->
+						            <div><a id="signupLink" href="#">회원가입</a></div>
+						        </div>
+						    </c:when>
+						    <c:otherwise>
+						        <!-- 로그인 후 -->
+						        <div class="main-login-logged-in">
+						            <div class="welcome-message">
+						                <span>${ sessionScope.loginUser.userName } 님</span><br>
+						                <span>환영합니다</span>
+						            </div>
+						            <div class="logged-in-links">
+						                <c:choose>
+						                    <c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
+						                        <a href="adminPage.ad">마이페이지</a>
+						                    </c:when>
+						                    <c:otherwise>
+						                        <a href="myPage.me">마이페이지</a>
+						                    </c:otherwise>
+						                </c:choose>
+						                <a href="logout.me">로그아웃</a>
+						            </div>
+						        </div>
+						    </c:otherwise>
+						</c:choose>
 
-                		<c:otherwise>
-                		<!-- 로그인 후 -->
-	                    <label class="navi-login">${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
-	                    <c:choose>
-	                    	<c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
-	                    		<a href="adminPage.ad">마이페이지</a>
-	                    	</c:when>
-	                    	<c:otherwise>
-	                    		<a href="myPage.me">마이페이지</a>
-	                    	</c:otherwise>
-	                    </c:choose>
-                    		<a href="logout.me">로그아웃</a>
-                	   </c:otherwise>
-            	</c:choose>
-
+			        </div>
                 </div> 
-
-    
             </div>
             
             <div class="swiper-pagination"></div>

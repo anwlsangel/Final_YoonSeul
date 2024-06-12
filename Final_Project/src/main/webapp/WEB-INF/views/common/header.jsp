@@ -28,38 +28,48 @@
 <!-- Semantic UI theme -->
 <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
-html,body {
-    margin: 0;
-    padding: 0;
-}
-div {
-    box-sizing: border-box;
-}
-#header {
-    width: 100%;
-    height: 100px;
-    display: flex;
-    align-items: center;     
-    z-index: 2; 
-    background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);
-}
-#navitb {
-    width: 100%;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0 30px;
-}
-.navi a {
-    text-decoration: none;
-    font-size: 25px;
-    margin-right: 100px;
-    position: relative;        
-    padding: 6px 12px;     
-    color: white;   
-}
-.navi a::after {
-    content: "";
+	html, body {
+	    margin: 0;
+	    padding: 0;
+	}
+	
+	div {
+	    box-sizing: border-box;
+	}
+	
+	#header {
+	     width: 100%;
+	    height: 100px;
+	    display: flex;
+	    align-items: center;
+	    z-index: 2;
+	    background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);
+	    position: fixed;
+	    top: 0;
+	}
+	
+	#navitb {
+	     width: 100%;
+	    display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    padding: 0 30px;
+	}
+	
+	.navi a,
+	.main-login a,
+	.logged-in-links a {
+	    text-decoration: none;
+	    font-size: 18px;
+	    color: white;
+	    position: relative;
+	    padding: 6px 12px;
+	}
+	
+	.navi a::after,
+	.main-login a::after,
+	.logged-in-links a::after {
+	    content: "";
     position: absolute;
     bottom: 0;
     left: 50%;
@@ -67,131 +77,164 @@ div {
     width: 0;
     height: 4px;
     background: #EEEBDD;
-    transition: all .5s ease-out;        
-}
-#navitb a:hover::after {
-    width: 100%;
-}
-#logo {
-    position: relative;
-    top: 5px;
-    width: 120px;
-    height: 100%;
-    text-decoration: none;
-}
-.swiper-slide>img {
-    width: 100%;
-    height: 100%;
-}
-#header {
-    top:0;
-    left:0;
-    position: absolute;
-}
-.container {
-    max-width: 1000px;
-    margin: 20px auto;
-    margin-top: 100px;
-    padding: 20px;
-    background-color: #fff;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    min-height: calc(100vh - 160px);
-}
-hr {
-    border: 0;
-    height: 1px;
-    background-color: #810000;
-    width: 80%;
-}
-/* 사이드 메뉴바 스타일 */
-#snb {
-    width: 180px;
-    background: rgba(255, 255, 240, 0.9); /* 옅은 아이보리색과 투명도 추가 */
-    padding: 20px;
-    color: #810000;
-    position: absolute; /* 절대 위치로 고정 */
-    top: 300px; /* 페이지 상단에서의 위치를 조정 */
-    left: 120px; /* 페이지 왼쪽에서의 위치를 조정 */
-    box-shadow: 2px 0 5px rgba(0,0,0,0.1);
-    text-align: center;
-    border-radius: 10px;
-    transition: height 0.3s ease; /* 높이 전환에 대한 부드러운 효과 추가 */
-}
-#snb h2 {
-    color: #810000;
-    text-align: center;
-}
-#snb ul {
-    list-style: none;
-    padding: 0;
-    text-align: left;
-    max-height: 100%;
-    overflow-y: auto;
-}
-#snb ul li {
-    margin-bottom: 10px;
-}
-#snb ul li a {
-    color: #810000;
-    text-decoration: none;
-    display: block;
-    padding: 10px;
-    transition: background 0.3s;
-}
-#snb ul li a:hover {
-    background: #630000;
-}
-#snb ul li ul {
-    display: block;
-    padding-left: 20px;
-    max-height: 0;
-    overflow: hidden;
-    transition: max-height 0.3s ease;
-}
-#snb ul li.active > ul {
-    display: block;
-    max-height: 300px; /* 하위 메뉴의 최대 높이를 설정하여 펼쳐짐 */
-}
-#snb ul li.active > a {
-    background: rgba(128, 128, 128, 0.2); /* 활성화된 링크 배경색을 짙은 회색 계열로 변경 */
-}
-#snb ul li:not(:last-child)::after {
-    content: "";
-    display: block;
-    border-bottom: 1px solid #810000;
-    margin: 10px 0;
-}
-#snb ul li a:hover {
-    background: rgba(128, 128, 128, 0.2); /* 호버 시 배경색을 짙은 회색 계열로 변경 */
-}
-.main-login {
-    display: flex;
-    justify-content: space-between;
-    width: 200px; 
-    margin-right: 30px;
-}
-.main-login a {
-    text-decoration: none;
-    font-size: 18px;
-    margin-right: 100px;
-    margin: auto;  
-    color: white;    
-}
-.main-login a:hover {
-    cursor: pointer;
-}
-#navitb a {
-    color: white;
-}
-#navitb label {
-    color: white;
-}
+    transition: all .5s ease-out;
+	}
+	
+	.navi a:hover::after,
+	.main-login a:hover::after,
+	.logged-in-links a:hover::after {
+	    width: 100%;
+	}
+	
+	#logo {
+	   position: relative;
+	    top: 5px;
+	    width: 80px;
+	    height: 80px;
+	    text-decoration: none;
+	}
+	
+	.swiper-slide > img {
+	    width: 100%;
+	    height: 100%;
+	}
+	
+	.container {
+	    max-width: 1000px;
+	    margin: 20px auto;
+	    margin-top: 100px;
+	    padding: 20px;
+	    background-color: #fff;
+	    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+	    min-height: calc(100vh - 160px);
+	}
+	
+	hr {
+	    border: 0;
+	    height: 1px;
+	    background-color: #810000;
+	    width: 80%;
+	}
+	
+	/* 사이드 메뉴바 스타일 */
+	#snb {
+	    width: 180px;
+	    background: rgba(255, 255, 240, 0.9);
+	    padding: 20px;
+	    color: #810000;
+	    position: absolute;
+	    top: 300px;
+	    left: 120px;
+	    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+	    text-align: center;
+	    border-radius: 10px;
+	    transition: height 0.3s ease;
+	}
+	
+	#snb h2 {
+	    color: #810000;
+	    text-align: center;
+	}
+	
+	#snb ul {
+	    list-style: none;
+	    padding: 0;
+	    text-align: left;
+	    max-height: 100%;
+	    overflow-y: auto;
+	}
+	
+	#snb ul li {
+	    margin-bottom: 10px;
+	}
+	
+	#snb ul li a {
+	    color: #810000;
+	    display: block;
+	    padding: 10px;
+	    transition: background 0.3s;
+	}
+	
+	#snb ul li a:hover {
+	    background: rgba(128, 128, 128, 0.2);
+	}
+	
+	#snb ul li ul {
+	    display: block;
+	    padding-left: 20px;
+	    max-height: 0;
+	    overflow: hidden;
+	    transition: max-height 0.3s ease;
+	}
+	
+	#snb ul li.active > ul {
+	    display: block;
+	    max-height: 300px;
+	}
+	
+	#snb ul li.active > a {
+	    background: rgba(128, 128, 128, 0.2);
+	}
+	
+	#snb ul li:not(:last-child)::after {
+	    content: "";
+	    display: block;
+	    border-bottom: 1px solid #810000;
+	    margin: 10px 0;
+	}
+	
+	.main-login {
+	   display: flex;
+	    justify-content: space-between;
+	    align-items: center;
+	    width: 200px;
+	    margin-right: 30px;
+	}
+	
+	.main-login-logged-in {
+	    display: flex;
+	    align-items: center;
+	    margin-left: auto;
+	    margin-right: 60px;
+	}
+	
+	.welcome-message {
+	    color: white;
+	    margin-right: 20px;
+	    margin-top: 15px; /* 원하는 만큼 아래로 내리기 위해 마진 추가 */
+	}
+	
+	.logged-in-links {
+	    display: flex;
+	    flex-direction: column;
+	    align-items: flex-start;
+	}
+	
+	.logged-in-links a {
+	    margin-left: 0;
+	    margin-top: 5px;
+	}
+	
+	#navitb label {
+	    color: white;
+	}
+	
+	.container {
+	    margin-top: 120px; /* 컨테이너 위치 조정 */
+	}
+	
+	.logged-in-container {
+	    display: flex;
+	    align-items: center;
+	    justify-content: space-between;
+	}
+
 </style>
 </head>
 <body>
 <div id="header">  
     <div id="navitb">
-        <div><a href="<%= request.getContextPath() %>"><img src="resources/image/logo.png" id="logo"></a></div>                    
+        <div><a href="<%= request.getContextPath() %>"><img src="resources/image/8px+텍스트.png" id="logo"></a></div>                    
         <div class="navi"><a href="list.co?category=전체&sort=date">공연정보</a></div>
         <div class="navi"><a href="<%=request.getContextPath()%>/infohall">소개</a></div>
         <div class="navi"><a href="">공지사항</a></div>                      
@@ -207,22 +250,24 @@ hr {
             </c:when>
             <c:otherwise>
             <!-- 로그인 후 -->
-            <div>
-                <label>${ sessionScope.loginUser.userName }님 환영합니다</label> &nbsp;&nbsp;
-                <c:choose>
-                    <c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
-                        <a href="adminPage.ad">마이페이지</a>
-                    </c:when>
-                    <c:otherwise>
-                        <a href="myPage.me">마이페이지</a>
-                    </c:otherwise>
-                </c:choose>
-                <a href="logout.me">로그아웃</a>
+            <div class="logged-in-container">
+                <label class="welcome-message">${ sessionScope.loginUser.userName }님 환영합니다</label>
+                <div class="logged-in-links">
+                    <c:choose>
+                        <c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
+                            <a href="adminPage.ad">마이페이지</a>
+                        </c:when>
+                        <c:otherwise>
+                            <a href="myPage.me">마이페이지</a>
+                        </c:otherwise>
+                    </c:choose>
+                    <a href="logout.me">로그아웃</a>
+                </div>
             </div>
             </c:otherwise>
         </c:choose>
     </div>       
-</div> 
+</div>
 
 <!-- 로그인 모달창 -->
 <div class="modal fade" id="loginModal" tabindex="-1" role="dialog" aria-labelledby="loginModalLabel" aria-hidden="true">
