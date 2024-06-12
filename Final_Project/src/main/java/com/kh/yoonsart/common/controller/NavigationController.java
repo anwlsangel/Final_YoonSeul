@@ -8,19 +8,19 @@ public class NavigationController {
 
     @GetMapping("infohall")
     public String showInfoHall() {
-        return "infohall/YoonSeulArtHall"; // WEB-INF 경로와 .jsp 확장자를 제외한 JSP 파일의 경로
+        return "infohall/YoonSeulArtHall"; // WEB-INF 寃쎈줈�� .jsp �솗�옣�옄瑜� �젣�쇅�븳 JSP �뙆�씪�쓽 寃쎈줈
     }
     @GetMapping("moonlight")
     public String showMoonlightField() {
-    	return "infohall/MoonlightField"; // WEB-INF 경로와 .jsp 확장자를 제외한 JSP 파일의 경로
+    	return "infohall/MoonlightField"; // WEB-INF 寃쎈줈�� .jsp �솗�옣�옄瑜� �젣�쇅�븳 JSP �뙆�씪�쓽 寃쎈줈
     }
     @GetMapping("starlight")
     public String showStarlightHall() {
-    	return "infohall/StarlightHall"; // WEB-INF 경로와 .jsp 확장자를 제외한 JSP 파일의 경로
+    	return "infohall/StarlightHall"; // WEB-INF 寃쎈줈�� .jsp �솗�옣�옄瑜� �젣�쇅�븳 JSP �뙆�씪�쓽 寃쎈줈
     }
     @GetMapping("halllocation")
     public String showYoonSeulArtHallLocation() {
-    	return "infohall/YoonSeulArtHallLocation"; // WEB-INF 경로와 .jsp 확장자를 제외한 JSP 파일의 경로
+    	return "infohall/YoonSeulArtHallLocation"; // WEB-INF 寃쎈줈�� .jsp �솗�옣�옄瑜� �젣�쇅�븳 JSP �뙆�씪�쓽 寃쎈줈
     }
     @GetMapping("convenience")
     public String showConvenience() {
@@ -29,6 +29,10 @@ public class NavigationController {
     @GetMapping("videoinfo")
     public String showVideoinfo() {
     	return "infohall/Videoinfo";
+    }
+    @GetMapping("parking")
+    public String showParking() {
+    	return "infohall/Parking";
     }
     
     
