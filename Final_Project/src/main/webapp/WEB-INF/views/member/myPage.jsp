@@ -143,7 +143,7 @@
 	        $.ajax({
 	            url: url,
 	            method: 'POST',
-	            data: { [type]: value },
+	            data: type === 'email' ? { email: value } : { phone: value },
 	            success: function(response) {
 	                console.log(`Response for ${type}:`, response);  // 디버깅 메시지 추가
 	                // 만약 response가 문자열이 아니거나 null/undefined인 경우 처리
