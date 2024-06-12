@@ -749,6 +749,7 @@
 	    const myAmount = 100; //결제금액
 	    
 	    let userId = "${sessionScope.loginUser.userId}";
+	    let concertId = $("#concertID").val();
 	
 	    const IMP = window.IMP; // 생략 가능
 	    IMP.init("imp84822672"); // 상점 식별코드
@@ -758,7 +759,7 @@
 	         pg: "html5_inicis",
 	         pay_method: "card",
 	         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
-	         name: "공연이름333", //공연이름 == RESERVE_CONCERT_NAME
+	         name: "공연이름", //결제 시 보이는 상품명
 	         amount: myAmount,
 	         buyer_email: "gildonggmailcom",
 	         buyer_name: "HongGildong",
@@ -788,7 +789,7 @@
 	     	            	data: {
 	     	            		buyListId: rsp.merchant_uid, //주문번호
 	     	            		reserveCode: rsp.pg_tid, //결제코드
-	     	            		reserveConcertName: rsp.name, //예약된 공연 이름
+	     	            		reserveConcertId: concertId, //예약된 공연 이름
 	     	      	            reserveTicket: 1, //예약된 티켓 수
 	     	      	            reserveSum: myAmount, //결제 금액 합
 	     	      	            userId: userId //회원ID

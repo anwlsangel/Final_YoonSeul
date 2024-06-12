@@ -6,7 +6,7 @@
 	<resultMap type="buylist" id="buylistResultSet">
 		<result column="BUYLIST_ID" property="buyListId"/>
 		<result column="RESERVE_CODE" property="reserveCode"/>
-		<result column="RESERVE_CONCERT_NAME" property="reserveConcertName"/>
+		<result column="RESERVE_CONCERT_ID" property="reserveConcertId"/>
 		<result column="RESERVE_TICKET" property="reserveTicket"/>
 		<result column="RESERVE_SUM" property="reserveSum"/>
 		<result column="RESERVE_PAYMENT" property="reservePayment"/>
@@ -19,7 +19,7 @@
 		INSERT INTO BUYLIST
 		VALUES(#{buyListId}
 		     , #{reserveCode}
-		     , #{reserveConcertName}
+		     , #{reserveConcertId}
 		     , #{reserveTicket}
 		     , #{reserveSum}
 		     , SYSDATE

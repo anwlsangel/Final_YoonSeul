@@ -293,7 +293,7 @@ public class MemberController {
 				JSONObject buyList = new JSONObject();
 				buyList.put("buyListId", bl.getBuyListId());
 				buyList.put("reserveCode", bl.getReserveCode());
-				buyList.put("reserveConcertName", bl.getReserveConcertName());
+				buyList.put("reserveConcertId", bl.getReserveConcertId());
 				buyList.put("reserveTicket", bl.getReserveTicket());
 				buyList.put("reserveSum", bl.getReserveSum());
 				buyList.put("reservePayment", bl.getReservePayment());

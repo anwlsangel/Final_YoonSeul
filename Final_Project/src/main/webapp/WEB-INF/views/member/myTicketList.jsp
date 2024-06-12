@@ -150,7 +150,7 @@
 								
 								str += "<tr>";
 								str	+= "<td>" + result.ticketList[i].buyListId + "</td>";
-					            str	+= "<td>" + result.ticketList[i].reserveConcertName + "</td>";
+					            str	+= "<td>" + result.ticketList[i].reserveConcertId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveTicket + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveSum + "</td>";
 					            //str	+= "<td>" + result.ticketList[i].reservePayment + "</td>";

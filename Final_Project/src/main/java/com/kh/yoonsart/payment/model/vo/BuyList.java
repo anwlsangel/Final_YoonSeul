@@ -14,22 +14,22 @@ import lombok.ToString;
 @ToString
 public class BuyList {
 	
-	private String buyListId;			//	BUYLIST_ID				NUMBER
-	private String reserveCode;			//	RESERVE_CODE			VARCHAR2(255 BYTE)
-	private String reserveConcertName;	//	RESERVE_CONSERT_NAME	VARCHAR2(50 BYTE)
-	private int reserveTicket;			//	RESERVE_TICKET			NUMBER
-	private int reserveSum;				//	RESERVE_SUM				NUMBER
-	private Date reservePayment;		//	RESERVE_PAYMENT			DATE
-	private Date reserveRefund;			//	RESERVE_REFUND			DATE
-	private String userId;				//	USER_ID					VARCHAR2(30 BYTE)
+	private String buyListId;			//	BUYLIST_ID			NUMBER
+	private String reserveCode;			//	RESERVE_CODE		VARCHAR2(255 BYTE)
+	private int reserveConcertId;	//	RESERVE_CONSERT_ID	NUMBER
+	private int reserveTicket;			//	RESERVE_TICKET		NUMBER
+	private int reserveSum;				//	RESERVE_SUM			NUMBER
+	private Date reservePayment;		//	RESERVE_PAYMENT		DATE
+	private Date reserveRefund;			//	RESERVE_REFUND		DATE
+	private String userId;				//	USER_ID				VARCHAR2(30 BYTE)
 	
 	public void BuyList() {}
-	public BuyList(String buyListId, String reserveCode, String reserveConcertName, int reserveTicket, int reserveSum,
+	public BuyList(String buyListId, String reserveCode, int reserveConcertId, int reserveTicket, int reserveSum,
 			Date reservePayment, Date reserveRefund, String userId) {
 		super();
 		this.buyListId = buyListId;
 		this.reserveCode = reserveCode;
-		this.reserveConcertName = reserveConcertName;
+		this.reserveConcertId = reserveConcertId;
 		this.reserveTicket = reserveTicket;
 		this.reserveSum = reserveSum;
 		this.reservePayment = reservePayment;
@@ -49,11 +49,11 @@ public class BuyList {
 	public void setReserveCode(String reserveCode) {
 		this.reserveCode = reserveCode;
 	}
-	public String getReserveConcertName() {
-		return reserveConcertName;
+	public int getReserveConcertId() {
+		return reserveConcertId;
 	}
-	public void setReserveConcertName(String reserveConcertName) {
-		this.reserveConcertName = reserveConcertName;
+	public void setReserveConcertName(int reserveConcertId) {
+		this.reserveConcertId = reserveConcertId;
 	}
 	public int getReserveTicket() {
 		return reserveTicket;
@@ -88,8 +88,8 @@ public class BuyList {
 
 	@Override
 	public String toString() {
-		return "BuyList [buyListId=" + buyListId + ", reserveCode=" + reserveCode + ", reserveConcertName="
-				+ reserveConcertName + ", reserveTicket=" + reserveTicket + ", reserveSum=" + reserveSum
+		return "BuyList [buyListId=" + buyListId + ", reserveCode=" + reserveCode + ", reserveConcertId="
+				+ reserveConcertId + ", reserveTicket=" + reserveTicket + ", reserveSum=" + reserveSum
 				+ ", reservePayment=" + reservePayment + ", reserveRefund=" + reserveRefund + ", userId=" + userId
 				+ "]";
 	}
