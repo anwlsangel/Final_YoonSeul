@@ -429,7 +429,7 @@
             <a href="#" title="시설안내">시설안내</a>
             <ul class="depth3">
                 <li>
-                    <a href="parking" title="주차장">주차장</a>
+                    <a href="<%=request.getContextPath()%>/parking" title="주차장">주차장</a>
                 </li>
                 <li>
                     <a href="convenience" title="편의시설">편의시설</a>
@@ -446,7 +446,7 @@
                     <a href="<%=request.getContextPath()%>/halllocation" title="오시는길">오시는길</a>
                 </li>
                 <li>
-                    <a href="#" title="주차안내">주차안내</a>
+                    <a href="<%=request.getContextPath()%>/parking" title="주차안내">주차안내</a>
                 </li>
             </ul>
         </li>

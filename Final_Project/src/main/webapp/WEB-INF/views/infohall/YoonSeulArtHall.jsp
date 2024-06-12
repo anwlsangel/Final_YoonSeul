@@ -22,11 +22,9 @@
         body{
             font-family: 'Noto Sans KR', sans-serif;
             background-color: #f4f4f4;
-            margin: 0;
-            padding: 0;
         }
         
-        .container {
+        .hallcontainer {
             position: relative;
             max-width: 1000px;
             margin: 20px auto;
@@ -167,7 +165,7 @@
     <div class="introOuter">
     <jsp:include page="../common/header.jsp" />
         <!-- 메인 타이틀 (필기체 적용) -->
-        <div class="container">
+        <div class="hallcontainer">
         <div class="introTitle" align="center"><h1>윤슬아트홀</h1></div>
         <!-- 서브 타이틀 (필기체 적용) -->
         <div align="center"><h3 class="blinking-text" id="blinkingText"></h3></div>
@@ -232,21 +230,20 @@
             
         </div>
     </div>
-    <div class="footer">
-        <p>&copy; 2001 - <span id="currentYear"></span> 윤슬아트홀. All rights reserved.</p>
-    </div>
+     <!-- 푸터바 -->
+     <jsp:include page="../common/footer.jsp" />
     </div>
     <script>
         // 반짝이는 글씨 위한 자스
         document.addEventListener("DOMContentLoaded", function () {
             const text = "윤슬처럼 반짝이는 당신을 위한 공간";
-            const container = document.getElementById("blinkingText");
+            const hallcontainer = document.getElementById("blinkingText");
 
             text.split("").forEach((char, index) => {
                 const span = document.createElement("span");
                 span.textContent = char;
                 span.style.setProperty('--delay', index);
-                container.appendChild(span);
+                hallcontainer.appendChild(span);
             });
         });
 
