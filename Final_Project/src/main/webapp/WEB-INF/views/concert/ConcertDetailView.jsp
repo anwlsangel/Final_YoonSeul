@@ -452,163 +452,92 @@
                 
          <!-- 관람 후기 작성 -->
          <!-- 별점 선택 -->
-        <div id="star-area" align="center">
-
-            <p id="star-text">별점을 선택해주세요.</p>
-            
-            <div class="star-rating">
-                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
-                    title="5 stars">&#9733;</label>
-                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
-                    title="4 stars">&#9733;</label>
-                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
-                    title="3 stars">&#9733;</label>
-                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
-                    title="2 stars">&#9733;</label>
-                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-                    title="1 star">&#9733;</label>
-            </div>
-        </div>
-
-        <!-- 댓글 작성-->
-        <div id="reply-area" align="center">
-
-            <table align="center" id="reply-list">
-                <thead>
-                    <tr>
-                        <th colspan="2">
-                            <textarea id="replyContent" style="margin-left: 30px;" required></textarea>
-                        </th>
-                        <td align="center">
-                            <button type="button" onclick="" class="btn-green" disabled>등록</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
-                                readonly>로그인 후 이용 가능합니다</textarea>
-                        </th>
-                        <td align="center">
-                            <button type="button" class="btn-green" disabled>등록</button>
-                        </td>
-                    </tr>
-                    <tr>
-                        <th colspan="2">
-                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
-                                readonly></textarea>
-                        </th>
-                        <td align="center">
-                            <button type="button" class="btn-green" disabled>등록</button>
-                        </td>
-                    </tr>
-                </thead>
-                <tbody>
-                    <tr>
-                        <td colspan="3">
-                        </td>
-                    </tr>
-                </tbody>
-            </table>
+         <form id="reviewForm" action="insertReview" method="post">
+	        <div id="star-area" align="center">
+	
+	            <p id="star-text">별점을 선택해주세요.</p>
+	            
+	            <div class="star-rating">
+	                <input type="radio" id="star5" name="rating" value="5" /><label for="star5"
+	                    title="5 stars">&#9733;</label>
+	                <input type="radio" id="star4" name="rating" value="4" /><label for="star4"
+	                    title="4 stars">&#9733;</label>
+	                <input type="radio" id="star3" name="rating" value="3" /><label for="star3"
+	                    title="3 stars">&#9733;</label>
+	                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
+	                    title="2 stars">&#9733;</label>
+	                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
+	                    title="1 star">&#9733;</label>
+	            </div>
+	        </div>
+	
+	        <!-- 댓글 작성-->
+	        <div id="reply-area" align="center">	        
+	            <table align="center" id="reply-list">
+	                <thead>
+	                    <tr>
+	                        <th colspan="2">
+	                           <c:choose>
+					           <c:when test="${empty sessionScope.loginUser}">
+					           <!-- 로그인 전 -->
+	                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
+	                                readonly>로그인 후 이용 가능합니다</textarea>
+	                                <td align="center">
+			                            <button type="button" class="btn-green" disabled>등록</button>
+			                        </td>
+	                        </c:when>
+	                        <c:otherwise>
+	                        <!-- 로그인 후 -->
+	                        <input type="hidden" value="${sessionScope.loginUser.userId}" name="userId">	
+	                        <input type="hidden" name="cno" value="${cno}">                        
+	                        <textarea id="replyContent" rows="" cols="60" name="reviewContent" style="margin-left: 30px;">후기 작성</textarea>
+	                        		<td align="center">
+			                            <button type="submit" class="btn-green">등록</button>
+			                        </td>
+	                        </c:otherwise>
+	                        </c:choose>
+	                    </tr>
+	                </thead>
+	                <tbody>
+	                    <tr>
+	                        <td colspan="3">
+	                        </td>
+	                    </tr>
+	                </tbody>
+	            </table>
+	            </div>
+            </form>
 
             <hr>
                 
                 
                 <!-- 관람후기 목록  -->
                 <div id="reviews" class="reviews" style="margin: auto; width: 900px">
-                    <h2>관람후기 <span style="color: #810000;">32</span></h2>
+                    <h2>관람후기 <span style="color: #810000;">${reviewCount}</span></h2>
                     <hr><br>
-
+                    
+                    <c:forEach var="r" items="${rvList}">       
                     <div class="review">
-                        <div class="review-star">★★★★☆</div>
+                        <div class="review-star">
+                        	 <c:choose>
+			                    <c:when test="${r.reviewPoint == 5}">★★★★★</c:when>
+			                    <c:when test="${r.reviewPoint == 4}">★★★★☆</c:when>
+			                    <c:when test="${r.reviewPoint == 3}">★★★☆☆</c:when>
+			                    <c:when test="${r.reviewPoint == 2}">★★☆☆☆</c:when>
+			                    <c:when test="${r.reviewPoint == 1}">★☆☆☆☆</c:when>
+			                    <c:otherwise>☆☆☆☆☆</c:otherwise>
+			                </c:choose>
+                        </div>
                         <div class="review-content">
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
+                        	${r.reviewContent}
                         </div>
                         <div class="review-info">
-                            <div class="review-writer">user01</div>
-                            <div class="review-createDate">2024.06.05</div>
-
-                            <!--내 리뷰일 경우 보이게-->
-                            <div class="review-update">
-                                <a href="">수정</a>
-                                <a href="">삭제</a>
-                                <br clear="both">
-                            </div>
+                            <div class="review-writer">${r.userId}</div>
+                            <div class="review-createDate">${r.writeDate}</div>
                         </div>
                         <div class="review-line"></div>
                     </div>
-                    <div class="review">
-                        <div class="review-star">★★★★☆</div>
-                        <div class="review-content">
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                        </div>
-                        <div class="review-info">
-                            <div class="review-writer">user01</div>
-                            <div class="review-createDate">2024.06.05</div>
-                        </div>
-                        <div class="review-line"></div>
-                    </div>
-                    <div class="review">
-                        <div class="review-star">★★★★☆</div>
-                        <div class="review-content">
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                            연소자의 근로는 특별한 보호를 받는다.
-                            감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                            모든 국민은 직업선택의 자유를 가진다.
-                        </div>
-                        <div class="review-info">
-                            <div class="review-writer">user01</div>
-                            <div class="review-createDate">2024.06.05</div>
-                        </div>
-                        <div class="review-line"></div>
-                    </div>
+                    </c:forEach>
                 </div>
                 
                 <br><br>

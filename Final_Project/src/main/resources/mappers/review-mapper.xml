@@ -15,5 +15,26 @@
 	 	SELECT *
 	 	  FROM REVIEW
 	 </select>
+	 
+	 <insert id="insertReview" parameterType="review">
+	 	INSERT INTO REVIEW(REVIEW_ID,
+                   REVIEW_CONTENT,
+                   REVIEW_POINT,
+                   WRITE_DATE,
+                   USER_ID,
+                   CONCERT_ID)
+            VALUES(SEQ_RNO.NEXTVAL,
+                   #{reviewContent},
+                   #{reviewPoint},
+                   SYSDATE,
+                   #{userId},
+                   #{concertId})
+	 </insert>
+	 
+	 <select id="selectCount" resultType="int">
+	 	SELECT COUNT(*)
+		  FROM REVIEW
+		 WHERE CONCERT_ID = #{concertId}
+	 </select>
 
 </mapper>
