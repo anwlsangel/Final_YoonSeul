@@ -6,8 +6,6 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Yoon Seul Art Hall - intro</title>
-    <!-- Google Fonts 링크 추가 -->
-    <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
     <style>
         /* 반짝이 효과 스타일 */
         @keyframes blink {
