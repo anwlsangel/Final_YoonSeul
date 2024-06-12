@@ -162,6 +162,12 @@
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
     }
+    
+    .active-sort {
+	    font-weight: bold;
+	    color: red;
+	    text-decoration: underline;
+	}
 </style>
 <body>
 
@@ -192,14 +198,14 @@
     </form>
     <hr>
     <div class="concert-navi-2">
-        <div class="concert-navi-category-2"> 
-            <a href="list.co?category=${category}&sort=popularity">인기순</a>
-            <a href="list.co?category=${category}&sort=date">최신순</a>
-            <a href="list.co?category=${category}&sort=price">저렴한 가격순</a>
-            <a href="list.co?category=${category}&sort=price">스탠딩</a> 
-            <a href="list.co?category=${category}&sort=price">좌석</a>              
-        </div>                    
+    <div class="concert-navi-category-2">
+        <a href="list.co?category=${category}&sort=popularity" class="${param.sort == 'popularity' ? 'active-sort' : ''}">인기순</a>
+        <a href="list.co?category=${category}&sort=date" class="${param.sort == 'date' ? 'active-sort' : ''}">최신순</a>
+        <a href="list.co?category=${category}&sort=price" class="${param.sort == 'price' ? 'active-sort' : ''}">저렴한 가격순</a>
+        <a href="list.co?category=${category}&sort=standing" class="${param.sort == 'standing' ? 'active-sort' : ''}">스탠딩</a>
+        <a href="list.co?category=${category}&sort=seating" class="${param.sort == 'seating' ? 'active-sort' : ''}">좌석</a>
     </div>
+</div>
     <hr>
 
     <h1 id="page-title" style="text-align: center; color: black;">${category}</h1>

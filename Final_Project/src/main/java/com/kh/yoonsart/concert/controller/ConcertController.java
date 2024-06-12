@@ -74,5 +74,12 @@ public class ConcertController {
         return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
     }
 	
+	@GetMapping("seat.co")
+	public String ConcertSeatReserve() {
+		
+		return "concert/ConcertSeatReserve";
+		
+	}
+	
 
 }

@@ -412,7 +412,7 @@
                     </div>
                     <br>
                     <c:choose>
-			           <c:when test="${empty sessionScope.loginUser }">
+			           <c:when test="${empty sessionScope.loginUser}">
 			           <!-- 로그인 전 -->             
 			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
                             onclick="alert('로그인 후 예매 가능합니다.');">
@@ -428,6 +428,11 @@
 			           </c:otherwise>
 			       </c:choose>
                 </div>
+                
+                <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                		onclick="seat();">
+                      	좌석예매
+              	</button>
 
                 <br><br><br><br><br><br>
 
@@ -709,6 +714,10 @@
     </div>
     
     <script>
+    
+    function seat() {
+    	location.href = "seat.co";
+    }
     
     //결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
     function payment() {
