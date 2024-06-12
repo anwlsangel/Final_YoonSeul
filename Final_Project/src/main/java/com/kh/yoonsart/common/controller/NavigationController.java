@@ -26,4 +26,11 @@ public class NavigationController {
     public String showConvenience() {
     	return "infohall/Convenience";
     }
+    @GetMapping("videoinfo")
+    public String showVideoinfo() {
+    	return "infohall/Videoinfo";
+    }
+    
+    
+    
 }
