@@ -431,52 +431,127 @@
 		</c:if>
 <!-- 로그인 모달창 추가 0603 -무진 -->
     <!-- 로그인 클릭 시 뜨는 모달 (기존에는 안보이다가 위의 a 클릭 시 보임) -->
-    <div class="modal fade" id="loginModal">
-        <div class="modal-dialog modal-sm">
-            <div class="modal-content">
-                <!-- Modal Header -->
-                <div class="modal-header">
-                    <h4 class="modal-title">Login</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;</button>
-                </div>
-        
-                <form action="login.me" method="post">
-					<!-- Modal body -->
-					<div class="modal-body">
-						<label for="userId" class="mr-sm-2">ID : </label>
-						<!--
-							EL 구문을 통해 쿠키값을 손쉽게 얻어올 수 있다.
-							[ 표현법 ]
-							cookie.키값.value
-						-->
-						<input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="userId"
-							   name="userId" value="${ cookie.saveId.value }" required> <br>
-						<label for="userPwd" class="mr-sm-2">Password : </label>
-						<input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="userPwd" name="userPwd" required>
-						<br>
-						<c:choose>
-							<c:when test="${ not empty cookie.saveId }">
-								<!-- 만약 saveId 라는 쿠키가 있다면 : 체크박스가 체크되게끔 -->
-								<input type="checkbox" id="saveId" name="saveId" value="y" checked>
-								<label for="saveId">아이디 저장</label>
-							</c:when>
-							<c:otherwise>
-								<input type="checkbox" id="saveId" name="saveId" value="y">
-								<label for="saveId">아이디 저장</label>
-							</c:otherwise>	
-						</c:choose>				
-					</div>
-					<!-- Modal footer -->
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-primary">로그인</button>
-						<!-- index.jsp 회원가입 버튼 추가 0604 - 무진 -->
-						<button type="button" class="btn btn-info" id="signupButton">회원가입</button>
-						<button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
-					</div>
-				</form>
+<!-- 로그인 모달창 -->
+<div class="modal fade" id="loginModal">
+    <div class="modal-dialog modal-sm">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h4 class="modal-title">Login</h4>
+                <button type="button" class="close" data-dismiss="modal">&times;</button>
             </div>
+            <form action="login.me" method="post">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <label for="userId" class="mr-sm-2">ID : </label>
+                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID" id="" name="userId" value="${ cookie.saveId.value }" required> <br>
+                    <label for="userPwd" class="mr-sm-2">Password : </label>
+                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password" id="" name="userPwd" required>
+                    <br>
+                    <c:choose>
+                        <c:when test="${ not empty cookie.saveId }">
+                            <input type="checkbox" id="saveId" name="saveId" value="y" checked>
+                            <label for="saveId">아이디 저장</label>
+                        </c:when>
+                        <c:otherwise>
+                            <input type="checkbox" id="saveId" name="saveId" value="y">
+                            <label for="saveId">아이디 저장</label>
+                        </c:otherwise>    
+                    </c:choose>                
+                </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="submit" class="btn btn-primary">로그인</button>
+                    <button type="button" class="btn btn-info" id="signupButton">회원가입</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#findIdModal">아이디 찾기</button>
+                    <button type="button" class="btn btn-secondary" data-toggle="modal" data-target="#findPwdModal">비밀번호 찾기</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+            <!-- 아이디 찾기 모달창 -->
+			<div class="modal fade" id="findIdModal">
+			    <div class="modal-dialog modal-sm">
+			        <div class="modal-content">
+			            <!-- Modal Header -->
+			            <div class="modal-header">
+			                <h4 class="modal-title">아이디 찾기</h4>
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			            </div>
+			            <form id="findIdForm">
+			                <!-- Modal body -->
+			                <div class="modal-body">
+			                    <label for="userName" class="mr-sm-2">이름 : </label>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name"  name="userName" required> <br>
+			                    <label for="phone" class="mr-sm-2">전화번호 : </label>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Phone"  name="phone" required>
+			                </div>
+			                <!-- Modal footer -->
+			                <div class="modal-footer">
+			                    <button type="button" class="btn btn-primary" id="findIdButton">아이디 찾기</button>
+			                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+			</div>
+            <!-- 비밀번호 찾기 모달창 -->
+			<div class="modal fade" id="findPwdModal">
+			    <div class="modal-dialog modal-sm">
+			        <div class="modal-content">
+			            <!-- Modal Header -->
+			            <div class="modal-header">
+			                <h4 class="modal-title">비밀번호 찾기</h4>
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			            </div>
+			            <form id="findPwdForm">
+			                <!-- Modal body -->
+			                <div class="modal-body">
+			                    <label for="userName" class="mr-sm-2">이름 : </label>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Name"  name="userName" required> <br>
+			                    <label for="userId" class="mr-sm-2">아이디 : </label>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID"  name="userId" required> <br>
+			                    <label for="email" class="mr-sm-2">이메일 : </label>
+			                    <input type="email" class="form-control mb-2 mr-sm-2" placeholder="Enter Email" id="email" name="email" required>
+			                </div>
+			                <!-- Modal footer -->
+			                <div class="modal-footer">
+			                    <button type="button" class="btn btn-primary" id="findPwdButton">인증번호 발송</button>
+			                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+			</div>
+            	<!-- 비밀번호 변경 모달창 -->
+			<div class="modal fade" id="resetPwdModal">
+			    <div class="modal-dialog modal-sm">
+			        <div class="modal-content">
+			            <!-- Modal Header -->
+			            <div class="modal-header">
+			                <h4 class="modal-title">비밀번호 변경</h4>
+			                <button type="button" class="close" data-dismiss="modal">&times;</button>
+			            </div>
+			            <form id="resetPwdForm">
+			                <!-- Modal body -->
+			                <div class="modal-body">
+			                    <label for="authKey" class="mr-sm-2">인증번호 : </label>
+			                    <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter Auth Key" id="authKey" name="authKey" required> <br>
+			                    <label for="newPwd" class="mr-sm-2">새 비밀번호 : </label>
+			                    <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter New Password" id="newPwd" name="newPwd" required>
+			                </div>
+			                <!-- Modal footer -->
+			                <div class="modal-footer">
+			                    <button type="button" class="btn btn-primary" id="resetPwdButton">비밀번호 변경</button>
+			                    <button type="button" class="btn btn-danger" data-dismiss="modal">취소</button>
+			                </div>
+			            </form>
+			        </div>
+			    </div>
+			</div>
+            	
         </div>
-    </div>      
+    </div>
+</div>      
     <div id="mainPage">
     <div id="mainImage">
         <div class="swiper">
@@ -727,13 +802,83 @@
     <!-- index.jsp 회원가입 동작용 자바스크립트 구문 추가 0610 - 무진 -->
     <script>
    
-        $('#signupButton').click(function() {
-            window.location.href = 'enrollForm.me';
+    $('#signupButton').click(function() {
+        window.location.href = 'enrollForm.me';
+    });
+    $('#signupLink').click(function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        window.location.href = 'enrollForm.me';
+    });
+    $(document).ready(function() {
+        $('#findIdButton').click(function() {
+            const name = $('#findIdForm input[name=userName]').val();
+            const phone = $('#findIdForm input[name=phone]').val();
+            
+            $.ajax({
+                type: "POST",
+                url: "findId.do",
+                data: { userName: name, phone: phone },
+                success: function(response) {
+                    alert(response);
+                },
+                error: function() {
+                    alert("아이디 찾기에 실패했습니다.");
+                }
+            });
         });
-        $('#signupLink').click(function(event) {
-            event.preventDefault(); // 기본 링크 동작 방지
-            window.location.href = 'enrollForm.me';
+
+        $('#findPwdButton').click(function() {
+            const name = $('#findPwdForm #userName').val();
+            const userId = $('#findPwdForm #userId').val();
+            const email = $('#findPwdForm #email').val();
+            $.ajax({
+                type: "POST",
+                url: "cert.do",
+                data: { email: email },
+                success: function(response) {
+                    alert("인증번호가 발송되었습니다.");
+                    $('#findPwdModal').modal('hide');
+                    $('#resetPwdModal').modal('show');
+                },
+                error: function() {
+                    alert("인증번호 발송에 실패했습니다.");
+                }
+            });
         });
+
+        $('#resetPwdButton').click(function() {
+            const email = $('#findPwdForm #email').val();
+            const authKey = $('#resetPwdForm #authKey').val();
+            const newPwd = $('#resetPwdForm #newPwd').val();
+
+            $.ajax({
+                type: "POST",
+                url: "validate.do",
+                data: { email: email, checkNo: authKey },
+                success: function(response) {
+                    if(response === "인증 성공") {
+                        $.ajax({
+                            type: "POST",
+                            url: "resetPwd.do",
+                            data: { email: email, newPwd: newPwd },
+                            success: function() {
+                                alert("비밀번호가 성공적으로 변경되었습니다.");
+                                $('#resetPwdModal').modal('hide');
+                            },
+                            error: function() {
+                                alert("비밀번호 변경에 실패했습니다.");
+                            }
+                        });
+                    } else {
+                        alert("인증번호가 올바르지 않습니다.");
+                    }
+                },
+                error: function() {
+                    alert("인증에 실패했습니다.");
+                }
+            });
+        });
+    });
 	</script>
 	
     
