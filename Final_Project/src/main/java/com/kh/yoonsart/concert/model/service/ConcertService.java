@@ -17,6 +17,8 @@ public interface ConcertService {
 	
 	ArrayList<QNA> selectQnaList(int cno);
 
-	ArrayList<Review> selectReview(int cno);	
+	ArrayList<Review> selectReview(int cno);
+
+	int selectCount(int cno);	
 	
 }

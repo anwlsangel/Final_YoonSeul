@@ -60,10 +60,15 @@ public class ConcertController {
         // 후기 조회
         ArrayList<Review> rvList = concertService.selectReview(cno);
         
+        // 후기 갯수 조회
+        int reviewCount = concertService.selectCount(cno);
+        
         // 페이징처리구문 - ajax 로 해야함
         
+        model.addAttribute("rvList", rvList);
         model.addAttribute("qnaList", qnaList);
         model.addAttribute("cno",cno);
+        model.addAttribute("reviewCount",reviewCount);
         // System.out.println(qnaList);
         
         return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름

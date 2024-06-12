@@ -40,8 +40,6 @@ public class ConcertDao {
 
 	public Concert concertDetail(SqlSessionTemplate sqlSession, int cno) {
 		
-		// System.out.println("여기까진 오지?" + cno);
-
 		return sqlSession.selectOne("concertMapper.concertDetail", cno);
 	}
 
@@ -51,9 +49,13 @@ public class ConcertDao {
 	}
 
 	public ArrayList<Review> selectReview(SqlSessionTemplate sqlSession, int cno) {
-
-		System.out.println((ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno));
+		
 		return (ArrayList)sqlSession.selectList("reviewMapper.selectReview", cno);
+	}
+
+	public int selectCount(SqlSessionTemplate sqlSession, int cno) {
+		
+		return sqlSession.selectOne("reviewMapper.selectCount", cno);
 	}
 
 }

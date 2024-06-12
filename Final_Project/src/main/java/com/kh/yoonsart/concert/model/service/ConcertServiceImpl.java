@@ -50,4 +50,10 @@ public class ConcertServiceImpl implements ConcertService{
 
 		return concertDao.selectReview(sqlSession, cno);
 	}
+
+	@Override
+	public int selectCount(int cno) {
+		
+		return concertDao.selectCount(sqlSession, cno);
+	}
 }
