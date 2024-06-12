@@ -1,14 +1,18 @@
 package com.kh.yoonsart.member.model.dao;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
+import org.apache.ibatis.session.RowBounds;
 import org.apache.ibatis.session.SqlSession;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.member.model.vo.Member;
+import com.kh.yoonsart.payment.model.vo.BuyList;
 
 // 0603 member DAO 작성 - 무진
 
@@ -77,4 +81,17 @@ public class MemberDao {
 	        params.put("newPwd", newPwd);
 	        return sqlSession.update(NAMESPACE + "updatePasswordByEmail", params);
 	}
+	
+	public int selectTicketCount(SqlSessionTemplate sqlSession, String userId) {
+		return sqlSession.selectOne("memberMapper.selectTicketCount", userId);
+	}
+
+	public ArrayList<BuyList> selectMyTicketList(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("memberMapper.selectMyTicketList", userId, rowBounds);
+	}
+
 }

@@ -1,12 +1,16 @@
 package com.kh.yoonsart.member.model.service;
 
+import java.util.ArrayList;
+
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.member.model.dao.MemberDao;
 import com.kh.yoonsart.member.model.vo.Member;
+import com.kh.yoonsart.payment.model.vo.BuyList;
 
 @Service
 public class MemberServiceImpl implements MemberService{
@@ -79,5 +83,18 @@ public class MemberServiceImpl implements MemberService{
 		
 		int result = memberDao.updatePasswordByEmail(email, newPwd);
         return result > 0;
+	}
+	
+	public int selectTicketCount(String userId) {
+		return memberDao.selectTicketCount(sqlSession, userId);
+	}
+
+	@Override
+	public ArrayList<BuyList> selectMyTicketList(String userId, PageInfo pi) {
+		if(userId == null) {
+			return null;
+		} else {
+			return memberDao.selectMyTicketList(sqlSession, userId, pi);
+		}
 	}
 }

@@ -1,5 +1,6 @@
 package com.kh.yoonsart.member.controller;
 
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.Map;
 
@@ -7,6 +8,8 @@ import javax.servlet.http.Cookie;
 import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DuplicateKeyException;
 import org.springframework.http.HttpStatus;
@@ -21,8 +24,11 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.common.template.Pagination;
 import com.kh.yoonsart.member.model.service.MemberService;
 import com.kh.yoonsart.member.model.vo.Member;
+import com.kh.yoonsart.payment.model.vo.BuyList;
 
 import lombok.extern.slf4j.Slf4j;
 
@@ -257,6 +263,62 @@ public class MemberController {
 			}
 			
 		}
+		
+		//예매내역 페이지 포워딩
+		@GetMapping(value="myTicketList.me", produces="application/json; charset=UTF-8")
+		public String myTicketList(Model model, String userId) {
+			//ArrayList<BuyList> list = paymentService.selectTicketList(userId);
+			//System.out.println(list);
+
+			//model.addAttribute("buylist", list);
+			return "member/myTicketList";
+		}
+		
+		//예매내역 조회 + 페이징처리
+		@ResponseBody
+		@GetMapping(value="ajaxTicketList.me", produces="application/json; charset=UTF-8")
+		public JSONObject ajaxTicketList(int currentPage, String userId) {
+			// --- 페이징 처리 ---
+			int listCount = memberService.selectTicketCount(userId); //현재 총 게시글 개수
+			//int currentPage; //현재 페이지 (즉, 사용자가 요청한 페이지)
+			int pageLimit = 5; //페이지 하단에 보여질 페이징바의 페이지 최대 개수
+			int boardLimit = 2; // 한 페이지에 보여질 게시글의 최대 개수 (몇개단위로 게시글이 보여질건지)
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+			
+			ArrayList<BuyList> list = memberService.selectMyTicketList(userId, pi);
+			
+			JSONArray ticketList = new JSONArray();
+			for (BuyList bl : list) {
+				// replyList.add(er); <- 이렇게 VO 를 대놓고 넣으면 안됨
+				JSONObject buyList = new JSONObject();
+				buyList.put("buyListId", bl.getBuyListId());
+				buyList.put("reserveCode", bl.getReserveCode());
+				buyList.put("reserveConcertName", bl.getReserveConcertName());
+				buyList.put("reserveTicket", bl.getReserveTicket());
+				buyList.put("reserveSum", bl.getReserveSum());
+				buyList.put("reservePayment", bl.getReservePayment());
+				buyList.put("reserveRefund", bl.getReserveRefund());
+				buyList.put("userId", bl.getUserId());
+
+				ticketList.add(buyList);
+			}
+			
+			JSONObject pageInfo = new JSONObject();
+			pageInfo.put("listCount", listCount);
+			pageInfo.put("currentPage", currentPage);
+			pageInfo.put("pageLimit", pageLimit);
+			pageInfo.put("boardLimit", boardLimit);
+			pageInfo.put("maxPage", pi.getMaxPage());
+			pageInfo.put("startPage", pi.getStartPage());
+			pageInfo.put("endPage", pi.getEndPage());
+			
+			JSONObject result = new JSONObject();
+			result.put("ticketList", ticketList);
+			result.put("pageInfo", pageInfo);
+			
+			return result;
+		}
+		
 }
 
 

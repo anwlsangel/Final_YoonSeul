@@ -16,6 +16,17 @@
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
+	<!-- BUYLIST ResultMap -->
+	<resultMap type="buylist" id="buylistResultSet">
+		<result column="BUYLIST_ID" property="buyListId"/>
+		<result column="RESERVE_CODE" property="reserveCode"/>
+		<result column="RESERVE_CONCERT_NAME" property="reserveConcertName"/>
+		<result column="RESERVE_TICKET" property="reserveTicket"/>
+		<result column="RESERVE_SUM" property="reserveSum"/>
+		<result column="RESERVE_PAYMENT" property="reservePayment"/>
+		<result column="RESERVE_REFUND" property="reserveRefund"/>
+		<result column="USER_ID" property="userId"/>
+	</resultMap>
 	
 	<!-- 로그인용 쿼리문 -->
 
@@ -107,9 +118,21 @@
         WHERE EMAIL = #{email} AND STATUS = 1
     </update>
     
+    <!-- 예매내역 수 조회 -->
+    <select id="selectTicketCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		  FROM BUYLIST
+		 WHERE USER_ID = #{userId}
+	</select>
+	<!-- 예매내역 조회 -->
+	<select id="selectMyTicketList" parameterType="string" resultMap="buylistResultSet">
+		SELECT *
+		  FROM BUYLIST
+		 WHERE USER_ID = #{userId}
+		 ORDER BY RESERVE_PAYMENT DESC
+	</select>
     
-    
-	</mapper>
+</mapper>
 
 	
 	
