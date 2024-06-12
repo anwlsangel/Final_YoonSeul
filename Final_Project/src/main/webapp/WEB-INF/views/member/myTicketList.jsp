@@ -140,12 +140,21 @@
 							//console.log("예매내역 O");
 							let str = "<tr><td colspan='6'><hr></td></tr>";
 							for(let i in result.ticketList) {
+								//결제일 형식 수정
+			                	let month = result.ticketList[i].reservePayment.split(" ")[0].replace("월", "");
+			                	let date = result.ticketList[i].reservePayment.split(" ")[1].replace(",", "");
+			                	let year = result.ticketList[i].reservePayment.split(" ")[2];
+			                	if(month < 10) { month = "0" + month; }
+			                	if(date < 10) { date = "0" + date; }
+			                	let startDate = year + "-" + month + "-" + date;
+								
 								str += "<tr>";
 								str	+= "<td>" + result.ticketList[i].buyListId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveConcertName + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveTicket + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveSum + "</td>";
-					            str	+= "<td>" + result.ticketList[i].reservePayment + "</td>";
+					            //str	+= "<td>" + result.ticketList[i].reservePayment + "</td>";
+					            str	+= "<td>" + startDate + "</td>";
 								if(result.ticketList[i].reserveRefund == null) {
 									str += "<td style='color: blue'>결제 완료</td>";
 								} else {
