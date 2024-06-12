@@ -1,7 +1,9 @@
 package com.kh.yoonsart.payment.model.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
+import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
 public interface PaymentService {

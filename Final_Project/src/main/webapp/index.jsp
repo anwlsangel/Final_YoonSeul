@@ -639,7 +639,7 @@
 						                        <a href="adminPage.ad">마이페이지</a>
 						                    </c:when>
 						                    <c:otherwise>
-						                        <a href="myPage.me">마이페이지</a>
+						                        <a href="myTicketList.me">마이페이지</a>
 						                    </c:otherwise>
 						                </c:choose>
 						                <a href="logout.me">로그아웃</a>

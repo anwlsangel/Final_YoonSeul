@@ -9,7 +9,6 @@ import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor
-@AllArgsConstructor
 @Setter
 @Getter
 @ToString

@@ -674,41 +674,24 @@
     	
     
     <div>
-    	<button onclick="refund();">user01 결제 환불</button>
+    	<button onclick="getToken();">환불 테스트</button>
     </div>
+    <div><button onclick="location.href='myTicketList.me?userId=${sessionScope.loginUser.userId}';">예매내역</button></div>
+    
     <script>
     	const apiKey = "5866740403361550";
     	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
-    	let token="";
-    	
-    	//access token 발급
-    	function getToken() {
-    		$.ajax({
-    			url: "getToken.pa",
-    			type: "post",
-    			data: {
-    				apiKey: apiKey,
-    				apiSecret: apiSecret
-    			},
-    			success: function(response) {
-    				//console.log(response);
-    				token = response;
-    			},
-    			error: function() {
-    				console.log("access token 발급 ajax 통신 실패")
-    			}
-    		});
-    	}
+    	let token = "";
     	
     	//환불
     	function refund() {
-    		getToken();
+    		console.log("환불 요청...");
     		$.ajax({
     			url: "refund.pa",
     			type: "post",
     			data: {
     				access_token: token,
-    				merchant_uid: "111434224132", //BUYLIST_ID
+    				merchant_uid: "12024061222728", //BUYLIST_ID
     				reason: "환불사유" //환불사유
     			},
     			success: function(result) {
@@ -719,6 +702,29 @@
     			}
     		});
     	}
+    	
+    	//access token 발급
+    	function getToken() {
+    		console.log("access token 발급 요청...");
+    		$.ajax({
+    			url: "getToken.pa",
+    			type: "post",
+    			data: {
+    				apiKey: apiKey,
+    				apiSecret: apiSecret
+    			},
+    			success: function(response) {
+    				//console.log(response);
+    				token = response;
+    				console.log("access token 발급 성공");
+    				refund();
+    			},
+    			error: function() {
+    				console.log("access token 발급 ajax 통신 실패")
+    			}
+    		});
+    	}
+    	
     </script>
     
     	
@@ -741,6 +747,8 @@
   		
 	    //const myAmount = Number(document.getElementById("amount").value);
 	    const myAmount = 100; //결제금액
+	    
+	    let userId = "${sessionScope.loginUser.userId}";
 	
 	    const IMP = window.IMP; // 생략 가능
 	    IMP.init("imp84822672"); // 상점 식별코드
@@ -783,7 +791,7 @@
 	     	            		reserveConcertName: rsp.name, //예약된 공연 이름
 	     	      	            reserveTicket: 1, //예약된 티켓 수
 	     	      	            reserveSum: myAmount, //결제 금액 합
-	     	      	            userId: "user02" //회원ID
+	     	      	            userId: userId //회원ID
 	     	            	},
 	     	            	success: function(result) {
 	     	            		if(result == "success") {
