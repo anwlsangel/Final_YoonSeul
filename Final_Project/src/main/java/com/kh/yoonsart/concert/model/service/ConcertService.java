@@ -17,12 +17,6 @@ public interface ConcertService {
 	
 	ArrayList<QNA> selectQnaList(int cno);
 
-	ArrayList<Review> selectReview(int cno);
-
-	// QNA 리스트 총 갯수
-//	int selectListCount();
-//	ArrayList<QNA> selectQnaList(int cno, PageInfo pi);
-	
-	
+	ArrayList<Review> selectReview(int cno);	
 	
 }

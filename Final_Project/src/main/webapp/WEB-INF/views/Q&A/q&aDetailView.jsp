@@ -162,7 +162,7 @@
         <div class="question-btn" align="center">
         
             <a style="text-decoration: none;" 
-                href="">
+                href="detail.co">
                 <button type="button">목록</button>
             </a>
             
@@ -175,17 +175,10 @@
                 <button type="button">삭제</button>
             </a>
         </div>
-	
 	<br><br>
-
     </div>
-
- 
 </div>
-
-	
 </div>
-
 
 <jsp:include page="../common/footer.jsp" />
 </body>

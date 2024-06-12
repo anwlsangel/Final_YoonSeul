@@ -48,7 +48,7 @@ public class ConcertController {
 	}
 	
 	@GetMapping("detail.co")
-	public String concertDetail(@RequestParam("cno") int cno, @RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+	public String concertDetail(@RequestParam("cno") int cno, Model model) {
 		
 		// 상세 조회
         Concert concert = concertService.concertDetail(cno);
@@ -60,17 +60,7 @@ public class ConcertController {
         // 후기 조회
         ArrayList<Review> rvList = concertService.selectReview(cno);
         
-        // 페이징처리구문 추가 
-//        int listCount = concertService.selectListCount();
-//		int pageLimit = 10;
-//		int boardLimit = 5;
-//		
-//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-//		
-//		ArrayList<QNA> list = concertService.selectQnaList(pi);
-//		
-//		model.addAttribute("pi", pi);
-//		model.addAttribute("list", list);
+        // 페이징처리구문 - ajax 로 해야함
         
         model.addAttribute("qnaList", qnaList);
         model.addAttribute("cno",cno);
