@@ -112,4 +112,10 @@ public class PaymentController {
 		}
 	}
 	
+	//예매내역 상세보기
+	@GetMapping(value="myTicketDetailView")
+	public String myTicketDetailView(String tno) {
+		return "member/myTicketDetail?tno" + tno;
+	}
+	
 }

@@ -72,6 +72,13 @@
     	background-color: lightgray;
     }
     
+    .ticketInfo {
+    	height: 30px;
+    }
+    .ticketInfo:hover {
+    	cursor: pointer;
+    }
+    
     /*ticketList-paging-area*/
     #ticketList-paging-area>button {
     	border: none;
@@ -103,7 +110,7 @@
 		<p class="mypage-title">＊ 예매 내역</p>
 		<br>
 		
-		<div id="ticketList" style="height: 400px">
+		<div id="ticketList" style="height: 470px">
 			<table id="ticketlist-table">
 				<thead>
 					<tr>
@@ -125,6 +132,10 @@
 			$(function() {
 				ajaxTicketList(1);
 			});
+			
+			function myTicketDetailView(num) {
+				location.href = "myTicketDetailView?tno=" + num;
+			}
 			
 			function ajaxTicketList(num) {
 				$.ajax({
@@ -148,7 +159,7 @@
 			                	if(date < 10) { date = "0" + date; }
 			                	let startDate = year + "-" + month + "-" + date;
 								
-								str += "<tr>";
+								str += "<tr class='ticketInfo' onclick='myTicketDetailView(" + result.ticketList[i].buyListId + ")'>";
 								str	+= "<td>" + result.ticketList[i].buyListId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveConcertId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveTicket + "</td>";
