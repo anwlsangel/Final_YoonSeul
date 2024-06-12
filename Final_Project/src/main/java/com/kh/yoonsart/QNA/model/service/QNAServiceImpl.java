@@ -39,15 +39,15 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
-	public QNA selectlQNA(int qnaId) {
+	public QNA selecteQNA(int qnaId) {
 		
-		return qnaDao.selectQNA(sqlSession, qnaId);
+		return qnaDao.selecteQNA(sqlSession, qnaId);
 	}
 
 	@Override
 	public int deleteQNA(int qnaId) {
 		
-		return 0;
+		return qnaDao.deleteQNA(sqlSession, qnaId);
 	}
 
 	@Override

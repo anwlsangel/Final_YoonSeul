@@ -161,20 +161,30 @@
 
         <div class="question-btn" align="center">
         
-            <a style="text-decoration: none;" 
-                href="detail.co">
+        	<!-- <input type="hidden" name="qno">  -->
+    
+            <a style="text-decoration: none;" href="">
                 <button type="button">목록</button>
             </a>
             
-            <a style="text-decoration: none;" 
-                href=""> 
-              	<button type="button">수정</button>
+            <a style="text-decoration: none;" onclick="updateQna();"> 
+              	<button type="button">수정</button>	
             </a>
-            <a style="text-decoration: none;" 
-               href="">
+            <a style="text-decoration: none;" onclick="deleteQna();">
                 <button type="button">삭제</button>
             </a>
+            <script>
+            	function deleteQna() {
+            		location.href = "delete.qa?qno=${q.qnaId}";
+            	}
+            	
+            	function updateQna() {
+            		// console.log(${q.qnaId});
+            		location.href = "updateForm.qa?qno=${q.qnaId}";
+            	}
+            </script>
         </div>
+			      	
 	<br><br>
     </div>
 </div>

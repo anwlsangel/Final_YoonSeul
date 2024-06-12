@@ -9,6 +9,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.ModelAndView;
 
@@ -53,8 +54,6 @@ public class QNAController {
 	@PostMapping(value="insert.qa")
 	public ModelAndView insertBoard(QNA q, HttpSession session, ModelAndView mv) {
 		
-		
-		
 		int result = qnaService.insertQNA(q);
 		
 		// 결과에 따른 응답페이지 처리 
@@ -72,20 +71,61 @@ public class QNAController {
 	}
 	
 	@GetMapping("detail.qa")
-	public ModelAndView selectBoard(@RequestParam("qno") int qno, ModelAndView mv) {
+	public ModelAndView selectQNA(@RequestParam("qno") int qno, ModelAndView mv) {
 		
 		// System.out.println(qno);
 		
-		QNA q = qnaService.selectlQNA(qno);
-		System.out.println(q);
+		QNA q = qnaService.selecteQNA(qno);
+		// System.out.println(q);
 		mv.addObject("q", q).setViewName("Q&A/q&aDetailView") ;
 	
 		return mv;
 	}
 	
+	// 게시글 삭제 
+	@GetMapping("delete.qa")
+	public String deleteQNA(@RequestParam("qno") int qno, QNA q, Model model, HttpSession session) {
+		
+		// System.out.println("확인1 : " + qno);
+		
+		 int result = qnaService.deleteQNA(qno);
+		 
+		 if(result > 0) {
+			 
+			 // System.out.println("확인2 : " +  qno);
+			 
+			 session.setAttribute("alertMsg", "문의글 삭제 성공!");
+			 //model.addAttribute("alertMsg", "문의글 삭제 성공!");
+			 // System.out.println(q.getConcertId());
+			 return "redirect:/detail.co?cno="+ q.getConcertId() +"#text";
+			 // > q.getConcertId() 값 가져와서 redirect 완성시켜야함
+			 
+		 } else { // 실패
+				
+			// 에러문구 담아서 에러페이지로 포워딩
+			model.addAttribute("errorMsg", "문의글 삭제 실패");
+			return "common/errorPage";
+		}
+	}
 	
+	@GetMapping("updateForm.qa")
+	public ModelAndView updateForm(@RequestParam("qno") int qno, Model model, ModelAndView mv) {
+
+		// System.out.println(qno);
+		
+		// 게시글 한건 조회 
+		QNA q = qnaService.selecteQNA(qno);
+		
+		model.addAttribute("q", q);
+		mv.setViewName("Q&A/q&aUpdateForm");
+		return mv;
+	}
 	
-	
-	
+	@PostMapping("update.qa")
+	public String updateQNA(QNA q, HttpSession session, Model model) {
+		
+		System.out.println(q);
+		return "";
+	}
 	
 }

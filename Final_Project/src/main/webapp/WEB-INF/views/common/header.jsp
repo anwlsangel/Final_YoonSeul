@@ -400,7 +400,7 @@ hr {
                     <a href="convenience" title="편의시설">편의시설</a>
                 </li>
                 <li>
-                    <a href="#" title="영상정보처리기기 운영/관리 방침">영상정보처리기기 운영/관리 방침</a>
+                    <a href="<%=request.getContextPath()%>/videoinfo" title="영상정보처리기기 운영/관리 방침">영상정보처리기기 운영/관리 방침</a>
                 </li>
             </ul>
         </li>

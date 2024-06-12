@@ -17,13 +17,14 @@ public interface QNAService {
 	int insertQNA(QNA q);
 	
 	// 상세 조회  (select)
-	QNA selectlQNA(int qnaId);
+	QNA selecteQNA(int qnaId);
 	
 	// 삭제 (update)
 	int deleteQNA(int qnaId);
 	
 	// 수정 (update)
 	int updateQNA(QNA q);
+
 	
 	// 답변 작성 - 댓글
 	

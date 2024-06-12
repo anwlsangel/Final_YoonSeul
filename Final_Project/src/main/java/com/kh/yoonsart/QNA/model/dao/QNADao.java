@@ -37,12 +37,16 @@ public class QNADao {
 	}
 	
 	// 상세조회
-	public QNA selectQNA(SqlSessionTemplate sqlSession, int qnaId) {
+	public QNA selecteQNA(SqlSessionTemplate sqlSession, int qnaId) {
 		
 		return sqlSession.selectOne("qnaMapper.selectQna", qnaId);
 	}
 	
-	
+	// 삭제 
+	public int deleteQNA(SqlSessionTemplate sqlSession, int qnaId) {
+		
+		return sqlSession.update("qnaMapper.deleteQna", qnaId);
+	}
 	
 	
 }
