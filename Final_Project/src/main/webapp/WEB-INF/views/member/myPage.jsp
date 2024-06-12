@@ -7,21 +7,6 @@
 <head>
 <meta charset="UTF-8">
 <title>Insert title here</title>
-    <!-- 부트스트랩 및 각종 연동구문 추가 0603 -무진 -->
-     <!-- alertify 연동 구문 -->
-     <!-- 부트스트랩에서 제공하고 있는 스타일 -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
-    <!-- 부트스트랩에서 제공하고 있는 스크립트 -->
-    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
-    <!-- JavaScript -->
-	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-	
-	<!-- CSS -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
-	<!-- Default theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/default.min.css"/>
-	<!-- Semantic UI theme -->
-	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 	<style type="text/css">
 		.container {
             max-width: 1000px;
@@ -234,7 +219,7 @@
 	    });
 	});
 	</script>
-    <jsp:include page="" />
+    <jsp:include page="../common/footer.jsp" />
 
 </body>
 </html>

@@ -76,7 +76,7 @@
 </head>
 <body>
     <div class="star-container">
-    
+    <jsp:include page="../common/header.jsp" />
         <div class="star-header">
             <h1>별빛홀</h1>
             <div class="star-intro-text">
@@ -98,8 +98,6 @@
             </div>
         </div>
     </div>
-    <div class="footer">
-        <p>&copy; 2001 - <span id="currentYear"></span> 윤슬아트홀. All rights reserved.</p>
-    </div>
+   <jsp:include page="../common/footer.jsp" />
 </body>
 </html>
