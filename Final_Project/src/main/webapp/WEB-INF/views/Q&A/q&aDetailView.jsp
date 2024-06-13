@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -35,6 +36,7 @@
         border : 1px solid #810000;
         width: 60px;
         height: 30px;
+        border: none;
         background: linear-gradient(0deg, #630000, #810000);
         color: #EEEBDD;
         margin: 3px;
@@ -127,18 +129,19 @@
        
          <!-- 관리자로 로그인한 경우 답변 작성 가능  -->
         <div class="answer-form">
-
-            <form action="">
+            <form action="insert.as">
+            <c:if test="${sessionScope.loginUser.userId eq 'admin'}">
             <div class="a-answer">
-                <tr>
+            		<tr>
                     <th colspan="2">
-                        <textarea id="" style="margin-left: 30px;" required></textarea>
+                        <textarea id="answer" style="margin-left: 30px;" required></textarea>
                     </th>
                     <td align="center">
-                        <button type="button" onclick="" class="btn-green" disabled>답변 등록</button>
+                        <button type="button" onclick="addAnswer();" class="btn-green">답변 등록</button>
                     </td>
                 </tr>
             </div>
+            </c:if>
          </form>
         </div>
       
@@ -149,15 +152,72 @@
             <h5 style="color: #810000; padding-top: 10px;">↳ 문의 답변</h5>
 
             <div class="answer-content">
-                연소자의 근로는 특별한 보호를 받는다.
-                감사원은 원장을 포함한 5인 이상 11인 이하의 감사위원으로 구성한다.
-                모든 국민은 직업선택의 자유를 가진다.
-                연소자의 근로는 특별한 보호를 받는다.
+           		
             </div>
             <div class="answer-info">
-                <div class="answer-createDate">2024.06.05</div>
+                <div class="answer-createDate">
+                	
+                </div>
             </div>
         </div>
+        
+        <script>
+        $(function() {
+        	selectAnswer();
+        });
+        	function addAnswer() {
+						
+        		// console.log($("#answer").val());
+        		
+        		if($("#answer").val().trim().length != 0) {
+					$.ajax({
+						url : "insert.as",
+						type : "post",
+						data : {
+							//console.log(${q.qnaId});
+							qnaId : ${q.qnaId},
+							qnaAnswer : $("#answer").val()
+						},
+						success : function(result) {
+							//console.log(result);	
+							if(result == "success") {
+
+								selectAnswer();
+							}
+						},
+						error : function() {
+							console.log('QNA 답변 작성 실패');
+						}
+					});  
+        		}
+        	}
+        	
+         	function selectAnswer() {
+	    		$.ajax({
+	    			url : "answer.as",
+	    			type : "get",
+	    			data : {
+	    				qno : ${q.qnaId}
+	    			},   
+	    			success : function(result) {	
+	    				console.log(result);
+	    				//결제일 형식 수정
+	                	let month = result.answerDate.split(" ")[0].replace("월", "");
+	                	let date = result.answerDate.split(" ")[1].replace(",", "");
+	                	let year = result.answerDate.split(" ")[2];
+	                	if(month < 10) { month = "0" + month; }
+	                	if(date < 10) { date = "0" + date; }
+	                	let startDate = year + "-" + month + "-" + date;
+	    				//$(".answer-createDate").html(result.answerDate);
+	    				$(".answer-createDate").html(startDate);
+	    				$(".answer-content").html(result.qnaAnswer);
+	    			},
+	    			error : function() {
+	    			 	console.log("답변 조회용 ajax 통신 실패");
+	    			}
+	    		});
+	    	}
+        </script>
 
         <div class="question-btn" align="center">
         
@@ -191,5 +251,6 @@
 </div>
 
 <jsp:include page="../common/footer.jsp" />
+
 </body>
 </html>

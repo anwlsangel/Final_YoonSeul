@@ -81,4 +81,31 @@
  		 WHERE QNA_ID = #{qnaId}
  		   AND STATUS = 1
  	</update>
+ 	
+ 	<!-- 문의글 수정 -->
+ 	<update id="updateQna" parameterType="qna">
+ 		UPDATE QNA
+ 		   SET QNA_TITLE = #{qnaTitle},
+ 		       QNA_CONTENT = #{qnaContent}
+ 		 WHERE QNA_ID = #{qnaId}
+ 		   AND STATUS = 1
+ 	</update>
+ 	
+ 	<!-- 답변 작성 -->
+	<update id="insertAnswer" parameterType="qna">
+		UPDATE QNA
+		   SET QNA_ANSWER = #{qnaAnswer}
+		   	 , ANSWER_DATE = SYSDATE
+		 WHERE QNA_ID = #{qnaId}  	 
+	</update>  
+	
+	<!-- 답변 목록 -->
+	<select id="selectAnswer" parameterType="_int" resultMap="qnaResultSet">
+		SELECT QNA_ANSWER
+			 , TO_CHAR(ANSWER_DATE, 'YYYY-MM-DD') AS "ANSWER_DATE"		    
+		  FROM QNA
+		  WHERE QNA_ID = #{qnaId}
+		   AND STATUS = 1
+	</select>
+ 	
 </mapper>	 
