@@ -430,9 +430,9 @@
                 </div>
                 
                 <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                		onclick="seat();">
-                      	좌석예매
-              	</button>
+				        onclick="seatReservation(${cno});">
+				    좌석예매
+				</button>
 
                 <br><br><br><br><br><br>
 
@@ -626,6 +626,13 @@
        	<input type="hidden" name="cno" value="${cno}">
         
        <script>
+       
+       // 좌석예매용
+       function seatReservation(cno) {
+    	    
+    	    location.href = "seat.co?cno=" + cno;
+    	}
+       
        		$(function(){
        			
        			$("#qnaList>tbody>tr").click(function(){       				
@@ -714,10 +721,6 @@
     </div>
     
     <script>
-    
-    function seat() {
-    	location.href = "seat.co";
-    }
     
     //결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
     function payment() {
