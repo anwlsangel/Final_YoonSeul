@@ -630,7 +630,7 @@
                     <td>${q.createDate}</td>
                     <td>${q.userId}</td>
                     <td style="color : #810000;">
-                    <c:if test="${not empty q.answerDate}">
+                    <c:if test="${not empty q.qnaAnswer}">
                     	완료
                     </c:if>
                     </td>
