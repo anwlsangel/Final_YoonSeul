@@ -177,6 +177,8 @@
 			    			},
 			    			success: function(result) {
 			    				console.log("환불 성공");
+			    				alert("환불되었습니다.");
+			    				location.reload(true);
 			    			},
 			    			error: function() {
 			    				console.log("환불 ajax 통신 실패");
