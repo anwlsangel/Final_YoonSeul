@@ -1,21 +1,16 @@
 package com.kh.yoonsart.payment.controller;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.kh.yoonsart.common.model.vo.PageInfo;
-import com.kh.yoonsart.common.template.Pagination;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.payment.model.service.PaymentService;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 import com.siot.IamportRestClient.IamportClient;
@@ -112,10 +107,16 @@ public class PaymentController {
 		}
 	}
 	
-	//예매내역 상세보기
+	//예매내역 상세조회
 	@GetMapping(value="myTicketDetailView")
-	public String myTicketDetailView(String tno) {
-		return "member/myTicketDetail?tno" + tno;
+	public ModelAndView myTicketDetailView(String tno, ModelAndView mv) {
+		//결제내역
+		BuyList bl = paymentService.selectBuyList(tno);
+		//공연정보
+		Concert concert = paymentService.selectConcert(bl.getReserveConcertId());
+		mv.addObject("bl", bl).addObject("concert", concert);
+		mv.setViewName("member/myTicketDetail");
+		return mv;
 	}
 	
 }

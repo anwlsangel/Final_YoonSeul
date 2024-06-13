@@ -13,6 +13,19 @@
 		<result column="RESERVE_REFUND" property="reserveRefund"/>
 		<result column="USER_ID" property="userId"/>
 	</resultMap>
+	<resultMap type="concert" id="concertResultSet">
+		<result column="CONCERT_ID" property="concertId"/>
+		<result column="CONCERT_NAME" property="concertName"/>
+		<result column="AGE_LIMIT" property="ageLimit"/>
+		<result column="PRICE" property="price"/>
+		<result column="THUMBNAIL_ROOT" property="thumbnailRoot"/>
+		<result column="DETAIL_ROOT" property="detailRoot"/>
+		<result column="PLAYTIME" property="playTime"/>
+		<result column="START_DATE" property="startDate"/>
+		<result column="END_DATE" property="endDate"/>
+		<result column="CATEGORY" property="category"/>
+		<result column="HOLE_NAME" property="holeName"/>
+	</resultMap>
 	
 	<!-- 결제정보 저장 -->
 	<insert id="insertPaymentInfo" parameterType="buylist">
@@ -33,6 +46,18 @@
 		   SET RESERVE_REFUND = SYSDATE
 		 WHERE BUYLIST_ID = #{merchant_uid}
 	</update>
+	
+	<!-- 예매내역 상세조회 -->
+	<select id="selectBuyList" parameterType="string" resultMap="buylistResultSet">
+		SELECT *
+		  FROM BUYLIST
+		 WHERE BUYLIST_ID = #{tno}
+	</select>
+	<select id="selectConcert" parameterType="_int" resultMap="concertResultSet">
+		SELECT *
+		  FROM CONCERT_INFO
+		 WHERE CONCERT_ID = #{concertId}
+	</select>
 	
 </mapper>
 

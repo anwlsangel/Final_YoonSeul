@@ -55,4 +55,15 @@
 			</beans:props>
 		</beans:property>
 	</beans:bean>
+	<!-- FreeMarker Configuration -->
+    <beans:bean id="freemarkerConfig" class="org.springframework.web.servlet.view.freemarker.FreeMarkerConfigurer">
+        <beans:property name="templateLoaderPath" value="/WEB-INF/views/common/"/>
+        <beans:property name="defaultEncoding" value="UTF-8"/>
+    </beans:bean>
+
+    <beans:bean class="org.springframework.web.servlet.view.freemarker.FreeMarkerViewResolver">
+        <beans:property name="cache" value="true"/>
+        <beans:property name="prefix" value=""/>
+        <beans:property name="suffix" value=".ftl"/>
+    </beans:bean>
 </beans:beans>
