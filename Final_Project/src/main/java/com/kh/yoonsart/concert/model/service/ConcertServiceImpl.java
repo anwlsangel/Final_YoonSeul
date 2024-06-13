@@ -1,6 +1,8 @@
 package com.kh.yoonsart.concert.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -56,4 +58,19 @@ public class ConcertServiceImpl implements ConcertService{
 		
 		return concertDao.selectCount(sqlSession, cno);
 	}
+
+	 @Override
+	    public int addWishlist(String userId, int concertId) {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("userId", userId);
+	        map.put("concertId", concertId);
+	        return concertDao.insertWishlist(sqlSession,map);
+	    }
+	 @Override
+	    public int removeWishlist(String userId, int concertId) {
+	        Map<String, Object> map = new HashMap<>();
+	        map.put("userId", userId);
+	        map.put("concertId", concertId);
+	        return concertDao.deleteWishlist(sqlSession,map);
+	    }
 }

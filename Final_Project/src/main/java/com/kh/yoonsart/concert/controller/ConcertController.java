@@ -6,7 +6,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
@@ -81,5 +83,26 @@ public class ConcertController {
 		
 	}
 	
+	@PostMapping(value = "/wishlistadd", produces = "text/html; charset=UTF-8")
+	    @ResponseBody
+	    public String addWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	        int result = concertService.addWishlist(userId, concertId);
+	        if (result > 0) {
+	            return "관심 공연에 추가되었습니다.";
+	        } else {
+	            return "관심 공연 추가에 실패했습니다.";
+	        }
+	    }
+
+	    @PostMapping(value ="/wishlistremove", produces = "text/html; charset=UTF-8")
+	    @ResponseBody
+	    public String removeWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	        int result = concertService.removeWishlist(userId, concertId);
+	        if (result > 0) {
+	            return "관심 공연에서 삭제되었습니다.";
+	        } else {
+	            return "관심 공연 삭제에 실패했습니다.";
+	        }
+	    }
 
 }

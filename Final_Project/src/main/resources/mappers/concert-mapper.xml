@@ -77,6 +77,15 @@
 		SELECT COUNT(*)
 		  FROM QNA
 		 WHERE STATUS = '1'
-	</select>    	
+	</select> 
+	<!-- 관심공연용 쿼리문 - 0613 무진 -->
+	<insert id="insertWishlist" parameterType="map">
+	    INSERT INTO WISHLIST (USER_ID, CONCERT_ID)
+	    VALUES (#{userId}, #{concertId})
+	</insert>
+	<delete id="deleteWishlist" parameterType="map">
+	    DELETE FROM WISHLIST
+	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
+	</delete>   	
           
 </mapper>

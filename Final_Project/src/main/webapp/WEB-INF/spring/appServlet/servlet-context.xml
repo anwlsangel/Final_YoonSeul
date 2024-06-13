@@ -32,6 +32,8 @@
 			<mapping path="/delete.me"/>
 			<mapping path="/insert.qa"/> <!-- 0611 추가 수정 -->
 			<mapping path="/enrollform.qa"/> <!-- 0611 추가 수정 -->
+			<mapping path="/wishlistadd"/> <!-- 0613 추가 무진 -->
+			<mapping path="/wishlistremove"/> <!-- 0613 추가 무진 -->
 			<beans:bean class="com.kh.yoonsart.common.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
 		</interceptor>
 	</interceptors>

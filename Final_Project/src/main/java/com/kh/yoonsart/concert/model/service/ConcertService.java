@@ -21,4 +21,6 @@ public interface ConcertService {
 
 	int selectCount(int cno);	
 	
+	int addWishlist(String userId, int concertId);
+	int removeWishlist(String userId, int concertId);
 }

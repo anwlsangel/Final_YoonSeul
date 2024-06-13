@@ -57,5 +57,11 @@ public class ConcertDao {
 		
 		return sqlSession.selectOne("reviewMapper.selectCount", cno);
 	}
-
+	
+	public int insertWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	    return sqlSession.insert("concertMapper.insertWishlist", map);
+	}
+	 public int deleteWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	        return sqlSession.delete("concertMapper.deleteWishlist", map);
+	    }
 }

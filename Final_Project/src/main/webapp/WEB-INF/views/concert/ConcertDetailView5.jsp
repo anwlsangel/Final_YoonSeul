@@ -395,55 +395,33 @@
                             if ($("#like-icon").attr("value") == "false") {
                                 $.ajax({
                                     type: "POST",
-                                    url: "<c:url value='/wishlistadd'/>",
+                                    url: "<c:url value='/wishlist/add'/>",
                                     data: { userId: userId, concertId: concertId },
                                     success: function(response) {
                                         $("#like-count").html("118");
                                         $("#like-icon").html("❤️");
                                         $("#like-icon").attr("value", "true");
-                                        alertify.alert('알림', response, function() {
-                                            alertify.success('관심 공연에 추가되었습니다.');
-                                        });
+                                        alert(response);
                                     },
                                     error: function(xhr, status, error) {
-                                        if (xhr.status === 401) {
-                                            var response = JSON.parse(xhr.responseText);
-                                            alertify.alert('알림', response.message, function() {
-                                                window.location.href = "<c:url value='/'/>";
-                                            });
-                                        } else {
-                                            console.error(error);
-                                            alertify.alert('알림', '관심 공연 추가에 실패했습니다.', function() {
-                                                alertify.error('오류가 발생했습니다.');
-                                            });
-                                        }
+                                        console.error(error);
+                                        alert("관심 공연 추가에 실패했습니다.");
                                     }
                                 });
                             } else {
                                 $.ajax({
                                     type: "POST",
-                                    url: "<c:url value='/wishlistremove'/>",
+                                    url: "<c:url value='/wishlist/remove'/>",
                                     data: { userId: userId, concertId: concertId },
                                     success: function(response) {
                                         $("#like-count").html("117");
                                         $("#like-icon").html("🤍");
                                         $("#like-icon").attr("value", "false");
-                                        alertify.alert('알림', response, function() {
-                                            alertify.success('관심 공연에서 삭제되었습니다.');
-                                        });
+                                        alert(response);
                                     },
                                     error: function(xhr, status, error) {
-                                        if (xhr.status === 401) {
-                                            var response = JSON.parse(xhr.responseText);
-                                            alertify.alert('알림', response.message, function() {
-                                                window.location.href = "<c:url value='/'/>";
-                                            });
-                                        } else {
-                                            console.error(error);
-                                            alertify.alert('알림', '관심 공연 삭제에 실패했습니다.', function() {
-                                                alertify.error('오류가 발생했습니다.');
-                                            });
-                                        }
+                                        console.error(error);
+                                        alert("관심 공연 삭제에 실패했습니다.");
                                     }
                                 });
                             }
