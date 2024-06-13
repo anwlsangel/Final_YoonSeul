@@ -282,7 +282,7 @@ public class MemberController {
 			int listCount = memberService.selectTicketCount(userId); //현재 총 게시글 개수
 			//int currentPage; //현재 페이지 (즉, 사용자가 요청한 페이지)
 			int pageLimit = 5; //페이지 하단에 보여질 페이징바의 페이지 최대 개수
-			int boardLimit = 2; // 한 페이지에 보여질 게시글의 최대 개수 (몇개단위로 게시글이 보여질건지)
+			int boardLimit = 5; // 한 페이지에 보여질 게시글의 최대 개수 (몇개단위로 게시글이 보여질건지)
 			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 			
 			ArrayList<BuyList> list = memberService.selectMyTicketList(userId, pi);

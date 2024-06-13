@@ -6,7 +6,6 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
-import java.util.ArrayList;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -18,7 +17,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
-import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.payment.model.dao.PaymentDao;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
@@ -119,6 +118,16 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public int updateReserveRefund(String merchant_uid) {
 		return paymentDao.updateReserveRefund(sqlSession, merchant_uid);
+	}
+
+	//예매내역상세조회
+	@Override
+	public BuyList selectBuyList(String tno) {
+		return paymentDao.selectBuyList(sqlSession, tno);
+	}
+	@Override
+	public Concert selectConcert(int concertId) {
+		return paymentDao.selectConcert(sqlSession, concertId);
 	}
 	
 }

@@ -4,6 +4,13 @@
 <head>
 <meta charset="UTF-8">
 <title>Seat Reservation</title>
+<!-- 결제 -->
+<script type="text/javascript" src="https://code.jquery.com/jquery-1.12.4.min.js"></script>
+<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
+<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+<script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+
 <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
 <style>
 body {
@@ -262,7 +269,7 @@ body {
         // 이거 디비에서 땡겨오는 값이여야함 range랑 규격 맞춰서 그려줘야 하기에 지금은 하드 코딩이지만...
         let gapx = 39;
         let gapy = 35;
-        let ticketPrice = 20000;//티켓 한장 값
+        let ticketPrice = 100;//티켓 한장 값
         let numOfTicket = 0;
         const numPoints = 10;
 
@@ -336,13 +343,80 @@ body {
         
         // 결제 함수
         function pay() {
-		    var concertId = $("#concertId").val();
+		    //var concertId = $("#concertId").val();
 		    var ticketQuantity = numOfTicket;
 		    var totalPrice = $("#totalPrice").text();
+
+		  	//주문번호(BUYLIST_ID) 랜덤생성
+	  		let concertId = $("#concertId").val();
+	  		let formattedDate = moment().format('YYYYMMDD');
+	  		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
+	  		let randomUid = concertId + formattedDate + randomNum;
+	  		
+		    //const myAmount = Number(document.getElementById("amount").value);
+		    const myAmount = totalPrice; //결제금액
+		    let userId = "${sessionScope.loginUser.userId}";
 		    
-		    console.log(concertId);
-		    console.log(ticketQuantity);
-		    console.log(totalPrice);
+		    const IMP = window.IMP; // 생략 가능
+		    IMP.init("imp84822672"); // 상점 식별코드
+		    IMP.request_pay(
+		      {
+		      	// param
+		         pg: "html5_inicis",
+		         pay_method: "card",
+		         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
+		         name: "공연이름", //결제 시 보이는 상품명
+		         amount: myAmount,
+		         buyer_email: "gildonggmailcom",
+		         buyer_name: "HongGildong",
+		         buyer_tel: "01042424242",
+		         buyer_addr: "Seoul",
+		         buyer_postcode: "01181",
+		         
+		         //m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소
+		      }, function(rsp) {
+		      	console.log(rsp);
+		      	$.ajax({
+		      		url: "checkAmount",
+		                 type: "POST",
+		                 data: { imp_uid: rsp.imp_uid}
+		             }).done(function(data) {
+		             	console.log(data);
+		             	console.log("rsp.paid_amount : " + rsp.paid_amount);
+		             	console.log("data.response.amount : " + data.response.amount);
+		             	console.log("--------------------");
+		                 if(rsp.paid_amount === data.response.amount){
+		                     console.log("결제 성공");
+		                     
+		                     //결제정보 db에 저장
+		                     $.ajax({
+		     	            	url: "insertPaymentInfo.pa",
+		     	            	type: "post",
+		     	            	data: {
+		     	            		buyListId: rsp.merchant_uid, //주문번호
+		     	            		reserveCode: rsp.pg_tid, //결제코드
+		     	            		reserveConcertId: concertId, //예약된 공연 이름
+		     	      	            reserveTicket: ticketQuantity, //예약된 티켓 수
+		     	      	            reserveSum: myAmount, //결제 금액 합
+		     	      	            userId: userId //회원ID
+		     	            	},
+		     	            	success: function(result) {
+		     	            		if(result == "success") {
+		     	            			console.log("결제정보 저장 성공");
+		     	            		} else {
+		     	            			console.log("결제정보 저장 실패");
+		     	            		}
+		     	            	},
+		     	            	error: function() {
+		     	            		console.log("결제정보 저장 AJAX 통신 실패");
+		     	            	}
+		     	            });
+		                 } else {
+		                     console.log("결제 실패");
+		                 }
+		             });
+		      	
+		   		});
 		}
 
 

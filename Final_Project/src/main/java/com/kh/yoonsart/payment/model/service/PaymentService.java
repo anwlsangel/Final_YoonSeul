@@ -1,9 +1,8 @@
 package com.kh.yoonsart.payment.model.service;
 
 import java.io.IOException;
-import java.util.ArrayList;
 
-import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
 public interface PaymentService {
@@ -19,5 +18,11 @@ public interface PaymentService {
 	
 	//결제 정보에 환불일 업데이트
 	int updateReserveRefund(String merchant_uid);
+	
+	//예매내역 상세조회
+	//결제정보
+	BuyList selectBuyList(String tno);
+	//공연정보
+	Concert selectConcert(int concertId);
 	
 }

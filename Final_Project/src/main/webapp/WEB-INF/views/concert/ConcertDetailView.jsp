@@ -428,10 +428,29 @@
 			       </c:choose>
                 </div>
                 
+                <c:choose>
+		           <c:when test="${empty sessionScope.loginUser}">
+		           <!-- 로그인 전 -->             
+		           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                           onclick="alert('로그인 후 예매 가능합니다.');">
+                           	좌석예매
+                   	</button>
+		           </c:when>
+		           <c:otherwise>
+		           <!-- 로그인 후 -->
+		           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+                           onclick="seatReservation(${cno});">
+                           	좌석예매
+                   	</button>
+		           </c:otherwise>
+		       </c:choose>
+                
+                <!-- 
                 <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
 				        onclick="seatReservation(${cno});">
 				    좌석예매
 				</button>
+				 -->
 
                 <br><br><br><br><br><br>
 
