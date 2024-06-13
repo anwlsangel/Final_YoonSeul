@@ -29,7 +29,7 @@
             ORDER BY START_DATE DESC
         </when>
         <when test="sort == 'date'">
-            ORDER BY START_DATE DESC
+            ORDER BY CONCERT_ID DESC
         </when>
         <when test="sort == 'price'">
             ORDER BY PRICE ASC

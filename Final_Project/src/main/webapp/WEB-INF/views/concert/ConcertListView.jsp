@@ -43,11 +43,12 @@
         height: 230px;
         object-fit: cover;
         cursor: pointer;
+        border-radius: 20px;
     }
 
     .detail-title {
         width: 100%;
-        height: 50px;
+        height: 30px;
         margin-top: auto;
         text-align: center;
         line-height: 50px;
@@ -76,8 +77,9 @@
     .concert-navi-category {
         display: flex;
         justify-content: center; /* 링크들을 가운데 정렬 */
-        gap: 80px; /* 링크들 사이의 간격 */
+        gap: 50px; /* 링크들 사이의 간격 */
         width: 100%;
+        font-weight: bold;
     }
 
     .concert-navi a {
@@ -91,7 +93,8 @@
     .concert-navi a:hover {
         background-color: #f0f0f0; /* 호버 시 배경색 */
         cursor: pointer;
-        text-decoration: none; /* 링크 밑줄 제거 */        
+        text-decoration: none; /* 링크 밑줄 제거 */   
+        color: red;     
     }
     
     .concert-navi-2 {
@@ -122,13 +125,14 @@
         background-color: #f0f0f0; /* 호버 시 배경색 */
         cursor: pointer;
         text-decoration: none; /* 링크 밑줄 제거 */
+        color: red;
     }
 
     .search {
         display: flex;
         justify-content: flex-end;
         align-items: center;
-        margin: 30px;
+        height: 70px;
     }
     
     .search input {
@@ -139,21 +143,6 @@
         margin-right: 10px; /* 버튼과의 간격 조절 */
     }
     
-    .search button {
-        padding: 5px 10px;
-        font-size: large;
-        border: none;
-        background-color: lightgray;
-        color: black;
-        cursor: pointer;
-        border-radius: 5px; /* 둥근 모서리 추가 */
-        transition: background-color 0.3s ease; /* 배경색 전환 효과 */
-    }
-
-    .search button:hover {
-        background-color: gray; /* 호버 시 배경색 */
-    }    
-    
     .container {
             max-width: 1000px;
             margin: 20px auto;
@@ -161,13 +150,68 @@
             background-color: #fff;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
             min-height: calc(100vh - 160px); /* 화면 높이에서 헤더와 푸터를 제외한 높이 설정 */
-    }
-    
+    }    
     .active-sort {
 	    font-weight: bold;
-	    color: red;
-	    text-decoration: underline;
+        font-size: 20px !important;
 	}
+
+    .search-input {
+        position: relative;
+        width: 300px;
+        margin-left: 50px;
+        display: flex;
+    }
+    
+    .search-input > input {
+        font-size: 15px;
+        color: #222222;
+        width: 300px;
+        border: none;
+        border-bottom: solid #aaaaaa 1px;
+        padding-bottom: 10px;
+        padding-left: 10px;
+        position: relative;
+        background: none;
+        z-index: 5;
+    }
+
+    #keyword::placeholder { color: #aaaaaa; }
+    #keyword:focus { outline: none; }
+
+    .search-input span {
+        display: block;
+        position: absolute;
+        bottom: 0;
+        left: 0%;  /* right로만 바꿔주면 오 - 왼 */
+        background-color: #666;
+        width: 0;
+        height: 2px;
+        border-radius: 2px;
+        transition: 0.5s;
+    }
+
+    .search-input label {
+        position: absolute;
+        color: #aaa;
+        left: 10px;
+        font-size: 20px;
+        bottom: 8px;
+        transition: all .2s;
+    }
+
+    #keyword:focus ~ label, #keyword:valid ~ label {
+        font-size: 16px;
+        bottom: 40px;
+        color: #666;
+        font-weight: bold;
+    }
+
+    .search-input img {
+        width: 30px;
+        height: 30px;
+    }
+
 </style>
 <body>
 
@@ -180,20 +224,22 @@
     <div class="concert-navi">
         <div class="concert-navi-category">
             <a href="list.co?category=전체&sort=${sort}">전체</a>
-            <a href="list.co?category=콘서트&sort=${sort}">콘서트</a>
-            <a href="list.co?category=연극&sort=${sort}">연극</a>
-            <a href="list.co?category=뮤지컬&sort=${sort}">뮤지컬</a>
-            <a href="list.co?category=로맨스&sort=${sort}">로맨스</a>
-            <a href="list.co?category=아동&sort=${sort}">아동</a>
-            <a href="list.co?category=전시&sort=${sort}">전시</a>
+            <a href="list.co?category=콘서트&sort=${sort}">콘서트&#127908;</a>
+            <a href="list.co?category=연극&sort=${sort}">연극&#127916;</a>
+            <a href="list.co?category=뮤지컬&sort=${sort}">뮤지컬&#127926;</a>
+            <a href="list.co?category=로맨스&sort=${sort}">로맨스&#128149;</a>
+            <a href="list.co?category=아동&sort=${sort}">아동&#128118;</a>
         </div>                     
     </div>
     <form action="search.co">
         <div class="search">
-            <input type="text" name="keyword" placeholder="공연 제목" style="text-align: center;">
+            <div class="search-input">
+                <input type="text" required name="keyword" id="keyword">
+                <label>공연 검색</label>
+                <button type="submit"><img src="${pageContext.request.contextPath}/resources/image/searchButton.png" alt="Search"></button>
+            </div>
             <input type="hidden" name="category" value="${category}">
-            <input type="hidden" name="sort" value="${sort}">
-            <button type="submit">검색</button>
+            <input type="hidden" name="sort" value="${sort}">            
         </div>
     </form>
     <hr>
@@ -217,7 +263,8 @@
                     <img src="${co.thumbnailRoot}">
                 </a>
                 <div class="detail-title">${co.concertName}</div>
-                <div class="detail-text">${co.startDate}</div>
+                <span>${co.price} 원</span>
+                <div class="detail-text">${co.startDate} ~ ${co.endDate}</div>
             </div>
         </c:forEach >
     </div>
@@ -239,5 +286,7 @@
         });
     });
 </script>
+
+<jsp:include page="../common/footer.jsp" />
 </body>
 </html>

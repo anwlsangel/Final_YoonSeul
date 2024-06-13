@@ -494,7 +494,7 @@
 	                        <!-- 로그인 후 -->
 	                        <input type="hidden" value="${sessionScope.loginUser.userId}" name="userId">	
 	                        <input type="hidden" name="cno" value="${cno}">                        
-	                        <textarea id="replyContent" rows="" cols="60" name="reviewContent" style="margin-left: 30px;">후기 작성</textarea>
+	                        <textarea id="replyContent" rows="" cols="60" name="reviewContent" style="margin-left: 30px;" placeholder="후기 작성"></textarea>
 	                        		<td align="center">
 			                            <button type="submit" class="btn-green">등록</button>
 			                        </td>
