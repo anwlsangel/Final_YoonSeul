@@ -41,17 +41,20 @@ public class EmailController {
 
 	@ResponseBody
 	@PostMapping(value = "cert.do", produces = "text/html; charset=UTF-8")
-	public String getCertNo(String email) {
+	public String getCertNo(String email, String userId, String userName) {
 		String randomCertNo = generateCertNo();
 		certNoList.put(email, randomCertNo);
-
-		try {
-			sendCertEmail(email, randomCertNo);
-		} catch (MessagingException e) {
-			e.printStackTrace();
-			return "인증번호 발급 실패";
+		int check; // select
+		if (check == 1) {
+			try {
+				sendCertEmail(email, randomCertNo);
+			} catch (MessagingException e) {
+				e.printStackTrace();
+				return "인증번호 발급 실패";
+			}
+		} else {
+			return "해당하는 정보가 없습니다";
 		}
-
 		return "인증번호 발급 완료";
 	}
 

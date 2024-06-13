@@ -572,9 +572,9 @@ document.addEventListener('DOMContentLoaded', function () {
                 $.ajax({
                     type: "POST",
                     url: "cert.do",
-                    data: { email: email },
+                    data: { email: email, name:name,userId:userId },
                     success: function(response) {
-                        alert("인증번호가 발송되었습니다.");
+                        alert(response);
                         $('#findPwdModal').modal('hide');
                         $('#resetPwdModal').modal('show');
                     },
