@@ -17,9 +17,10 @@
      <!-- Latest compiled JavaScript -->
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
      <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
-     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
+     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>     
 </head>
 <style>
+
 	.concert-list {
         width: 100%;
         display: flex;
@@ -269,23 +270,6 @@
         </c:forEach >
     </div>
 </div>
-<script>
-    $(function() {
-        selectList();
-    });
-
-    document.addEventListener('DOMContentLoaded', function() {
-        const categoryLinks = document.querySelectorAll('.concert-navi-category a');
-        const pageTitle = document.getElementById('page-title');
-
-        categoryLinks.forEach(link => {
-            link.addEventListener('click', function(event) {
-                const category = this.innerText.trim();
-                pageTitle.textContent = category;
-            });
-        });
-    });
-</script>
 
 <jsp:include page="../common/footer.jsp" />
 </body>
