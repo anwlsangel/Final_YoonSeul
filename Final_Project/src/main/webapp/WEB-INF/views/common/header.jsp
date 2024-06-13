@@ -519,70 +519,70 @@ document.addEventListener('DOMContentLoaded', function () {
             totalHeight += item.scrollHeight;
         });
         snb.style.height = `${totalHeight}px`;
-   		 }
-		});
-		$('#signupButton').click(function() {
-		    window.location.href = 'enrollForm.me';
-		});
-		$('#signupLink').click(function(event) {
-		    event.preventDefault(); // 기본 링크 동작 방지
-		    window.location.href = 'enrollForm.me';
-		});
-		
-		
-		 $(document).ready(function() {
-		        $('#findIdButton').click(function() {
-		            const name = $('#findIdForm input[name=userName]').val();
-		            const phone = $('#findIdForm input[name=phone]').val();
-		            
-		            $.ajax({
-		                type: "POST",
-		                url: "findId.do",
-		                data: { userName: name, phone: phone },
-		                success: function(response) {
-		                    // 아이디 찾기에 성공했을 때
-		                    if (response) {
-		                        alert(response); // 회원님의 아이디는 user12입니다.
-		                        
-		                        // 메시지에서 아이디만 추출
-		                        const foundId = response.split("아이디는 ")[1].split("입니다")[0];
-		                        
-		                        // 아이디 찾기 모달창 닫기
-		                        $('#findIdModal').modal('hide');
-		                        
-		                        // 로그인 모달창 열기
-		                        $('#loginModal').modal('show');
-		                        
-		                        // 로그인 모달창에 찾아온 아이디 입력
-		                        $('#loginModal input[name=userId]').val(foundId);
-		                    } else {
-		                        alert("아이디를 찾을 수 없습니다.");
-		                    }
-		                },
-		                error: function() {
-		                    alert("아이디 찾기에 실패했습니다.");
-		                }
-		            });
-		        });
+     }
+    });
+    $('#signupButton').click(function() {
+        window.location.href = 'enrollForm.me';
+    });
+    $('#signupLink').click(function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        window.location.href = 'enrollForm.me';
+    });
+    
+    
+     $(document).ready(function() {
+            $('#findIdButton').click(function() {
+                const name = $('#findIdForm input[name=userName]').val();
+                const phone = $('#findIdForm input[name=phone]').val();
+                
+                $.ajax({
+                    type: "POST",
+                    url: "findId.do",
+                    data: { userName: name, phone: phone },
+                    success: function(response) {
+                        // 아이디 찾기에 성공했을 때
+                        if (response) {
+                            alert(response); // 회원님의 아이디는 user12입니다.
+                            
+                            // 메시지에서 아이디만 추출
+                            const foundId = response.split("아이디는 ")[1].split("입니다")[0];
+                            
+                            // 아이디 찾기 모달창 닫기
+                            $('#findIdModal').modal('hide');
+                            
+                            // 로그인 모달창 열기
+                            $('#loginModal').modal('show');
+                            
+                            // 로그인 모달창에 찾아온 아이디 입력
+                            $('#loginModal input[name=userId]').val(foundId);
+                        } else {
+                            alert("아이디를 찾을 수 없습니다.");
+                        }
+                    },
+                    error: function() {
+                        alert("아이디 찾기에 실패했습니다.");
+                    }
+                });
+            });
 
-		        $('#findPwdButton').click(function() {
-		            const name = $('#findIdForm input[name=userName]').val();
-		            const userId = $('#findPwdForm input[name=userId]').val();
-		            const email = $('#findPwdForm input[name=email]').val();
-		            $.ajax({
-		                type: "POST",
-		                url: "cert.do",
-		                data: { email: email },
-		                success: function(response) {
-		                    alert("인증번호가 발송되었습니다.");
-		                    $('#findPwdModal').modal('hide');
-		                    $('#resetPwdModal').modal('show');
-		                },
-		                error: function() {
-		                    alert("인증번호 발송에 실패했습니다.");
-		                }
-		            });
-		        });
+            $('#findPwdButton').click(function() {
+                const name = $('#findIdForm input[name=userName]').val();
+                const userId = $('#findPwdForm input[name=userId]').val();
+                const email = $('#findPwdForm input[name=email]').val();
+                $.ajax({
+                    type: "POST",
+                    url: "cert.do",
+                    data: { email: email },
+                    success: function(response) {
+                        alert("인증번호가 발송되었습니다.");
+                        $('#findPwdModal').modal('hide');
+                        $('#resetPwdModal').modal('show');
+                    },
+                    error: function() {
+                        alert("인증번호 발송에 실패했습니다.");
+                    }
+                });
+            });
     $('#resetPwdButton').click(function() {
         const email = $('#findPwdForm input[name=email]').val();
         const authKey = $('#resetPwdForm #authKey').val();
