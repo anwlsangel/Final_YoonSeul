@@ -301,7 +301,6 @@
 	        color : #EEEBDD; 
 	    }
 		
-	
     </style>
 </head>
 <body>
@@ -512,13 +511,12 @@
 	            </table>
 	            </div>
             </form>
-
-            <hr>
-                
-                
+               
                 <!-- 관람후기 목록  -->
-                <div id="reviews" class="reviews" style="margin: auto; width: 900px">
-                    <h2>관람후기 <span style="color: #810000;">${reviewCount}</span></h2>
+                
+                <div id="reviews" class="reviews" style="margin: auto; width: 850px;">
+                	<hr>
+                    <h2 align="center">관람후기 <span style="color: #810000;">${reviewCount}</span></h2>
                     <hr><br>
                     
                     <c:forEach var="r" items="${rvList}">       
@@ -547,7 +545,7 @@
                 
                 <br><br>
                 
-                <!-- 댓글 수정 모달창 -->
+                <!-- 리뷰 수정 모달창 -->
               	<!--
                 <div class="modal" id="updateForm">
         			<div class="modal-dialog">
@@ -571,7 +569,7 @@
             </div>
             -->
         </div>
-    </div>
+  
     
    		<!----------------------------------------------------->
     	<!-- 문의 목록 -->
@@ -618,19 +616,19 @@
                     </c:if>
                     </td>
                 </tr>
-            </c:forEach>
+            	</c:forEach>
                 </tbody>
             </table>
         </div>
-        
+      </div>
        	<input type="hidden" name="cno" value="${cno}">
         
        <script>
        		$(function(){
-       			
-       			$("#qnaList>tbody>tr").click(function(){       				
-       				let qno = $(this).children().eq(0).text();
-       				location.href = "detail.qa?qno=" + qno;
+       			$("#qnaList>tbody>tr").click(function(){  
+       				
+    				let qno = $(this).children().eq(0).text();
+           			location.href = "detail.qa?qno=" + qno;
        			});
        		});
        </script>
