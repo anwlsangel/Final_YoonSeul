@@ -403,6 +403,8 @@ body {
 		     	            	success: function(result) {
 		     	            		if(result == "success") {
 		     	            			console.log("결제정보 저장 성공");
+		     	            			alert("결제 완료되었습니다.");
+		     	            			location.href="detail.co?cno=${param.cno}";
 		     	            		} else {
 		     	            			console.log("결제정보 저장 실패");
 		     	            		}
