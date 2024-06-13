@@ -87,5 +87,10 @@
 	    DELETE FROM WISHLIST
 	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
 	</delete>   	
+	
+	<select id="adSelectList" resultMap="concertResultSet">
+		SELECT *
+		FROM CONCERT_INFO
+	</select>
           
 </mapper>

@@ -1,4 +1,4 @@
-package com.kh.yoonsart.concert.model.vo;
+package com.kh.yoonsart.adminmain.adminConcert.model.vo;
 
 import java.sql.Date;
 
@@ -11,7 +11,7 @@ import lombok.ToString;
 @Setter // 세터 메소드
 @Getter //게터메소드
 @ToString // 투스트링 메소드 오버라이딩
-public class Concert {
+public class AdminConcert {
 
 	private String concertId;		//	CONCERT_ID	NUMBER
 	private String concertName;		//	CONCERT_NAME	VARCHAR2(50 BYTE)
@@ -27,3 +27,4 @@ public class Concert {
 	private int status;
 	
 }
+

@@ -131,17 +131,8 @@ body {
                     <tbody id="calendarTbody" align="center"></tbody>
                 </table>
             </div>
-            <div id="timeList" class="col-md-3">
-                <table class="table" style="width: 100%;">
-                    <thead>
-                        <tr style="height: 43px;">
-                            <th colspan="5" class="text-center"><span id="pickDate"></span></th>
-                        </tr>
-                    </thead>
-                    <tbody id="tbodyTimeList" align="center">
-
-                    </tbody>
-                </table>
+            <div id="detailConcert">
+            	공연 정보가 들어갈 자리
             </div>
         </div>
         <div id="seat"></div>
@@ -215,17 +206,23 @@ body {
             document.getElementById("calendarTbody").innerHTML = forAppend;
         }
 
+        
         // 날짜 클릭함수 ============================
         function pickTime(year, month, date) {
-            document.getElementById("pickDate").innerHTML = year + "/" + month + "/" + date + " 시간선택"
+            /* document.getElementById("pickDate").innerHTML = year + "/" + month + "/" + date + " 시간선택" */
             // ajax로 요청 시간 리스트 그려주기======================> ajax 요청 아직 없음 왜냐 더미데이터 안 넣었거든]
+            /*
             let forAppend = ""
             for (let i = Math.ceil((Math.random() * 10)) + 12; i < 19; i += 2) {
                 forAppend += "<tr><td onclick='drawSeat()'>" + i + ":00 \t" + "xxx/yyy</td></tr>"
             }
+            */
             drawSeat();
+            /*
             document.getElementById("tbodyTimeList").innerHTML = forAppend;
+            */
         }
+        
         // ============================
 
         //달 이동 함수=========================
@@ -305,7 +302,7 @@ body {
                 .attr("height", 20) // 높이
                 .attr("active", false)
                 .attr("seatname", function (d) { return d[2] })
-                .style("fill", "Red")
+                .style("fill", "black")
                 .on('click', function (x, d) {
                     var isActive = $(this).attr("active") === 'true';
                     if (!isActive) {
@@ -319,7 +316,7 @@ body {
                     } else {
                         numOfTicket--;
                         $(this)
-                            .css("fill", "red")
+                            .css("fill", "black")
                             .attr("active", false);
                         $("tr[id=" + $(this).attr("seatname") + "]").remove();
                         $("#totalPrice").html(numOfTicket*ticketPrice);
