@@ -87,16 +87,34 @@
                     			</tr>
                     		</thead>
                     		<tbody>
-                    		
+                    		<c:forEach var="item" items="${requestScope.list}">
                     			<tr>
-                    				<td>23213232312</td>
-                    				<td>공연제목</td>
-                    				<td>200</td>
-                    				<td>2024-06-11</td>
-                    				<td>2024-06-12</td>
-                    				<td></td>
-                    				<td></td>
+                    				<td>${item.buyListId}</td>
+                    				<td>${item.reserveConcertId}</td>
+                    				<td>${item.reserveSum}</td>
+                    				<td>${item.reservePayment}</td>
+                    				<c:choose>
+                    					<c:when test="${empty item.reserveRefund}">
+                    						<td>X</td>
+                    					</c:when>
+                    					<c:otherwise>
+                    						<td>${item.reserveRefund}</td>
+                    					</c:otherwise>
+                    				</c:choose>
+                    				<td>${item.userId}</td>
+                    				<c:choose>
+                    					<c:when test="${item.status eq 0}">
+                    						<td style="color: red;">환불 완료</td>
+                    					</c:when>
+                    					<c:when test="${item.status eq 1}">
+                    						<td style="color: green;">결제 완료</td>
+                    					</c:when>
+                    					<c:otherwise>
+                    						<td style="color: blue;">환불 요청</td>
+                    					</c:otherwise>
+                    				</c:choose>
                     			</tr>
+                    		</c:forEach>
                     		</tbody>
                     	</table>
                     </div>

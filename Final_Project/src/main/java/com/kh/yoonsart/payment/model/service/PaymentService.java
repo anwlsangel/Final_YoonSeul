@@ -24,9 +24,11 @@ public interface PaymentService {
 	//결제정보
 	BuyList selectBuyList(String tno);
 	//공연정보
-	Concert selectConcert(int concertId);
+	Concert selectConcert(String concertId);
 	
 	//관리자-결제내역전체조회
 	ArrayList<BuyList> selectPaymentList();
+	//관리자-환불요청내역조회
+	ArrayList<BuyList> selectRefundList();
 	
 }

@@ -16,7 +16,7 @@ public class BuyList {
 	
 	private String buyListId;			//	BUYLIST_ID			NUMBER
 	private String reserveCode;			//	RESERVE_CODE		VARCHAR2(255 BYTE)
-	private int reserveConcertId;	//	RESERVE_CONSERT_ID	NUMBER
+	private String reserveConcertId;	//	RESERVE_CONSERT_ID	NUMBER
 	private int reserveTicket;			//	RESERVE_TICKET		NUMBER
 	private int reserveSum;				//	RESERVE_SUM			NUMBER
 	private Date reservePayment;		//	RESERVE_PAYMENT		DATE
@@ -25,7 +25,7 @@ public class BuyList {
 	private int status;
 	
 	public void BuyList() {}
-	public BuyList(String buyListId, String reserveCode, int reserveConcertId, int reserveTicket, int reserveSum,
+	public BuyList(String buyListId, String reserveCode, String reserveConcertId, int reserveTicket, int reserveSum,
 			Date reservePayment, Date reserveRefund, String userId, int status) {
 		super();
 		this.buyListId = buyListId;
@@ -51,10 +51,10 @@ public class BuyList {
 	public void setReserveCode(String reserveCode) {
 		this.reserveCode = reserveCode;
 	}
-	public int getReserveConcertId() {
+	public String getReserveConcertId() {
 		return reserveConcertId;
 	}
-	public void setReserveConcertName(int reserveConcertId) {
+	public void setReserveConcertName(String reserveConcertId) {
 		this.reserveConcertId = reserveConcertId;
 	}
 	public int getReserveTicket() {

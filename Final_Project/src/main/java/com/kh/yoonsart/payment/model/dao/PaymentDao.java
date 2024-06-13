@@ -25,12 +25,16 @@ public class PaymentDao {
 		return sqlSession.selectOne("paymentMapper.selectBuyList", tno);
 	}
 
-	public Concert selectConcert(SqlSessionTemplate sqlSession, int concertId) {
+	public Concert selectConcert(SqlSessionTemplate sqlSession, String concertId) {
 		return sqlSession.selectOne("paymentMapper.selectConcert", concertId);
 	}
 
 	public ArrayList<BuyList> selectPaymentList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("paymentMapper.selectPaymentList");
+	}
+
+	public ArrayList<BuyList> selectRefundList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("paymentMapper.selectRefundList");
 	}
 
 }

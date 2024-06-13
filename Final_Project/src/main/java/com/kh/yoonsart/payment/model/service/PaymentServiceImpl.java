@@ -127,7 +127,7 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentDao.selectBuyList(sqlSession, tno);
 	}
 	@Override
-	public Concert selectConcert(int concertId) {
+	public Concert selectConcert(String concertId) {
 		return paymentDao.selectConcert(sqlSession, concertId);
 	}
 
@@ -135,6 +135,11 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public ArrayList<BuyList> selectPaymentList() {
 		return paymentDao.selectPaymentList(sqlSession);
+	}
+	//관리자-환불요청내역조회
+	@Override
+	public ArrayList<BuyList> selectRefundList() {
+		return paymentDao.selectRefundList(sqlSession);
 	}
 	
 }

@@ -128,10 +128,11 @@ public class PaymentController {
 		model.addAttribute("list", list);
 		return "admin/adminPaymentList";
 	}
-	//관리자-환불관리
+	//관리자-환불요청내역조회
 	@GetMapping(value="adminRefund.ad")
 	public String adminRefund(Model model) {
 		ArrayList<BuyList> list = paymentService.selectRefundList();
+		System.out.println(list);
 		model.addAttribute("list", list);
 		return "admin/adminRefundList";
 	}

@@ -54,7 +54,7 @@
 		  FROM BUYLIST
 		 WHERE BUYLIST_ID = #{tno}
 	</select>
-	<select id="selectConcert" parameterType="_int" resultMap="concertResultSet">
+	<select id="selectConcert" parameterType="string" resultMap="concertResultSet">
 		SELECT *
 		  FROM CONCERT_INFO
 		 WHERE CONCERT_ID = #{concertId}
@@ -62,23 +62,30 @@
 	
 	<!-- 관리자-결제내역전체조회 -->
 	<select id="selectPaymentList" resultMap="buylistResultSet">
-		SELECT *
-		  FROM BUYLIST
+		SELECT BUYLIST_ID
+		     , CONCERT_NAME AS "RESERVE_CONCERT_ID"
+		     , RESERVE_SUM
+		     , RESERVE_PAYMENT
+		     , RESERVE_REFUND
+		     , USER_ID
+		     , B.STATUS
+		  FROM BUYLIST B
+		  JOIN CONCERT_INFO ON (RESERVE_CONCERT_ID = CONCERT_ID)
+	</select>
+	<!-- 관리자-환불요청내역조회 -->
+	<select id="selectRefundList" resultMap="buylistResultSet">
+		SELECT BUYLIST_ID
+		     , CONCERT_NAME AS "RESERVE_CONCERT_ID"
+		     , RESERVE_SUM
+		     , RESERVE_PAYMENT
+		     , RESERVE_REFUND
+		     , USER_ID
+		     , B.STATUS
+		  FROM BUYLIST B
+		  JOIN CONCERT_INFO ON (RESERVE_CONCERT_ID = CONCERT_ID)
+		 WHERE B.STATUS = 2
 	</select>
 	
 </mapper>
 
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
 	
