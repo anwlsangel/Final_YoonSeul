@@ -111,7 +111,7 @@
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
                         <a class="collapse-item" href="">공연 추가</a>
-                        <a class="collapse-item" href="">공연 목록조회</a>
+                        <a class="collapse-item" href="AdConcertList.co">공연 목록조회</a>
                         <a class="collapse-item" href="">공연 일정(캘린더)</a>
                     </div>
                 </div>
@@ -187,7 +187,8 @@
                 <div id="parking-ad-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">결제 관리 기능 :</h6>
-                        <a class="collapse-item" href="">결제 내역 조회</a>
+                        <a class="collapse-item" href="selectPaymentList.ad">결제 내역 조회</a>
+                        <a class="collapse-item" href="adminRefund.ad">환불 관리</a>
                     </div>
                 </div>
             </li>

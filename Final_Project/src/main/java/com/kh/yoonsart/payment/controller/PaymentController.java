@@ -1,10 +1,12 @@
 package com.kh.yoonsart.payment.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.stereotype.Controller;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -117,6 +119,21 @@ public class PaymentController {
 		mv.addObject("bl", bl).addObject("concert", concert);
 		mv.setViewName("member/myTicketDetail");
 		return mv;
+	}
+	
+	//관리자-결제내역전체조회
+	@GetMapping(value="selectPaymentList.ad")
+	public String selectPaymentList(Model model) {
+		ArrayList<BuyList> list = paymentService.selectPaymentList();
+		model.addAttribute("list", list);
+		return "admin/adminPaymentList";
+	}
+	//관리자-환불관리
+	@GetMapping(value="adminRefund.ad")
+	public String adminRefund(Model model) {
+		ArrayList<BuyList> list = paymentService.selectRefundList();
+		model.addAttribute("list", list);
+		return "admin/adminRefundList";
 	}
 	
 }

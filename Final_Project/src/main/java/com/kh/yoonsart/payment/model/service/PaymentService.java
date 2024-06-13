@@ -1,6 +1,7 @@
 package com.kh.yoonsart.payment.model.service;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.payment.model.vo.BuyList;
@@ -24,5 +25,8 @@ public interface PaymentService {
 	BuyList selectBuyList(String tno);
 	//공연정보
 	Concert selectConcert(int concertId);
+	
+	//관리자-결제내역전체조회
+	ArrayList<BuyList> selectPaymentList();
 	
 }
