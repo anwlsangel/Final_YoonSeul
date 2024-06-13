@@ -75,8 +75,8 @@
     </style>
 </head>
 <body>
-    <div class="star-container">
     <jsp:include page="../common/header.jsp" />
+    <div class="star-container">
         <div class="star-header">
             <h1>별빛홀</h1>
             <div class="star-intro-text">

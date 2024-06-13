@@ -88,8 +88,8 @@
     </style>
 </head>
 <body>
-    <div class="moon-container">
     <jsp:include page="../common/header.jsp" />
+    <div class="moon-container">
         <div class="moon-header">
             <h1>달빛마당</h1>
             <div class="moon-intro-text">
