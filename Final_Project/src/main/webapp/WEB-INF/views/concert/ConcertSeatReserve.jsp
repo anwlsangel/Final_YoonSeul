@@ -223,6 +223,7 @@ body {
             for (let i = Math.ceil((Math.random() * 10)) + 12; i < 19; i += 2) {
                 forAppend += "<tr><td onclick='drawSeat()'>" + i + ":00 \t" + "xxx/yyy</td></tr>"
             }
+            drawSeat();
             document.getElementById("tbodyTimeList").innerHTML = forAppend;
         }
         // ============================

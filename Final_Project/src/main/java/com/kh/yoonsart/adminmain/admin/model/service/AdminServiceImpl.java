@@ -1,4 +1,4 @@
-package com.kh.yoonsart.admin.model.service;
+package com.kh.yoonsart.adminmain.admin.model.service;
 
 import org.springframework.stereotype.Service;
 
