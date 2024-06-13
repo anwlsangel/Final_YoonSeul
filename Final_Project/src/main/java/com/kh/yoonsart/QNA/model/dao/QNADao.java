@@ -47,6 +47,23 @@ public class QNADao {
 		
 		return sqlSession.update("qnaMapper.deleteQna", qnaId);
 	}
+
+	// 수정
+	public int updateBoard(SqlSessionTemplate sqlSession, QNA q) {
+		return sqlSession.update("qnaMapper.updateQna", q);
+	}
+	
+	// 답변 작성 
+	public int insertAnswer(SqlSessionTemplate sqlSession, QNA q) {
+			
+		return sqlSession.update("qnaMapper.insertAnswer", q);
+	}
+	
+	// 답변 조회 
+	public QNA selectAnswer(SqlSessionTemplate sqlSession, int qnaId) {
+			
+			return sqlSession.selectOne("qnaMapper.selectAnswer", qnaId);
+		}
 	
 	
 }

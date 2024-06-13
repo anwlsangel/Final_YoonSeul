@@ -51,9 +51,27 @@ public class QNAServiceImpl implements QNAService{
 	}
 
 	@Override
+	@Transactional
 	public int updateQNA(QNA q) {
 		
-		return 0;
+		return qnaDao.updateBoard(sqlSession, q);
 	}
+	
+	// 답변 작성
+	@Override
+	@Transactional
+	public int insertAnswer(QNA q) {
+		
+		return qnaDao.insertAnswer(sqlSession, q);
+	}
+
+	// 답변 조회
+	@Override
+	public QNA selectAnswer(int qnaId) {
+		
+		return qnaDao.selectAnswer(sqlSession, qnaId);
+	}
+	
+	
 	
 }

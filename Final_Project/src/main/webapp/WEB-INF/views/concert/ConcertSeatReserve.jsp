@@ -302,13 +302,13 @@ body {
                 .attr("height", 20) // 높이
                 .attr("active", false)
                 .attr("seatname", function (d) { return d[2] })
-                .style("fill", "black")
+                .style("fill", "lightGray")
                 .on('click', function (x, d) {
                     var isActive = $(this).attr("active") === 'true';
                     if (!isActive) {
                         numOfTicket++;
                         $(this)
-                            .css("fill", "blue")
+                            .css("fill", "black")
                             .attr("active", true);
                         $("#buylist").append("<tr id='" + $(this).attr("seatname") + "'><td>" + $(this).attr("seatname") + "좌석 가격:"+ticketPrice+"</td></tr>");
                         console.log("<tr id='" + $(this).attr("seatname") + "'><td>" + $(this).attr("seatname") + "좌석</td></tr>");
@@ -316,7 +316,7 @@ body {
                     } else {
                         numOfTicket--;
                         $(this)
-                            .css("fill", "black")
+                            .css("fill", "lightGray")
                             .attr("active", false);
                         $("tr[id=" + $(this).attr("seatname") + "]").remove();
                         $("#totalPrice").html(numOfTicket*ticketPrice);

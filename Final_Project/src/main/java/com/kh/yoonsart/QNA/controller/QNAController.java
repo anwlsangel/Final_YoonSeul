@@ -9,10 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.yoonsart.QNA.model.service.QNAService;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
@@ -124,8 +125,49 @@ public class QNAController {
 	@PostMapping("update.qa")
 	public String updateQNA(QNA q, HttpSession session, Model model) {
 		
-		System.out.println(q);
-		return "";
+		int result = qnaService.updateQNA(q);
+		
+		if(result > 0) { // 성공
+			
+			// 일회성 알람문구 담아서 해당 게시글 상세보기 페이지로 url 재요청
+			session.setAttribute("alertMsg", "수정 성공!");
+			return "redirect:/detail.co?cno=" + q.getConcertId();
+			
+		} else { // 실패
+		
+			// 에러문구 담아서 에러페이지로 포워딩
+			model.addAttribute("errorMsg", "게시글 수정 실패");
+			return "common/errorPage";
+		}
 	}
+	
+	// 답변
+	@ResponseBody
+	@PostMapping(value="insert.as", produces="text/html; charset=UTF-8")
+	public String insertAnswer(QNA q) {
+		
+		// System.out.println(q);
+		
+		int result = qnaService.insertAnswer(q);
+		
+		return (result > 0) ? "success" : "fail";
+	}
+		
+	// 답변 
+	@ResponseBody
+	@GetMapping(value="answer.as", produces="application/json; charset=UTF-8")
+	public String selectAnswer(@RequestParam("qno") int qno, Model model, HttpSession session) {
+				
+		//System.out.println(qno);
+		QNA q = qnaService.selectAnswer(qno);
+		//System.out.println(q);
+		//model.addAttribute("q", q);
+		session.setAttribute("qna", q);
+		return new Gson().toJson(q);
+		//mv.setViewName("detail.qa?qno=" + qno);
+		//return mv;
+	}	
+	
+
 	
 }

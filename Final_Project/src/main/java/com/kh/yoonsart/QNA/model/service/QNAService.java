@@ -25,6 +25,11 @@ public interface QNAService {
 	// 수정 (update)
 	int updateQNA(QNA q);
 
+
+	int insertAnswer(QNA q);
+
+	QNA selectAnswer(int qnaId);
+
 	
 	// 답변 작성 - 댓글
 	
