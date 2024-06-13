@@ -22,10 +22,11 @@ public class BuyList {
 	private Date reservePayment;		//	RESERVE_PAYMENT		DATE
 	private Date reserveRefund;			//	RESERVE_REFUND		DATE
 	private String userId;				//	USER_ID				VARCHAR2(30 BYTE)
+	private int status;
 	
 	public void BuyList() {}
 	public BuyList(String buyListId, String reserveCode, int reserveConcertId, int reserveTicket, int reserveSum,
-			Date reservePayment, Date reserveRefund, String userId) {
+			Date reservePayment, Date reserveRefund, String userId, int status) {
 		super();
 		this.buyListId = buyListId;
 		this.reserveCode = reserveCode;
@@ -35,6 +36,7 @@ public class BuyList {
 		this.reservePayment = reservePayment;
 		this.reserveRefund = reserveRefund;
 		this.userId = userId;
+		this.status = status;
 	}
 	
 	public String getBuyListId() {
@@ -85,13 +87,20 @@ public class BuyList {
 	public void setUserId(String userId) {
 		this.userId = userId;
 	}
+	public int getStatus() {
+		return status;
+	}
+	public void setStatus(int status) {
+		this.status = status;
+	}
+	
 
 	@Override
 	public String toString() {
 		return "BuyList [buyListId=" + buyListId + ", reserveCode=" + reserveCode + ", reserveConcertId="
 				+ reserveConcertId + ", reserveTicket=" + reserveTicket + ", reserveSum=" + reserveSum
 				+ ", reservePayment=" + reservePayment + ", reserveRefund=" + reserveRefund + ", userId=" + userId
-				+ "]";
+				+ ", status=" + status + "]";
 	}
 	
 }

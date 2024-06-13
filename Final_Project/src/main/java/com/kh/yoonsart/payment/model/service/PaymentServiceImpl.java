@@ -6,6 +6,7 @@ import java.io.IOException;
 import java.io.InputStreamReader;
 import java.io.OutputStreamWriter;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.Map;
 
 import javax.net.ssl.HttpsURLConnection;
@@ -128,6 +129,12 @@ public class PaymentServiceImpl implements PaymentService{
 	@Override
 	public Concert selectConcert(int concertId) {
 		return paymentDao.selectConcert(sqlSession, concertId);
+	}
+
+	//관리자-결제내역전체조회
+	@Override
+	public ArrayList<BuyList> selectPaymentList() {
+		return paymentDao.selectPaymentList(sqlSession);
 	}
 	
 }

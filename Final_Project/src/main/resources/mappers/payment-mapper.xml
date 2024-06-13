@@ -12,6 +12,7 @@
 		<result column="RESERVE_PAYMENT" property="reservePayment"/>
 		<result column="RESERVE_REFUND" property="reserveRefund"/>
 		<result column="USER_ID" property="userId"/>
+		<result column="STATUS" property="status"/>
 	</resultMap>
 	<resultMap type="concert" id="concertResultSet">
 		<result column="CONCERT_ID" property="concertId"/>
@@ -57,6 +58,12 @@
 		SELECT *
 		  FROM CONCERT_INFO
 		 WHERE CONCERT_ID = #{concertId}
+	</select>
+	
+	<!-- 관리자-결제내역전체조회 -->
+	<select id="selectPaymentList" resultMap="buylistResultSet">
+		SELECT *
+		  FROM BUYLIST
 	</select>
 	
 </mapper>

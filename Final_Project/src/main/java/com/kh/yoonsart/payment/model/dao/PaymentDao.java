@@ -29,4 +29,8 @@ public class PaymentDao {
 		return sqlSession.selectOne("paymentMapper.selectConcert", concertId);
 	}
 
+	public ArrayList<BuyList> selectPaymentList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("paymentMapper.selectPaymentList");
+	}
+
 }
