@@ -3,6 +3,7 @@ package com.kh.yoonsart.member.model.service;
 import java.util.ArrayList;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.member.model.vo.Member;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
@@ -41,4 +42,6 @@ public interface MemberService {
 	ArrayList<BuyList> selectMyTicketList(String userId, PageInfo pi);	
 	
 	Member findMemberByIdAndEmailAndName(String userId, String email, String userName);
+
+	ArrayList<Concert> selectWishList(String userId);
 }

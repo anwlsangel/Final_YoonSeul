@@ -126,5 +126,13 @@
 		       STATUS = 1
 		WHERE CONCERT_ID = #{concertId}
 	</update>
+	
+	<!-- 위시리스트 조회용 쿼리문 -->
+	<select id="selectWishList" parameterType="String" resultMap="concertResultSet">
+		SELECT c.*
+       FROM CONCERT_INFO c
+       JOIN WISHLIST w ON c.CONCERT_ID = w.CONCERT_ID
+      WHERE w.USER_ID = #{userId}
+	</select>
           
 </mapper>

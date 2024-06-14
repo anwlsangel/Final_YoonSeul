@@ -10,6 +10,7 @@ import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.member.model.dao.MemberDao;
 import com.kh.yoonsart.member.model.vo.Member;
 import com.kh.yoonsart.payment.model.vo.BuyList;
@@ -111,5 +112,11 @@ public class MemberServiceImpl implements MemberService {
 	public Member findMemberByIdAndEmailAndName(String userId, String email, String userName) {
 	   return memberDao.findMemberByIdAndEmailAndName(sqlSession,userId, email, userName);
 	   
+	}
+
+	@Override
+	public ArrayList<Concert> selectWishList(String userId) {
+
+		return memberDao.selectWishList(sqlSession, userId);
 	}
 }

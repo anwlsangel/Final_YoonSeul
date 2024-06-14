@@ -26,6 +26,7 @@ import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.common.template.Pagination;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.member.model.service.MemberService;
 import com.kh.yoonsart.member.model.vo.Member;
 import com.kh.yoonsart.payment.model.vo.BuyList;
@@ -274,10 +275,7 @@ public class MemberController {
 		//예매내역 페이지 포워딩
 		@GetMapping(value="myTicketList.me", produces="application/json; charset=UTF-8")
 		public String myTicketList(Model model, String userId) {
-			//ArrayList<BuyList> list = paymentService.selectTicketList(userId);
-			//System.out.println(list);
-
-			//model.addAttribute("buylist", list);
+			
 			return "member/myTicketList";
 		}
 		
@@ -325,6 +323,21 @@ public class MemberController {
 			result.put("pageInfo", pageInfo);
 			
 			return result;
+		}
+		
+		// 위시리스트 조회용
+		@ResponseBody
+		@GetMapping(value="getWishList", produces="application/json; charset=UTF-8")
+		public ArrayList<Concert> getWishList(String userId, Model model) {
+			
+			System.out.println(userId);
+			ArrayList<Concert> list = memberService.selectWishList(userId);
+			
+			System.out.println(list);
+			model.addAttribute("list", list);
+			
+			return list;
+			
 		}
 		
 		

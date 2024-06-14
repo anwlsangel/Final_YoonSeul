@@ -88,6 +88,41 @@
     	font-size: 20px;
     	font-weight: 700;
     }
+
+	#wishlist {
+        display: flex;
+        width: 100%;
+        height: 300px;
+        margin: auto;
+        align-items: center;
+        justify-content: center; /* 아이템들을 중앙에 배치 */
+        gap: 20px; /* 아이템 사이의 간격 조정 */
+    }
+    .item {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+    }
+    #wishlist a {
+        text-align: center;
+        display: block;
+        margin: auto;
+    }
+    #wishlist img {
+        width: 180px;
+        height: 250px;
+        border-radius: 20px;
+    }
+    .detail-title {
+        width: 180px; /* 이미지와 동일한 너비 */
+        height: 30px;
+        text-align: center;
+        line-height: 30px; /* 제목 높이 조정 */
+        font-size: 16px;
+        font-weight: bold;
+        margin-top: 10px; /* 이미지와 제목 사이의 간격 */
+        margin-bottom: 5px;
+    }
 </style>
 </head>
 <body>
@@ -230,12 +265,81 @@
 		<br><br>
 		
 		<p class="mypage-title">＊ 찜 내역</p>
+		<!-- 
+		<c:choose>
+		    <c:when test="${empty requestScope.list}">
+		    	<div id="wishlist">
+		        	<h1 align="center">찜한 공연이 없습니다.</h1>
+		        </div>
+		    </c:when>
+		    <c:otherwise>
+		    		<div id="wishlist">
+			    <c:forEach var="co" items="${requestScope.list}">		    
+			        <div class="item">
+			            <a href="detail.co?cno=${co.concertId}">
+			                <img src="${co.thumbnailRoot}" alt="이미지">
+			            </a>
+			            <div class="detail-title">${co.concertName}</div>
+			        </div>			        
+		    	</c:forEach>
+		    	</div>
+		    </c:otherwise>
+		</c:choose>
+		 -->
+		 
+		 <div id="wishlist">
+			    <c:forEach var="co" items="${requestScope.list}">		    
+			        <div class="item">
+			            <a href="detail.co?cno=${co.concertId}">
+			                <img src="${co.thumbnailRoot}" alt="이미지">
+			            </a>
+			            <div class="detail-title">${co.concertName}</div>
+			        </div>			        
+		    	</c:forEach>
+		    	</div>
+		
 		<br>
-		
-		<div id="wishlist"></div>
-		
+			
+		</div>		
 	</div>
-</div>
+	<script>
+	$(function() {	
+	    var userId = "${sessionScope.loginUser.userId}";
+
+	    $.ajax({
+	        url: "getWishList",
+	        type: "get",
+	        data: { userId: userId },
+	        success: function(response) {
+	            console.log("성공");
+	            console.log(response);
+	            renderWishlist(response);
+	        },
+	        error: function() {
+	            console.error("위시리스트 호출용 ajax 구문 실패");
+	        }
+	    });
+
+	    function renderWishlist(list) {
+	        var wishlist = $('#wishlist');
+	        wishlist.empty(); // 기존 내용을 지웁니다.
+
+	        if (list && list.length > 0) {
+	            $.each(list, function(index, co) {
+	                var item = '<div class="item">'
+	                    + '<a href="detail.co?cno=' + co.concertId + '">'
+	                    + '<img src="' + co.thumbnailRoot + '" alt="이미지">'
+	                    + '</a>'
+	                    + '<div class="detail-title">' + co.concertName + '</div>'
+	                    + '</div>';
+	                wishlist.append(item);
+	            });
+	        } else {
+	            wishlist.append('<h1 align="center">찜한 공연이 없습니다.</h1>');
+	        }
+	    }
+	});
+	</script>
 
 </body>
 </html>

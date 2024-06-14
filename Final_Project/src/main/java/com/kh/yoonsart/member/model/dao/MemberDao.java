@@ -11,6 +11,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.member.model.vo.Member;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
@@ -106,5 +107,10 @@ public class MemberDao {
 	public int updatePassword(SqlSessionTemplate sqlSession, Map<String, String> param) {
 	    	return sqlSession.update("memberMapper.updatePassword", param);
 	    }
+
+	public ArrayList<Concert> selectWishList(SqlSessionTemplate sqlSession2, String userId) {
+
+		return (ArrayList)sqlSession.selectList("concertMapper.selectWishList", userId);
+	}
 
 }
