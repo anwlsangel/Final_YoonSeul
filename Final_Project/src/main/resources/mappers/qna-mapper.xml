@@ -68,7 +68,8 @@
 	     , USER_ID
 	     , QNA_TITLE
 	     , QNA_CONTENT
-	     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"		    
+	     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+	     , CONCERT_ID	    
 	  FROM QNA
 	  WHERE QNA_ID = #{qnaId}
 	   AND STATUS = 1

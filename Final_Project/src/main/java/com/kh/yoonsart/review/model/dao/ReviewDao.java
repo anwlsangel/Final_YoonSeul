@@ -12,5 +12,15 @@ public class ReviewDao {
 		
 		return sqlSession.insert("reviewMapper.insertReview", review);
 	}
+	
+	public int deleteReview(SqlSessionTemplate sqlSession, int reviewId) {
+		
+		return sqlSession.update("reviewMapper.deleteReview", reviewId);
+	}
 
+	public int updateReview(SqlSessionTemplate sqlSession, Review r) {
+
+		return sqlSession.update("reviewMapper.updateReview", r);
+	}
+	
 }

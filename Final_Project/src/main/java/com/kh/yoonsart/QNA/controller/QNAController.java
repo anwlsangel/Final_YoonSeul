@@ -141,7 +141,7 @@ public class QNAController {
 		}
 	}
 	
-	// 답변
+	// 답변 등록
 	@ResponseBody
 	@PostMapping(value="insert.as", produces="text/html; charset=UTF-8")
 	public String insertAnswer(QNA q) {
@@ -153,7 +153,7 @@ public class QNAController {
 		return (result > 0) ? "success" : "fail";
 	}
 		
-	// 답변 
+	// 답변  조회
 	@ResponseBody
 	@GetMapping(value="answer.as", produces="application/json; charset=UTF-8")
 	public String selectAnswer(@RequestParam("qno") int qno, Model model, HttpSession session) {
@@ -167,7 +167,4 @@ public class QNAController {
 		//mv.setViewName("detail.qa?qno=" + qno);
 		//return mv;
 	}	
-	
-
-	
 }

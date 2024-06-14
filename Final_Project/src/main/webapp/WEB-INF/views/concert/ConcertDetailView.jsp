@@ -100,8 +100,8 @@
     .review-update {
         float: right;
     }
-    .review-update>a {
-        color: gray;
+    .review-update>a {  
+        color: #810000;
         text-decoration: none;
         margin-right: 10px;
     }
@@ -299,6 +299,10 @@
 	
 	    .paging-area>a:hover {
 	        color : #EEEBDD; 
+	    }
+	    
+	    #newReviewContent {
+	    	resize : none;
 	    }
 		
     </style>
@@ -539,7 +543,9 @@
 	                <input type="radio" id="star2" name="rating" value="2" /><label for="star2"
 	                    title="2 stars">&#9733;</label>
 	                <input type="radio" id="star1" name="rating" value="1" /><label for="star1"
-	                    title="1 star">&#9733;</label>
+	                    title="1 star">&#9733;</label>	
+	                <input type="hidden" id="star1" name="rating" value="0" checked/>
+			                    
 	            </div>
 	        </div>
 	
@@ -606,28 +612,58 @@
                             <div class="review-writer">${r.userId}</div>
                             <div class="review-createDate">${r.writeDate}</div>
                         </div>
+                         
+                         <!--내 리뷰일 경우 보이게-->
+                         <c:if test="${sessionScope.loginUser.userId eq r.userId}">
+                         	   <div class="review-update">
+                              <a href="#" data-toggle="modal" data-target="#updateReview" class="updateBtn" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>
+                              <a onclick="deleteReview();">삭제</a>
+                              <br clear="both"> 
+                          </div>	
+                         </c:if>
+                       
+
                         <div class="review-line"></div>
                     </div>
                     </c:forEach>
+
                 </div>
+                
+                <script>
+	                $(document).on("click", ".updateBtn", function() {
+	                    var reviewContent = $(this).data('id');
+	                    var reviewId = $(this).data('rno');
+	                    var concertId = $(this).data('cno');
+	                    $("#newReviewContent").html(reviewContent);
+	                    $("#reviewId").val(reviewId);
+	                    $("#concertId").val(concertId);
+	                   //console.log("rno : " + reviewId);
+	                   //console.log("cno : " + concertId);
+	                });
+                
+                	function deleteReview() {
+                		  location.href = "delete.re?reviewId=" + ${rvList[0].reviewId} + "&concertId=" + ${rvList[0].concertId};
+                	}
+                </script>
+                
                 
                 <br><br>
                 
-                <!-- 리뷰 수정 모달창 -->
-              	<!--
-                <div class="modal" id="updateForm">
+                <!-- 관람 후기 수정 모달창 -->
+                <div class="modal" id="updateReview">
         			<div class="modal-dialog">
         		<div class="modal-content" style="height: 200px; margin-top: 50px;">
 			        <div class="modal-body">
-			         	<form action="" method="post" class="modal-center">
+			         	<form action="update.re" method="post" class="modal-center">
 			         		<div align="center">
-			         			<input type="hidden" id="" name="" val="">
-			         			<input type="hidden" id="" name="eventNo" val="">
-			         			<textarea name="newReplyContent" id="newReplyContent" rows="4" cols="50" required></textarea>
-			         		</div>
+			         			<input type="hidden" name="reviewId" id="reviewId">
+			         			<input type="hidden" name="concertId" id="concertId">
+			         			<textarea name="newReviewContent" id="newReviewContent" rows="4" cols="50" required></textarea>
+			         		</div>	
 							<div align="center" style="margin: 10px;">
 								<button type="submit"
-									style="background: linear-gradient(0deg, #630000, #810000); color: white; width: 400px; height: 50px">
+									style="background: linear-gradient(0deg, #630000, #810000); border:none; 
+									      color: white; width: 110px; height: 40px; border-radius : 10px;">
 									댓글 수정</button>
 							</div>
 						</form>
@@ -635,7 +671,7 @@
         		</div>
         	</div>
             </div>
-            -->
+            
         </div>
   
     
@@ -688,6 +724,19 @@
                 </tbody>
             </table>
         </div>
+        
+        
+        	 <!-- 페이징바 -->
+         <div class="paging-area" align="center">
+            <a href="">
+                &lt;
+            </a>
+            <a href="">1</a>
+            <a href="">
+                 &gt;
+            </a>    
+        </div>
+        
       </div>
        	<input type="hidden" name="cno" value="${cno}">
         
@@ -721,17 +770,6 @@
        </script>
         
         
-
-         <!-- 페이징바 -->
-         <div class="paging-area" align="center">
-            <a href="">
-                &lt;
-            </a>
-            <a href="">1</a>
-            <a href="">
-                 &gt;
-            </a>    
-        </div>
     
     <div>
     <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE 2</button>

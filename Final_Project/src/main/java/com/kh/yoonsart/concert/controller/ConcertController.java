@@ -61,7 +61,7 @@ public class ConcertController {
         
         // 후기 조회
         ArrayList<Review> rvList = concertService.selectReview(cno);
-        
+        //System.out.println("ㄼ:"+ rvList);
         // 후기 갯수 조회
         int reviewCount = concertService.selectCount(cno);
         

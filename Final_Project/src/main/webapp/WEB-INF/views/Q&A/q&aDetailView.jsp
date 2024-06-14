@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 문의글 보기(상세조회)</title>
+<title>내 문의글 보기</title>
  <style>
    body{
             background-color: #F4F4F4;
@@ -183,6 +183,7 @@
 							if(result == "success") {
 
 								selectAnswer();
+								$("#answer").val("");
 							}
 						},
 						error : function() {
@@ -200,7 +201,7 @@
 	    				qno : ${q.qnaId}
 	    			},   
 	    			success : function(result) {	
-	    				console.log(result);
+	    				// console.log(result);
 	    				//결제일 형식 수정
 	                	let month = result.answerDate.split(" ")[0].replace("월", "");
 	                	let date = result.answerDate.split(" ")[1].replace(",", "");
@@ -211,6 +212,8 @@
 	    				//$(".answer-createDate").html(result.answerDate);
 	    				$(".answer-createDate").html(startDate);
 	    				$(".answer-content").html(result.qnaAnswer);
+	    				
+	    				
 	    			},
 	    			error : function() {
 	    			 	console.log("답변 조회용 ajax 통신 실패");
@@ -223,7 +226,7 @@
         
         	<!-- <input type="hidden" name="qno">  -->
     
-            <a style="text-decoration: none;" href="">
+            <a style="text-decoration: none;" href="detail.co?cno=${q.concertId}#text">
                 <button type="button">목록</button>
             </a>
             

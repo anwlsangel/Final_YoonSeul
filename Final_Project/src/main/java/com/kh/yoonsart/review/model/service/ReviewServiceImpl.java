@@ -22,4 +22,20 @@ public class ReviewServiceImpl implements ReviewService {
 		return reviewDao.insertReview(sqlSession, review); 
 	}
 
+	@Override
+	public int deleteReview(int reviewId) {
+		
+		return reviewDao.deleteReview(sqlSession, reviewId);
+	}
+
+	@Override
+	public int updateReview(Review r) {
+		
+		return reviewDao.updateReview(sqlSession, r);
+	}
+
+
+
+
+	
 }
