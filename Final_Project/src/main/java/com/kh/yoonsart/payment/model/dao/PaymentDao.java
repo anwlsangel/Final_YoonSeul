@@ -41,4 +41,8 @@ public class PaymentDao {
 		return sqlSession.update("paymentMapper.requestRefund", buyListId);
 	}
 
+	public int rejectRefund(SqlSessionTemplate sqlSession, String buyListId) {
+		return sqlSession.update("paymentMapper.rejectRefund", buyListId);
+	}
+
 }

@@ -46,6 +46,7 @@
 	<update id="updateReserveRefund" parameterType="string">
 		UPDATE BUYLIST
 		   SET RESERVE_REFUND = SYSDATE
+		   	 , STATUS = 0
 		 WHERE BUYLIST_ID = #{merchant_uid}
 	</update>
 	
@@ -91,6 +92,13 @@
 	<update id="requestRefund" parameterType="string">
 		UPDATE BUYLIST
 		   SET STATUS = 2
+		 WHERE BUYLIST_ID = #{buyListId}
+	</update>
+	
+	<!-- 환불 거부 -->
+	<update id="rejectRefund" parameterType="string">
+		UPDATE BUYLIST
+		   SET STATUS = 1
 		 WHERE BUYLIST_ID = #{buyListId}
 	</update>
 	

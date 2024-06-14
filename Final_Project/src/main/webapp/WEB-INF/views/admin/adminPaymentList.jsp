@@ -77,10 +77,10 @@
                     	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     		<thead>
                     			<tr>
+                    				<th width="15%">결제일</th>
                     				<th>주문번호</th>
                     				<th>공연</th>
                     				<th>총 결제금액</th>
-                    				<th>결제일</th>
                     				<th>환불일</th>
                     				<th>주문자</th>
                     				<th>상태</th>
@@ -89,10 +89,10 @@
                     		<tbody>
                     		<c:forEach var="item" items="${requestScope.list}">
                     			<tr>
+                    				<td>${item.reservePayment}</td>
                     				<td>${item.buyListId}</td>
                     				<td>${item.reserveConcertId}</td>
                     				<td>${item.reserveSum}</td>
-                    				<td>${item.reservePayment}</td>
                     				<c:choose>
                     					<c:when test="${empty item.reserveRefund}">
                     						<td>X</td>

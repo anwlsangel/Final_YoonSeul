@@ -147,5 +147,10 @@ public class PaymentServiceImpl implements PaymentService{
 	public int requestRefund(String buyListId) {
 		return  paymentDao.requestRefund(sqlSession, buyListId);
 	}
-	
+	//환불 거부
+	@Override
+	public int rejectRefund(String buyListId) {
+		return paymentDao.rejectRefund(sqlSession, buyListId);
+	}
+
 }

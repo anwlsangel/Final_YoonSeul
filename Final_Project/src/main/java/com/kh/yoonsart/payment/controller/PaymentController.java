@@ -144,5 +144,11 @@ public class PaymentController {
 		int result =  paymentService.requestRefund(buyListId);
 		return result;
 	}
+	//환불 거부
+	@ResponseBody
+	@PostMapping(value="rejectRefund.pa")
+	public int rejectRefund(String buyListId) {
+		return paymentService.rejectRefund(buyListId);
+	}
 	
 }

@@ -33,5 +33,7 @@ public interface PaymentService {
 	
 	//마이페이지-환불요청
 	int requestRefund(String buyListId);
+	//환불 거부
+	int rejectRefund(String buyListId);
 	
 }

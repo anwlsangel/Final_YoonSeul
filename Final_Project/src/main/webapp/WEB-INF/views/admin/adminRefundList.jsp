@@ -15,6 +15,7 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!-- 구글차트 api 라이브러리 연동 (cdn) -->
 <!-- Custom fonts for this template -->
 <link href="vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">
+<link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
 <link
     href="https://fonts.googleapis.com/css?family=Nunito:200,200i,300,300i,400,400i,600,600i,700,700i,800,800i,900,900i"
     rel="stylesheet">
@@ -77,13 +78,12 @@
                     	<table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                     		<thead>
                     			<tr>
+                    				<th width="15%">결제일</th>
                     				<th>주문번호</th>
                     				<th>공연</th>
                     				<th>총 결제금액</th>
-                    				<th>결제일</th>
-                    				<th>환불일</th>
                     				<th>주문자</th>
-                    				<th>상태</th>
+                    				<th width="12%">관리</th>
                     			</tr>
                     		</thead>
                     		<tbody>
@@ -96,36 +96,101 @@
                     			<c:otherwise>
                     				<c:forEach var="item" items="${requestScope.list}">
 		                    			<tr>
+		                    				<td>${item.reservePayment}</td>
 		                    				<td>${item.buyListId}</td>
 		                    				<td>${item.reserveConcertId}</td>
 		                    				<td>${item.reserveSum}</td>
-		                    				<td>${item.reservePayment}</td>
-		                    				<c:choose>
-		                    					<c:when test="${empty item.reserveRefund}">
-		                    						<td>X</td>
-		                    					</c:when>
-		                    					<c:otherwise>
-		                    						<td>${item.reserveRefund}</td>
-		                    					</c:otherwise>
-		                    				</c:choose>
 		                    				<td>${item.userId}</td>
-		                    				<c:choose>
-		                    					<c:when test="${item.status eq 0}">
-		                    						<td style="color: red;">환불 완료</td>
-		                    					</c:when>
-		                    					<c:when test="${item.status eq 1}">
-		                    						<td style="color: green;">결제 완료</td>
-		                    					</c:when>
-		                    					<c:otherwise>
-		                    						<td style="color: blue;">환불 요청</td>
-		                    					</c:otherwise>
-		                    				</c:choose>
+		                    				<td>
+		                    					<button class="btn btn-primary" onclick="accept('${item.buyListId}');">승인</button>
+		                    					<button class="btn btn-danger" onclick="reject('${item.buyListId}');">거부</button>
+		                    				</td>
 		                    			</tr>
 		                    		</c:forEach>
                     			</c:otherwise>
                     		</c:choose>
                     		</tbody>
                     	</table>
+                    	<script>
+	                    	//환불
+	                    	const apiKey = "5866740403361550";
+					    	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
+					    	//let buyListId = "${requestScope.bl.buyListId}";
+					    	let buyListId = "";
+					    	let token = "";
+	    			    	function refund() {
+	    			    		console.log("환불 요청...");
+	    			    		$.ajax({
+	    			    			url: "refund.pa",
+	    			    			type: "post",
+	    			    			data: {
+	    			    				access_token: token,
+	    			    				merchant_uid: buyListId, //BUYLIST_ID
+	    			    				reason: "환불사유" //환불사유
+	    			    			},
+	    			    			success: function(result) {
+	    			    				console.log("환불 성공");
+	    			    				alert("환불되었습니다.");
+	    			    				location.reload(true);
+	    			    			},
+	    			    			error: function() {
+	    			    				console.log("환불 ajax 통신 실패");
+	    			    			}
+	    			    		});
+	    			    	}
+	    			    	
+	    			    	//access token 발급
+	    			    	function getToken() {
+	    			    		console.log("access token 발급 요청...");
+	    			    		$.ajax({
+	    			    			url: "getToken.pa",
+	    			    			type: "post",
+	    			    			data: {
+	    			    				apiKey: apiKey,
+	    			    				apiSecret: apiSecret
+	    			    			},
+	    			    			success: function(response) {
+	    			    				//console.log(response);
+	    			    				token = response;
+	    			    				console.log("access token 발급 성공");
+	    			    				refund();
+	    			    			},
+	    			    			error: function() {
+	    			    				console.log("access token 발급 ajax 통신 실패")
+	    			    			}
+	    			    		});
+	    			    	}
+	    			    	
+	    			    	//환불 승인
+                    		function accept(id) {
+                    			if(confirm("환불 승인하시겠습니까?")) {
+                    				buyListId = id;
+                    				getToken();
+                    			}
+                    		}
+	    			    	
+	    			    	//환불 거부
+	    			    	function reject(id) {
+	    			    		if(confirm("환불 거부하시겠습니까?")) {
+	    			    			buyListId = id;
+	    			    			$.ajax({
+	    			    				url: "rejectRefund.pa",
+	    			    				type: "post",
+	    			    				data: {buyListId: buyListId},
+	    			    				success: function(result) {
+	    			    					if(result > 0) {
+	    			    						alert("환불 거부되었습니다.");
+	    			    						location.reload(true);
+	    			    					} else {
+	    			    						console.log("환불 거부 실패");
+	    			    					}
+	    			    				},
+	    			    				error: function() { console.log("환불 거부 ajax 통신 실패"); }
+	    			    			});
+	    			    		}
+	    			    	}
+                    	</script>
+                    	
                     </div>
                     
 
