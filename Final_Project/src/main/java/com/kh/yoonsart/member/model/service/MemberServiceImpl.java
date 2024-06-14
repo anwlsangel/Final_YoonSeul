@@ -97,4 +97,9 @@ public class MemberServiceImpl implements MemberService {
 			return memberDao.selectMyTicketList(sqlSession, userId, pi);
 		}
 	}
+	@Override
+	public Member findMemberByIdAndEmailAndName(String userId, String email, String userName) {
+	   return memberDao.findMemberByIdAndEmailAndName(sqlSession,userId, email, userName);
+	   
+	}
 }

@@ -93,5 +93,14 @@ public class MemberDao {
 		
 		return (ArrayList)sqlSession.selectList("memberMapper.selectMyTicketList", userId, rowBounds);
 	}
+	
+	public Member findMemberByIdAndEmailAndName(SqlSessionTemplate sqlSession,String userId, String email, String userName) {
+	    Map<String, String> params = new HashMap<>();
+	    params.put("userId", userId);
+	    params.put("email", email);
+	    params.put("userName", userName);
+	    return sqlSession.selectOne(NAMESPACE + "findMemberByIdAndEmailAndName", params);
+	     
+	}
 
 }

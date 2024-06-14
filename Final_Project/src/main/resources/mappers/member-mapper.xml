@@ -132,6 +132,11 @@
 		 ORDER BY RESERVE_PAYMENT DESC
 	</select>
     
+    <select id="findMemberByIdAndEmailAndName" parameterType="map" resultMap="memberResultSet">
+	    SELECT *
+	    FROM MEMBER
+	    WHERE USER_ID = #{userId} AND EMAIL = #{email} AND USER_NAME = #{userName} AND STATUS = 1
+	</select>
 </mapper>
 
 	

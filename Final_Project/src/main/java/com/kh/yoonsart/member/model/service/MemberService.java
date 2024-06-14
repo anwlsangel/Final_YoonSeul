@@ -38,5 +38,6 @@ public interface MemberService {
 	int selectTicketCount(String userId);
 	//ajax예매내역조회
 	ArrayList<BuyList> selectMyTicketList(String userId, PageInfo pi);	
-		
+	
+	Member findMemberByIdAndEmailAndName(String userId, String email, String userName);
 }
