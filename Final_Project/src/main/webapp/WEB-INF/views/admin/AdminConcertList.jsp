@@ -9,7 +9,7 @@
 <style>
 	#dataTable {
 		text-align: center;
-	}
+	}	
 </style>
 </head>
 <body>
@@ -25,6 +25,8 @@
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
+	        
+	        <h1 class="h3 mb-4 text-gray-800">공연 정보 조회</h1>
 	    	    
 	
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -42,7 +44,6 @@
 	                    <th>카테고리</th>
 	                    <th>공연장이름</th>
 	                    <th>상태값</th>
-	                    <th>수정</th>
 	                </tr>
 	            </thead>
 	            <tbody>		
@@ -60,7 +61,6 @@
 	                    <td>${co.category}</td>
 	                    <td>${co.holeName}</td>
 	                    <td>${co.status}</td>
-	                    <td><button class="btn btn-danger">수정</button></td>
 	                </tr>
 	            </c:forEach>			
 	                
@@ -69,6 +69,16 @@
 			</div>
     	</div>            
     </div>
+    
+    <script>
+    	$(document).ready(function(){
+    	    $("#dataTable tbody").on("click", "tr", function(){
+    	        let cno = $(this).find("td:eq(0)").text().trim();
+    	        console.log(cno);
+    	        location.href = "AdupdateConcertForm.co?cno=" + cno;
+    	    });    	
+    	});
+    </script>
 
 </body>
 </html>

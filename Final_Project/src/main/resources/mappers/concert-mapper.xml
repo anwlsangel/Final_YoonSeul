@@ -14,6 +14,7 @@
 		<result column="END_DATE" property="endDate"/>
 		<result column="CATEGORY" property="category"/>
 		<result column="HOLE_NAME" property="holeName"/>
+		<result column="STATUS" property="status"/>
 	</resultMap>
 	
 	<!-- 첫 리스트 및 필터링 조회용 쿼리문 -->
@@ -83,14 +84,47 @@
 	    INSERT INTO WISHLIST (USER_ID, CONCERT_ID)
 	    VALUES (#{userId}, #{concertId})
 	</insert>
+	
 	<delete id="deleteWishlist" parameterType="map">
 	    DELETE FROM WISHLIST
 	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
 	</delete>   	
 	
+	
+	
+	
+	
+	
+	
+	<!-- 관리자용 쿼리문 -->
+	<!-- 공연 전체조회용 쿼리문 -->
 	<select id="adSelectList" resultMap="concertResultSet">
 		SELECT *
 		FROM CONCERT_INFO
 	</select>
+	
+	<!-- 공연 상세조회용 쿼리문 -->
+	<select id="adConcertDetail" resultType="_int" resultMap="concertResultSet">
+		SELECT *
+		  FROM CONCERT_INFO
+		 WHERE CONCERT_ID = #{concertId} 
+	</select>
+	
+	<!-- 공연 정보 수정용 쿼리문 -->
+	<update id="adUpdateConcert" parameterType="concert">
+		UPDATE CONCERT_INFO 
+		   SET CONCERT_NAME = #{concertName},
+		       AGE_LIMIT = #{ageLimit},
+		       PRICE = #{price},
+		       THUMBNAIL_ROOT = #{thumbnailRoot},
+		       DETAIL_ROOT = #{detailRoot},
+		       PLAYTIME = #{playTime},
+		       START_DATE = #{startDate},
+		       END_DATE = #{endDate},
+		       CATEGORY = #{category},
+		       HOLE_NAME = #{holeName},
+		       STATUS = 1
+		WHERE CONCERT_ID = #{concertId}
+	</update>
           
 </mapper>
