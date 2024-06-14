@@ -31,4 +31,7 @@ public interface PaymentService {
 	//관리자-환불요청내역조회
 	ArrayList<BuyList> selectRefundList();
 	
+	//마이페이지-환불요청
+	int requestRefund(String buyListId);
+	
 }

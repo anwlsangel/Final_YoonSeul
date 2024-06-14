@@ -37,4 +37,8 @@ public class PaymentDao {
 		return (ArrayList)sqlSession.selectList("paymentMapper.selectRefundList");
 	}
 
+	public int requestRefund(SqlSessionTemplate sqlSession, String buyListId) {
+		return sqlSession.update("paymentMapper.requestRefund", buyListId);
+	}
+
 }

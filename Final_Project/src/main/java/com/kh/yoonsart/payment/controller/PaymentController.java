@@ -137,4 +137,12 @@ public class PaymentController {
 		return "admin/adminRefundList";
 	}
 	
+	//마이페이지-환불요청
+	@ResponseBody
+	@PostMapping(value="requestRefund.pa")
+	public int requestRefund(String buyListId) {
+		int result =  paymentService.requestRefund(buyListId);
+		return result;
+	}
+	
 }

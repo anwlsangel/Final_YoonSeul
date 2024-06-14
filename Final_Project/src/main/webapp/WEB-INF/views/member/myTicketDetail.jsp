@@ -151,17 +151,43 @@
 			
 			<div id="refundButton" align="center">
 				<c:choose>
-					<c:when test="${empty requestScope.bl.reserveRefund}">
-						<button class="myInfoButton" onclick="getToken();">환불 요청</button>
+					<c:when test="${requestScope.bl.status eq 1}">
+						<button class="myInfoButton" onclick="requestRefund();">환불 요청</button>
+					</c:when>
+					<c:when test="${requestScope.bl.status eq 2}">
+						<button class="myInfoButton" disabled>환불 요청 중</button>
 					</c:when>
 					<c:otherwise>
 						<button class="myInfoButton" disabled>환불 완료</button>
 					</c:otherwise>
 				</c:choose>
 				<script>
+					//환불요청
+					let buyListId = "${requestScope.bl.buyListId}";
+					function requestRefund() {
+						$.ajax({
+							url: "requestRefund.pa",
+							type: "post",
+							data: {buyListId: buyListId},
+							success: function(result) {
+								if(result > 0) {
+									console.log("환불 요청 성공");
+									alert("환불 요청되었습니다.");
+									location.reload(true);
+								} else {
+									console.log("환불 요청 실패");
+								}
+							},
+							error: function() {
+								console.log("환불 요청 ajax 통신 실패");
+							}
+						});
+					}
+				
+				
 			    	const apiKey = "5866740403361550";
 			    	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
-			    	let buyListId = "${requestScope.bl.buyListId}";
+			    	//let buyListId = "${requestScope.bl.buyListId}";
 			    	let token = "";
 			    	
 			    	//환불
@@ -207,7 +233,6 @@
 			    			}
 			    		});
 			    	}
-			    	
 			    </script>
 			</div>
 			

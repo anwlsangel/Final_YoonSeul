@@ -299,6 +299,7 @@ public class MemberController {
 				buyList.put("reservePayment", bl.getReservePayment());
 				buyList.put("reserveRefund", bl.getReserveRefund());
 				buyList.put("userId", bl.getUserId());
+				buyList.put("status", bl.getStatus());
 
 				ticketList.add(buyList);
 			}
