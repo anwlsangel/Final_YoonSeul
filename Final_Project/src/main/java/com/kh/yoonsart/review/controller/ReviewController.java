@@ -32,7 +32,7 @@ public class ReviewController {
 		review.setUserId(userId);
 		review.setReviewPoint(rating);
 	    review.setReviewContent(reviewContent);
-	    System.out.println(rating);
+	    //System.out.println(rating);
 	    
 	    if(rating == 0) {
 	    	
@@ -64,7 +64,7 @@ public class ReviewController {
 		
 		Review review = new Review();
 		review.setConcertId(rno);
-		System.out.println(rno);
+		//System.out.println(rno);
 		//System.out.println(r.getReviewId());
 		
 		// model.addAttribute("r", r.getReviewId());
