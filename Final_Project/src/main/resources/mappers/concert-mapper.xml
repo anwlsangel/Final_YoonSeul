@@ -81,8 +81,12 @@
 	</select> 
 	<!-- 관심공연용 쿼리문 - 0613 무진 -->
 	<insert id="insertWishlist" parameterType="map">
-	    INSERT INTO WISHLIST (USER_ID, CONCERT_ID)
-	    VALUES (#{userId}, #{concertId})
+	    MERGE INTO WISHLIST w
+	    USING (SELECT #{userId} AS USER_ID, #{concertId} AS CONCERT_ID FROM DUAL) src
+	    ON (w.USER_ID = src.USER_ID AND w.CONCERT_ID = src.CONCERT_ID)
+	    WHEN NOT MATCHED THEN
+	    INSERT (USER_ID, CONCERT_ID)
+	    VALUES (src.USER_ID, src.CONCERT_ID)
 	</insert>
 	
 	<delete id="deleteWishlist" parameterType="map">

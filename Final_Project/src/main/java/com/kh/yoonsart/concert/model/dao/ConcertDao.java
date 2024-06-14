@@ -59,9 +59,15 @@ public class ConcertDao {
 	}
 	
 	public int insertWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-	    return sqlSession.insert("concertMapper.insertWishlist", map);
+	    try {
+	        return sqlSession.insert("concertMapper.insertWishlist", map);
+	    } catch (Exception e) {
+	        // 중복된 키가 존재할 경우 무시
+	        return 0;
+	    }
 	}
 	 public int deleteWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 	        return sqlSession.delete("concertMapper.deleteWishlist", map);
 	    }
+	 
 }
