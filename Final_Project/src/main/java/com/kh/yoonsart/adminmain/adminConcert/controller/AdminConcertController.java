@@ -37,7 +37,6 @@ public class AdminConcertController {
 		
 		Concert c = adminConcertService.adConcertDetail(cno);
 		
-		System.out.println(c);
 		
 		model.addAttribute("c", c);
 		
@@ -54,7 +53,6 @@ public class AdminConcertController {
 								
 		if(result > 0) { // 성공
 					
-			System.out.println("성공하냐?");
 			session.setAttribute("alertMsg", "공연 정보 수정 성공!");
 			mv.setViewName("redirect:/AdupdateConcertForm.co?cno="+c.getConcertId());
 			
