@@ -37,6 +37,7 @@ public class PaymentServiceImpl implements PaymentService{
 	@Autowired
 	private PaymentDao paymentDao;
 
+	@Transactional
 	@Override
 	public int insertPaymentInfo(BuyList bl) {
 		return paymentDao.insertPaymentDao(sqlSession, bl);
@@ -116,6 +117,7 @@ public class PaymentServiceImpl implements PaymentService{
         log.info("결제 취소 완료 : 주문 번호 {}", merchant_uid);
 	}
 
+	@Transactional
 	@Override
 	public int updateReserveRefund(String merchant_uid) {
 		return paymentDao.updateReserveRefund(sqlSession, merchant_uid);
@@ -143,11 +145,13 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 	
 	//마이페이지-환불요청
+	@Transactional
 	@Override
 	public int requestRefund(String buyListId) {
 		return  paymentDao.requestRefund(sqlSession, buyListId);
 	}
 	//환불 거부
+	@Transactional
 	@Override
 	public int rejectRefund(String buyListId) {
 		return paymentDao.rejectRefund(sqlSession, buyListId);
