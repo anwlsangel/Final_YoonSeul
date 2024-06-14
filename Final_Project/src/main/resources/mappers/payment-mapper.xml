@@ -38,7 +38,8 @@
 		     , #{reserveSum}
 		     , SYSDATE
 		     , NULL
-		     , #{userId})
+		     , #{userId}
+		     , 1)
 	</insert>
 	
 	<!-- 환불일 업데이트 -->
@@ -85,6 +86,13 @@
 		  JOIN CONCERT_INFO ON (RESERVE_CONCERT_ID = CONCERT_ID)
 		 WHERE B.STATUS = 2
 	</select>
+	
+	<!-- 마이페이지-환불요청 -->
+	<update id="requestRefund" parameterType="string">
+		UPDATE BUYLIST
+		   SET STATUS = 2
+		 WHERE BUYLIST_ID = #{buyListId}
+	</update>
 	
 </mapper>
 

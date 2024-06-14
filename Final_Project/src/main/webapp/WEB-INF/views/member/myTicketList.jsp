@@ -166,8 +166,10 @@
 					            str	+= "<td>" + result.ticketList[i].reserveSum + "</td>";
 					            //str	+= "<td>" + result.ticketList[i].reservePayment + "</td>";
 					            str	+= "<td>" + startDate + "</td>";
-								if(result.ticketList[i].reserveRefund == null) {
-									str += "<td style='color: blue'>결제 완료</td>";
+								if(result.ticketList[i].status == '1') {
+									str += "<td style='color: green'>결제 완료</td>";
+								} else if(result.ticketList[i].status == '2') {
+									str += "<td style='color: blue'>환불 요청 중</td>";
 								} else {
 									str += "<td style='color: red'>환불 완료</td>";
 								}
