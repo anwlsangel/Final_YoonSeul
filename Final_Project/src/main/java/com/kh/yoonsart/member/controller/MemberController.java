@@ -247,7 +247,30 @@ public class MemberController {
 			}
 			
 		}
-		
+		@PostMapping(value = "resetPwd.do", consumes = "application/json", produces = "text/plain; charset=UTF-8")
+		@ResponseBody
+		public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> requestData) {
+		    String userId = requestData.get("userId");
+		    String newPwd = requestData.get("newPwd");
+
+		    try {
+		        // 새 비밀번호 암호화
+		        String encPwd = bcryptPasswordEncoder.encode(newPwd);
+
+		        // 비밀번호 변경
+		        int result = memberService.updatePassword(userId, encPwd);
+
+		        if (result > 0) {
+		            return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+		        } else {
+		            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경에 실패했습니다.");
+		        }
+		    } catch (Exception e) {
+		        // 예외가 발생하면 스택 트레이스를 출력하고, 에러 메시지를 응답으로 반환
+		        e.printStackTrace();
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경 중 오류 발생: " + e.getMessage());
+		    }
+		}
 		//예매내역 페이지 포워딩
 		@GetMapping(value="myTicketList.me", produces="application/json; charset=UTF-8")
 		public String myTicketList(Model model, String userId) {

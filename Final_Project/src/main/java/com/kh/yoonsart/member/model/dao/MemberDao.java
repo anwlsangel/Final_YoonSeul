@@ -102,5 +102,9 @@ public class MemberDao {
 	    return sqlSession.selectOne(NAMESPACE + "findMemberByIdAndEmailAndName", params);
 	     
 	}
+	
+	public int updatePassword(SqlSessionTemplate sqlSession, Map<String, String> param) {
+	    	return sqlSession.update("memberMapper.updatePassword", param);
+	    }
 
 }

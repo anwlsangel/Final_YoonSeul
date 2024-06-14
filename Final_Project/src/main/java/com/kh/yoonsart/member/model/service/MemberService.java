@@ -33,7 +33,8 @@ public interface MemberService {
 	String findIdByNameAndPhone(String userName, String phone);
 	// 비밀번호 초기화 기능
 	boolean resetPassword(String email, String newPwd);
-	
+	// 비밀번호 변경용 
+	 int updatePassword(String userId, String encPwd);
 	//예매내역 수 조회
 	int selectTicketCount(String userId);
 	//ajax예매내역조회

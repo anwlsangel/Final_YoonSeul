@@ -1,6 +1,8 @@
 package com.kh.yoonsart.member.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
 
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -88,7 +90,15 @@ public class MemberServiceImpl implements MemberService {
 	public int selectTicketCount(String userId) {
 		return memberDao.selectTicketCount(sqlSession, userId);
 	}
-
+	
+	@Override
+	public int updatePassword(String userId, String encPwd) {
+	    Map<String, String> param = new HashMap<>();
+	    param.put("userId", userId);
+	    param.put("encPwd", encPwd);
+	    return memberDao.updatePassword(sqlSession,param);
+	}
+	
 	@Override
 	public ArrayList<BuyList> selectMyTicketList(String userId, PageInfo pi) {
 		if (userId == null) {

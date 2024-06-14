@@ -851,9 +851,24 @@
     <!-- index.jsp 회원가입 동작용 자바스크립트 구문 추가 0610 - 무진 -->
     <script>
    
+    $('#signupButton').click(function() {
+        window.location.href = 'enrollForm.me';
+    });
+    $('#signupLink').click(function(event) {
+        event.preventDefault(); // 기본 링크 동작 방지
+        window.location.href = 'enrollForm.me';
+    });
+    
+    
     $(document).ready(function() {
         var globalEmail = '';
 
+        // 회원가입 버튼 클릭 이벤트 핸들러
+        $('#signupButton, #signupLink').click(function() {
+            window.location.href = 'enrollForm.me';
+        });
+
+        // 아이디 찾기 버튼 클릭 이벤트 핸들러
         $('#findIdButton').click(function() {
             var name = $('#findIdForm input[name=userName]').val();
             var phone = $('#findIdForm input[name=phone]').val();
@@ -865,66 +880,60 @@
                 success: function(response) {
                     if (response.includes("회원님의 아이디는")) {
                         var foundId = response.split("아이디는 ")[1].split("입니다")[0];
+                        alertify.alert("아이디 찾기 성공", "회원님의 아이디는 " + foundId + "입니다.");
 
-                        // AlertifyJS를 사용하여 알림 창 띄우기
-                        alertify.alert('아이디 찾기 성공', '회원님의 아이디는 ' + foundId + '입니다.', function() {
-                            alertify.success('확인');
-
-                            // 아이디 찾기 모달창 닫기
-                            $('#findIdModal').modal('hide');
-
-                            // 로그인 모달창 열기
-                            $('#loginModal').modal('show');
-
-                            // 로그인 모달창에 찾아온 아이디 입력
-                            $('#loginModal input[name=userId]').val(foundId);
-                        });
+                        // 아이디 찾기 모달창 닫기
+                        $('#findIdModal').modal('hide');
+                        
+                        // 로그인 모달창 열기
+                        $('#loginModal').modal('show');
+                        
+                        // 로그인 모달창에 찾아온 아이디 입력
+                        $('#loginModal input[name=userId]').val(foundId);
                     } else {
-                        alertify.alert('아이디 찾기 실패', '회원 정보가 일치하지 않습니다.', function() {
-                            alertify.error('확인');
-                        });
+                        alertify.alert("아이디 찾기 실패", response);
                     }
                 },
                 error: function(xhr, status, error) {
-                    alertify.error("아이디 찾기에 실패했습니다.");
+                    alertify.alert("아이디 찾기 실패", "아이디 찾기에 실패했습니다.");
                 }
             });
         });
 
+        // 비밀번호 찾기 버튼 클릭 이벤트 핸들러
         $('#findPwdButton').click(function() {
             var name = $('#findPwdForm input[name=userName]').val();
             var userId = $('#findPwdForm input[name=userId]').val();
             var email = $('#findPwdForm input[name=email]').val();
             $('#resetEmail').val(email); // 숨겨진 필드에 이메일 설정
+
             $.ajax({
                 type: "POST",
                 url: "cert.do",
                 data: { email: email, userName: name, userId: userId },
                 success: function(response) {
                     if (response.includes("인증번호 발급 완료")) {
-                        alertify.alert('인증번호 발급 완료', response, function() {
-                            alertify.success('확인');
-                            $('#findPwdModal').modal('hide');
-                            $('#resetUserId').val(userId);
-                            $('#resetPwdModal').modal('show');
-                        });
+                        alertify.alert("인증번호 발송 성공", response);
+                        $('#findPwdModal').modal('hide');
+                        $('#resetUserId').val(userId);
+                        $('#resetPwdModal').modal('show');
                     } else {
-                        alertify.alert('인증번호 발급 실패', '회원 정보가 일치하지 않습니다.', function() {
-                            alertify.error('확인');
-                        });
+                        alertify.alert("인증번호 발송 실패", response);
                     }
                 },
                 error: function(xhr, status, error) {
-                    alertify.error("인증번호 발송에 실패했습니다.");
+                    alertify.alert("인증번호 발송 실패", "인증번호 발송에 실패했습니다.");
                 }
             });
         });
 
+        // 비밀번호 재설정 버튼 클릭 이벤트 핸들러
         $('#resetPwdButton').click(function() {
             var userId = $('#resetUserId').val();
             var authKey = $('#resetPwdForm input[name=authKey]').val();
             var newPwd = $('#resetPwdForm input[name=newPwd]').val();
             var email = $('#resetEmail').val(); // 숨겨진 필드에서 가져오기
+
             $.ajax({
                 type: "POST",
                 url: "validate.do",
@@ -934,25 +943,22 @@
                         $.ajax({
                             type: "POST",
                             url: "resetPwd.do",
-                            data: { userId: userId, newPwd: newPwd },
+                            contentType: "application/json",
+                            data: JSON.stringify({ userId: userId, newPwd: newPwd }),
                             success: function(response) {
-                                alertify.alert('비밀번호 변경 완료', "비밀번호가 성공적으로 변경되었습니다.", function() {
-                                    alertify.success('확인');
-                                    $('#resetPwdModal').modal('hide');
-                                });
+                                alertify.alert("비밀번호 변경 성공", response);
+                                $('#resetPwdModal').modal('hide');
                             },
                             error: function(xhr, status, error) {
-                                alertify.error("비밀번호 변경에 실패했습니다.");
+                                alertify.alert("비밀번호 변경 실패", "비밀번호 변경에 실패했습니다.");
                             }
                         });
                     } else {
-                        alertify.alert('인증 실패', '인증번호가 올바르지 않습니다.', function() {
-                            alertify.error('확인');
-                        });
+                        alertify.alert("인증 실패", "인증번호가 올바르지 않습니다.");
                     }
                 },
                 error: function(xhr, status, error) {
-                    alertify.error("인증에 실패했습니다.");
+                    alertify.alert("인증 실패", "인증에 실패했습니다.");
                 }
             });
         });

@@ -118,6 +118,13 @@
         WHERE EMAIL = #{email} AND STATUS = 1
     </update>
     
+     <!-- 비밀번호 변경 쿼리 -->
+	<update id="updatePassword" parameterType="map">
+	    UPDATE MEMBER
+	    SET USER_PWD = #{encPwd}
+	    WHERE USER_ID = #{userId}
+	</update>
+    
     <!-- 예매내역 수 조회 -->
     <select id="selectTicketCount" parameterType="string" resultType="_int">
 		SELECT COUNT(*)

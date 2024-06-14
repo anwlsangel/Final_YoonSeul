@@ -1,6 +1,5 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<!-- myPage.jsp 태그리브 지시어 추가 0604 - 무진 -->
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
@@ -13,6 +12,10 @@
     <link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <!-- Alertify JS -->
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/css/bootstrap.min.css">
+    <!-- Bootstrap JavaScript -->
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
 	<style type="text/css">
 		.container {
             max-width: 1000px;
@@ -75,6 +78,7 @@
                 <br>
                 <div class="btns" align="center">
                     <button type="submit" class="btn btn-primary" disabled>수정하기</button>
+                    <button type="button" class="btn btn-warning" id="changePwdBtn">비밀번호 변경</button>
                     <button type="button" class="btn btn-danger" data-toggle="modal" data-target="#deleteForm">회원탈퇴</button>
                 </div>
             </form>
@@ -115,117 +119,122 @@
             </div>
         </div>
     </div>
-	<script type="text/javascript">
-	$(document).ready(function() {
-	    let emailValid = true;
-	    let phoneValid = true;
 
-	    // 기존 값 저장
-	    const initialEmail = $('#email').val();
-	    const initialPhone = $('#phone').val();
-	    const initialUserName = $('#userName').val();
-	    const initialAddress = $('#address').val();
+    <script type="text/javascript">
+        $(document).ready(function() {
+            // 비밀번호 변경 버튼 클릭 이벤트 핸들러
+            $('#changePwdBtn').click(function() {
+                // 헤더에 있는 비밀번호 찾기 모달 창 열기
+                $('#findPwdModal').modal('show');
+            });
 
-	    $('#email').on('input', function() {
-	        checkDuplicate('email', $(this).val());
-	    });
+            let emailValid = true;
+            let phoneValid = true;
 
-	    $('#phone').on('input', function() {
-	        checkDuplicate('phone', $(this).val());
-	    });
+            // 기존 값 저장
+            const initialEmail = $('#email').val();
+            const initialPhone = $('#phone').val();
+            const initialUserName = $('#userName').val();
+            const initialAddress = $('#address').val();
 
-	    $('#userName, #address').on('input', function() {
-	        checkForChanges();
-	    });
+            $('#email').on('input', function() {
+                checkDuplicate('email', $(this).val());
+            });
 
-	    function checkDuplicate(type, value) {
-	        let url = type === 'email' ? 'checkEmail.me' : 'checkPhone.me';
-	        $.ajax({
-	            url: url,
-	            method: 'POST',
-	            data: type === 'email' ? { email: value } : { phone: value },
-	            success: function(response) {
-	                console.log(`Response for ${type}:`, response);  // 디버깅 메시지 추가
-	                // 만약 response가 문자열이 아니거나 null/undefined인 경우 처리
-	                let isDuplicate = response.trim() === "1";
-	                if (isDuplicate) {
-	                    if (type === 'email') {
-	                        $('#email').addClass('is-invalid');
-	                        $('#email').removeClass('is-valid');
-	                        $('#emailFeedback').show();
-	                        emailValid = false;
-	                    } else if (type === 'phone') {
-	                        $('#phone').addClass('is-invalid');
-	                        $('#phone').removeClass('is-valid');
-	                        $('#phoneFeedback').show();
-	                        phoneValid = false;
-	                    }
-	                } else {
-	                    if (type === 'email') {
-	                        $('#email').addClass('is-valid');
-	                        $('#email').removeClass('is-invalid');
-	                        $('#emailFeedback').hide();
-	                        emailValid = true;
-	                    } else if (type === 'phone') {
-	                        $('#phone').addClass('is-valid');
-	                        $('#phone').removeClass('is-invalid');
-	                        $('#phoneFeedback').hide();
-	                        phoneValid = true;
-	                    }
-	                }
-	                toggleSubmitButton();
-	            },
-	            error: function(xhr, status, error) {
-	                console.error(`Error checking ${type}:`, error);
-	                if (type === 'email') {
-	                    $('#email').addClass('is-invalid');
-	                    $('#email').removeClass('is-valid');
-	                    $('#emailFeedback').show();
-	                    emailValid = false;
-	                } else if (type === 'phone') {
-	                    $('#phone').addClass('is-invalid');
-	                    $('#phone').removeClass('is-valid');
-	                    $('#phoneFeedback').show();
-	                    phoneValid = false;
-	                }
-	                toggleSubmitButton();
-	            }
-	        });
-	    }
+            $('#phone').on('input', function() {
+                checkDuplicate('phone', $(this).val());
+            });
 
-	    function checkForChanges() {
-	        const currentEmail = $('#email').val();
-	        const currentPhone = $('#phone').val();
-	        const currentUserName = $('#userName').val();
-	        const currentAddress = $('#address').val();
+            $('#userName, #address').on('input', function() {
+                checkForChanges();
+            });
 
-	        console.log("Current values:", { currentEmail, currentPhone, currentUserName, currentAddress });
-	        console.log("Initial values:", { initialEmail, initialPhone, initialUserName, initialAddress });
+            function checkDuplicate(type, value) {
+                let url = type === 'email' ? 'checkEmail.me' : 'checkPhone.me';
+                $.ajax({
+                    url: url,
+                    method: 'POST',
+                    data: type === 'email' ? { email: value } : { phone: value },
+                    success: function(response) {
+                        console.log(`Response for ${type}:`, response);  // 디버깅 메시지 추가
+                        // 만약 response가 문자열이 아니거나 null/undefined인 경우 처리
+                        let isDuplicate = response.trim() === "1";
+                        if (isDuplicate) {
+                            if (type === 'email') {
+                                $('#email').addClass('is-invalid');
+                                $('#email').removeClass('is-valid');
+                                $('#emailFeedback').show();
+                                emailValid = false;
+                            } else if (type === 'phone') {
+                                $('#phone').addClass('is-invalid');
+                                $('#phone').removeClass('is-valid');
+                                $('#phoneFeedback').show();
+                                phoneValid = false;
+                            }
+                        } else {
+                            if (type === 'email') {
+                                $('#email').addClass('is-valid');
+                                $('#email').removeClass('is-invalid');
+                                $('#emailFeedback').hide();
+                                emailValid = true;
+                            } else if (type === 'phone') {
+                                $('#phone').addClass('is-valid');
+                                $('#phone').removeClass('is-invalid');
+                                $('#phoneFeedback').hide();
+                                phoneValid = true;
+                            }
+                        }
+                        toggleSubmitButton();
+                    },
+                    error: function(xhr, status, error) {
+                        console.error(`Error checking ${type}:`, error);
+                        if (type === 'email') {
+                            $('#email').addClass('is-invalid');
+                            $('#email').removeClass('is-valid');
+                            $('#emailFeedback').show();
+                            emailValid = false;
+                        } else if (type === 'phone') {
+                            $('#phone').addClass('is-invalid');
+                            $('#phone').removeClass('is-valid');
+                            $('#phoneFeedback').show();
+                            phoneValid = false;
+                        }
+                        toggleSubmitButton();
+                    }
+                });
+            }
 
-	        if (currentEmail !== initialEmail || currentPhone !== initialPhone || currentUserName !== initialUserName || currentAddress !== initialAddress) {
-	            $('button[type="submit"]').prop('disabled', false);
-	        } else {
-	            $('button[type="submit"]').prop('disabled', true);
-	        }
-	    }
+            function checkForChanges() {
+                const currentEmail = $('#email').val();
+                const currentPhone = $('#phone').val();
+                const currentUserName = $('#userName').val();
+                const currentAddress = $('#address').val();
 
-	    function toggleSubmitButton() {
-	        if (emailValid && phoneValid) {
-	            checkForChanges();
-	        } else {
-	            $('button[type="submit"]').prop('disabled', true);
-	        }
-	    }
 
-	    $('form').on('submit', function(e) {
-	        if (!emailValid || !phoneValid) {
-	            e.preventDefault();
-	            alertify.error('중복된 이메일 또는 전화번호가 있습니다.');
-	        }
-	    });
-	});
-	</script>
+                if (currentEmail !== initialEmail || currentPhone !== initialPhone || currentUserName !== initialUserName || currentAddress !== initialAddress) {
+                    $('button[type="submit"]').prop('disabled', false);
+                } else {
+                    $('button[type="submit"]').prop('disabled', true);
+                }
+            }
+
+            function toggleSubmitButton() {
+                if (emailValid && phoneValid) {
+                    checkForChanges();
+                } else {
+                    $('button[type="submit"]').prop('disabled', true);
+                }
+            }
+
+            $('form').on('submit', function(e) {
+                if (!emailValid || !phoneValid) {
+                    e.preventDefault();
+                    alertify.error('중복된 이메일 또는 전화번호가 있습니다.');
+                }
+            });
+        });
+    </script>
+
     <jsp:include page="../common/footer.jsp" />
-
 </body>
 </html>
