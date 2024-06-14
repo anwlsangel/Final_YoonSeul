@@ -8,7 +8,6 @@
 <title>Insert title here</title>
 	
     <!-- jQuery library -->
-    <!-- 온라인 방식 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <!-- Popper JS -->
     <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.1/dist/umd/popper.min.js"></script>
@@ -71,14 +70,14 @@
 	.main-login a::after,
 	.logged-in-links a::after {
 	    content: "";
-    position: absolute;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 0;
-    height: 4px;
-    background: #EEEBDD;
-    transition: all .5s ease-out;
+        position: absolute;
+        bottom: 0;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 0;
+        height: 4px;
+        background: #EEEBDD;
+        transition: all .5s ease-out;
 	}
 	
 	.navi a:hover::after,
@@ -285,11 +284,11 @@
                 <!-- Modal body -->
                 <div class="modal-body">
                     <div class="form-group">
-                    <label for="userId" class="mr-sm-2">ID : </label>
+                    <label class="mr-sm-2">ID : </label>
                     <input type="text" class="form-control mb-2 mr-sm-2" placeholder="Enter ID"  name="userId" value="${ cookie.saveId.value }" required> <br>
                     </div>
                     <div class="form-group">
-                    <label for="userPwd" class="mr-sm-2">Password : </label>
+                    <label class="mr-sm-2">Password : </label>
                     <input type="password" class="form-control mb-2 mr-sm-2" placeholder="Enter Password"  name="userPwd" required>
                     </div>
                     <div class="form-group form-check">
@@ -330,11 +329,11 @@
 			                <!-- Modal body -->
 			                <div class="modal-body">
 			                    <div class="form-group">
-                        <label for="userName">이름:</label>
+                        <label>이름:</label>
 	                        	<input type="text" class="form-control" name="userName" placeholder="Enter Name" required>
 		                    </div>
 		                    <div class="form-group">
-		                        <label for="phone">전화번호:</label>
+		                        <label>전화번호:</label>
 		                        <input type="text" class="form-control"  name="phone" placeholder="Enter Phone" required>
 		                    </div>
 			                </div>
@@ -362,15 +361,15 @@
 			                <!-- Modal body -->
 			                <div class="modal-body">
 					                    <div class="form-group">
-		                        <label for="userName">이름:</label>
+		                        <label>이름:</label>
 		                        <input type="text" class="form-control"  name="userName" placeholder="Enter Name" required>
 		                    </div>
 		                    <div class="form-group">
-		                        <label for="userId">아이디:</label>
+		                        <label>아이디:</label>
 		                        <input type="text" class="form-control"  name="userId" placeholder="Enter ID" required>
 		                    </div>
 		                    <div class="form-group">
-		                        <label for="email">이메일:</label>
+		                        <label>이메일:</label>
 		                        <input type="email" class="form-control" name="email" placeholder="Enter Email" required>
 		                    </div>
                     	</div>
@@ -398,12 +397,12 @@
 		                <!-- Modal body -->
 		                <div class="modal-body">
 		                    <div class="form-group">
-		                        <label for="authKey">인증번호:</label>
-		                        <input type="text" class="form-control" id="authKey" name="authKey" placeholder="Enter Auth Key" required>
+		                        <label>인증번호:</label>
+		                        <input type="text" class="form-control" name="authKey" placeholder="Enter Auth Key" required>
 		                    </div>
 		                    <div class="form-group">
-		                        <label for="newPwd">새 비밀번호:</label>
-		                        <input type="password" class="form-control" id="newPwd" name="newPwd" placeholder="Enter New Password" required>
+		                        <label>새 비밀번호:</label>
+		                        <input type="password" class="form-control" name="newPwd" placeholder="Enter New Password" required>
 		                    </div>
 		                </div>
 			                <!-- Modal footer -->
@@ -465,129 +464,64 @@
 </div>
         
 <script>
-// 사이드 메뉴바 스크립트
-document.addEventListener('DOMContentLoaded', function () {
-    const items = document.querySelectorAll('#snb .hasThird > a');
-    items.forEach(function(item) {
-        item.addEventListener('click', function (e) {
-            // 클릭된 항목의 href 값 가져오기
-            const hrefValue = this.getAttribute('href');
-            // 서브 메뉴가 없는 경우 이동
-            if (this.nextElementSibling === null) {
-                return;
-            }
-            e.preventDefault();
-            const parent = this.parentElement;
-            const subMenu = parent.querySelector('ul.depth3');
-            const isActive = parent.classList.contains('active');
-            document.querySelectorAll('#snb .hasThird').forEach(function(el)  {
-                el.classList.remove('active');
-                const innerSubMenu = el.querySelector('ul.depth3');
-                if (innerSubMenu) {
-                    innerSubMenu.style.maxHeight = '0px';
-                }
-            });
-            if (!isActive) {
-                parent.classList.add('active');
-                if (subMenu) {
-                    subMenu.style.maxHeight = subMenu.scrollHeight + 'px';
-                }
-            } else {
-                if (subMenu) {
-                    subMenu.style.maxHeight = '0px';
-                }
-            }
-            adjustSidebarHeight();
-            // 서브 메뉴가 없는 경우 이동
-            if (hrefValue && this.nextElementSibling === null) {
-                window.location.href = hrefValue;
-            }
-        });
-    });
-    const subItems = document.querySelectorAll('#snb .depth3 a');
-    subItems.forEach(function(subItem) {
-        subItem.addEventListener('click', function (e) {
-            e.preventDefault();
-            window.location.href = this.getAttribute('href');
-        });
-    });
-    function adjustSidebarHeight() {
-        const snb = document.getElementById('snb');
-        const activeItems = snb.querySelectorAll('.hasThird.active ul');
-        let totalHeight = 410; // 기본 높이
-        activeItems.forEach(function(item) {
-            totalHeight += item.scrollHeight;
-        });
-        snb.style.height = `${totalHeight}px`;
-     }
-    });
-    $('#signupButton').click(function() {
-        window.location.href = 'enrollForm.me';
-    });
-    $('#signupLink').click(function(event) {
-        event.preventDefault(); // 기본 링크 동작 방지
-        window.location.href = 'enrollForm.me';
-    });
-    
-    
-     $(document).ready(function() {
-            $('#findIdButton').click(function() {
-                const name = $('#findIdForm input[name=userName]').val();
-                const phone = $('#findIdForm input[name=phone]').val();
-                
-                $.ajax({
-                    type: "POST",
-                    url: "findId.do",
-                    data: { userName: name, phone: phone },
-                    success: function(response) {
-                        // 아이디 찾기에 성공했을 때
-                        if (response) {
-                            alert(response); // 회원님의 아이디는 user12입니다.
-                            
-                            // 메시지에서 아이디만 추출
-                            const foundId = response.split("아이디는 ")[1].split("입니다")[0];
-                            
-                            // 아이디 찾기 모달창 닫기
-                            $('#findIdModal').modal('hide');
-                            
-                            // 로그인 모달창 열기
-                            $('#loginModal').modal('show');
-                            
-                            // 로그인 모달창에 찾아온 아이디 입력
-                            $('#loginModal input[name=userId]').val(foundId);
-                        } else {
-                            alert("아이디를 찾을 수 없습니다.");
-                        }
-                    },
-                    error: function() {
-                        alert("아이디 찾기에 실패했습니다.");
-                    }
-                });
-            });
+$(document).ready(function() {
 
-            $('#findPwdButton').click(function() {
-                const name = $('#findIdForm input[name=userName]').val();
-                const userId = $('#findPwdForm input[name=userId]').val();
-                const email = $('#findPwdForm input[name=email]').val();
-                $.ajax({
-                    type: "POST",
-                    url: "cert.do",
-                    data: { email: email, name:name,userId:userId },
-                    success: function(response) {
-                        alert(response);
-                        $('#findPwdModal').modal('hide');
-                        $('#resetPwdModal').modal('show');
-                    },
-                    error: function() {
-                        alert("인증번호 발송에 실패했습니다.");
-                    }
-                });
-            });
+    $('#findIdButton').click(function() {
+
+        var name = $('#findIdForm input[name=userName]').val();
+        var phone = $('#findIdForm input[name=phone]').val();
+
+
+        $.ajax({
+            type: "POST",
+            url: "findId.do",
+            data: { userName: name, phone: phone },
+            success: function(response) {
+                if (response.includes("회원님의 아이디는")) {
+                    var foundId = response.split("아이디는 ")[1].split("입니다")[0];
+                    alertify.success("회원님의 아이디는 " + foundId + "입니다.");
+
+                    // 아이디 찾기 모달창 닫기
+                    $('#findIdModal').modal('hide');
+                    
+                    // 로그인 모달창 열기
+                    $('#loginModal').modal('show');
+                    
+                    // 로그인 모달창에 찾아온 아이디 입력
+                    $('#loginModal input[name=userId]').val(foundId);
+                } else {
+                    alertify.error(response);
+                }
+            },
+            error: function(xhr, status, error) {
+                alertify.error("아이디 찾기에 실패했습니다.");
+            }
+        });
+    });
+
+    $('#findPwdButton').click(function() {
+        var name = $('#findPwdForm input[name=userName]').val();
+        var userId = $('#findPwdForm input[name=userId]').val();
+        var email = $('#findPwdForm input[name=email]').val();
+        $.ajax({
+            type: "POST",
+            url: "cert.do",
+            data: { email: email, name: name, userId: userId },
+            success: function(response) {
+                alertify.success(response);
+                $('#findPwdModal').modal('hide');
+                $('#resetPwdModal').modal('show');
+            },
+            error: function(xhr, status, error) {
+                alertify.error("인증번호 발송에 실패했습니다.");
+            }
+        });
+    });
+
     $('#resetPwdButton').click(function() {
-        const email = $('#findPwdForm input[name=email]').val();
-        const authKey = $('#resetPwdForm #authKey').val();
-        const newPwd = $('#resetPwdForm #newPwd').val();
-
+        var email = $('#findPwdForm input[name=email]').val();
+        var authKey = $('#resetPwdForm input[name=authKey]').val();
+        var newPwd = $('#resetPwdForm input[name=newPwd]').val();
         $.ajax({
             type: "POST",
             url: "validate.do",
@@ -598,25 +532,24 @@ document.addEventListener('DOMContentLoaded', function () {
                         type: "POST",
                         url: "resetPwd.do",
                         data: { email: email, newPwd: newPwd },
-                        success: function() {
-                            alert("비밀번호가 성공적으로 변경되었습니다.");
+                        success: function(response) {
+                            alertify.success("비밀번호가 성공적으로 변경되었습니다.");
                             $('#resetPwdModal').modal('hide');
                         },
-                        error: function() {
-                            alert("비밀번호 변경에 실패했습니다.");
+                        error: function(xhr, status, error) {
+                            alertify.error("비밀번호 변경에 실패했습니다.");
                         }
                     });
                 } else {
-                    alert("인증번호가 올바르지 않습니다.");
+                    alertify.error("인증번호가 올바르지 않습니다.");
                 }
             },
-            error: function() {
-                alert("인증에 실패했습니다.");
+            error: function(xhr, status, error) {
+                alertify.error("인증에 실패했습니다.");
             }
         });
     });
 });
-
 </script>
 </body>
 </html>
