@@ -44,17 +44,12 @@ public class EmailController {
 	public String getCertNo(String email, String userId, String userName) {
 		String randomCertNo = generateCertNo();
 		certNoList.put(email, randomCertNo);
-		int check; // select
-		if (check == 1) {
 			try {
 				sendCertEmail(email, randomCertNo);
 			} catch (MessagingException e) {
 				e.printStackTrace();
 				return "인증번호 발급 실패";
 			}
-		} else {
-			return "해당하는 정보가 없습니다";
-		}
 		return "인증번호 발급 완료";
 	}
 
@@ -119,12 +114,12 @@ public class EmailController {
 	@ResponseBody
 	@PostMapping(value = "findId.do", produces = "text/html; charset=UTF-8")
 	public String findId(String userName, String phone) {
-		String userId = memberService.findIdByNameAndPhone(userName, phone);
-		if (userId != null) {
-			return "회원님의 아이디는 " + userId + "입니다.";
-		} else {
-			return "해당 정보로 가입된 아이디가 없습니다.";
-		}
+	    String userId = memberService.findIdByNameAndPhone(userName, phone);
+	    if (userId != null) {
+	        return "회원님의 아이디는 " + userId + "입니다.";
+	    } else {
+	        return "해당 정보로 가입된 아이디가 없습니다.";
+	    }
 	}
 
 	@ResponseBody
