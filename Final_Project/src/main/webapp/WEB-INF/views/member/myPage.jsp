@@ -95,7 +95,7 @@
                 <!-- Modal Header -->
                 <div class="modal-header">
                     <h4 class="modal-title">회원탈퇴</h4>
-                    <button type="button" class="close" data-dismiss="modal">&times;"></button>
+                    <button type="button" class="close" data-dismiss="modal">&times;</button>
                 </div>
 
                 <form action="delete.me" method="post">
