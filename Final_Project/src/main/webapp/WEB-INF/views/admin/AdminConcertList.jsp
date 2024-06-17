@@ -74,7 +74,6 @@
     	$(document).ready(function(){
     	    $("#dataTable tbody").on("click", "tr", function(){
     	        let cno = $(this).find("td:eq(0)").text().trim();
-    	        console.log(cno);
     	        location.href = "AdupdateConcertForm.co?cno=" + cno;
     	    });    	
     	});

@@ -87,7 +87,7 @@
                     data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
                         <h6 class="collapse-header">Custom Utilities:</h6>
-                        <a class="collapse-item" href="">회원 전체 조회</a>
+                        <a class="collapse-item" href="AdMemberList.me">회원 전체 조회</a>
                     </div>
                 </div>
             </li>

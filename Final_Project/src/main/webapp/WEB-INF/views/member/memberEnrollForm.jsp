@@ -232,7 +232,7 @@
                 
                 <tr>
                     <th>생년월일</th>
-                    <td colspan="4"><input type="date" min="14" max="100" name="age"></td>
+                    <td colspan="4"><input type="date" min="14" max="100" name="userBirth"></td>
                 </tr>
                 <tr>
                 <th rowspan="3">주소</th>
@@ -500,8 +500,9 @@
                 let jsonData = {};
                 $.each(formData, function() {
                     jsonData[this.name] = this.value;
+                    console.log(this.value);
                 });
-
+		
                 // 주소 필드 그룹화 및 결합
                 let fullAddress = [
                     jsonData.postcode,

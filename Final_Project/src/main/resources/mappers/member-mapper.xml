@@ -12,7 +12,7 @@
 		<result column="EMAIL" property="email"/>
 		<result column="USER_BIRTH" property="userBirth"/>
 		<result column="PHONE" property="phone"/>
-		<result column="ADRESS" property="adress"/>
+		<result column="ADDRESS" property="address"/>
 		<result column="ENROLL_DATE" property="enrollDate"/>
 		<result column="STATUS" property="status"/>
 	</resultMap>
@@ -74,8 +74,8 @@
 		        , USER_BIRTH = #{userBirth}
 		        , PHONE = #{phone}
 		        , ADDRESS = #{address}
+		        , STATUS = #{status}
 		WHERE USER_ID = #{userId}
-		 AND STATUS = '1'
 	</update>
 	
 	<!-- mamber-mapper 회원 탈퇴용 쿼리문 0604 - 무진 -->
@@ -144,19 +144,18 @@
 	    FROM MEMBER
 	    WHERE USER_ID = #{userId} AND EMAIL = #{email} AND USER_NAME = #{userName} AND STATUS = 1
 	</select>
+	
+	<!-- 관리자용 쿼리문 -->
+	<!-- 회원 전체조회용 쿼리문 -->
+	<select id="adSelectList" resultMap="memberResultSet">
+		SELECT * 
+		FROM MEMBER
+	</select>
+	
+	<!-- 회원 상세조회용 쿼리문 -->
+	<select id="adMemberDetail" parameterType="String" resultMap="memberResultSet">
+	    SELECT *
+	      FROM MEMBER
+	     WHERE USER_ID = #{userId}
+	</select>
 </mapper>
-
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	
-	

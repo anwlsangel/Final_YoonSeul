@@ -2,8 +2,7 @@ package com.kh.yoonsart.member.model.vo;
 
 import java.sql.Date;
 
-import com.google.gson.annotations.JsonAdapter;
-
+import com.fasterxml.jackson.annotation.JsonFormat;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
@@ -27,6 +26,7 @@ public class Member {
 	private String userName;
 	
 	//	USER_BIRTH	DATE
+	@JsonFormat(shape = JsonFormat.Shape.STRING, pattern = "yyyy-MM-dd")
 	private Date userBirth;
 	
 	//	EMAIL	VARCHAR2(40 BYTE)
@@ -43,4 +43,5 @@ public class Member {
 	
 	//	ADDRESS	VARCHAR2(100 BYTE)
 	private String address;
+	
 }

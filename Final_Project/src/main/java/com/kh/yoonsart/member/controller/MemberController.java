@@ -116,6 +116,7 @@ public class MemberController {
 	    // 암호화 과정 
 	    String encPwd = bcryptPasswordEncoder.encode(m.getUserPwd());
 	    m.setUserPwd(encPwd);
+	    System.out.println(m);
 
 	    try {
 	        int result = memberService.insertMember(m);
@@ -330,7 +331,7 @@ public class MemberController {
 		@GetMapping(value="getWishList", produces="application/json; charset=UTF-8")
 		public ArrayList<Concert> getWishList(String userId, Model model) {
 			
-			System.out.println(userId);
+//			System.out.println(userId);
 			ArrayList<Concert> list = memberService.selectWishList(userId);
 			
 			System.out.println(list);

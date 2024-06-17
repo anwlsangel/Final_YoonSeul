@@ -420,13 +420,16 @@
 		.welcome-message {
 		    color: white;
 		    margin-right: 20px;
-		     margin-top: 15px;
+		    margin-top: 15px;
+		    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
+		    text-align: center;
 		}
 		
 		.logged-in-links {
 		    display: flex;
 		    flex-direction: column;
 		    align-items: flex-start;
+		    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
 		}
 		
 		.logged-in-links a {
@@ -634,7 +637,7 @@
 						            <div class="logged-in-links">
 						                <c:choose>
 						                    <c:when test="${ sessionScope.loginUser.userId eq 'admin' }">
-						                        <a href="adminPage.ad">마이페이지</a>
+						                        <a href="adminPage.ad">관리자페이지</a>
 						                    </c:when>
 						                    <c:otherwise>
 						                        <a href="myTicketList.me">마이페이지</a>
