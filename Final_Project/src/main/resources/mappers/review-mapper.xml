@@ -55,4 +55,12 @@
 	 	 WHERE REVIEW_ID = #{reviewId}
 	 	   AND STATUS = 1
 	 </update>
+	 
+	<!-- 별점 평균 조회 -->
+	<select id="selectStar"  resultType="_int">
+		SELECT AVG(REVIEW_POINT)
+		  FROM REVIEW
+		 WHERE CONCERT_ID = #{concertId}
+		   AND STATUS = 1
+	</select>
 </mapper>

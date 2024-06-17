@@ -1,7 +1,12 @@
 package com.kh.yoonsart.concert.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
+
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -50,27 +55,34 @@ public class ConcertController {
 	}
 	
 	@GetMapping("detail.co")
-	public String concertDetail(@RequestParam("cno") int cno, Model model) {
-		
+	public String concertDetail(@RequestParam("cno") int cno, 
+								@RequestParam(value="cpage", defaultValue="1") int currentPage, 
+								Model model) {		
 		// 상세 조회
         Concert concert = concertService.concertDetail(cno);
-        model.addAttribute("concert", concert);
+        model.addAttribute("concert", concert);             
         
         // Q&A 조회
         ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
-        
+
+        // Q&A 갯수 조회 
+        int qnaCount = concertService.selectQnaCount(cno);
+		
         // 후기 조회
         ArrayList<Review> rvList = concertService.selectReview(cno);
         //System.out.println("ㄼ:"+ rvList);
         // 후기 갯수 조회
         int reviewCount = concertService.selectCount(cno);
         
-        // 페이징처리구문 - ajax 로 해야함
+        // 별점 평균 조회
+        int starCount = concertService.selectStar(cno);
         
         model.addAttribute("rvList", rvList);
         model.addAttribute("qnaList", qnaList);
         model.addAttribute("cno",cno);
         model.addAttribute("reviewCount",reviewCount);
+        model.addAttribute("qnaCount", qnaCount);
+        model.addAttribute("starCount", starCount);
         // System.out.println(qnaList);
         
         return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름

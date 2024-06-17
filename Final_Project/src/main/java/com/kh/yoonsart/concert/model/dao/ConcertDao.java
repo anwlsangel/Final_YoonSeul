@@ -69,5 +69,18 @@ public class ConcertDao {
 	 public int deleteWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
 	        return sqlSession.delete("concertMapper.deleteWishlist", map);
 	    }
-	 
+
+	public int selectQnaCount(SqlSessionTemplate sqlSession, int cno) {
+	
+		return sqlSession.selectOne("qnaMapper.selectQnaCount", cno);
+	}
+
+	public int selectStar(SqlSessionTemplate sqlSession, int cno) {
+		
+		// System.out.println("디에오");		
+		return sqlSession.selectOne("reviewMapper.selectStar", cno);
+	}
+	
+	
+	
 }

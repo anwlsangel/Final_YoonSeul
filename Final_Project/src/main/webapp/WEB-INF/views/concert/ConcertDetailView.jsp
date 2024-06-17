@@ -387,10 +387,25 @@
 					        <td width="190">
 					            <span id="like-count" style="color: red;">117</span> &nbsp;Likes
 					        </td>
+					        
                             <td>
-                                <span style="font-size: 25px; color: rgb(255, 206, 44);">★★★★☆</span>
+                                <span style="font-size: 25px; color: rgb(255, 206, 44);">
+                                <c:choose>
+			                    <c:when test="${starCount == 5}">★★★★★</c:when>
+			                    <c:when test="${starCount == 4}">★★★★☆</c:when>
+			                    <c:when test="${starCount == 3}">★★★☆☆</c:when>
+			                    <c:when test="${starCount == 2}">★★☆☆☆</c:when>
+			                    <c:when test="${starCount == 1}">★☆☆☆☆</c:when>
+			                    <c:otherwise>☆☆☆☆☆</c:otherwise>
+			                	</c:choose>  
+                                </span>
                             </td>
+                            
                         </tr>
+                        
+                        
+                        
+                        
                        <script>
     function toggleLike() {
         var userId = '${sessionScope.loginUser.userId}';
@@ -544,6 +559,11 @@
                 
          <!-- 관람 후기 작성 -->
          <!-- 별점 선택 -->
+         
+         <hr>
+         <h2 align="center">별점 & 후기 작성 <span style="color: #810000;"></span></h2>
+         <hr><br>
+         
          <form id="reviewForm" action="insertReview" method="post">
 	        <div id="star-area" align="center">
 	
@@ -606,7 +626,7 @@
                 
                 <div id="reviews" class="reviews" style="margin: auto; width: 850px;">
                 	<hr>
-                    <h2 align="center">관람후기 <span style="color: #810000;">${reviewCount}</span></h2>
+                    <h2 align="center">관람후기 <span style="color: #810000;">(${reviewCount})</span></h2>
                     <hr><br>
                     
                     <c:forEach var="r" items="${rvList}">       
@@ -696,9 +716,13 @@
     	<br><br>
 		
         <div id="text">
+          <hr>
+          <h2 align="center">Q&A <span style="color: #810000;"> (${qnaCount})</span></h2>
+          <hr><br>
+        
         <p>
          	궁금한점을 해결해드립니다. <br>
-       		먼저 FAQ를 확인하시면 보다 유용한 정보를 빠르게 확인할 수 있습니다. <br>
+       		문의글 남겨주시면 순차적으로 답변드립니다. <br>
         </p>
         </div>
 
@@ -724,6 +748,7 @@
                     </tr>
                 </thead>
                 <tbody>
+                <!--  
                 <c:forEach var="q" items="${qnaList}">       
                 <tr>
                     <td>${q.qnaId}</td>
@@ -737,21 +762,119 @@
                     </td>
                 </tr>
             	</c:forEach>
+            	-->
                 </tbody>
             </table>
         </div>
         
         
-        	 <!-- 페이징바 -->
+         <!-- 페이징바 -->
          <div class="paging-area" align="center">
-            <a href="">
+         <!-- <a href="">
                 &lt;
             </a>
             <a href="">1</a>
             <a href="">
                  &gt;
-            </a>    
+            </a> --> 
         </div>
+       
+       <script>
+       		var flag;
+
+       		$(function(){
+       			
+       			ajaxQnaList(1);
+       		});
+       		
+       		function ajaxQnaList(num){
+       			$.ajax({
+       				url : "list.qa",
+       				type : "post",
+       				data : {currentPage : num,
+       						cno : ${requestScope.cno} },
+       				success : function(result){
+       					// console.log(result);
+       					
+						if(result.qList.length > 0) {
+							
+							let str = "";
+							
+							for(let i in result.qList) {
+								 
+								let month = result.qList[i].createDate.split(" ")[0].replace("월", "");
+			                	let date = result.qList[i].createDate.split(" ")[1].replace(",", "");
+			                	let year = result.qList[i].createDate.split(" ")[2];
+			                	if(month < 10) { month = "0" + month; }
+			                	if(date < 10) { date = "0" + date; }
+			                	let createDate = year + "-" + month + "-" + date;
+								
+								
+								str += "<tr>";
+								str += "<td>" + result.qList[i].qnaId + "</td>";
+								str += "<td>" + result.qList[i].qnaTitle + "</td>";
+								str += "<td>" + createDate + "</td>";
+								str += "<td>" + result.qList[i].userId + "</td>";
+								if(result.qList[i].qnaAnswer != null) {
+									str += "<td style='color : #810000;'>완료</td>";
+								} else {
+									str += "<td></td>";
+								}
+								str += "</tr>"	
+							}
+							
+							$("#qnaList>tbody").html(str);
+						}
+						// console.log(str);
+       				
+						// 페이징바 출력 
+						let currentPage = result.pageInfo.currentPage;
+        				let startPage = result.pageInfo.startPage;
+        				let endPage = result.pageInfo.endPage;
+        				let maxPage = result.pageInfo.maxPage;
+        				
+        				let str = "";
+        				
+        				if(currentPage != 1) {
+    						str += "<button onclick='ajaxQnaList(" + (num - 1) + ");'>"
+    		        			 + "&lt;"
+    			        		 + "</button>"
+    					} else {
+    						str += "<button onclick='ajaxQnaList(" + (num - 1) + ");' disabled>"
+		        			 + "&lt;"
+			        		 + "</button>"
+    					}
+        				for(let p = startPage; p <= endPage; p++) {
+        					if(p != currentPage) {
+        						str += "<button onclick='ajaxQnaList(" + p + ");'>"
+        							 + p
+        							 + "</button>"
+        					} else {
+        						str += "<button disabled style='color: #EEEEE;'>"
+	       							 + "<u>" + p + "</u>"
+	       							 + "</button>"
+        					}
+        				}
+        				if(currentPage != maxPage) {
+    						str += "<button onclick='ajaxQnaList(" + (num + 1) + ");'>"
+    		        			 + "&gt;"
+    		        			 + "</button>"
+    					} else {
+    						str += "<button onclick='ajaxQnaList(" + (num + 1) + ");' disabled>"
+		        			 + "&gt;"
+		        			 + "</button>"
+    					}
+        				if(endPage == 0) { str = "" }
+        				$(".paging-area").html(str);
+       				}, error : function() {}
+       			});
+       			
+       		}	
+       
+       		
+       </script> 
+        
+        
         
       </div>
        	<input type="hidden" name="cno" value="${cno}">

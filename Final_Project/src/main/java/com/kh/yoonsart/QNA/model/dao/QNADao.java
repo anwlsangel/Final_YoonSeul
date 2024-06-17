@@ -65,5 +65,29 @@ public class QNADao {
 			return sqlSession.selectOne("qnaMapper.selectAnswer", qnaId);
 		}
 	
+	public int selectQnaCount(SqlSessionTemplate sqlSession, int cno) {
+		
+		return sqlSession.selectOne("qnaMapper.selectQnaCount", cno);
+	}
+	
+
+	/*
+	public ArrayList<QNA> selectQnaList(SqlSessionTemplate sqlSession, int cno) {
+		
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", cno);
+	}
+	*/
+
+	// 페이징처리
+	public ArrayList<QNA> selectQnaList(SqlSessionTemplate sqlSession, int cno, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		
+		RowBounds rowBounds = new RowBounds(offset, limit);
+		
+		return (ArrayList)sqlSession.selectList("qnaMapper.selectQnaList", cno, rowBounds);
+	}
+	
 	
 }

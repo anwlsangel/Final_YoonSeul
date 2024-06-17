@@ -30,10 +30,12 @@ public interface QNAService {
 
 	QNA selectAnswer(int qnaId);
 
+	ArrayList<QNA> selectQnaCount(int cno, PageInfo pi);
 	
-	// 답변 작성 - 댓글
-	
-	// 답변 조회 - 댓글 하나라서 리스트 조회까지 안해도 될 거 같은데 
-	
+	int selectQnaCount(int qno);
+
+
+	ArrayList<QNA> selectQnaList(int cno, PageInfo pi);
+
 	
 }

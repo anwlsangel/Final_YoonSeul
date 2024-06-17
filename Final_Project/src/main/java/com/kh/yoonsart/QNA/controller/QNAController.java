@@ -1,9 +1,13 @@
 package com.kh.yoonsart.QNA.controller;
 
+import java.io.IOException;
 import java.util.ArrayList;
 
+import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -24,25 +28,28 @@ public class QNAController {
 
 	@Autowired
 	private QNAService qnaService;
-	
-	@GetMapping("list.qa")
-	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
-		
-		int listCount = qnaService.selectListCount();
-		int pageLimit = 10;
-		int boardLimit = 5;
-		
-		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
-		
-		ArrayList<QNA> list = qnaService.selectList(pi);
-		
-		
-		model.addAttribute("pi", pi);
-		model.addAttribute("list", list);
-		
-		return "concert/concertDetailView.co#text";
-		// > 공연 상세보기 페이지 탭에 있음 
-	}
+//	private int maxPage;
+//	private int startPage;
+//	private int endPage;
+//	
+//	@GetMapping("list.qa")
+//	public String selectList(@RequestParam(value="cpage", defaultValue="1") int currentPage, Model model) {
+//		
+//		int listCount = qnaService.selectListCount();
+//		int pageLimit = 10;
+//		int boardLimit = 5;
+//		
+//		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+//		
+//		ArrayList<QNA> list = qnaService.selectList(pi);
+//		
+//		
+//		model.addAttribute("pi", pi);
+//		model.addAttribute("list", list);
+//		
+//		return "concert/concertDetailView.co#text";
+//		//  > 공연 상세보기 페이지 탭에 있음 
+//	}
 	
 	
 	@GetMapping("enrollform.qa")
@@ -167,4 +174,50 @@ public class QNAController {
 		//mv.setViewName("detail.qa?qno=" + qno);
 		//return mv;
 	}	
+		
+	@ResponseBody
+	@PostMapping(value="list.qa", produces="application/json; charset=UTF-8")
+	public JSONObject ajaxQnaList(int currentPage, int cno) throws IOException  {
+		
+        int listCount = qnaService.selectQnaCount(cno);
+		int pageLimit = 10;
+		int boardLimit = 5;
+        
+		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+		ArrayList<QNA> qnaList = qnaService.selectQnaList(cno, pi);
+		
+		JSONArray qList = new JSONArray();
+		for (QNA q : qnaList) {
+			// replyList.add(er); <- 이렇게 VO 를 대놓고 넣으면 안됨
+			JSONObject qna = new JSONObject();
+			qna.put("qnaId", q.getQnaId());
+			qna.put("userId", q.getUserId());
+			qna.put("qnaTitle", q.getQnaTitle());
+			qna.put("qnaContent", q.getQnaContent());
+			qna.put("createDate", q.getCreateDate());
+			qna.put("qnaAnswer", q.getQnaAnswer());
+			qna.put("answerDate", q.getAnswerDate());
+			qna.put("status", q.getStatus());
+			qna.put("concertId", q.getConcertId());
+			
+			qList.add(qna);
+		}
+		
+		JSONObject pageInfo = new JSONObject();
+		pageInfo.put("listCount", listCount);
+		pageInfo.put("currentPage", currentPage);
+		pageInfo.put("pageLimit", pageLimit);
+		pageInfo.put("boardLimit", boardLimit);
+		pageInfo.put("maxPage", pi.getMaxPage());
+		pageInfo.put("startPage", pi.getStartPage());
+		pageInfo.put("endPage", pi.getEndPage());
+
+		JSONObject result = new JSONObject();
+		result.put("qList", qList);
+		result.put("pageInfo", pageInfo);
+
+		return result;
+		
+	}
 }
+

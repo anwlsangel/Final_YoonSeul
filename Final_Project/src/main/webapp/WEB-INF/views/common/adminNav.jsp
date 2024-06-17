@@ -137,7 +137,7 @@
                         <a class="collapse-item" href="">공지사항</a>
                         <a class="collapse-item" href="">유실물</a>
                         <a class="collapse-item" href="">관람후기</a>
-                        <a class="collapse-item" href="">Q&A</a>
+                        <a class="collapse-item" href="AdQnaList.qa">Q&A</a>
                     </div>
                 </div>
                 </li>

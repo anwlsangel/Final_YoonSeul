@@ -71,7 +71,25 @@ public class QNAServiceImpl implements QNAService{
 		
 		return qnaDao.selectAnswer(sqlSession, qnaId);
 	}
+
+	@Override
+	public ArrayList<QNA> selectQnaCount(int cno, PageInfo pi) {
+		
+		return qnaDao.selectQnaList(sqlSession, cno, pi);
+	}
+
+	@Override
+	public int selectQnaCount(int cno) {
+
+		return qnaDao.selectQnaCount(sqlSession, cno);
+	}
 	
+	@Override
+	public ArrayList<QNA> selectQnaList(int cno, PageInfo pi) {
+
+		return qnaDao.selectQnaList(sqlSession, cno, pi);
+	}
+
 	
 	
 }

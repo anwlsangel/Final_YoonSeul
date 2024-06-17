@@ -49,7 +49,7 @@ public class ConcertServiceImpl implements ConcertService{
 
 	@Override
 	public ArrayList<Review> selectReview(int cno) {
-
+		
 		return concertDao.selectReview(sqlSession, cno);
 	}
 
@@ -73,4 +73,16 @@ public class ConcertServiceImpl implements ConcertService{
 	        map.put("concertId", concertId);
 	        return concertDao.deleteWishlist(sqlSession,map);
 	    }
+
+	@Override
+	public int selectQnaCount(int cno) {
+		
+		return concertDao.selectQnaCount(sqlSession, cno);
+	}
+
+	@Override
+	public int selectStar(int cno) {
+		
+		return concertDao.selectStar(sqlSession, cno);
+	}
 }
