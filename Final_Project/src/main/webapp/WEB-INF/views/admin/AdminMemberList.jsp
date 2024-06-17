@@ -10,6 +10,9 @@
 	#dataTable {
 		text-align: center;
 	}	
+	#content{
+		margin-left: 50px;
+	}
 </style>
 </head>
 <body>
@@ -26,7 +29,7 @@
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
 	        
-	        <h1 class="h3 mb-4 text-gray-800">공연 정보 조회</h1>
+	        <h1 class="h3 mb-4 text-gray-800">회원 정보 조회</h1>
 	    	    
 	
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
@@ -35,7 +38,6 @@
 	                    <th>회원ID</th>
 	                    <th>이름</th>
 	                    <th>생년월일</th>
-	                    <th>공연가격</th>
 	                    <th>이메일</th>
 	                    <th>전화번호</th>
 	                    <th>회원 가입일</th>
@@ -44,20 +46,16 @@
 	                </tr>
 	            </thead>
 	            <tbody>		
-	            <c:forEach var="mo" items="${requestScope.list}">
+	            <c:forEach var="me" items="${requestScope.list}">
 	            	<tr>
-	                    <td>${mo.concertId}</td>
-	                    <td>${mo.concertName}</td>
-	                    <td>${mo.ageLimit}</td>
-	                    <td>${mo.price}</td>
-	                    <td>${mo.thumbnailRoot}</td>
-	                    <td>${co.detailRoot}</td>
-	                    <td>${co.playTime}</td>
-	                    <td>${co.startDate}</td>
-	                    <td>${co.endDate}</td>
-	                    <td>${co.category}</td>
-	                    <td>${co.holeName}</td>
-	                    <td>${co.status}</td>
+	                    <td>${me.userId}</td>
+	                    <td>${me.userName}</td>
+	                    <td>${me.userBirth}</td>
+	                    <td>${me.email}</td>
+	                    <td>${me.phone}</td>
+	                    <td>${me.enrollDate}</td>
+	                    <td>${me.status}</td>
+	                    <td>${me.address}</td>
 	                </tr>
 	            </c:forEach>			
 	                
@@ -68,13 +66,12 @@
     </div>
     
     <script>
-    	$(document).ready(function(){
-    	    $("#dataTable tbody").on("click", "tr", function(){
-    	        let cno = $(this).find("td:eq(0)").text().trim();
-    	        console.log(cno);
-    	        location.href = "AdupdateConcertForm.co?cno=" + cno;
-    	    });    	
-    	});
+	    $(document).ready(function(){
+	        $("#dataTable tbody").on("click", "tr", function(){
+	            let userId = $(this).find("td:eq(0)").text().trim();
+	            location.href = "AdupdateMemberForm.me?userId=" + userId;
+	        });    	
+	    });
     </script>
 
 </body>

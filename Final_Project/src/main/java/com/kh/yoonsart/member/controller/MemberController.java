@@ -358,6 +358,7 @@ public class MemberController {
 				
 				Concert.add(concertList);
 			}
+			ArrayList<Concert> list = memberService.selectWishList(userId);
 			
 			JSONObject pageInfo = new JSONObject();
 			pageInfo.put("listCount", listCount);
