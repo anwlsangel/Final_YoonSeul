@@ -395,6 +395,9 @@
     function toggleLike() {
         var userId = '${sessionScope.loginUser.userId}';
         var concertId = ${concert.concertId};
+        var likeKey = 'likeStatus_' + concertId; // 고유한 키 생성
+
+        console.log("Toggling like for concertId:", concertId);
 
         if ($("#like-icon").attr("value") == "false") {
             $.ajax({
@@ -405,11 +408,12 @@
                     $("#like-count").html("118");
                     $("#like-icon").html("❤️");
                     $("#like-icon").attr("value", "true");
-                    // 좋아요 상태를 세션에 저장
-                    sessionStorage.setItem('likeStatus', 'true');
+                    // 좋아요 상태를 로컬 스토리지에 저장
+                    localStorage.setItem(likeKey, 'true');
                     alertify.alert('알림', response, function() {
                         alertify.success('관심 공연에 추가되었습니다.');
                     });
+                    console.log("Liked concertId:", concertId);
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 401) {
@@ -434,11 +438,12 @@
                     $("#like-count").html("117");
                     $("#like-icon").html("🤍");
                     $("#like-icon").attr("value", "false");
-                    // 좋아요 상태를 세션에 저장
-                    sessionStorage.setItem('likeStatus', 'false');
+                    // 좋아요 상태를 로컬 스토리지에 저장
+                    localStorage.setItem(likeKey, 'false');
                     alertify.alert('알림', response, function() {
                         alertify.success('관심 공연에서 삭제되었습니다.');
                     });
+                    console.log("Unliked concertId:", concertId);
                 },
                 error: function(xhr, status, error) {
                     if (xhr.status === 401) {
@@ -458,8 +463,11 @@
     }
 
     $(document).ready(function() {
-        // 페이지 로드 시 세션에 저장된 좋아요 상태 확인
-        var likeStatus = sessionStorage.getItem('likeStatus');
+        var concertId = ${concert.concertId};
+        var likeKey = 'likeStatus_' + concertId; // 고유한 키 생성
+        console.log("Checking like status for concertId:", concertId);
+        // 페이지 로드 시 로컬 스토리지에 저장된 좋아요 상태 확인
+        var likeStatus = localStorage.getItem(likeKey);
         if (likeStatus === 'true') {
             $("#like-icon").html("❤️");
             $("#like-icon").attr("value", "true");
@@ -467,6 +475,7 @@
             $("#like-icon").html("🤍");
             $("#like-icon").attr("value", "false");
         }
+        console.log("Like status for concertId:", concertId, "is", likeStatus);
     });
 </script>
                     </table>
