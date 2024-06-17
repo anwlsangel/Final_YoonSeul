@@ -194,20 +194,15 @@
 							let str = "<tr><td colspan='6'><hr></td></tr>";
 							for(let i in result.ticketList) {
 								//결제일 형식 수정
-			                	let month = result.ticketList[i].reservePayment.split(" ")[0].replace("월", "");
-			                	let date = result.ticketList[i].reservePayment.split(" ")[1].replace(",", "");
-			                	let year = result.ticketList[i].reservePayment.split(" ")[2];
-			                	if(month < 10) { month = "0" + month; }
-			                	if(date < 10) { date = "0" + date; }
-			                	let startDate = year + "-" + month + "-" + date;
-								
+			                	let reservePayment = new Date (result.ticketList[i].reservePayment).toLocaleString().slice(0,-13);
+			                	
 								str += "<tr class='ticketInfo' onclick='myTicketDetailView(" + result.ticketList[i].buyListId + ")'>";
 								str	+= "<td>" + result.ticketList[i].buyListId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveConcertId + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveTicket + "</td>";
 					            str	+= "<td>" + result.ticketList[i].reserveSum + "</td>";
 					            //str	+= "<td>" + result.ticketList[i].reservePayment + "</td>";
-					            str	+= "<td>" + startDate + "</td>";
+					            str	+= "<td>" + reservePayment + "</td>";
 								if(result.ticketList[i].status == '1') {
 									str += "<td style='color: green; width: 100px'>결제 완료</td>";
 								} else if(result.ticketList[i].status == '2') {
