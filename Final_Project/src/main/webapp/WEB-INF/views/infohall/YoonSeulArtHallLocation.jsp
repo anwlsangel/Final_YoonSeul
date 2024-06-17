@@ -66,8 +66,8 @@
     </style>
 </head>
 <body>
-    <div class="container">
         <jsp:include page="../common/header.jsp" />
+    <div class="container">
         <div align="center">
             <h3 class="blinking-text" id="blinkingText"></h3>
         </div>

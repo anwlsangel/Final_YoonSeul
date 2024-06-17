@@ -131,7 +131,7 @@
             <div align="center"><h3 class="blinking-text" id="blinkingText"></h3></div>
             <div class="slider">
                 <div class="slides">
-                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/예술의전당.jpg" alt="Image 1"></div>
+                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/아트홀낮.png" alt="Image 1"></div>
                     <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/소극장1.png" alt="Image 2"></div>
                     <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/소극장2.jpg" alt="Image 3"></div>
                 </div>
@@ -214,9 +214,9 @@
             var text = "윤슬처럼 반짝이는 당신을 위한 공간";
             var container = document.getElementById("blinkingText");
 
-            text.split("").forEach(function(char, index) {
+            text.split("").forEach(function(character, index) {
                 var span = document.createElement("span");
-                span.textContent = char;
+                span.textContent = character;
                 span.style.setProperty('--delay', index);
                 container.appendChild(span);
             });
@@ -235,50 +235,6 @@
                 moveSlide(1);
             }, 3000);
 
-            var items = document.querySelectorAll('#snb .hasThird > a');
-            items.forEach(function(item) {
-                item.addEventListener('click', function (e) {
-                    e.preventDefault();
-                    var parent = this.parentElement;
-                    var subMenu = parent.querySelector('ul.depth3');
-                    var isActive = parent.classList.contains('active');
-
-                    document.querySelectorAll('#snb .hasThird').forEach(function(el) {
-                        el.classList.remove('active');
-                        var innerSubMenu = el.querySelector('ul.depth3');
-                        if (innerSubMenu) {
-                            innerSubMenu.style.display = 'none';
-                        }
-                    });
-
-                    if (!isActive) {
-                        parent.classList.add('active');
-                        if (subMenu) {
-                            subMenu.style.display = 'block';
-                            adjustSidebarHeight();
-                        }
-                    } else {
-                        adjustSidebarHeight();
-                    }
-                });
-            });
-
-            var subItems = document.querySelectorAll('#snb .depth3 a');
-            subItems.forEach(function(subItem) {
-                subItem.addEventListener('click', function () {
-                    window.location.href = this.getAttribute('href');
-                });
-            });
-
-            function adjustSidebarHeight() {
-                var snb = document.getElementById('snb');
-                var activeItems = snb.querySelectorAll('.hasThird.active ul');
-                var totalHeight = 410;
-                activeItems.forEach(function(item) {
-                    totalHeight += item.scrollHeight;
-                });
-                snb.style.height = totalHeight + 'px';
-            }
         });
     </script>
 </body>
