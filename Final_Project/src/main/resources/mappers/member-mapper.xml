@@ -164,7 +164,7 @@
 		SELECT COUNT(*)
 		  FROM WISHLIST
 		 WHERE USER_ID = #{userId}
-=======
+    </select>
 	<!-- 관리자용 쿼리문 -->
 	<!-- 회원 전체조회용 쿼리문 -->
 	<select id="adSelectList" resultMap="memberResultSet">
