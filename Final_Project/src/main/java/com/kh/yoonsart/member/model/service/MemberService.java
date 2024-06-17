@@ -43,5 +43,7 @@ public interface MemberService {
 	
 	Member findMemberByIdAndEmailAndName(String userId, String email, String userName);
 
-	ArrayList<Concert> selectWishList(String userId);
+	ArrayList<Concert> selectWishList(String userId, PageInfo pi);
+
+	int selectMyWishList(String userId);
 }

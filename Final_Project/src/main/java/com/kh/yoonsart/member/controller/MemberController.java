@@ -328,16 +328,51 @@ public class MemberController {
 		// 위시리스트 조회용
 		@ResponseBody
 		@GetMapping(value="getWishList", produces="application/json; charset=UTF-8")
-		public ArrayList<Concert> getWishList(String userId, Model model) {
+		public JSONObject getWishList(String userId, Model model, int currentPage) {
 			
-			System.out.println(userId);
-			ArrayList<Concert> list = memberService.selectWishList(userId);
+			// --- 페이징 처리 ---
+			int listCount = memberService.selectMyWishList(userId); //현재 총 게시글 개수
+			//int currentPage; //현재 페이지 (즉, 사용자가 요청한 페이지)
+			int pageLimit = 5; //페이지 하단에 보여질 페이징바의 페이지 최대 개수
+			int boardLimit = 5; // 한 페이지에 보여질 게시글의 최대 개수 (몇개단위로 게시글이 보여질건지)
+			PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
+							
+			ArrayList<Concert> list = memberService.selectWishList(userId, pi);
+						
+			JSONArray Concert = new JSONArray();
+			for (Concert co : list) {
+				// replyList.add(co); <- 이렇게 VO 를 대놓고 넣으면 안됨
+				JSONObject concertList = new JSONObject();
+				concertList.put("concertId", co.getConcertId());
+				concertList.put("concertName", co.getConcertName());
+				concertList.put("ageLimit", co.getAgeLimit());
+				concertList.put("price", co.getPrice());
+				concertList.put("thumbnailRoot",co.getThumbnailRoot());
+				concertList.put("detailRoot", co.getDetailRoot());
+				concertList.put("playTime", co.getPlayTime());
+				concertList.put("startDate", co.getStartDate());
+				concertList.put("endDate", co.getEndDate());
+				concertList.put("category",co.getCategory());
+				concertList.put("hloeName", co.getHoleName());
+				concertList.put("status", co.getStatus());
+				
+				Concert.add(concertList);
+			}
 			
-			System.out.println(list);
-			model.addAttribute("list", list);
+			JSONObject pageInfo = new JSONObject();
+			pageInfo.put("listCount", listCount);
+			pageInfo.put("currentPage", currentPage);
+			pageInfo.put("pageLimit", pageLimit);
+			pageInfo.put("boardLimit", boardLimit);
+			pageInfo.put("maxPage", pi.getMaxPage());
+			pageInfo.put("startPage", pi.getStartPage());
+			pageInfo.put("endPage", pi.getEndPage());
 			
-			return list;
+			JSONObject result = new JSONObject();
+			result.put("concert", Concert);
+			result.put("pageInfo", pageInfo);
 			
+			return result;
 		}
 		
 		

@@ -115,8 +115,17 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
-	public ArrayList<Concert> selectWishList(String userId) {
+	public ArrayList<Concert> selectWishList(String userId, PageInfo pi) {
+		if (userId == null) {
+			return null;
+		} else {		
+			return memberDao.selectWishList(sqlSession, userId, pi);
+		}
+	}
 
-		return memberDao.selectWishList(sqlSession, userId);
+	@Override
+	public int selectMyWishList(String userId) {
+		
+			return memberDao.selectMyWishList(sqlSession, userId);
 	}
 }

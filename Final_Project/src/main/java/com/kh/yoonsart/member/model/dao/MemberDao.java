@@ -108,9 +108,18 @@ public class MemberDao {
 	    	return sqlSession.update("memberMapper.updatePassword", param);
 	    }
 
-	public ArrayList<Concert> selectWishList(SqlSessionTemplate sqlSession2, String userId) {
+	public ArrayList<Concert> selectWishList(SqlSessionTemplate sqlSession, String userId, PageInfo pi) {
+		
+		int limit = pi.getBoardLimit();
+		int offset = (pi.getCurrentPage() - 1) * limit;
+		RowBounds rowBounds = new RowBounds(offset, limit);
 
-		return (ArrayList)sqlSession.selectList("concertMapper.selectWishList", userId);
+		return (ArrayList)sqlSession.selectList("concertMapper.selectWishList", userId, rowBounds);
+	}
+
+	public int selectMyWishList(SqlSessionTemplate sqlSession, String userId) {
+				
+		return sqlSession.selectOne("memberMapper.selectMyWishList", userId);
 	}
 
 }

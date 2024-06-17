@@ -80,7 +80,8 @@
     }
     
     /*ticketList-paging-area*/
-    #ticketList-paging-area>button {
+    #ticketList-paging-area>button,
+    #WishList-paging-area>button {
     	border: none;
     	background-color: white;
     	width: 30px;
@@ -123,6 +124,12 @@
         margin-top: 10px; /* 이미지와 제목 사이의 간격 */
         margin-bottom: 5px;
     }
+    
+     #WishList-paging-area {
+            display: flex;
+            justify-content: center;
+            margin-top: 20px; /* 필요에 따라 여백 조정 */
+   }
 </style>
 </head>
 <body>
@@ -287,59 +294,98 @@
 		</c:choose>
 		 -->
 		 
-		 <div id="wishlist">
-			    <c:forEach var="co" items="${requestScope.list}">		    
-			        <div class="item">
-			            <a href="detail.co?cno=${co.concertId}">
-			                <img src="${co.thumbnailRoot}" alt="이미지">
-			            </a>
-			            <div class="detail-title">${co.concertName}</div>
-			        </div>			        
-		    	</c:forEach>
-		    	</div>
+		<div id="wishlist">			      	
+    	</div>
+    	<div id="WishList-paging-area">	
+    		
+    	</div>
+		    	
 		
 		<br>
 			
 		</div>		
 	</div>
 	<script>
-	$(function() {	
-	    var userId = "${sessionScope.loginUser.userId}";
+    $(function() {
+        ajaxWishList(1);
+    });
 
-	    $.ajax({
-	        url: "getWishList",
-	        type: "get",
-	        data: { userId: userId },
-	        success: function(response) {
-	            console.log("성공");
-	            console.log(response);
-	            renderWishlist(response);
-	        },
-	        error: function() {
-	            console.error("위시리스트 호출용 ajax 구문 실패");
-	        }
-	    });
+    function ajaxWishList(num) {
+        var userId = "${sessionScope.loginUser.userId}";
+        $.ajax({
+            url: "getWishList",
+            type: "get",
+            data: { userId: userId, currentPage: num },
+            success: function(result) {
+                console.log(result); // 응답 데이터를 콘솔에 출력하여 확인
+                if (result && result.concert && result.concert.length > 0) {
+                    console.log("찜목록 O");
+                    var wishlist = $('#wishlist');
+                    wishlist.empty();
+                    let str = "";
+                    for (let i in result.concert) {
+                        let co = result.concert[i];
+                        str += '<div class="item">'
+                            + '<a href="detail.co?cno=' + co.concertId + '">'
+                            + '<img src="' + co.thumbnailRoot + '" alt="이미지">'
+                            + '</a>'
+                            + '<div class="detail-title">' + co.concertName + '</div>'
+                            + '</div>';
+                    }
+                    $("#wishlist").html(str);
+                } else {
+                    console.log("찜목록 X");
+                    $("#wishlist").html("<p>찜 목록이 없습니다.</p>");
+                }
 
-	    function renderWishlist(list) {
-	        var wishlist = $('#wishlist');
-	        wishlist.empty(); // 기존 내용을 지웁니다.
+                // 페이징바 출력
+                if (result && result.pageInfo) {
+                    let currentPage = result.pageInfo.currentPage;
+                    let startPage = result.pageInfo.startPage;
+                    let endPage = result.pageInfo.endPage;
+                    let maxPage = result.pageInfo.maxPage;
 
-	        if (list && list.length > 0) {
-	            $.each(list, function(index, co) {
-	                var item = '<div class="item">'
-	                    + '<a href="detail.co?cno=' + co.concertId + '">'
-	                    + '<img src="' + co.thumbnailRoot + '" alt="이미지">'
-	                    + '</a>'
-	                    + '<div class="detail-title">' + co.concertName + '</div>'
-	                    + '</div>';
-	                wishlist.append(item);
-	            });
-	        } else {
-	            wishlist.append('<h1 align="center">찜한 공연이 없습니다.</h1>');
-	        }
-	    }
-	});
-	</script>
+                    let pagingStr = "";
+
+                    if (currentPage > 1) {
+                        pagingStr += "<button onclick='ajaxWishList(" + (currentPage - 1) + ");'>"
+                             + "&lt;"
+                             + "</button>";
+                    } else {
+                        pagingStr += "<button disabled>"
+                             + "&lt;"
+                             + "</button>";
+                    }
+                    for (let p = startPage; p <= endPage; p++) {
+                        if (p != currentPage) {
+                            pagingStr += "<button onclick='ajaxWishList(" + p + ");'>"
+                                 + p
+                                 + "</button>";
+                        } else {
+                            pagingStr += "<button disabled style='color: #701f2d;'>"
+                                 + "<u>" + p + "</u>"
+                                 + "</button>";
+                        }
+                    }
+                    if (currentPage < maxPage) {
+                        pagingStr += "<button onclick='ajaxWishList(" + (currentPage + 1) + ");'>"
+                             + "&gt;"
+                             + "</button>";
+                    } else {
+                        pagingStr += "<button disabled>"
+                             + "&gt;"
+                             + "</button>";
+                    }
+                    if (endPage == 0) { pagingStr = ""; }                    
+                    $("#WishList-paging-area").html(pagingStr);
+                }
+            },
+            error: function() {
+                console.log("위시리스트 ajax 통신 실패");
+            }
+        });
+    }
+    </script>
 
 </body>
 </html>
