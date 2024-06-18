@@ -162,8 +162,10 @@
 	
 	<select id="selectMyWishList" parameterType="string" resultType="_int">
 		SELECT COUNT(*)
-		  FROM WISHLIST
-		 WHERE USER_ID = #{userId}
+		FROM WISHLIST w
+		JOIN CONCERT_INFO c ON w.CONCERT_ID = c.CONCERT_ID
+		WHERE w.USER_ID = #{userId}
+		AND c.END_DATE > SYSDATE
     </select>
 	<!-- 관리자용 쿼리문 -->
 	<!-- 회원 전체조회용 쿼리문 -->

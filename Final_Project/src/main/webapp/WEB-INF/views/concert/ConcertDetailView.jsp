@@ -809,7 +809,7 @@
        				url : "list.qa",
        				type : "post",
        				data : {currentPage : num,
-       						cno : {${requestScope.cno} },
+       						cno : {$requestScope.cno} },
        				success : function(result){
        					
 						if(result.qList.length > 0) {

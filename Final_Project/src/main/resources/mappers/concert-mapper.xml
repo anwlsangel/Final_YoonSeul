@@ -137,6 +137,7 @@
        FROM CONCERT_INFO c
        JOIN WISHLIST w ON c.CONCERT_ID = w.CONCERT_ID
       WHERE w.USER_ID = #{userId}
+		   AND c.END_DATE > SYSDATE
 	</select>
       
     <!-- 특정 공연의 좋아요 수를 계산하는 쿼리 - 0618 무진 -->
