@@ -304,6 +304,27 @@
 	    #newReviewContent {
 	    	resize : none;
 	    }
+	    
+	    .ticketContainer {
+            display: flex;
+            justify-content: flex-end;
+            margin-top: 20px;
+        }
+        .ticketCount {
+            display: flex;
+            align-items: center;
+        }
+        .ticketCount label {
+            margin-right: 10px;
+            font-weight: bold;
+        }
+        .ticketCount select {
+            padding: 5px 10px;
+            border: 1px solid #ccc;
+            border-radius: 4px;
+            background-color: #fff;
+            font-size: 14px;
+        }
 		
     </style>
 </head>
@@ -498,46 +519,64 @@
 
                 <br><br>
 
-                <div class="booking-area" align="center">
-                    <div style="height: 100px; border: 1px solid orange;">
+                	<div class="booking-area" align="center">
+                    	<div style="height: 100px; border: 1px solid orange;">
                         	날짜 선택
                     </div>
                     <br>
+                    <div class="ticketContainer">
+				        <c:choose>
+				            <c:when test="${holeStatus == 2}">
+				                <div class="ticketCount">
+				                    <label for="ticketCount">티켓 갯수 선택 : </label>
+				                    <select id="ticketCount" name="ticketCount">
+				                        <c:forEach var="i" begin="1" end="10">
+				                            <option value="${i}">${i}</option>
+				                        </c:forEach>
+				                    </select>
+				                </div>
+				            </c:when>
+				        </c:choose>
+				    </div>
+                    
                     <c:choose>
-			           <c:when test="${empty sessionScope.loginUser}">
-			           <!-- 로그인 전 -->             
-			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                            onclick="alert('로그인 후 예매 가능합니다.');">
-                            	예매하기
-                    	</button>
-			           </c:when>
-			           <c:otherwise>
-			           <!-- 로그인 후 -->
-			           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                            onclick="payment();">
-                            	예매하기
-                    	</button>
-			           </c:otherwise>
-			       </c:choose>
-                </div>
-                
-                <c:choose>
-		           <c:when test="${empty sessionScope.loginUser}">
-		           <!-- 로그인 전 -->             
-		           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                           onclick="alert('로그인 후 예매 가능합니다.');">
-                           	좌석예매
-                   	</button>
-		           </c:when>
-		           <c:otherwise>
-		           <!-- 로그인 후 -->
-		           <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-                           onclick="seatReservation(${cno});">
-                           	좌석예매
-                   	</button>
-		           </c:otherwise>
-		       </c:choose>
-                
+					    <c:when test="${holeStatus == 1}">
+					        <c:choose>
+					            <c:when test="${empty sessionScope.loginUser}">
+					            <!-- 로그인 전 -->             
+					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+					                onclick="alert('로그인 후 예매 가능합니다.');">
+					                    좌석예매
+					            </button>
+					            </c:when>
+					            <c:otherwise>
+					            <!-- 로그인 후 -->
+					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+					                onclick="seatReservation(${concert.concertId});">
+					                    좌석예매
+					            </button>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:when>
+					    <c:when test="${holeStatus == 2}">
+					        <c:choose>
+					            <c:when test="${empty sessionScope.loginUser}">
+					            <!-- 로그인 전 -->             
+					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+					                onclick="alert('로그인 후 예매 가능합니다.');">
+					                    예매하기
+					            </button>
+					            </c:when>
+					            <c:otherwise>
+					            <!-- 로그인 후 -->
+					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+					                onclick="payment();">
+					                    예매하기
+					            </button>
+					            </c:otherwise>
+					        </c:choose>
+					    </c:when>
+					</c:choose>                
                 <!-- 
                 <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
 				        onclick="seatReservation(${cno});">

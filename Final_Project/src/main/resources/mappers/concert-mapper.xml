@@ -111,6 +111,13 @@
 	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
 	</delete>   	
 	
+	<select id="selectHoleStatus" resultType="_int">
+	 	SELECT h.STATUS
+	    FROM CONCERT_INFO c
+	    JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+	    WHERE c.CONCERT_ID = ${concertId}
+	</select>
+	
 	
 	
 	

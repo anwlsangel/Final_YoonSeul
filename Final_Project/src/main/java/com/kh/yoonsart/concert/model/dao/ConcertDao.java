@@ -85,6 +85,10 @@ public class ConcertDao {
 	public int selectWishlistCount(SqlSessionTemplate sqlSession, int concertId) {
         return sqlSession.selectOne("concertMapper.selectWishlistCount", concertId);
     }
+
+	public int selectHoleStatus(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.selectOne("concertMapper.selectHoleStatus", cno);
+	}
 	
 	
 }

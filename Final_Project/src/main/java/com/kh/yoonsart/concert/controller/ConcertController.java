@@ -60,7 +60,11 @@ public class ConcertController {
 	                                Model model) {      
 	        // 상세 조회
 	        Concert concert = concertService.concertDetail(cno);
-	        model.addAttribute("concert", concert);             
+	        model.addAttribute("concert", concert); 
+
+	        // 콘서트장 상태값 조회용 
+	        int holeStatus = concertService.selectHoleStatus(cno);
+	        
 	        
 	        // Q&A 조회
 	        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
@@ -87,6 +91,7 @@ public class ConcertController {
 	        model.addAttribute("qnaCount", qnaCount);
 	        model.addAttribute("starCount", starCount);
 	        model.addAttribute("likeCount", likeCount); // 좋아요 수 추가
+	        model.addAttribute("holeStatus", holeStatus);
 	        // System.out.println(qnaList);
 	        
 	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
