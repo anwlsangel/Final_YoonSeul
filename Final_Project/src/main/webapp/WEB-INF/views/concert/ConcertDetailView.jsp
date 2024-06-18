@@ -808,7 +808,7 @@
        				url : "list.qa",
        				type : "post",
        				data : {currentPage : num,
-       						cno : {$requestScope.cno} },
+       						cno : ${requestScope.cno} },
        				success : function(result){
        					
 						if(result.qList.length > 0) {
@@ -827,7 +827,7 @@
 			                	let createDate = year + "-" + month + "-" + date;
 								*/
 								
-								str += "<tr>";
+								str += "<tr onclick='detail(" + result.qList[i].qnaId + ");'>";
 								str += "<td>" + result.qList[i].qnaId + "</td>";
 								str += "<td>" + result.qList[i].qnaTitle + "</td>";
 								str += "<td>" + createDate + "</td>";
@@ -922,6 +922,17 @@
        				}
        			})
        		});	
+       		
+       		function detail(qno) {
+   						|| "${sessionScope.loginUser.userId}" == 'admin' ) {
+   					
+   					//let qno = $(this).children().eq(0).text();
+               		location.href = "detail.qa?qno=" + qno;
+   				} else {
+   					alert("작성자만 확인할 수 있습니다.");
+   				}
+       			
+       		}
        
        </script>
         
