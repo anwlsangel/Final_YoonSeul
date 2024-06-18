@@ -53,40 +53,44 @@ public class ConcertController {
 		return "concert/ConcertListView";
 		
 	}
-	
-	@GetMapping("detail.co")
-	public String concertDetail(@RequestParam("cno") int cno, 
-								@RequestParam(value="cpage", defaultValue="1") int currentPage, 
-								Model model) {		
-		// 상세 조회
-        Concert concert = concertService.concertDetail(cno);
-        model.addAttribute("concert", concert);             
-        
-        // Q&A 조회
-        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
+	// 공연 좋아요 갯수 표시용 로직 추가 - 0618 무진
+	 @GetMapping("detail.co")
+	    public String concertDetail(@RequestParam("cno") int cno, 
+	                                @RequestParam(value="cpage", defaultValue="1") int currentPage, 
+	                                Model model) {      
+	        // 상세 조회
+	        Concert concert = concertService.concertDetail(cno);
+	        model.addAttribute("concert", concert);             
+	        
+	        // Q&A 조회
+	        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
 
-        // Q&A 갯수 조회 
-        int qnaCount = concertService.selectQnaCount(cno);
-		
-        // 후기 조회
-        ArrayList<Review> rvList = concertService.selectReview(cno);
-        //System.out.println("ㄼ:"+ rvList);
-        // 후기 갯수 조회
-        int reviewCount = concertService.selectCount(cno);
-        
-        // 별점 평균 조회
-        int starCount = concertService.selectStar(cno);
-        
-        model.addAttribute("rvList", rvList);
-        model.addAttribute("qnaList", qnaList);
-        model.addAttribute("cno",cno);
-        model.addAttribute("reviewCount",reviewCount);
-        model.addAttribute("qnaCount", qnaCount);
-        model.addAttribute("starCount", starCount);
-        // System.out.println(qnaList);
-        
-        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
-    }
+	        // Q&A 갯수 조회 
+	        int qnaCount = concertService.selectQnaCount(cno);
+	        
+	        // 후기 조회
+	        ArrayList<Review> rvList = concertService.selectReview(cno);
+	        //System.out.println("ㄼ:"+ rvList);
+	        // 후기 갯수 조회
+	        int reviewCount = concertService.selectCount(cno);
+	        
+	        // 별점 평균 조회
+	        int starCount = concertService.selectStar(cno);
+	        
+	        // 좋아요 수 조회
+	        int likeCount = concertService.selectWishlistCount(cno);
+	        
+	        model.addAttribute("rvList", rvList);
+	        model.addAttribute("qnaList", qnaList);
+	        model.addAttribute("cno",cno);
+	        model.addAttribute("reviewCount",reviewCount);
+	        model.addAttribute("qnaCount", qnaCount);
+	        model.addAttribute("starCount", starCount);
+	        model.addAttribute("likeCount", likeCount); // 좋아요 수 추가
+	        // System.out.println(qnaList);
+	        
+	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
+	    }
 	
 	@GetMapping("seat.co")
 	public String ConcertSeatReserve() {

@@ -384,9 +384,10 @@
                             <td width="40">
 					            <span id="like-icon" style="font-size: 30px; margin: 10px; cursor: pointer;" name="like" value="false" onclick="toggleLike();">🤍</span>
 					        </td>
-					        <td width="190">
-					            <span id="like-count" style="color: red;">117</span> &nbsp;Likes
-					        </td>
+					        <!-- 좋아요 수 표시 - 0618 무진 -->
+							<td width="190">
+							    <span id="like-count" style="color: red;">${likeCount}</span> &nbsp;Likes
+							</td>
 					        
                             <td>
                                 <span style="font-size: 25px; color: rgb(255, 206, 44);">
@@ -407,75 +408,75 @@
                         
                         
                        <script>
-    function toggleLike() {
-        var userId = '${sessionScope.loginUser.userId}';
-        var concertId = ${concert.concertId};
-        var likeKey = 'likeStatus_' + concertId; // 고유한 키 생성
+                       function toggleLike() {
+                    	    var userId = '${sessionScope.loginUser.userId}';
+                    	    var concertId = ${concert.concertId};
+                    	    var likeKey = 'likeStatus_' + concertId; // 고유한 키 생성
 
-        console.log("Toggling like for concertId:", concertId);
+                    	    console.log("Toggling like for concertId:", concertId);
 
-        if ($("#like-icon").attr("value") == "false") {
-            $.ajax({
-                type: "POST",
-                url: "<c:url value='/wishlistadd'/>",
-                data: { userId: userId, concertId: concertId },
-                success: function(response) {
-                    $("#like-count").html("118");
-                    $("#like-icon").html("❤️");
-                    $("#like-icon").attr("value", "true");
-                    // 좋아요 상태를 로컬 스토리지에 저장
-                    localStorage.setItem(likeKey, 'true');
-                    alertify.alert('알림', response, function() {
-                        alertify.success('관심 공연에 추가되었습니다.');
-                    });
-                    console.log("Liked concertId:", concertId);
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 401) {
-                        var response = JSON.parse(xhr.responseText);
-                        alertify.alert('알림', response.message, function() {
-                            window.location.href = "<c:url value='/'/>";
-                        });
-                    } else {
-                        console.error(error);
-                        alertify.alert('알림', '관심 공연 추가에 실패했습니다.', function() {
-                            alertify.error('오류가 발생했습니다.');
-                        });
-                    }
-                }
-            });
-        } else {
-            $.ajax({
-                type: "POST",
-                url: "<c:url value='/wishlistremove'/>",
-                data: { userId: userId, concertId: concertId },
-                success: function(response) {
-                    $("#like-count").html("117");
-                    $("#like-icon").html("🤍");
-                    $("#like-icon").attr("value", "false");
-                    // 좋아요 상태를 로컬 스토리지에 저장
-                    localStorage.setItem(likeKey, 'false');
-                    alertify.alert('알림', response, function() {
-                        alertify.success('관심 공연에서 삭제되었습니다.');
-                    });
-                    console.log("Unliked concertId:", concertId);
-                },
-                error: function(xhr, status, error) {
-                    if (xhr.status === 401) {
-                        var response = JSON.parse(xhr.responseText);
-                        alertify.alert('알림', response.message, function() {
-                            window.location.href = "<c:url value='/'/>";
-                        });
-                    } else {
-                        console.error(error);
-                        alertify.alert('알림', '관심 공연 삭제에 실패했습니다.', function() {
-                            alertify.error('오류가 발생했습니다.');
-                        });
-                    }
-                }
-            });
-        }
-    }
+                    	    if ($("#like-icon").attr("value") == "false") {
+                    	        $.ajax({
+                    	            type: "POST",
+                    	            url: "<c:url value='/wishlistadd'/>",
+                    	            data: { userId: userId, concertId: concertId },
+                    	            success: function(response) {
+                    	                let likeCount = parseInt($("#like-count").text()) + 1; // 좋아요 수 증가
+                    	                $("#like-count").text(likeCount);
+                    	                $("#like-icon").html("❤️");
+                    	                $("#like-icon").attr("value", "true");
+                    	                localStorage.setItem(likeKey, 'true');
+                    	                alertify.alert('알림', response, function() {
+                    	                    alertify.success('관심 공연에 추가되었습니다.');
+                    	                });
+                    	                console.log("Liked concertId:", concertId);
+                    	            },
+                    	            error: function(xhr, status, error) {
+                    	                if (xhr.status === 401) {
+                    	                    var response = JSON.parse(xhr.responseText);
+                    	                    alertify.alert('알림', response.message, function() {
+                    	                        window.location.href = "<c:url value='/'/>";
+                    	                    });
+                    	                } else {
+                    	                    console.error(error);
+                    	                    alertify.alert('알림', '관심 공연 추가에 실패했습니다.', function() {
+                    	                        alertify.error('오류가 발생했습니다.');
+                    	                    });
+                    	                }
+                    	            }
+                    	        });
+                    	    } else {
+                    	        $.ajax({
+                    	            type: "POST",
+                    	            url: "<c:url value='/wishlistremove'/>",
+                    	            data: { userId: userId, concertId: concertId },
+                    	            success: function(response) {
+                    	                let likeCount = parseInt($("#like-count").text()) - 1; // 좋아요 수 감소
+                    	                $("#like-count").text(likeCount);
+                    	                $("#like-icon").html("🤍");
+                    	                $("#like-icon").attr("value", "false");
+                    	                localStorage.setItem(likeKey, 'false');
+                    	                alertify.alert('알림', response, function() {
+                    	                    alertify.success('관심 공연에서 삭제되었습니다.');
+                    	                });
+                    	                console.log("Unliked concertId:", concertId);
+                    	            },
+                    	            error: function(xhr, status, error) {
+                    	                if (xhr.status === 401) {
+                    	                    var response = JSON.parse(xhr.responseText);
+                    	                    alertify.alert('알림', response.message, function() {
+                    	                        window.location.href = "<c:url value='/'/>";
+                    	                    });
+                    	                } else {
+                    	                    console.error(error);
+                    	                    alertify.alert('알림', '관심 공연 삭제에 실패했습니다.', function() {
+                    	                        alertify.error('오류가 발생했습니다.');
+                    	                    });
+                    	                }
+                    	            }
+                    	        });
+                    	    }
+                    	}
 
     $(document).ready(function() {
         var concertId = ${concert.concertId};
@@ -801,7 +802,7 @@
        				url : "list.qa",
        				type : "post",
        				data : {currentPage : num,
-       						cno : ${requestScope.cno} },
+       						cno : {${requestScope.cno} },
        				success : function(result){
        					
 						if(result.qList.length > 0) {

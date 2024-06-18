@@ -85,4 +85,10 @@ public class ConcertServiceImpl implements ConcertService{
 		
 		return concertDao.selectStar(sqlSession, cno);
 	}
+	
+	// 공연 좋아요 갯수 표시용 - 0618 무진
+	@Override
+    public int selectWishlistCount(int concertId) {
+        return concertDao.selectWishlistCount(sqlSession, concertId);
+    }
 }

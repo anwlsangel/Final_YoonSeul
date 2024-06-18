@@ -27,5 +27,6 @@ public interface ConcertService {
 	int selectQnaCount(int qno);
 
 	int selectStar(int cno);
-
+	// 공연 좋아요 갯수 표시용 - 0618 무진
+	int selectWishlistCount(int concertId);
 }

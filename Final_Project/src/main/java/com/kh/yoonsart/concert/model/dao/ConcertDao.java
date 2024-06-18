@@ -81,6 +81,10 @@ public class ConcertDao {
 		return sqlSession.selectOne("reviewMapper.selectStar", cno);
 	}
 	
+	// 공연 좋아요 갯수 표시용 - 0618 무진
+	public int selectWishlistCount(SqlSessionTemplate sqlSession, int concertId) {
+        return sqlSession.selectOne("concertMapper.selectWishlistCount", concertId);
+    }
 	
 	
 }

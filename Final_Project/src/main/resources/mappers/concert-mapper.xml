@@ -138,5 +138,11 @@
        JOIN WISHLIST w ON c.CONCERT_ID = w.CONCERT_ID
       WHERE w.USER_ID = #{userId}
 	</select>
-          
+      
+    <!-- 특정 공연의 좋아요 수를 계산하는 쿼리 - 0618 무진 -->
+    <select id="selectWishlistCount" parameterType="int" resultType="_int">
+        SELECT COUNT(*)
+        FROM WISHLIST
+        WHERE CONCERT_ID = #{concertId}
+    </select>    
 </mapper>
