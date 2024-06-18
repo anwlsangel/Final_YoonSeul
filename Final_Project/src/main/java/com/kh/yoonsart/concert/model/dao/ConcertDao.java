@@ -77,8 +77,8 @@ public class ConcertDao {
 
 	public int selectStar(SqlSessionTemplate sqlSession, int cno) {
 		
-		// System.out.println("디에오");		
-		return sqlSession.selectOne("reviewMapper.selectStar", cno);
+		Integer starRating = sqlSession.selectOne("reviewMapper.selectStar", cno);
+	    return starRating != null ? starRating : 0; // null 값이 반환되면 0을 반환
 	}
 	
 	// 공연 좋아요 갯수 표시용 - 0618 무진

@@ -106,7 +106,7 @@
         margin-right: 10px;
     }
     
-     .btn-green {
+     .-green {
             width: 70px;
             height: 30px;
             font-size: 16px;
@@ -260,13 +260,13 @@
     
     
 		/*--------문의 목록----------*/
-		.btn-top {
+		.-top {
         padding-top: 5px;
         padding-right: 60px;
         padding-bottom: 40px;
     	}
 
-	    #qbtn {
+	    #q {
 	        margin: auto;
 	        display: block;
 	        width: 90px;
@@ -607,7 +607,7 @@
 	                            <textarea id="replyContent" rows="" cols="60" style="margin-left: 30px;"
 	                                readonly>로그인 후 이용 가능합니다</textarea>
 	                                <td align="center">
-			                            <button type="button" class="btn-green" disabled>등록</button>
+			                            <button type="button" class="-green" disabled>등록</button>
 			                        </td>
 	                        </c:when>
 	                        <c:otherwise>
@@ -616,7 +616,7 @@
 	                        <input type="hidden" name="cno" value="${cno}">                        
 	                        <textarea id="replyContent" rows="" cols="60" name="reviewContent" style="margin-left: 30px;" placeholder="후기 작성"></textarea>
 	                        		<td align="center">
-			                            <button type="submit" class="btn-green">등록</button>
+			                            <button type="submit" class="-green">등록</button>
 			                        </td>
 	                        </c:otherwise>
 	                        </c:choose>
@@ -635,62 +635,69 @@
                 <!-- 관람후기 목록  -->
                 
                 <div id="reviews" class="reviews" style="margin: auto; width: 850px;">
-                	<hr>
-                    <h2 align="center">관람후기 <span style="color: #810000;">(${reviewCount})</span></h2>
-                    <hr><br>
-                    
-                    <c:forEach var="r" items="${rvList}">       
-                    <div class="review">
-                        <div class="review-star">
-                        	 <c:choose>
-			                    <c:when test="${r.reviewPoint == 5}">★★★★★</c:when>
-			                    <c:when test="${r.reviewPoint == 4}">★★★★☆</c:when>
-			                    <c:when test="${r.reviewPoint == 3}">★★★☆☆</c:when>
-			                    <c:when test="${r.reviewPoint == 2}">★★☆☆☆</c:when>
-			                    <c:when test="${r.reviewPoint == 1}">★☆☆☆☆</c:when>
-			                    <c:otherwise>☆☆☆☆☆</c:otherwise>
-			                </c:choose>
-                        </div>
-                        <div class="review-content">
-                        	${r.reviewContent}
-                        </div>
-                        <div class="review-info">
-                            <div class="review-writer">${r.userId}</div>
-                            <div class="review-createDate">${r.writeDate}</div>
-                        </div>
-                         
-                         <!--내 리뷰일 경우 보이게-->
-                         <c:if test="${sessionScope.loginUser.userId eq r.userId}">
-                         	   <div class="review-update">
-                              <a href="#" data-toggle="modal" data-target="#updateReview" class="updateBtn" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>
-                              <a onclick="deleteReview();">삭제</a>
-                              <br clear="both"> 
-                          </div>	
-                         </c:if>
-                       
+    <hr>
+    <h2 align="center">관람후기 <span style="color: #810000;">(${reviewCount})</span></h2>
+    <hr><br>
 
-                        <div class="review-line"></div>
+    <c:choose>
+        <c:when test="${empty rvList}">
+            <div align="center">
+                <p>작성된 후기가 없습니다.</p>
+            </div>
+        </c:when>
+        <c:otherwise>
+            <c:forEach var="r" items="${rvList}">
+                <div class="review">
+                    <div class="review-star">
+                        <c:choose>
+                            <c:when test="${r.reviewPoint == 5}">★★★★★</c:when>
+                            <c:when test="${r.reviewPoint == 4}">★★★★☆</c:when>
+                            <c:when test="${r.reviewPoint == 3}">★★★☆☆</c:when>
+                            <c:when test="${r.reviewPoint == 2}">★★☆☆☆</c:when>
+                            <c:when test="${r.reviewPoint == 1}">★☆☆☆☆</c:when>
+                            <c:otherwise>☆☆☆☆☆</c:otherwise>
+                        </c:choose>
                     </div>
-                    </c:forEach>
+                    <div class="review-content">
+                        ${r.reviewContent}
+                    </div>
+                    <div class="review-info">
+                        <div class="review-writer">${r.userId}</div>
+                        <div class="review-createDate">${r.writeDate}</div>
+                    </div>
+                    
+                    <!--내 리뷰일 경우 보이게-->
+                    <c:if test="${sessionScope.loginUser.userId eq r.userId}">
+                        <div class="review-update">
+                            <a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>
+                            <a onclick="deleteReview();">삭제</a>
+                            <br clear="both"> 
+                        </div>
+                    </c:if>
 
+                    <div class="review-line"></div>
                 </div>
+            </c:forEach>
+        </c:otherwise>
+    </c:choose>
+</div>
                 
                 <script>
-	                $(document).on("click", ".updateBtn", function() {
-	                    var reviewContent = $(this).data('id');
-	                    var reviewId = $(this).data('rno');
-	                    var concertId = $(this).data('cno');
-	                    $("#newReviewContent").html(reviewContent);
-	                    $("#reviewId").val(reviewId);
-	                    $("#concertId").val(concertId);
-	                   //console.log("rno : " + reviewId);
-	                   //console.log("cno : " + concertId);
-	                });
-                
-                	function deleteReview() {
-                		  location.href = "delete.re?reviewId=" + ${rvList[0].reviewId} + "&concertId=" + ${rvList[0].concertId};
-                	}
-                </script>
+    $(document).on("click", ".updateBtn", function() {
+        var reviewContent = $(this).data('id');
+        var reviewId = $(this).data('rno');
+        var concertId = $(this).data('cno');
+        $("#newReviewContent").html(reviewContent);
+        $("#reviewId").val(reviewId);
+        $("#concertId").val(concertId);
+        //console.log("rno : " + reviewId);
+        //console.log("cno : " + concertId);
+    });
+
+    function deleteReview() {
+        location.href = "delete.re?reviewId=" + ${rvList[0].reviewId} + "&concertId=" + ${rvList[0].concertId};
+    }
+</script>
                 
                 
                 <br><br>
@@ -737,9 +744,9 @@
         </div>
 
         <!-- 문의하기 버튼 -->
-        <div class="btn-top">
+        <div class="-top">
 	        <span>
-	           <a href="enrollform.qa?cno=${cno}"><button type="button" id="qbtn">문의하기</button></a>
+	           <a href="enrollform.qa?cno=${cno}"><button type="button" id="q">문의하기</button></a>
            	</span>
         </div>
 
