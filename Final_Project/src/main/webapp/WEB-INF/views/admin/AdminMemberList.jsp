@@ -7,71 +7,83 @@
 <meta charset="UTF-8">
 <title>Insert title here</title>
 <style>
-	#dataTable {
-		text-align: center;
-	}	
-	#content{
-		margin-left: 50px;
-	}
+    #dataTable {
+        text-align: center;
+    }   
+    #content{
+        margin-left: 50px;
+    }
 </style>
 </head>
 <body>
 
 
-	<div id="wrapper">
-	
-	    <jsp:include page="../common/adminNav.jsp" />
-		
-		<div id="member-wrapper" class="d-flex flex-column">
-	        	
-	    	<!-- Main Content -->
-	        <div id="content">
-	        
-	        <jsp:include page="../common/adminTop.jsp" />
-	        
-	        <h1 class="h3 mb-4 text-gray-800">회원 정보 조회</h1>
-	    	    
-	
-	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
-	            <thead>
-	                <tr>
-	                    <th>회원ID</th>
-	                    <th>이름</th>
-	                    <th>생년월일</th>
-	                    <th>이메일</th>
-	                    <th>전화번호</th>
-	                    <th>회원 가입일</th>
-	                    <th>회원 상태</th>
-	                    <th>주소</th>
-	                </tr>
-	            </thead>
-	            <tbody>		
-	            <c:forEach var="me" items="${requestScope.list}">
-	            	<tr>
-	                    <td>${me.userId}</td>
-	                    <td>${me.userName}</td>
-	                    <td>${me.userBirth}</td>
-	                    <td>${me.email}</td>
-	                    <td>${me.phone}</td>
-	                    <td>${me.enrollDate}</td>
-	                    <td>${me.status}</td>
-	                    <td>${me.address}</td>
-	                </tr>
-	            </c:forEach>			
-	                
-	            </tbody>
-	        </table>
-			</div>
-    	</div>            
+    <div id="wrapper">
+    
+        <jsp:include page="../common/adminNav.jsp" />
+        
+        <div id="member-wrapper" class="d-flex flex-column">
+                
+            <!-- Main Content -->
+            <div id="content">
+            
+            <jsp:include page="../common/adminTop.jsp" />
+            
+            <h1 class="h3 mb-4 text-gray-800">회원 정보 조회</h1>
+                
+    
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
+                <thead>
+                    <tr>
+                        <th>회원ID</th>
+                        <th>이름</th>
+                        <th>생년월일</th>
+                        <th>이메일</th>
+                        <th>전화번호</th>
+                        <th>회원 가입일</th>
+                        <th>회원 상태</th>
+                        <th>주소</th>
+                    </tr>
+                </thead>
+                <tbody>     
+                <c:forEach var="me" items="${requestScope.list}">
+                    <tr>
+                        <td>${me.userId}</td>
+                        <td>${me.userName}</td>
+                        <td>${me.userBirth}</td>
+                        <td>${me.email}</td>
+                        <td>${me.phone}</td>
+                        <td>${me.enrollDate}</td>
+                        <td>
+                            <c:choose>
+                                <c:when test="${me.status == 1}">
+                                    활성
+                                </c:when>
+                                <c:when test="${me.status == 2}">
+                                    비활성
+                                </c:when>
+                                <c:otherwise>
+                                    알 수 없음
+                                </c:otherwise>
+                            </c:choose>
+                        </td>
+                        <td>${me.address}</td>
+                    </tr>
+                </c:forEach>         
+                    
+                </tbody>
+            </table>
+            </div>
+        </div>            
     </div>
     
     <script>
-	    $(document).ready(function(){
-	        $("#dataTable tbody").on("click", "tr", function(){
-	            let userId = $(this).find("td:eq(0)").text().trim();
-	            location.href = "AdupdateMemberForm.me?userId=" + userId;
-	        });    	
-	    });
+        $(document).ready(function(){
+            $("#dataTable tbody").on("click", "tr", function(){
+                let userId = $(this).find("td:eq(0)").text().trim();
+                location.href = "AdupdateMemberForm.me?userId=" + userId;
+            });     
+        });
     </script>
 
 </body>
