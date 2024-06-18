@@ -904,29 +904,10 @@
        }
        
        		// 문의 상세로 이동 
-       		$(function(){
-       			$("#qnaList>tbody>tr").click(function(){  
-       				
-       				//console.log("출력?");
-       				//console.log($(this).children().eq(3).text()); // 작성자 아이디 추출
-       				
-       				// console.log(${q.userId});
-       				// console.log("${sessionScope.loginUser.userId}");	
-       				if("${sessionScope.loginUser.userId}" == $(this).children().eq(3).text()
-       						|| "${sessionScope.loginUser.userId}" == 'admin' ) {
-       					
-       					let qno = $(this).children().eq(0).text();
-                   		location.href = "detail.qa?qno=" + qno;
-       				} else {
-       					alert("작성자만 확인할 수 있습니다.");
-       				}
-       			})
-       		});	
-       		
        		function detail(qno) {
+       			if("${sessionScope.loginUser.userId}" == $(this).children().eq(3).text()
    						|| "${sessionScope.loginUser.userId}" == 'admin' ) {
    					
-   					//let qno = $(this).children().eq(0).text();
                		location.href = "detail.qa?qno=" + qno;
    				} else {
    					alert("작성자만 확인할 수 있습니다.");
