@@ -803,21 +803,22 @@
        				data : {currentPage : num,
        						cno : ${requestScope.cno} },
        				success : function(result){
-       					// console.log(result);
        					
 						if(result.qList.length > 0) {
 							
 							let str = "";
 							
 							for(let i in result.qList) {
+								let createDate = new Date (result.qList[i].createDate).toLocaleString().slice(0,-13);
 								 
+								/*
 								let month = result.qList[i].createDate.split(" ")[0].replace("월", "");
 			                	let date = result.qList[i].createDate.split(" ")[1].replace(",", "");
 			                	let year = result.qList[i].createDate.split(" ")[2];
 			                	if(month < 10) { month = "0" + month; }
 			                	if(date < 10) { date = "0" + date; }
 			                	let createDate = year + "-" + month + "-" + date;
-								
+								*/
 								
 								str += "<tr>";
 								str += "<td>" + result.qList[i].qnaId + "</td>";
