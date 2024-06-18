@@ -569,10 +569,6 @@
          <!-- 관람 후기 작성 -->
          <!-- 별점 선택 -->
          
-         <hr>
-         <h2 align="center">별점 & 후기 작성 <span style="color: #810000;"></span></h2>
-         <hr><br>
-         
          <form id="reviewForm" action="insertReview" method="post">
 	        <div id="star-area" align="center">
 	
