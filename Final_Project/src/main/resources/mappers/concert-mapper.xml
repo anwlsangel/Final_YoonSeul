@@ -18,53 +18,70 @@
 	</resultMap>
 	
 	<!-- 첫 리스트 및 필터링 조회용 쿼리문 -->
-	<select id="selectList" parameterType="concert" resultMap="concertResultSet">
-    SELECT *
-    FROM CONCERT_INFO
-    WHERE END_DATE > SYSDATE
-    <if test="category != null and category != '전체'">
-        AND category = #{category}
-    </if>
-    <choose>
-        <when test="sort == 'popularity'">
-            ORDER BY START_DATE DESC
-        </when>
-        <when test="sort == 'date'">
-            ORDER BY CONCERT_ID DESC
-        </when>
-        <when test="sort == 'price'">
-            ORDER BY PRICE ASC
-        </when>
-        <otherwise>
-            ORDER BY CONCERT_ID DESC
-        </otherwise>
-    </choose>
-</select>
+	<select id="selectList" parameterType="map" resultMap="concertResultSet">
+	    SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
+	    FROM CONCERT_INFO c
+	    JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+	    LEFT JOIN REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
+	    WHERE c.END_DATE > SYSDATE
+	    <if test="category != null and category != '전체'">
+	        AND c.category = #{category}
+	    </if>
+	    <if test="sort == 'standing'">
+	        AND h.STATUS = 2
+	    </if>
+	    <if test="sort == 'seating'">
+	        AND h.STATUS = 1
+	    </if>
+	    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
+	    <choose>
+	        <when test="sort == 'popularity'">
+	            ORDER BY REVIEW_COUNT DESC
+	        </when>
+	        <when test="sort == 'date'">
+	            ORDER BY c.START_DATE DESC
+	        </when>
+	        <when test="sort == 'price'">
+	            ORDER BY c.PRICE ASC
+	        </when>
+	        <otherwise>
+	            ORDER BY c.CONCERT_ID DESC
+	        </otherwise>
+	    </choose>
+	</select>
 
-<!-- 검색용 쿼리문 -->
-<select id="searchList" parameterType="map" resultMap="concertResultSet">
-        SELECT *
-        FROM CONCERT_INFO
-        WHERE CONCERT_NAME LIKE '%' || #{keyword} || '%'
-          AND END_DATE > SYSDATE
-        <if test="category != null and category != '전체'">
-            AND category = #{category}
-        </if>
-        <choose>
-            <when test="sort == 'popularity'">
-                ORDER BY START_DATE DESC
-            </when>
-            <when test="sort == 'date'">
-                ORDER BY START_DATE DESC
-            </when>
-            <when test="sort == 'price'">
-                ORDER BY PRICE ASC
-            </when>
-            <otherwise>
-                ORDER BY CONCERT_ID DESC
-            </otherwise>
-        </choose> 
-    </select>
+	<!-- 검색용 쿼리문 -->
+		<select id="searchList" parameterType="map" resultMap="concertResultSet">
+		    SELECT c.*, h.HOLE_NAME, h.STATUS
+			FROM CONCERT_INFO c
+			JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+			WHERE c.CONCERT_NAME LIKE '%' || #{keyword} || '%'
+			  AND c.END_DATE > SYSDATE
+		    <if test="category != null and category != '전체'">
+		        AND c.category = #{category}
+		    </if>
+		    <if test="sort == 'standing'">
+		        AND h.STATUS = 2
+		    </if>
+		    <if test="sort == 'seating'">
+		        AND h.STATUS = 1
+		    </if>
+		    ORDER BY
+		    <choose>
+		        <when test="sort == 'popularity'">
+		            c.START_DATE DESC
+		        </when>
+		        <when test="sort == 'date'">
+		            c.START_DATE DESC
+		        </when>
+		        <when test="sort == 'price'">
+		            c.PRICE ASC
+		        </when>
+		        <otherwise>
+		            c.CONCERT_ID DESC
+		        </otherwise>
+		    </choose>
+		</select>
     
     <!-- 상세조회용 쿼리문 -->
     <select id="concertDetail" parameterType="int" resultMap="concertResultSet">
