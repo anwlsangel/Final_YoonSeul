@@ -77,7 +77,6 @@ public class PaymentServiceImpl implements PaymentService{
         String accessToken = gson.fromJson(response, Map.class).get("access_token").toString();
         br.close(); // BufferedReader 종료
         
-        
         conn.disconnect(); // 연결 종료
         
         log.info("Iamport 엑세스 토큰 발급 성공 : {}", accessToken);
