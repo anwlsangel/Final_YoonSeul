@@ -35,5 +35,7 @@ public interface ConcertService {
 
 	int selectSeatCount(int cno);
 
-	ArrayList<ConcertDate> selectDateList(int cno);
+	ArrayList<ConcertDate> selectDateList(int cno, String dateString);
+
+	boolean isInWishlist(String userId, int concertId);
 }

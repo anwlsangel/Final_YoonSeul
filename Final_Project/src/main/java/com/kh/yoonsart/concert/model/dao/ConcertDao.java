@@ -63,13 +63,19 @@ public class ConcertDao {
 	    try {
 	        return sqlSession.insert("concertMapper.insertWishlist", map);
 	    } catch (Exception e) {
-	        // 중복된 키가 존재할 경우 무시
-	        return 0;
+	        return 0;  // 중복 키 예외를 무시합니다.
 	    }
 	}
-	 public int deleteWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-	        return sqlSession.delete("concertMapper.deleteWishlist", map);
-	    }
+
+	public int deleteWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	    return sqlSession.delete("concertMapper.deleteWishlist", map);
+	}
+	
+	// 관심공연 확인용 쿼리문
+	public int isInWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
+	    return sqlSession.selectOne("concertMapper.isInWishlist", map);
+	}
+
 
 	public int selectQnaCount(SqlSessionTemplate sqlSession, int cno) {
 	
@@ -95,9 +101,17 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.selectSeatCount", cno);
 	}
 
-	public ArrayList<ConcertDate> selectDateList(SqlSessionTemplate sqlSession, int cno) {
-		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", cno);
+	public ArrayList<ConcertDate> selectDateList(SqlSessionTemplate sqlSession, int cno, String dateString) {
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("concertId", cno);
+		params.put("dateString", dateString);
+		
+		System.out.println((ArrayList)sqlSession.selectList("concertMapper.selectDateList", params));
+		
+		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", params);
 	}
+	
 	
 	
 }

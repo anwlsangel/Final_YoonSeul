@@ -127,9 +127,12 @@
 	</select>
 	
 	
-	
-	
-	
+	<!-- 관심공연 확인용 쿼리문 0619 무진 -->  	
+	<select id="isInWishlist" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM WISHLIST
+	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
+	</select>	
 	
 	
 	<!-- 관리자용 쿼리문 -->
@@ -227,10 +230,13 @@
 		WHERE CI.CONCERT_ID = #{concertId}
 	</select>
 	
-	<select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
-		SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
-		  FROM CONCERT_DATE
-		 WHERE CONCERT_ID = #{concertId}
+	<select id="selectDateList" parameterType="map" resultMap="concertDateResultSet">
+	    SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
+	    FROM CONCERT_DATE
+	    WHERE CONCERT_ID = #{concertId}
+	      AND CONCERT_DATE &gt;= TO_DATE(#{dateString} || ' 00:00', 'YYYY-MM-DD HH24:MI')
+	      AND CONCERT_DATE &lt; TO_DATE(#{dateString} || ' 23:59', 'YYYY-MM-DD HH24:MI')
+	    ORDER BY CONCERT_DATE ASC
 	</select>
 	
 </mapper>

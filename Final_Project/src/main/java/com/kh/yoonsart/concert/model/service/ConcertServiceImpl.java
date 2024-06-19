@@ -74,6 +74,14 @@ public class ConcertServiceImpl implements ConcertService{
 	        map.put("concertId", concertId);
 	        return concertDao.deleteWishlist(sqlSession,map);
 	    }
+	 
+	 @Override
+	 public boolean isInWishlist(String userId, int concertId) {
+	     Map<String, Object> map = new HashMap<>();
+	     map.put("userId", userId);
+	     map.put("concertId", concertId);
+	     return concertDao.isInWishlist(sqlSession, map) > 0;
+	 }
 
 	@Override
 	public int selectQnaCount(int cno) {
@@ -104,7 +112,7 @@ public class ConcertServiceImpl implements ConcertService{
 	}
 
 	@Override
-	public ArrayList<ConcertDate> selectDateList(int cno) {
-		return concertDao.selectDateList(sqlSession, cno);
+	public ArrayList<ConcertDate> selectDateList(int cno, String dateString) {
+		return concertDao.selectDateList(sqlSession, cno, dateString);
 	}	
 }

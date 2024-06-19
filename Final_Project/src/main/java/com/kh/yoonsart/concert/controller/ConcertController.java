@@ -79,9 +79,7 @@ public class ConcertController {
 	        
 	        // 잔여 티켓 조회
 	        int seatCount = concertService.selectSeatCount(cno);
-	        
-	        ArrayList<ConcertDate> DateList = concertService.selectDateList(cno);
-	        
+	              
 	        
 	        model.addAttribute("rvList", rvList);
 	        model.addAttribute("qnaList", qnaList);
@@ -92,7 +90,6 @@ public class ConcertController {
 	        model.addAttribute("likeCount", likeCount); // 좋아요 수 추가
 	        model.addAttribute("holeStatus", holeStatus);
 	        model.addAttribute("seatCount", seatCount);
-	        model.addAttribute("DateList", DateList);
 	        // System.out.println(qnaList);
 	        
 	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
@@ -106,25 +103,38 @@ public class ConcertController {
 	}
 	
 	@PostMapping(value = "/wishlistadd", produces = "text/html; charset=UTF-8")
-	    @ResponseBody
-	    public String addWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
-	        int result = concertService.addWishlist(userId, concertId);
-	        if (result > 0) {
-	            return "관심 공연에 추가되었습니다.";
-	        } else {
-	            return "관심 공연 추가에 실패했습니다.";
-	        }
+	@ResponseBody
+	public String addWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    int result = concertService.addWishlist(userId, concertId);
+	    if (result > 0) {
+	        return "관심 공연에 추가되었습니다.";
+	    } else {
+	        return "관심 공연 추가에 실패했습니다.";
 	    }
-
-	    @PostMapping(value ="/wishlistremove", produces = "text/html; charset=UTF-8")
+	}
+	@PostMapping(value ="/wishlistremove", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String removeWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    int result = concertService.removeWishlist(userId, concertId);
+	    if (result > 0) {
+	        return "관심 공연에서 삭제되었습니다.";
+	    } else {
+	        return "관심 공연 삭제에 실패했습니다.";
+	    }
+	}
+	    @GetMapping(value = "/isInWishlist", produces = "application/json; charset=UTF-8")
 	    @ResponseBody
-	    public String removeWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
-	        int result = concertService.removeWishlist(userId, concertId);
-	        if (result > 0) {
-	            return "관심 공연에서 삭제되었습니다.";
-	        } else {
-	            return "관심 공연 삭제에 실패했습니다.";
-	        }
+	    public boolean isInWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	        return concertService.isInWishlist(userId, concertId);
+	    }
+	    
+	    @GetMapping("date.co")
+	    @ResponseBody
+	    public ArrayList<ConcertDate> selectDateList(@RequestParam("dateString") String dateString, @RequestParam("cno") int cno) {
+	        // dateString 형식을 LocalDate로 변환
+	        ArrayList<ConcertDate> DateList = concertService.selectDateList(cno, dateString);	        
+        
+	        return DateList;
 	    }
 
 }
