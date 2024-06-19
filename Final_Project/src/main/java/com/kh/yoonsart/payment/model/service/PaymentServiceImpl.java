@@ -19,6 +19,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.google.gson.Gson;
 import com.google.gson.JsonObject;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.dao.PaymentDao;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
@@ -156,5 +157,20 @@ public class PaymentServiceImpl implements PaymentService{
 	public int rejectRefund(String buyListId) {
 		return paymentDao.rejectRefund(sqlSession, buyListId);
 	}
+
+	//좌석 상태 변경 (결제중)
+	@Transactional
+	@Override
+	public int startPayment(Ticket ticket) {
+		return paymentDao.startPayment(sqlSession, ticket);
+	}
+
+	//좌석 상태 변경 (구매불가)
+	@Transactional
+	@Override
+	public int endPayment(Ticket ticket) {
+		return paymentDao.endPayment(sqlSession, ticket);
+	}
+	
 
 }

@@ -4,6 +4,7 @@ import java.io.IOException;
 import java.util.ArrayList;
 
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
 public interface PaymentService {
@@ -35,5 +36,10 @@ public interface PaymentService {
 	int requestRefund(String buyListId);
 	//환불 거부
 	int rejectRefund(String buyListId);
+	
+	//좌석 상태 변경 (결제중)
+	int startPayment(Ticket ticket);
+	//좌석 상태 변경 (구매불가)
+	int endPayment(Ticket ticket);
 	
 }

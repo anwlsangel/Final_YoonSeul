@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 
 @Repository
@@ -43,6 +44,14 @@ public class PaymentDao {
 
 	public int rejectRefund(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.update("paymentMapper.rejectRefund", buyListId);
+	}
+
+	public int startPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
+		return sqlSession.update("paymentMapper.startPayment", ticket);
+	}
+
+	public int endPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
+		return sqlSession.update("paymentMapper.endPayment", ticket);
 	}
 
 }

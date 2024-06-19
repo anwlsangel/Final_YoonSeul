@@ -102,6 +102,23 @@
 		 WHERE BUYLIST_ID = #{buyListId}
 	</update>
 	
+	<!-- 좌석 상태 변경 (결제중) -->
+	<update id="startPayment" parameterType="ticket">
+		UPDATE TICKET
+		   SET STATUS = 2
+		 WHERE CONCERT_DATE_ID = #{concertDateId}
+		   AND SEAT_ID = #{seatId}
+		   AND STATUS = 1
+	</update>
+	<!-- 좌석 상태 변경 (구매불가) -->
+	<update id="endPayment" parameterType="ticket">
+		UPDATE TICKET
+		   SET STATUS = 0
+		 WHERE CONCERT_DATE_ID = #{concertDateId}
+		   AND SEAT_ID = #{seatId}
+		   AND STATUS = 2
+	</update>
+	
 </mapper>
 
 	

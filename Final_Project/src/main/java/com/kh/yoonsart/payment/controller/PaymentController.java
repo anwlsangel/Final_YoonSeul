@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.service.PaymentService;
 import com.kh.yoonsart.payment.model.vo.BuyList;
 import com.siot.IamportRestClient.IamportClient;
@@ -149,6 +150,27 @@ public class PaymentController {
 	@PostMapping(value="rejectRefund.pa")
 	public int rejectRefund(String buyListId) {
 		return paymentService.rejectRefund(buyListId);
+	}
+	
+	//------------------
+	//좌석 상태 변경 (결제중)
+	@ResponseBody
+	@PostMapping(value="startPayment.pa")
+	public int startPayment(int cid, int sid) {
+		Ticket ticket = new Ticket();
+		ticket.setConcertDateId(cid);
+		ticket.setSeatId(sid);
+		return paymentService.startPayment(ticket);
+	}
+	
+	//좌석 상태 변경 (구매불가)
+	@ResponseBody
+	@PostMapping(value="endPayment.pa")
+	public int endPayment(int cid, int sid) {
+		Ticket ticket = new Ticket();
+		ticket.setConcertDateId(cid);
+		ticket.setSeatId(sid);
+		return paymentService.endPayment(ticket);
 	}
 	
 }
