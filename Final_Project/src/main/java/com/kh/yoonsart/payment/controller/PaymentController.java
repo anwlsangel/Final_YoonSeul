@@ -174,6 +174,16 @@ public class PaymentController {
 		return paymentService.endPayment(ticket);
 	}
 	
+	//좌석 상태 변경 (결제취소)
+	@ResponseBody
+	@PostMapping(value="cancelPayment.pa")
+	public int cancelPayment(int cid, int sid) {
+		Ticket ticket = new Ticket();
+		ticket.setConcertDateId(cid);
+		ticket.setSeatId(sid);
+		return paymentService.cancelPayment(ticket);
+	}
+	
 	//좌석 상태 변경 (구매가능)
 	@ResponseBody
 	@PostMapping(value="deleteTicket.pa")

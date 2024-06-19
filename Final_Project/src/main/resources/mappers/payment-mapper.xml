@@ -127,6 +127,13 @@
 	</update>
 	
 	<!-- 좌석 상태 변경 (구매가능) -->
+	<delete id="cancelPayment" parameterType="ticket">
+		DELETE FROM TICKET
+		 WHERE CONCERT_DATE_ID = #{concertDateId}
+		   AND SEAT_ID = #{seatId}
+	</delete>
+	
+	<!-- 좌석 상태 변경 (구매가능) -->
 	<delete id="deleteTicket" parameterType="string">
 		DELETE FROM TICKET
 		 WHERE BUYLIST_ID = #{buyListId}
