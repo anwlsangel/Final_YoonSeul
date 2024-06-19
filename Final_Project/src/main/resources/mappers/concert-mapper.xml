@@ -17,14 +17,6 @@
 		<result column="STATUS" property="status"/>
 	</resultMap>
 	
-	<resultMap type="concertDate" id="concertDateResultSet">
-		<result column="CONCERT_DATE_ID" property="concertDateId" />
-		<result column="CONCERT_DATE" property="concertDate" />
-		<result column="RUNNINGTIME" property="runningTime" />
-		<result column="CONCERT_ID" property="concertId" />
-		<result column="TIME_ONLY" property="timeOnly" />
-	</resultMap>
-	
 	<!-- 첫 리스트 및 필터링 조회용 쿼리문 -->
 	<select id="selectList" parameterType="map" resultMap="concertResultSet">
 	    SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
@@ -177,23 +169,47 @@
         SELECT COUNT(*)
         FROM WISHLIST
         WHERE CONCERT_ID = #{concertId}
-    </select>    
-    
-    <select id="selectSeatCount" parameterType="int" resultType="_int">
-    	SELECT SEATCOUNT
-		FROM CONCERT_INFO CI
-		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
-		WHERE CI.CONCERT_ID = #{concertId}
     </select>
     
-    <select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
-	    SELECT 
-	        CONCERT_DATE_ID,
-	        CONCERT_DATE,
-	        RUNNINGTIME,
-	        CONCERT_ID,
-	        TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
-	    FROM CONCERT_DATE
-	    WHERE CONCERT_ID = #{concertId}
+    <!-- 기존 스케줄 홀이름과 날짜로 조회 용환 -->    
+    <select id="getScheduleWihtHoleName" parameterType="map" resultType="ConcertDateByKwon">
+		select 	ci.concert_id as "concertId",
+		 		concert_name as "concertName",
+		  		thumbnail_root as "thumbnailRoot",
+		  		to_char(concert_date,'YYYY-MM-DD HH24:MI') as "startDate",
+		   		(cd.concert_date + to_dsinterval('0 ' || ci.playtime || ':00')) as "endDate",
+		   		hole_name as "holeName"
+		from concert_info ci, concert_date cd
+		where ci.concert_id = cd.concert_id
+		and ci.hole_name=#{holeName}
+		and (cd.concert_date + to_dsinterval('0 ' || ci.playtime || ':00')) >= to_date(#{startDate} ,'YYYY-MM-DD HH24:MI')
+		and to_date(#{lastDate},'YYYY-MM-DD HH24:MI') >= cd.concert_date
 	</select>
+	<!-- 공연 인포 인서트 기본정보 -->
+	<insert id="incertConcertInfo" parameterType="concert">
+		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status)
+			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status} )
+	</insert>
+	<!-- 공연 date 인서트 -->
+	<insert  id="insertConcertDate" parameterType="java.util.List">
+		insert into concert_date (concert_date_id,   concert_id,concert_date)
+		select seq_bano.nextval,seq_cno.currval ,dualtable.* from(
+		<foreach collection="list" item="item"  separator="UNION ALL ">
+			select to_date(#{item},'YYYY/MM/DD HH24:MI') 
+			from dual
+		</foreach>
+		) dualtable
+	</insert >
+	<!-- 현재 삽입하는 콘서트 시퀀스 알아냄 -->
+	<select id="getLastConcertId" resultType="int">
+		select seq_cno.currval from dual
+	</select>
+	<!-- 콘서트 시작 끝 추가 -->
+	<update id="updateConsertStartEnd" parameterType="int">
+		update concert_info
+			set start_date = (select min(concert_date) from concert_date where concert_id = #{id}),
+			     end_date = (select max(concert_date) from concert_date where concert_id = #{id})
+		where concert_id = #{id}
+	</update>
+	
 </mapper>

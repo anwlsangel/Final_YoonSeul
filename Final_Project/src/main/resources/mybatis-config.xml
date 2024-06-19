@@ -14,6 +14,7 @@
     	<typeAlias type="com.kh.yoonsart.review.model.vo.Review" alias="review" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.ConcertDate" alias="concertDate" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.Ticket" alias="ticket" />
+    	<typeAlias type="com.kh.yoonsart.concert.model.vo.ConcertDateByKwon" alias="ConcertDateByKwon" />
 
     </typeAliases>
     <mappers>
