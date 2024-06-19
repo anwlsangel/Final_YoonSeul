@@ -154,8 +154,14 @@
 	</select>
 	<!-- 예매내역 조회 -->
 	<select id="selectMyTicketList" parameterType="string" resultMap="buylistResultSet">
-		SELECT *
-		  FROM BUYLIST
+		SELECT BUYLIST_ID
+		     , CONCERT_NAME AS "RESERVE_CONCERT_ID"
+		     , RESERVE_TICKET
+		     , RESERVE_SUM
+		     , RESERVE_PAYMENT
+		     , B.STATUS
+		  FROM BUYLIST B
+		  JOIN CONCERT_INFO ON (RESERVE_CONCERT_ID = CONCERT_ID)
 		 WHERE USER_ID = #{userId}
 		 ORDER BY RESERVE_PAYMENT DESC
 	</select>
