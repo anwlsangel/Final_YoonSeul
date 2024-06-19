@@ -15,7 +15,7 @@
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.ConcertDate" alias="concertDate" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.Ticket" alias="ticket" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.ConcertDateByKwon" alias="ConcertDateByKwon" />
-
+		<typeAlias type="com.kh.yoonsart.adminmain.admin.model.vo.AdminCount" alias="enrollCount" />
     </typeAliases>
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
