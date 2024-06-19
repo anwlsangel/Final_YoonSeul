@@ -103,9 +103,9 @@
 			<table id="ticket-detail-table" border="0">
 				<thead>
 					<tr>
-						<th>${requestScope.concert.concertName}</th>
-						<th>${requestScope.concert.category}</th>
-						<th>${requestScope.concert.ageLimit}</th>
+						<th style="text-align: left; padding-left: 25px;">${requestScope.concert.concertName}</th>
+						<th></th>
+						<th style="text-align: right; padding-right: 25px;">/ ${requestScope.concert.ageLimit}</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -117,16 +117,16 @@
 						<td colspan="2"><span class="detail-title">* 공연 정보</span></td>
 					</tr>
 					<tr>
-						<td colspan="2">공연날짜</td>
+						<td colspan="2" style="padding-left: 25px;">${requestScope.concert.startDate} ~ ${requestScope.concert.endDate}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${requestScope.concert.playTime}</td>
+						<td colspan="2" style="padding-left: 25px;">${requestScope.concert.playTime}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${requestScope.concert.holeName}</td>
+						<td colspan="2" style="padding-left: 25px;">${requestScope.concert.holeName}</td>
 					</tr>
 					<tr>
-						<td colspan="2">좌석위치</td>
+						<td colspan="2" style="padding-left: 25px;">좌석위치</td>
 					</tr>
 					<tr>
 						<td colspan="2"><hr></td>
@@ -135,11 +135,11 @@
 						<td colspan="2"><span class="detail-title">* 결제 정보</span></td>
 					</tr>
 					<tr>
-						<td>${requestScope.concert.price}</td>
-						<td>${requestScope.bl.reserveTicket}</td>
+						<td style="padding-left: 25px;">티켓 가격 : ${requestScope.concert.price}</td>
+						<td>구매한 티켓 수 : ${requestScope.bl.reserveTicket}</td>
 					</tr>
 					<tr>
-						<td colspan="2">${requestScope.bl.reserveSum}</td>
+						<td colspan="2" style="padding-left: 25px;">총 결제금액 : ${requestScope.bl.reserveSum}</td>
 					</tr>
 					<tr>
 						<td colspan="3" height="50"><hr></td>
@@ -165,74 +165,26 @@
 					//환불요청
 					let buyListId = "${requestScope.bl.buyListId}";
 					function requestRefund() {
-						$.ajax({
-							url: "requestRefund.pa",
-							type: "post",
-							data: {buyListId: buyListId},
-							success: function(result) {
-								if(result > 0) {
-									console.log("환불 요청 성공");
-									alert("환불 요청되었습니다.");
-									location.reload(true);
-								} else {
-									console.log("환불 요청 실패");
+						if(confirm("환불 요청하시겠습니까?")) {
+							$.ajax({
+								url: "requestRefund.pa",
+								type: "post",
+								data: {buyListId: buyListId},
+								success: function(result) {
+									if(result > 0) {
+										console.log("환불 요청 성공");
+										alert("환불 요청되었습니다.");
+										location.reload(true);
+									} else {
+										console.log("환불 요청 실패");
+									}
+								},
+								error: function() {
+									console.log("환불 요청 ajax 통신 실패");
 								}
-							},
-							error: function() {
-								console.log("환불 요청 ajax 통신 실패");
-							}
-						});
+							});
+						}
 					}
-				
-				
-			    	const apiKey = "5866740403361550";
-			    	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
-			    	//let buyListId = "${requestScope.bl.buyListId}";
-			    	let token = "";
-			    	
-			    	//환불
-			    	function refund() {
-			    		console.log("환불 요청...");
-			    		$.ajax({
-			    			url: "refund.pa",
-			    			type: "post",
-			    			data: {
-			    				access_token: token,
-			    				merchant_uid: buyListId, //BUYLIST_ID
-			    				reason: "환불사유" //환불사유
-			    			},
-			    			success: function(result) {
-			    				console.log("환불 성공");
-			    				alert("환불되었습니다.");
-			    				location.reload(true);
-			    			},
-			    			error: function() {
-			    				console.log("환불 ajax 통신 실패");
-			    			}
-			    		});
-			    	}
-			    	
-			    	//access token 발급
-			    	function getToken() {
-			    		console.log("access token 발급 요청...");
-			    		$.ajax({
-			    			url: "getToken.pa",
-			    			type: "post",
-			    			data: {
-			    				apiKey: apiKey,
-			    				apiSecret: apiSecret
-			    			},
-			    			success: function(response) {
-			    				//console.log(response);
-			    				token = response;
-			    				console.log("access token 발급 성공");
-			    				refund();
-			    			},
-			    			error: function() {
-			    				console.log("access token 발급 ajax 통신 실패")
-			    			}
-			    		});
-			    	}
 			    </script>
 			</div>
 			
