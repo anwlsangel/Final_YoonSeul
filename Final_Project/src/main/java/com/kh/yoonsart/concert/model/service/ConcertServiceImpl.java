@@ -92,6 +92,7 @@ public class ConcertServiceImpl implements ConcertService{
     public int selectWishlistCount(int concertId) {
         return concertDao.selectWishlistCount(sqlSession, concertId);
     }
+	
 
 	@Override
 	public int selectHoleStatus(int cno) {
