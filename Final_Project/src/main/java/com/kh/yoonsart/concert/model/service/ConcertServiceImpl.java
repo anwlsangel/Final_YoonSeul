@@ -12,6 +12,7 @@ import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.dao.ConcertDao;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.ConcertDate;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Service
@@ -96,4 +97,14 @@ public class ConcertServiceImpl implements ConcertService{
 	public int selectHoleStatus(int cno) {
 		return concertDao.selectHoleStatus(sqlSession, cno);
 	}
+
+	@Override
+	public int selectSeatCount(int cno) {
+		return concertDao.selectSeatCount(sqlSession, cno);
+	}
+
+	@Override
+	public ArrayList<ConcertDate> selectDateList(int cno) {
+		return concertDao.selectDateList(sqlSession, cno);
+	}	
 }

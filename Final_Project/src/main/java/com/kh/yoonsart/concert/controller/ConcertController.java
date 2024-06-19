@@ -1,12 +1,7 @@
 package com.kh.yoonsart.concert.controller;
 
-import java.io.IOException;
 import java.util.ArrayList;
 
-import javax.servlet.http.HttpServletResponse;
-
-import org.json.simple.JSONArray;
-import org.json.simple.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -16,10 +11,9 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
-import com.kh.yoonsart.common.model.vo.PageInfo;
-import com.kh.yoonsart.common.template.Pagination;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.ConcertDate;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Controller
@@ -83,6 +77,12 @@ public class ConcertController {
 	        // 좋아요 수 조회
 	        int likeCount = concertService.selectWishlistCount(cno);
 	        
+	        // 잔여 티켓 조회
+	        int seatCount = concertService.selectSeatCount(cno);
+	        
+	        ArrayList<ConcertDate> DateList = concertService.selectDateList(cno);
+	        
+	        
 	        model.addAttribute("rvList", rvList);
 	        model.addAttribute("qnaList", qnaList);
 	        model.addAttribute("cno",cno);
@@ -91,6 +91,8 @@ public class ConcertController {
 	        model.addAttribute("starCount", starCount);
 	        model.addAttribute("likeCount", likeCount); // 좋아요 수 추가
 	        model.addAttribute("holeStatus", holeStatus);
+	        model.addAttribute("seatCount", seatCount);
+	        model.addAttribute("DateList", DateList);
 	        // System.out.println(qnaList);
 	        
 	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름

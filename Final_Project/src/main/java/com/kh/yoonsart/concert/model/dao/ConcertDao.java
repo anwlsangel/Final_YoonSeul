@@ -11,6 +11,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.ConcertDate;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Repository
@@ -88,6 +89,14 @@ public class ConcertDao {
 
 	public int selectHoleStatus(SqlSessionTemplate sqlSession, int cno) {
 		return sqlSession.selectOne("concertMapper.selectHoleStatus", cno);
+	}
+
+	public int selectSeatCount(SqlSessionTemplate sqlSession, int cno) {
+		return sqlSession.selectOne("concertMapper.selectSeatCount", cno);
+	}
+
+	public ArrayList<ConcertDate> selectDateList(SqlSessionTemplate sqlSession, int cno) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", cno);
 	}
 	
 	

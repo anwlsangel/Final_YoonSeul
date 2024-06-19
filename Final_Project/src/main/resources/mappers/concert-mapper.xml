@@ -17,6 +17,14 @@
 		<result column="STATUS" property="status"/>
 	</resultMap>
 	
+	<resultMap type="concertDate" id="concertDateResultSet">
+		<result column="CONCERT_DATE_ID" property="concertDateId" />
+		<result column="CONCERT_DATE" property="concertDate" />
+		<result column="RUNNINGTIME" property="runningTime" />
+		<result column="CONCERT_ID" property="concertId" />
+		<result column="TIME_ONLY" property="timeOnly" />
+	</resultMap>
+	
 	<!-- 첫 리스트 및 필터링 조회용 쿼리문 -->
 	<select id="selectList" parameterType="map" resultMap="concertResultSet">
 	    SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
@@ -170,4 +178,22 @@
         FROM WISHLIST
         WHERE CONCERT_ID = #{concertId}
     </select>    
+    
+    <select id="selectSeatCount" parameterType="int" resultType="_int">
+    	SELECT SEATCOUNT
+		FROM CONCERT_INFO CI
+		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
+		WHERE CI.CONCERT_ID = #{concertId}
+    </select>
+    
+    <select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
+	    SELECT 
+	        CONCERT_DATE_ID,
+	        CONCERT_DATE,
+	        RUNNINGTIME,
+	        CONCERT_ID,
+	        TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
+	    FROM CONCERT_DATE
+	    WHERE CONCERT_ID = #{concertId}
+	</select>
 </mapper>

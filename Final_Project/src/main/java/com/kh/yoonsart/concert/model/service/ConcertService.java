@@ -5,6 +5,7 @@ import java.util.ArrayList;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.concert.model.vo.ConcertDate;
 import com.kh.yoonsart.review.model.vo.Review;
 
 public interface ConcertService {
@@ -31,4 +32,8 @@ public interface ConcertService {
 	int selectWishlistCount(int concertId);
 
 	int selectHoleStatus(int cno);
+
+	int selectSeatCount(int cno);
+
+	ArrayList<ConcertDate> selectDateList(int cno);
 }

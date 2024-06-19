@@ -559,13 +559,24 @@
             </div>  
            <div class="col-sm-4">시간선택
            		<table>
-           			<tr>
-           				<th>시간</th>           				
-           			</tr>
-           			<tr>
-           				<td>19:00</td>           				
-           			</tr>           						
-           		</table>
+			        <tr>
+			            <th>시간</th>
+			        </tr>
+			        <c:choose>
+			            <c:when test="${empty DateList}">
+			                <tr>
+			                    <td>상영중인 공연이 없습니다.</td>
+			                </tr>
+			            </c:when>
+			            <c:otherwise>
+			                <c:forEach var="date" items="${DateList}">
+			                    <tr>
+			                        <td>${date.timeOnly}</td>
+			                    </tr>
+			                </c:forEach>
+			            </c:otherwise>
+			        </c:choose>
+			    </table>
            </div>
       	</div>
      	</c:when>	                    	
@@ -585,7 +596,7 @@
 				            </c:when>
 				        </c:choose>
 				        <div>
-				        	<span>잔여 티켓 : 150</span>
+				        	<span>&nbsp;잔여 티켓 : ${seatCount}</span>
 				        </div>				        
 				    </div>
 				    
