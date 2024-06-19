@@ -459,6 +459,7 @@ body {
 		     	            });
 		                 } else {
 		                     console.log("결제 실패");
+		                     cancelPayment();
 		                 }
 		             });
 		      	
@@ -495,6 +496,39 @@ body {
             		},
             		error: function() {
             			console.log("좌석 상태 결제중으로 변경 ajax 통신 실패")
+            		}
+            	});
+        	}
+        }
+        
+        //결제 취소
+        function cancelPayment() {
+        	let concertDateId = 1;
+        	let seatId = [1, 2]
+        	
+        	let resultSum = 0;
+        	
+        	for(let i in seatId) {
+        		$.ajax({
+            		url: "cancelPayment.pa",
+            		type: "post",
+            		data: {
+            			cid: concertDateId,
+            			sid: seatId[i]
+            		},
+            		success: function(result) {
+            			if(result > 0) {
+            				resultSum++;
+            				if(resultSum >= seatId.length) {
+            	        		console.log("결제 취소 처리 완료");
+            	        	}
+            			}
+            			else {
+            				console.log("결제 취소 처리 실패");
+            			}
+            		},
+            		error: function() {
+            			console.log("결제 취소 처리 ajax 통신 실패")
             		}
             	});
         	}

@@ -53,6 +53,10 @@ public class PaymentDao {
 	public int endPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
 		return sqlSession.update("paymentMapper.endPayment", ticket);
 	}
+	
+	public int cancelPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
+		return sqlSession.delete("paymentMapper.cancelPayment", ticket);
+	}
 
 	public int deleteTicket(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.delete("paymentMapper.deleteTicket", buyListId);

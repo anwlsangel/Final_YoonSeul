@@ -142,6 +142,7 @@
 	    			    				reason: "환불사유" //환불사유
 	    			    			},
 	    			    			success: function(result) {
+	    			    				//좌석 상태 변경 (구매가능)
 	    			    				deleteTicket(buyListId);
 	    			    				console.log("환불 성공");
 	    			    				alert("환불되었습니다.");
@@ -272,17 +273,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    
-    <script>
-    	$(function(){
-    		$(".delete-parking").click(function () {
-    			let carNo = $(this).parent().prev().prev().children().text().trim();
-    			$(".modal-body>.carNo").attr("value", carNo);
-				
-			});
-    		
-    	});
-    </script>
 
 </body>
 </html>

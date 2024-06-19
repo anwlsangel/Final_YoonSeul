@@ -41,6 +41,8 @@ public interface PaymentService {
 	int startPayment(Ticket ticket);
 	//좌석 상태 변경 (구매불가)
 	int endPayment(Ticket ticket);
+	//좌석 상태 변경 (결제취소)
+	int cancelPayment(Ticket ticket);
 	//좌석 상태 변경 (구매가능)
 	int deleteTicket(String buyListId);
 	
