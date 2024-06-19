@@ -63,8 +63,7 @@ public class ConcertController {
 	        model.addAttribute("concert", concert); 
 
 	        // 콘서트장 상태값 조회용 
-	        int holeStatus = concertService.selectHoleStatus(cno);
-	        
+	        int holeStatus = concertService.selectHoleStatus(cno);	        
 	        
 	        // Q&A 조회
 	        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
@@ -99,7 +98,7 @@ public class ConcertController {
 	
 	@GetMapping("seat.co")
 	public String ConcertSeatReserve() {
-		
+				
 		return "concert/ConcertSeatReserve";
 		
 	}

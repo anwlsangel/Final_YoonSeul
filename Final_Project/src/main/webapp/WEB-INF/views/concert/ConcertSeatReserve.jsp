@@ -105,7 +105,7 @@ body {
 <div class="container">
 	<div class="seat">
 		<div class="row">
-            <div id="calendar" class="col-md-6">
+            <div id="calendar" class="col-md-8">
                 <table class="table" style="width: 100%;">
                     <thead>
                         <tr>
@@ -131,9 +131,16 @@ body {
                     <tbody id="calendarTbody" align="center"></tbody>
                 </table>
             </div>
-            <div id="detailConcert">
-            	공연 정보가 들어갈 자리
-            </div>
+            <div class="col-sm-4">시간선택
+           		<table>
+           			<tr>
+           				<th>시간</th>           				
+           			</tr>
+           			<tr>
+           				<td>19:00</td>           				
+           			</tr>           						
+           		</table>
+           </div>
         </div>
         <div id="seat"></div>
 

@@ -325,6 +325,13 @@
             background-color: #fff;
             font-size: 14px;
         }
+        .selected-date {
+	        background-color: #810000;
+	        color: white;
+	    }
+	    .hover-date {
+	        background-color: #f0f0f0;
+	    }
 		
     </style>
 </head>
@@ -345,24 +352,24 @@
         
             <div id="title-area" style="margin-top: 100px;">
             	<input type="hidden" id="concertID" value="1"> <!-- 주문번호생성시 필요 -->
-                <h2>스튜디오 지브리 애니메이션의 거장 타카하타 이사오전</h2>
-                <h6 style="color: gray;">2024.04.26 ~ 2024.08.03 | 세종문화회관 세종미술관 1관 2관</h6>
+                <h2>${concert.concertName}</h2>
+                <h6 style="color: gray;">${concert.startDate} ~ ${concert.endDate} | ${concert.holeName}</h6>
                 <hr class="info-hr"><br>
 
                 <div class="info-area">
                     <table id="info-table">
                         <tr>
                             <td rowspan="10" colspan="3">
-                                <img src="http://tkfile.yes24.com/upload2/PerfBlog/202403/20240314/20240314-49133.jpg" style="width: 400px;">
+                                <img src="${concert.thumbnailRoot}" style="width: 400px;">
                             </td>
                             <td width="20"></td>
                             <th width="130" height="30">&nbsp; 등급</th>
-                            <td width="400">전체 연령 관람 가능</td>
+                            <td width="400">${concert.ageLimit} 세 이상</td>
                         </tr>
                         <tr>
                             <td></td>
                             <th height="50">&nbsp; 관람시간</th>
-                            <td>60분</td>
+                            <td>${concert.playTime}분</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -372,7 +379,7 @@
                         <tr>
                             <td></td>
                             <th height="50">&nbsp; 가격</th>
-                            <td>20,000 원</td>
+                            <td>${concert.price} 원</td>
                         </tr>
                         <tr>
                             <td></td>
@@ -513,16 +520,55 @@
                                $("#like-icon").attr("value", "false");
                            }
                        });
-</script>
+	</script>
                     </table>
                 </div>
 
                 <br><br>
+                <div class="booking-area" align="center">
+					<c:choose>		                	
+		                	<c:when test="${holeStatus == 2}">
+		                	
+		                    	<div class="row" style="width: 80%; height: 400px; border: 1px solid black;">
+		                        	<div id="calendar" class="col-md-8">
+                <table class="table" style="width: 100%;">
+                    <thead>
+                        <tr>
+                            <th colspan="7" class="text-center" style="height: 43px;">
+                                <button id="previousBtn" onclick="previousMonth()">&lt;</button>
+                                <span id="fullDate"></span>
+                                <button id="nextBtn" onclick="nextMonth()">&gt;</button>
+                            </th>
+                        </tr>
+                        <tr>
 
-                	<div class="booking-area" align="center">
-                    	<div style="height: 100px; border: 1px solid orange;">
-                        	날짜 선택
-                    </div>
+                        </tr>
+                        <tr align="center">
+                            <td>일</td>
+                            <td>월</td>
+                            <td>화</td>
+                            <td>수</td>
+                            <td>목</td>
+                            <td>금</td>
+                            <td>토</td>
+                        </tr>
+                    </thead>
+                    <tbody id="calendarTbody" align="center"></tbody>
+                </table>                
+            </div>  
+           <div class="col-sm-4">시간선택
+           		<table>
+           			<tr>
+           				<th>시간</th>           				
+           			</tr>
+           			<tr>
+           				<td>19:00</td>           				
+           			</tr>           						
+           		</table>
+           </div>
+      	</div>
+     	</c:when>	                    	
+    </c:choose>
                     <br>
                     <div class="ticketContainer">
 				        <c:choose>
@@ -594,7 +640,7 @@
                 </div>
 
                 <div class="detail-info">
-                    <img src="http://tkfile.yes24.com/Upload2/Board/202404/20240426/49133_20426_01.jpg" alt="">
+                    <img src="${concert.detailRoot}" alt="">
                     <!-- 
                     <img src="http://tkfile.yes24.com/Upload2/Board/202404/20240426/49133_20426_02.jpg" alt="">
                      -->
@@ -951,14 +997,7 @@
        		}
        
        </script>
-        
-        
     
-    <div>
-    <button onclick="location.href = 'concertDetailView2.co';">TEST PAGE 2</button>
-    <button onclick="location.href = 'concertDetailView3.co';">TEST PAGE 3</button>
-    <button onclick="location.href = 'concertDetailView4.co';">TEST PAGE 4</button>
-    </div>
     <!-- 
     <div>
     	<button onclick="refund();">user01 결제 환불</button>
@@ -1013,7 +1052,95 @@
     	}
     	
     </script>
-
+    
+    <!-- 날짜 선택 관련  -->
+    <script>
+	    // 초기 연도와 월 설정
+	    let toDay = new Date();
+	    let year = toDay.getFullYear();
+	    let month = toDay.getMonth();
+	    let selectedElement = null;
+	
+	    $(function() {
+	        drawCalendar(year, month);
+	    });
+	
+	    // 달력 그리기
+	    function drawCalendar(year, month) {
+	        const firstDay = new Date(year, month, 1);
+	        const lastDay = new Date(year, month + 1, 0);
+	        const dayOfWeek = firstDay.getDay();
+	
+	        document.getElementById("fullDate").innerHTML = year + "년 " + (month < 9 ? "0" + (month + 1) : (month + 1)) + "월";
+	
+	        let forAppend = "<tr>";
+	        // 1일과 요일 맞추기 위해 밀어내기
+	        for (let i = 0; i < dayOfWeek; i++) {
+	            forAppend += "<td class='disable'></td>";
+	        }
+	        for (; firstDay <= lastDay; firstDay.setDate(firstDay.getDate() + 1)) {
+	            let day = firstDay.getDate();
+	            forAppend += "<td class='able' onclick='pickTime(this, " + year + "," + (month + 1) + "," + day + ")' onmouseover='hoverDate(this)' onmouseout='unhoverDate(this)'>" + (day < 10 ? "0" + day : day) + "</td>";
+	            if (firstDay.getDay() === 6) {
+	                forAppend += "</tr><tr>";
+	            }
+	        }
+	        forAppend += "</tr>";
+	        document.getElementById("calendarTbody").innerHTML = forAppend;
+	    }
+	
+	    // 날짜 클릭함수 ============================
+	    function pickTime(element, year, month, date) {
+	        if (selectedElement) {
+	            selectedElement.classList.remove("selected-date");
+	        }
+	        element.classList.add("selected-date");
+	        selectedElement = element;
+	        // alert("선택된 날짜: " + year + "/" + month + "/" + date);
+	        // 여기에서 날짜값 뽑아올 수 있음
+	    }
+	
+	    // 날짜 hover 이벤트 ============================
+	    function hoverDate(element) {
+	        if (!element.classList.contains("selected-date")) {
+	            element.classList.add("hover-date");
+	        }
+	    }
+	
+	    function unhoverDate(element) {
+	        element.classList.remove("hover-date");
+	    }
+	
+	    // 달 이동 함수
+	    function previousMonth() {
+	        $("#nextBtn").removeAttr("disabled");
+	        month--;
+	        if (month == -1) {
+	            year--;
+	            month = 11;
+	        }
+	        drawCalendar(year, month);
+	        if (month < new Date().getMonth() - 1) {
+	            $("#previousBtn").attr("disabled", "disabled");
+	        }
+	    }
+	
+	    function nextMonth() {
+	        month++;
+	        $("#previousBtn").removeAttr("disabled");
+	        if (month == 12) {
+	            year++;
+	            month = 0;
+	        }
+	        drawCalendar(year, month);
+	        if (month > new Date().getMonth() + 2/*여기 변경*/) {
+	            $("#nextBtn").attr("disabled", "disabled");
+	        }
+	    }
+	
+	    // 첫로딩시 그려줄 함수
+	    drawCalendar(year, month);
+	</script>
 
     <div class="footer">
         <p>&copy; 2001 - <span id="currentYear"></span> 윤슬아트홀. All rights reserved.</p>
