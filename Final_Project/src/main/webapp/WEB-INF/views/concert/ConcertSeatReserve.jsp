@@ -163,7 +163,7 @@ body {
                 <div id="priceSummaryDiv" style="position: absolute; bottom: 0; right: 0; width: 100%;" align="center">            
                         <div class="form-group">
 					        <div><span for="totalPrice">총 가격 : </span><span id="totalPrice">0</span><span>원</span></div>
-					        <button type="submit" id="buy" onclick="pay()">결제하기</button>
+					        <button type="submit" id="buy" onclick="startPayment()">결제하기</button>
 					        <button id="clear" onclick="removeAll()" type="reset">초기화</button>
 					        <input type="hidden" name="concertId" id="concertId" value="${param.cno}">
 							<input type="hidden" name="ticketQuantity" id="ticketQuantity" value="0">
@@ -344,6 +344,40 @@ body {
             d3.select("#seatDiv").style("display","block");
             d3.select("#myPlot").html("");
             removeAll();
+        }
+        
+        //좌석 상태 변경 (결제중)
+        function startPayment() {
+        	let concertDateId = 1;
+        	let seatId = [1, 2]
+        	console.log(seatId.length);
+        	
+        	let resultSum = 0;
+        	
+        	for(let i in seatId) {
+        		$.ajax({
+            		url: "startPayment.pa",
+            		type: "post",
+            		data: {
+            			cid: concertDateId,
+            			sid: seatId
+            		},
+            		success: function(result) {
+            			if(result > 0) {
+            				resultSum++;
+            				console.log("resultSum : " + resultSum);
+            			}
+            			else { console.log("상태 변경 실패");}
+            		},
+            		error: function() {
+            			console.log("상태 변경 ajax 통신 실패")
+            		}
+            	});
+        	}
+        	
+        	//if(resultSum >= seatId.length)
+        	
+        	
         }
         
         // 결제 함수
