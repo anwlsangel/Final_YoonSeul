@@ -50,9 +50,8 @@ public class ConcertController {
 	// 공연 좋아요 갯수 표시용 로직 추가 - 0618 무진
 	 @GetMapping("detail.co")
 	    public String concertDetail(@RequestParam("cno") int cno, 
-	                                @RequestParam(value="cpage", defaultValue="1") int currentPage,
+	                                @RequestParam(value="cpage", defaultValue="1") int currentPage, 
 	                                Model model) {      
-		 
 	        // 상세 조회
 	        Concert concert = concertService.concertDetail(cno);
 	        model.addAttribute("concert", concert); 
@@ -80,6 +79,7 @@ public class ConcertController {
 	        
 	        // 잔여 티켓 조회
 	        int seatCount = concertService.selectSeatCount(cno);
+	              
 	        
 	        
 	        
