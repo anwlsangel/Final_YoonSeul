@@ -306,14 +306,15 @@
 	    }
 	    
 	    .ticketContainer {
-            display: flex;
-            justify-content: flex-end;
-            margin-top: 20px;
-        }
-        .ticketCount {
-            display: flex;
-            align-items: center;
-        }
+		    display: flex;
+		    justify-content: center; /* 변경: flex-end -> center */
+		    margin-top: 20px;
+		}
+		.ticketCount {
+		    display: flex;
+		    align-items: center;
+		    justify-content: center; /* 추가: 내용도 중앙 정렬 */
+		}
         .ticketCount label {
             margin-right: 10px;
             font-weight: bold;
@@ -579,11 +580,15 @@
 				                        <c:forEach var="i" begin="1" end="10">
 				                            <option value="${i}">${i}</option>
 				                        </c:forEach>
-				                    </select>
-				                </div>
+				                    </select>				                    
+				                </div>			
 				            </c:when>
 				        </c:choose>
+				        <div>
+				        	<span>잔여 티켓 : 150</span>
+				        </div>				        
 				    </div>
+				    
                     
                     <c:choose>
 					    <c:when test="${holeStatus == 1}">
@@ -996,62 +1001,7 @@
        			
        		}
        
-       </script>
-    
-    <!-- 
-    <div>
-    	<button onclick="refund();">user01 결제 환불</button>
-    </div>
-     -->
-     
-    <script>
-    	const apiKey = "5866740403361550";
-    	const apiSecret = "to3dw2Xf52rRV7SYFFwqjbf4KLDbn3j9XAmfB8cmwmchALntKB6aj7rbQ9Buy6cFuwSB48lnRSlFFWfp";
-    	let token = "";
-    	
-    	//환불
-    	function refund() {
-    		console.log("환불 요청...");
-    		$.ajax({
-    			url: "refund.pa",
-    			type: "post",
-    			data: {
-    				access_token: token,
-    				merchant_uid: "12024061222728", //BUYLIST_ID
-    				reason: "환불사유" //환불사유
-    			},
-    			success: function(result) {
-    				console.log("환불 성공");
-    			},
-    			error: function() {
-    				console.log("환불 ajax 통신 실패");
-    			}
-    		});
-    	}
-    	
-    	//access token 발급
-    	function getToken() {
-    		console.log("access token 발급 요청...");
-    		$.ajax({
-    			url: "getToken.pa",
-    			type: "post",
-    			data: {
-    				apiKey: apiKey,
-    				apiSecret: apiSecret
-    			},
-    			success: function(response) {
-    				//console.log(response);
-    				token = response;
-    				console.log("access token 발급 성공");
-    				refund();
-    			},
-    			error: function() {
-    				console.log("access token 발급 ajax 통신 실패")
-    			}
-    		});
-    	}
-    	
-    </script>
+       </script>   
     
     <!-- 날짜 선택 관련  -->
     <script>
@@ -1156,9 +1106,10 @@
   		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
   		let randomUid = concertName + formattedDate + randomNum;
     	
-	    //const myAmount = Number(document.getElementById("amount").value);
-	    const myAmount = 100; //총 결제금액
-	    
+  		let ticketPrice = ${concert.price};
+  		let ticketCount = $("#ticketCount").val();
+    	
+	    const myAmount = ticketPrice * ticketCount; //총 결제금액
 	    let userId = "${sessionScope.loginUser.userId}";
 	    let concertId = $("#concertID").val();
 	
