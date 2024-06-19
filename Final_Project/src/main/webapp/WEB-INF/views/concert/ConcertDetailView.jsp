@@ -558,26 +558,19 @@
                 </table>                
             </div>  
            <div class="col-sm-4">시간선택
-           		<table>
-			        <tr>
-			            <th>시간</th>
-			        </tr>
-			        <c:choose>
-			            <c:when test="${empty DateList}">
-			                <tr>
-			                    <td>상영중인 공연이 없습니다.</td>
-			                </tr>
-			            </c:when>
-			            <c:otherwise>
-			                <c:forEach var="date" items="${DateList}">
-			                    <tr>
-			                        <td>${date.timeOnly}</td>
-			                    </tr>
-			                </c:forEach>
-			            </c:otherwise>
-			        </c:choose>
+			    <table id="time-table">
+			        <thead>
+			            <tr>
+			                <th colspan="1" style="text-align: center;">시간</th>
+			            </tr>
+			        </thead>
+			        <tbody>
+			            <tr>
+			                <td>상영중인 공연이 없습니다.</td>
+			            </tr>
+			        </tbody>
 			    </table>
-           </div>
+			</div>
       	</div>
      	</c:when>	                    	
     </c:choose>
@@ -1050,17 +1043,52 @@
 	        document.getElementById("calendarTbody").innerHTML = forAppend;
 	    }
 	
-	    // 날짜 클릭함수 ============================
+	    // 시간 선택
 	    function pickTime(element, year, month, date) {
 	        if (selectedElement) {
 	            selectedElement.classList.remove("selected-date");
 	        }
 	        element.classList.add("selected-date");
 	        selectedElement = element;
-	        // alert("선택된 날짜: " + year + "/" + month + "/" + date);
-	        // 여기에서 날짜값 뽑아올 수 있음
+
+	        let formattedMonth = month < 10 ? '0' + month : month;
+	        let formattedDate = date < 10 ? '0' + date : date;
+	        let selectedDate = year + formattedMonth + formattedDate;
+
+
+	        $.ajax({
+	            url: 'date.co',
+	            type: 'GET',
+	            data: {
+	                cno: ${cno}, // 콘서트 ID
+	                dateString: selectedDate
+	            },
+	            success: function(response) {
+	                updateDateList(response); // DateList 업데이트 함수 호출
+	            },
+	            error: function(error) {
+	                console.error('Error:', error);
+	            }
+	        });
 	    }
-	
+
+	    function updateDateList(dateList) {
+	        const tableBody = $("#time-table tbody");
+	        tableBody.empty(); // 기존 내용 삭제
+
+	        if (dateList.length === 0) {
+	            tableBody.append("<tr><td>상영중인 공연이 없습니다.</td></tr>");
+	        } else {
+	            dateList.forEach(function(date) {
+	                tableBody.append("<tr><td>" + date.timeOnly + "</td></tr>");
+	            });
+	        }
+	    }
+
+	    $(document).ready(function() {
+	        drawCalendar(year, month);
+	    });
+	    
 	    // 날짜 hover 이벤트 ============================
 	    function hoverDate(element) {
 	        if (!element.classList.contains("selected-date")) {

@@ -35,5 +35,5 @@ public interface ConcertService {
 
 	int selectSeatCount(int cno);
 
-	ArrayList<ConcertDate> selectDateList(int cno);
+	ArrayList<ConcertDate> selectDateList(int cno, String dateString);
 }

@@ -104,7 +104,7 @@ public class ConcertServiceImpl implements ConcertService{
 	}
 
 	@Override
-	public ArrayList<ConcertDate> selectDateList(int cno) {
-		return concertDao.selectDateList(sqlSession, cno);
+	public ArrayList<ConcertDate> selectDateList(int cno, String dateString) {
+		return concertDao.selectDateList(sqlSession, cno, dateString);
 	}	
 }

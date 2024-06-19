@@ -227,10 +227,13 @@
 		WHERE CI.CONCERT_ID = #{concertId}
 	</select>
 	
-	<select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
-		SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
-		  FROM CONCERT_DATE
-		 WHERE CONCERT_ID = #{concertId}
+	<select id="selectDateList" parameterType="map" resultMap="concertDateResultSet">
+	    SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
+	    FROM CONCERT_DATE
+	    WHERE CONCERT_ID = #{concertId}
+	      AND CONCERT_DATE &gt;= TO_DATE(#{dateString} || ' 00:00', 'YYYY-MM-DD HH24:MI')
+	      AND CONCERT_DATE &lt; TO_DATE(#{dateString} || ' 23:59', 'YYYY-MM-DD HH24:MI')
+	    ORDER BY CONCERT_DATE ASC
 	</select>
 	
 </mapper>

@@ -50,8 +50,9 @@ public class ConcertController {
 	// 공연 좋아요 갯수 표시용 로직 추가 - 0618 무진
 	 @GetMapping("detail.co")
 	    public String concertDetail(@RequestParam("cno") int cno, 
-	                                @RequestParam(value="cpage", defaultValue="1") int currentPage, 
+	                                @RequestParam(value="cpage", defaultValue="1") int currentPage,
 	                                Model model) {      
+		 
 	        // 상세 조회
 	        Concert concert = concertService.concertDetail(cno);
 	        model.addAttribute("concert", concert); 
@@ -80,7 +81,6 @@ public class ConcertController {
 	        // 잔여 티켓 조회
 	        int seatCount = concertService.selectSeatCount(cno);
 	        
-	        ArrayList<ConcertDate> DateList = concertService.selectDateList(cno);
 	        
 	        
 	        model.addAttribute("rvList", rvList);
@@ -92,7 +92,6 @@ public class ConcertController {
 	        model.addAttribute("likeCount", likeCount); // 좋아요 수 추가
 	        model.addAttribute("holeStatus", holeStatus);
 	        model.addAttribute("seatCount", seatCount);
-	        model.addAttribute("DateList", DateList);
 	        // System.out.println(qnaList);
 	        
 	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
@@ -125,6 +124,15 @@ public class ConcertController {
 	        } else {
 	            return "관심 공연 삭제에 실패했습니다.";
 	        }
+	    }
+	    
+	    @GetMapping("date.co")
+	    @ResponseBody
+	    public ArrayList<ConcertDate> selectDateList(@RequestParam("dateString") String dateString, @RequestParam("cno") int cno) {
+	        // dateString 형식을 LocalDate로 변환
+	        ArrayList<ConcertDate> DateList = concertService.selectDateList(cno, dateString);	        
+        
+	        return DateList;
 	    }
 
 }

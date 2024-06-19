@@ -95,8 +95,15 @@ public class ConcertDao {
 		return sqlSession.selectOne("concertMapper.selectSeatCount", cno);
 	}
 
-	public ArrayList<ConcertDate> selectDateList(SqlSessionTemplate sqlSession, int cno) {
-		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", cno);
+	public ArrayList<ConcertDate> selectDateList(SqlSessionTemplate sqlSession, int cno, String dateString) {
+		
+		Map<String, Object> params = new HashMap<>();
+		params.put("concertId", cno);
+		params.put("dateString", dateString);
+		
+		System.out.println((ArrayList)sqlSession.selectList("concertMapper.selectDateList", params));
+		
+		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", params);
 	}
 	
 	
