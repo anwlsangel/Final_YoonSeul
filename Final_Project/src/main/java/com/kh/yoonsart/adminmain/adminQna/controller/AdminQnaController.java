@@ -56,7 +56,8 @@ public class AdminQnaController {
 		if(result > 0) { // 성공
 					
 			session.setAttribute("alertMsg", "답변 등록 성공!");
-			mv.setViewName("redirect:/AdinsertAnswer.qa?qno="+q.getQnaId());
+			//mv.setViewName("redirect:/AdinsertAnswer.qa?qno="+q.getQnaId());
+			mv.setViewName("redirect:/AdQnaList.qa");
 			
 		} else { // 실패
 	

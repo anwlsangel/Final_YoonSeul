@@ -31,7 +31,6 @@
             
             <h1 class="h3 mb-4 text-gray-800">회원 정보 조회</h1>
                 
-    
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
@@ -57,13 +56,13 @@
                         <td>
                             <c:choose>
                                 <c:when test="${me.status == 1}">
-                                    활성
+                                  	  활성
                                 </c:when>
                                 <c:when test="${me.status == 2}">
-                                    비활성
+                                    	비활성
                                 </c:when>
                                 <c:otherwise>
-                                    알 수 없음
+                                    	알 수 없음
                                 </c:otherwise>
                             </c:choose>
                         </td>
@@ -85,6 +84,6 @@
             });     
         });
     </script>
-
+	
 </body>
 </html>

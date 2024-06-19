@@ -203,32 +203,17 @@
             
             <!-- Nav Item - Pages Collapse Menu -->
              <li class="nav-item">
-                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#select-avg-menu"
-                    aria-expanded="true" aria-controls="collapsePages">
-                    <i class="fas fa-fw fa-chart-bar"></i>
-                    
-                    <span>매출 통계</span>
-                </a>
-                <div id="select-avg-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
-                    <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header">통계 조회 :</h6>
-                        <a class="collapse-item" href="">상품별 판매량 조회</a>
-                    </div>
-                </div>
-            </li>
-            
-            <!-- Nav Item - Pages Collapse Menu -->
-             <li class="nav-item">
                 <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#select-visit-menu"
                     aria-expanded="true" aria-controls="collapsePages">
                     <i class="fas fa-fw fa-chart-bar"></i>
                     
-                    <span>방문자 통계</span>
+                    <span>통계</span>
                 </a>
                 <div id="select-visit-menu" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
                     <div class="bg-white py-2 collapse-inner rounded">
-                        <h6 class="collapse-header"> 방문 통계 :</h6>
-                        <a class="collapse-item" href="">일일방문자 수 조회</a>
+                        <h6 class="collapse-header"> 통계 :</h6>
+                        <a class="collapse-item" href="admemberAge.me">회원 통계</a>
+                        <a class="collapse-item" href="adsales.sv">매출 통계</a>
                     </div>
                 </div>
             </li>
@@ -241,9 +226,6 @@
             <div class="text-center d-none d-md-inline">
                 <button class="rounded-circle border-0" id="sidebarToggle"></button>
             </div>
-
-            
-            
 
         </ul>
         <!-- End of Sidebar -->

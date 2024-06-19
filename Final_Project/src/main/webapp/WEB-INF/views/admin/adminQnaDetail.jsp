@@ -60,12 +60,6 @@
 								class="form-control form-control-user" name="qnaAnswer"
 								value="${q.qnaAnswer}"></td>
 						</tr>
-						<tr>
-							<th colspan="2">답변일</th>
-							<td><input type="text"
-								class="form-control form-control-user" name="answerDate"
-								value="${q.answerDate}"></td>
-						</tr>
 						
 					</table>
 					<input type="hidden" value="${q.qnaId}" name="qnaId">

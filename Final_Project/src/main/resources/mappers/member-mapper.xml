@@ -43,6 +43,12 @@
 		<result column="STATUS" property="status"/>
 	</resultMap>
 	
+	<!-- 회원가입일 count 용 ResultMap -->
+	<resultMap type="enrollCount" id="enrollCountResultSet">
+		<result column="DATE" property="enrollDate"/>
+		<result column="COUNT" property="enrollCount"/>
+	</resultMap>
+	
 	<!-- 로그인용 쿼리문 -->
 
 	<select id="loginMember" parameterType="member"
@@ -180,4 +186,38 @@
 	      FROM MEMBER
 	     WHERE USER_ID = #{userId}
 	</select>
+	
+	
+	<!--  관리자 페이지용 쿼리문 작성 -  0619 수정 -->
+	
+	<!-- 전체 회원 수  -->
+	<select id="selectMemberCount" parameterType="string" resultType="_int">
+		SELECT COUNT(*)
+		  FROM MEMBER
+	</select>
+	
+	<!-- 회원 연령 조회 -->
+	<select id="admemberAge" parameterType="string" resultType="_int">
+		SELECT TRUNC(MONTHS_BETWEEN(SYSDATE, USER_BIRTH)/12) AS AGE
+	      FROM MEMBER
+	</select>
+	
+	<!-- 월별 회원가입 -->
+	<select id="enrollMonth" parameterType="string" resultMap="enrollCountResultSet">
+		SELECT EXTRACT(MONTH FROM ENROLL_DATE) AS "DATE",
+			COUNT(*) AS "COUNT"
+		  FROM MEMBER
+		GROUP BY EXTRACT(MONTH FROM ENROLL_DATE)
+		ORDER BY EXTRACT(MONTH FROM ENROLL_DATE)
+	</select>
+	
+	<!-- 월별 매출액 -->
+	<select id="salesMonth" parameterType="string" resultMap="enrollCountResultSet">
+		SELECT EXTRACT(MONTH FROM RESERVE_PAYMENT) AS "DATE",
+		       SUM(RESERVE_SUM) AS "COUNT"
+		  FROM BUYLIST
+		GROUP BY EXTRACT(MONTH FROM RESERVE_PAYMENT)
+		ORDER BY EXTRACT(MONTH FROM RESERVE_PAYMENT)
+	</select>
+	
 </mapper>
