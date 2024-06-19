@@ -331,7 +331,9 @@
 	        color: white;
 	    }
 	    .hover-date {
-	        background-color: #f0f0f0;
+	        background-color:
+
+ #f0f0f0;
 	    }
 		
     </style>
@@ -352,7 +354,7 @@
 			  </c:if>
         
             <div id="title-area" style="margin-top: 100px;">
-            	<input type="hidden" id="concertID" value="1"> <!-- 주문번호생성시 필요 -->
+            	<input type="hidden" id="concertID" value="${concert.concertId}"> <!-- 주문번호생성시 필요 -->
                 <h2>${concert.concertName}</h2>
                 <h6 style="color: gray;">${concert.startDate} ~ ${concert.endDate} | ${concert.holeName}</h6>
                 <hr class="info-hr"><br>
@@ -431,97 +433,8 @@
 			                	</c:choose>  
                                 </span>
                             </td>
-                            
                         </tr>
-                        
-                        
-                        
-                        
-                       <script>
-                       function toggleLike() {
-                           var userId = '${sessionScope.loginUser.userId}';
-                           var concertId = $('#concertID').val();
-                           var likeKey = 'likeStatus_' + concertId;
 
-                           if ($("#like-icon").attr("value") == "false") {
-                               $.ajax({
-                                   type: "POST",
-                                   url: "<c:url value='/wishlistadd'/>",
-                                   data: { userId: userId, concertId: concertId },
-                                   success: function(response) {
-                                       let likeCount = parseInt($("#like-count").text()) + 1;
-                                       $("#like-count").text(likeCount);
-                                       $("#like-icon").html("❤️");
-                                       $("#like-icon").attr("value", "true");
-                                       localStorage.setItem(likeKey, 'true');
-                                       alertify.alert('알림', response, function() {
-                                           alertify.success('관심 공연에 추가되었습니다.');
-                                       });
-                                   },
-                                   error: function(xhr, status, error) {
-                                       if (xhr.status === 401) {
-                                           var response = JSON.parse(xhr.responseText);
-                                           alertify.alert('알림', response.message, function() {
-                                               window.location.href = "<c:url value='/'/>";
-                                           });
-                                       } else {
-                                           alertify.alert('알림', '관심 공연 추가에 실패했습니다.', function() {
-                                               alertify.error('오류가 발생했습니다.');
-                                           });
-                                       }
-                                   }
-                               });
-                           } else {
-                               $.ajax({
-                                   type: "POST",
-                                   url: "<c:url value='/wishlistremove'/>",
-                                   data: { userId: userId, concertId: concertId },
-                                   success: function(response) {
-                                       let likeCount = parseInt($("#like-count").text()) - 1;
-                                       $("#like-count").text(likeCount);
-                                       $("#like-icon").html("🤍");
-                                       $("#like-icon").attr("value", "false");
-                                       localStorage.setItem(likeKey, 'false');
-                                       alertify.alert('알림', response, function() {
-                                           alertify.success('관심 공연에서 삭제되었습니다.');
-                                       });
-                                   },
-                                   error: function(xhr, status, error) {
-                                       if (xhr.status === 401) {
-                                           var response = JSON.parse(xhr.responseText);
-                                           alertify.alert('알림', response.message, function() {
-                                               window.location.href = "<c:url value='/'/>";
-                                           });
-                                       } else {
-                                           alertify.alert('알림', '관심 공연 삭제에 실패했습니다.', function() {
-                                               alertify.error('오류가 발생했습니다.');
-                                           });
-                                       }
-                                   }
-                               });
-                           }
-                       }
-
-                       $(document).ready(function() {
-                           var concertId = $('#concertID').val();
-                           var likeKey = 'likeStatus_' + concertId;
-                           var isLoggedIn = $('#isLoggedIn').val() === 'true';
-
-                           if (isLoggedIn) {
-                               var likeStatus = localStorage.getItem(likeKey);
-                               if (likeStatus === 'true') {
-                                   $("#like-icon").html("❤️");
-                                   $("#like-icon").attr("value", "true");
-                               } else {
-                                   $("#like-icon").html("🤍");
-                                   $("#like-icon").attr("value", "false");
-                               }
-                           } else {
-                               $("#like-icon").html("🤍");
-                               $("#like-icon").attr("value", "false");
-                           }
-                       });
-	</script>
                     </table>
                 </div>
 
@@ -624,7 +537,9 @@
 					            </c:when>
 					            <c:otherwise>
 					            <!-- 로그인 후 -->
-					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
+					            <button style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius:
+
+ 5px;"
 					                onclick="payment();">
 					                    예매하기
 					            </button>
@@ -835,7 +750,9 @@
         <!-- 문의하기 버튼 -->
         <div class="-top">
 	        <span>
-	           <a href="enrollform.qa?cno=${cno}"><button type="button" id="q">문의하기</button></a>
+	           <a href="enrollform.qa?cno=${cno}"><button type="button"
+
+ id="q">문의하기</button></a>
            	</span>
         </div>
 
@@ -925,7 +842,7 @@
 								if(result.qList[i].qnaAnswer != null) {
 									str += "<td style='color : #810000;'>완료</td>";
 								} else {
-									str += "<td></td>";
+									str += "</td>";
 								}
 								str += "</tr>"	
 							}
@@ -1016,7 +933,7 @@
 	    let selectedElement = null;
 	
 	    $(function() {
-	        drawCalendar(year, month);
+	        initializeLikeIcon();
 	    });
 	
 	    // 달력 그리기
@@ -1043,7 +960,7 @@
 	        document.getElementById("calendarTbody").innerHTML = forAppend;
 	    }
 	
-	    // 시간 선택
+	 // 시간 선택
 	    function pickTime(element, year, month, date) {
 	        if (selectedElement) {
 	            selectedElement.classList.remove("selected-date");
@@ -1122,13 +1039,65 @@
 	            month = 0;
 	        }
 	        drawCalendar(year, month);
-	        if (month > new Date().getMonth() + 2/*여기 변경*/) {
+	        if (month > new Date().getMonth() + 2/*여기
+
+ 변경*/) {
 	            $("#nextBtn").attr("disabled", "disabled");
 	        }
 	    }
 	
 	    // 첫로딩시 그려줄 함수
 	    drawCalendar(year, month);
+	    
+	 // 좋아요 아이콘 초기화 함수
+	    function initializeLikeIcon() {
+	        const userId = "${sessionScope.loginUser.userId}";
+	        const concertId = $("#concertID").val();
+	        console.log(concertId);
+	        console.log(userId);
+	        if (userId) {
+	            $.ajax({
+	                url: "isInWishlist",
+	                type: "GET",
+	                data: { userId: userId, concertId: concertId },
+	                success: function(result) {
+	                    if (result) {
+	                        $("#like-icon").html("❤️");
+	                        $("#like-icon").attr("value", "true");
+	                    } else {
+	                        $("#like-icon").html("🤍");
+	                        $("#like-icon").attr("value", "false");
+	                    }
+	                }
+	            });
+	        }
+	    }
+
+	 // 좋아요 버튼 클릭 시 실행할 함수
+	    function toggleLike() {
+	        const userId = "${sessionScope.loginUser.userId}";
+	        const concertId = $("#concertID").val();
+	        if (!userId) {
+	            alert("로그인 후 이용 가능합니다.");
+	            return;
+	        }
+	        const isLiked = $("#like-icon").attr("value") === "true";
+	        $.ajax({
+	            url: isLiked ? "wishlistremove" : "wishlistadd",
+	            type: "POST",
+	            data: { userId: userId, concertId: concertId },
+	            success: function(response) {
+	                if (response) {
+	                    $("#like-icon").html(isLiked ? "🤍" : "❤️");
+	                    $("#like-icon").attr("value", isLiked ? "false" : "true");
+	                    let likeCount = parseInt($("#like-count").text());
+	                    likeCount = isLiked ? likeCount - 1 : likeCount + 1;
+	                    $("#like-count").text(likeCount);
+	                    alert(response);
+	                }
+	            }
+	        });
+	    }
 	</script>
 
     <div class="footer">

@@ -81,8 +81,6 @@ public class ConcertController {
 	        int seatCount = concertService.selectSeatCount(cno);
 	              
 	        
-	        
-	        
 	        model.addAttribute("rvList", rvList);
 	        model.addAttribute("qnaList", qnaList);
 	        model.addAttribute("cno",cno);
@@ -105,25 +103,30 @@ public class ConcertController {
 	}
 	
 	@PostMapping(value = "/wishlistadd", produces = "text/html; charset=UTF-8")
-	    @ResponseBody
-	    public String addWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
-	        int result = concertService.addWishlist(userId, concertId);
-	        if (result > 0) {
-	            return "관심 공연에 추가되었습니다.";
-	        } else {
-	            return "관심 공연 추가에 실패했습니다.";
-	        }
+	@ResponseBody
+	public String addWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    int result = concertService.addWishlist(userId, concertId);
+	    if (result > 0) {
+	        return "관심 공연에 추가되었습니다.";
+	    } else {
+	        return "관심 공연 추가에 실패했습니다.";
 	    }
-
-	    @PostMapping(value ="/wishlistremove", produces = "text/html; charset=UTF-8")
+	}
+	@PostMapping(value ="/wishlistremove", produces = "text/html; charset=UTF-8")
+	@ResponseBody
+	public String removeWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    int result = concertService.removeWishlist(userId, concertId);
+	    if (result > 0) {
+	        return "관심 공연에서 삭제되었습니다.";
+	    } else {
+	        return "관심 공연 삭제에 실패했습니다.";
+	    }
+	}
+	    @GetMapping(value = "isInWishlist", produces = "application/json; charset=UTF-8")
 	    @ResponseBody
-	    public String removeWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
-	        int result = concertService.removeWishlist(userId, concertId);
-	        if (result > 0) {
-	            return "관심 공연에서 삭제되었습니다.";
-	        } else {
-	            return "관심 공연 삭제에 실패했습니다.";
-	        }
+	    public boolean isInWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    	System.out.println(concertService.isInWishlist(userId, concertId));
+	        return concertService.isInWishlist(userId, concertId);
 	    }
 	    
 	    @GetMapping("date.co")
