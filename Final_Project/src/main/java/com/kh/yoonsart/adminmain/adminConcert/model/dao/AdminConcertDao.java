@@ -48,4 +48,8 @@ public class AdminConcertDao {
 	public int updateConsertStartEnd(SqlSessionTemplate sqlSession,int id) {
 		return sqlSession.update("concertMapper.updateConsertStartEnd", id);
 	}
+	
+	public ArrayList<String> getHoleList(SqlSessionTemplate sqlSession){
+		return (ArrayList)sqlSession.selectList("concertMapper.getHoleList");
+	}
 }

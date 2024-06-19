@@ -61,5 +61,11 @@ public class AdminConcertServiceImpl implements AdminConcertService {
 		return result;		
 	}
 
+	@Override
+	public ArrayList<String> getHoleList() {		
+		return adminConcertDao.getHoleList(sqlSession);
+	}
+
+	
 
 }

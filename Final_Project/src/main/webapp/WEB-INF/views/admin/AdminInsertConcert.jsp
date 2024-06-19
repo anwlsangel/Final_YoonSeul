@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -124,8 +125,10 @@
 				<td><select name="holeName" id="hole"
 					oninput="drawScheduleCalendarEI()">
 						<option value="0">선택안함</option>
-						<!-- 데이터 받아와야함 -->
-						<!-- 선택시 스케쥴도 받아와야함 -->
+						<c:forEach var="list" items="${holeList}">
+			                <option value='${list}'>${list}</option>
+			            </c:forEach>
+					
 				</select></td>
 			</tr>
 		</table>
@@ -148,7 +151,6 @@
 
 	<script>
  // 홀 정보 넣기 페이지 로딩시 값 건내받기 
-    let holeList = ['윤슬', '아트'];
     // 추가 되는 공연 날짜 정보 변수
     let addIndex = 0;
     let addScheduleList = [];
@@ -166,12 +168,7 @@
     let checkRunningTime = true;
 
     //==================================== 초기 단 1회적용 코드
-    $(function () {
-        for (let i = 0; i < holeList.length; i++) {
-            document.getElementById("hole").innerHTML += `<option value="\${holeList[i]}"> \${holeList[i]}</option>`
-        }//jsp taglib으로 대체가능 구문
 
-    })
 
     //이미지 확인용 펑션
     function imgCheck(x) {
@@ -258,7 +255,8 @@
             document.getElementById("min").readOnly=false;
             document.getElementById("hour").focus();
             return;
-        }
+        }        
+        
         var calendarEl = document.getElementById('calendar');
 
              calendar = new FullCalendar.Calendar(calendarEl, {
@@ -451,7 +449,6 @@
             return;
         }
         jsonArray.sort(function (a, b) {
-            console.log(a+"/"+b)
             return new Date(a) - new Date(b);
         });
         if(confirm("공연장:"+document.getElementById("hole").value+"\n"+jsonArray.join("\n")+"\n위 일정으로 추가하시겠습니까?")){

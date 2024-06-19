@@ -36,6 +36,10 @@
 			<mapping path="/wishlistremove"/> <!-- 0613 추가 무진 -->
 			<beans:bean class="com.kh.yoonsart.common.interceptor.LoginInterceptor" id="LoginInterceptor"></beans:bean>
 		</interceptor>
+		<interceptor>
+			<mapping path="/admin/**"/>
+			<beans:bean class="com.kh.yoonsart.common.interceptor.AdminInterceptor" id="AdminInterceptor"/>
+		</interceptor>
 	</interceptors>
 	
 	<!-- email 전송 관련 빈 등록 - 0611 무진 -->
