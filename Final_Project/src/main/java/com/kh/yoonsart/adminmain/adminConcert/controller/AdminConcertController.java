@@ -129,10 +129,5 @@ public class AdminConcertController {
 		return "redirect:/AdInsertConcert.co";
 	}
 	
-	@RequestMapping("admin")
-	public String xxx() {
-		System.out.println("xxxx");
-		return "admin/AdminInsertConcert";
-	}
 
 }

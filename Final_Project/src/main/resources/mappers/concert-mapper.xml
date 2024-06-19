@@ -1,8 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="concertMapper">
-
-
 <resultMap type="concert" id="concertResultSet">
 		<result column="CONCERT_ID" property="concertId"/>
 		<result column="CONCERT_NAME" property="concertName"/>
@@ -58,7 +56,6 @@
 	        </otherwise>
 	    </choose>
 	</select>
-
 	<!-- 검색용 쿼리문 -->
 		<select id="searchList" parameterType="map" resultMap="concertResultSet">
 		    SELECT c.*, h.HOLE_NAME, h.STATUS
@@ -91,7 +88,6 @@
 		        </otherwise>
 		    </choose>
 		</select>
-    
     <!-- 상세조회용 쿼리문 -->
     <select id="concertDetail" parameterType="int" resultMap="concertResultSet">
 	    SELECT *
@@ -104,7 +100,7 @@
 		SELECT COUNT(*)
 		  FROM QNA
 		 WHERE STATUS = '1'
-	</select> 
+	</select>
 	<!-- 관심공연용 쿼리문 - 0613 무진 -->
 	<insert id="insertWishlist" parameterType="map">
 	    MERGE INTO WISHLIST w
@@ -128,12 +124,9 @@
 	</select>
 	
 	
-	<!-- 관심공연 확인용 쿼리문 0619 무진 -->  	
-	<select id="isInWishlist" parameterType="map" resultType="int">
-	    SELECT COUNT(*)
-	    FROM WISHLIST
-	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
-	</select>	
+	
+	
+	
 	
 	
 	<!-- 관리자용 쿼리문 -->
@@ -147,12 +140,12 @@
 	<select id="adConcertDetail" resultType="_int" resultMap="concertResultSet">
 		SELECT *
 		  FROM CONCERT_INFO
-		 WHERE CONCERT_ID = #{concertId} 
+		 WHERE CONCERT_ID = #{concertId}
 	</select>
 	
 	<!-- 공연 정보 수정용 쿼리문 -->
 	<update id="adUpdateConcert" parameterType="concert">
-		UPDATE CONCERT_INFO 
+		UPDATE CONCERT_INFO
 		   SET CONCERT_NAME = #{concertName},
 		       AGE_LIMIT = #{ageLimit},
 		       PRICE = #{price},
@@ -175,15 +168,31 @@
       WHERE w.USER_ID = #{userId}
 		   AND c.END_DATE > SYSDATE
 	</select>
-      
     <!-- 특정 공연의 좋아요 수를 계산하는 쿼리 - 0618 무진 -->
     <select id="selectWishlistCount" parameterType="int" resultType="_int">
         SELECT COUNT(*)
         FROM WISHLIST
         WHERE CONCERT_ID = #{concertId}
     </select>
-    
-    <!-- 기존 스케줄 홀이름과 날짜로 조회 용환 -->    
+    <select id="selectSeatCount" parameterType="int" resultType="_int">
+    	SELECT SEATCOUNT
+		FROM CONCERT_INFO CI
+		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
+		WHERE CI.CONCERT_ID = #{concertId}
+    </select>
+    <select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
+	    SELECT
+	        CONCERT_DATE_ID,
+	        CONCERT_DATE,
+	        RUNNINGTIME,
+	        CONCERT_ID,
+	        TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
+	    FROM CONCERT_DATE
+	    WHERE CONCERT_ID = #{concertId}
+	</select>
+
+
+	 <!-- 기존 스케줄 홀이름과 날짜로 조회 용환 -->    
     <select id="getScheduleWihtHoleName" parameterType="map" resultType="ConcertDateByKwon">
 		select 	ci.concert_id as "concertId",
 		 		concert_name as "concertName",
@@ -199,8 +208,8 @@
 	</select>
 	<!-- 공연 인포 인서트 기본정보 -->
 	<insert id="incertConcertInfo" parameterType="concert">
-		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status)
-			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status} )
+		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status,seatcount)
+			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status},select count(*) from seat where hole_name=#{holeName} )
 	</insert>
 	<!-- 공연 date 인서트 -->
 	<insert  id="insertConcertDate" parameterType="java.util.List">
@@ -239,5 +248,8 @@
 	      AND CONCERT_DATE &lt; TO_DATE(#{dateString} || ' 23:59', 'YYYY-MM-DD HH24:MI')
 	    ORDER BY CONCERT_DATE ASC
 	</select>
-	
+	<!-- 현재 홀이름 받아오기 -->
+	<select id="getHoleList" resultType="string">
+		select hole_name from hole
+	</select>
 </mapper>
