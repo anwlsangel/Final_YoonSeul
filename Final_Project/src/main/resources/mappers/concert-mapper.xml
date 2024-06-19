@@ -2,6 +2,7 @@
 <!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
 <mapper namespace="concertMapper">
 
+
 <resultMap type="concert" id="concertResultSet">
 		<result column="CONCERT_ID" property="concertId"/>
 		<result column="CONCERT_NAME" property="concertName"/>
