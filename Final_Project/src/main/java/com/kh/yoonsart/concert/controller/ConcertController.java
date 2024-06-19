@@ -138,4 +138,15 @@ public class ConcertController {
 	        return DateList;
 	    }
 
+	    @GetMapping("mainTopList.co")
+	    public ArrayList<Concert> selectMainTopList() {
+	    	
+	    	System.out.println("메인페이지 로딩");
+	    	
+	    	ArrayList<Concert> mainTopList = concertService.selectMainTopList();
+	    	
+	    	return mainTopList;
+	    	
+	    }
+	    
 }

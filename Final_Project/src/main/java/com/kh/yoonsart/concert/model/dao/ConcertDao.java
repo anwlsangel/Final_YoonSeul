@@ -112,6 +112,10 @@ public class ConcertDao {
 		
 		return (ArrayList)sqlSession.selectList("concertMapper.selectDateList", params);
 	}
+
+	public ArrayList<Concert> selectMainTopList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectMainTopList");
+	}
 	
 	
 	

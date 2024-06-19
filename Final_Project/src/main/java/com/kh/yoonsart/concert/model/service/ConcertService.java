@@ -38,4 +38,6 @@ public interface ConcertService {
 	ArrayList<ConcertDate> selectDateList(int cno, String dateString);
 
 	boolean isInWishlist(String userId, int concertId);
+
+	ArrayList<Concert> selectMainTopList();
 }

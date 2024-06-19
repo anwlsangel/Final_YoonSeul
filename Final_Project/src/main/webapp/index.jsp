@@ -661,11 +661,34 @@
     </div>
     
 	<script>
-	   	$(function() {
-	   		$(".overlay").click(function() {
-	   			location.href = "concertDetailView.co";
-	   		});
-	   	});
+		$(function() {
+		    $.ajax({
+		        url: "mainTopList.co",
+		        method: "GET",
+		        success: function(result) {
+		            let mainTopImg = $("#main-top-img");
+		            mainTopImg.empty();
+		            result.forEach(function(concert) {
+		                let concertHtml = `
+		                    <div class="top-img">
+		                        <img src="${concert.thumbnailRoot}" class="top-img">
+		                        <div class="overlay">
+		                            <p>
+		                                ${concert.concertName}<br>
+		                                ${concert.startDate} ~ ${concert.endDate}<br>
+		                                	연극정보가 들어갈자리
+		                            </p>
+		                        </div>
+		                    </div>
+		                `;
+		                mainTopImg.append(concertHtml);
+		            });
+		        },
+		        error: function() {
+		            console.log("메인 탑이미지 조회용 ajax 실패");
+		        }
+		    });
+		});
     </script>
 
     <div class="main-top-img">        
@@ -823,7 +846,6 @@
             var jbOffset = $('#mainImage').offset().top + $('#mainImage').height();
             $(window).scroll(function() {
                 if ($(document).scrollTop() > jbOffset) {
-                    console.log("시작")
                     $('#main-navi').addClass('jbFixed');
                 } else {
                     $('#main-navi').removeClass('jbFixed');
