@@ -103,21 +103,34 @@
 	</update>
 	
 	<!-- 좌석 상태 변경 (결제중) -->
-	<update id="startPayment" parameterType="ticket">
-		UPDATE TICKET
-		   SET STATUS = 2
-		 WHERE CONCERT_DATE_ID = #{concertDateId}
-		   AND SEAT_ID = #{seatId}
-		   AND STATUS = 1
-	</update>
+	<insert id="startPayment" parameterType="ticket">
+		INSERT INTO TICKET(TICKET_ID
+						 , STATUS
+		                 , CONCERT_DATE_ID
+		                 , SEAT_ID
+		                 , BUYLIST_ID)
+		            VALUES(SEQ_SNO.NEXTVAL
+		            	 , 2
+		                 , #{concertDateId}
+		                 , #{seatId}
+		                 , 0)
+	</insert>
+	
 	<!-- 좌석 상태 변경 (구매불가) -->
 	<update id="endPayment" parameterType="ticket">
 		UPDATE TICKET
 		   SET STATUS = 0
+		     , BUYLIST_ID = #{buyListId}
 		 WHERE CONCERT_DATE_ID = #{concertDateId}
 		   AND SEAT_ID = #{seatId}
 		   AND STATUS = 2
 	</update>
+	
+	<!-- 좌석 상태 변경 (구매가능) -->
+	<delete id="deleteTicket" parameterType="string">
+		DELETE FROM TICKET
+		 WHERE BUYLIST_ID = #{buyListId}
+	</delete>
 	
 </mapper>
 

@@ -111,6 +111,7 @@
                     		</c:choose>
                     		</tbody>
                     	</table>
+                    	
                     	<script>
 	                    	//환불
 	                    	const apiKey = "5866740403361550";
@@ -118,6 +119,18 @@
 					    	//let buyListId = "${requestScope.bl.buyListId}";
 					    	let buyListId = "";
 					    	let token = "";
+					    	
+					    	//좌석 상태 변경 (구매가능)
+					    	function deleteTicket(id) {
+					    		$.ajax({
+					    			url: "deleteTicket.pa",
+					    			type: "post",
+					    			data: { buyListId: id },
+					    			success: function() { console.log("ticket 삭제 성공"); },
+					    			error: function() { console.log("ticket 삭제 실패"); }
+					    		});
+					    	}
+					    	
 	    			    	function refund() {
 	    			    		console.log("환불 요청...");
 	    			    		$.ajax({
@@ -129,6 +142,7 @@
 	    			    				reason: "환불사유" //환불사유
 	    			    			},
 	    			    			success: function(result) {
+	    			    				deleteTicket(buyListId);
 	    			    				console.log("환불 성공");
 	    			    				alert("환불되었습니다.");
 	    			    				location.reload(true);

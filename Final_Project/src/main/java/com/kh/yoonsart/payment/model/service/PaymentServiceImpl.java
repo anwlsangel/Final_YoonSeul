@@ -172,5 +172,12 @@ public class PaymentServiceImpl implements PaymentService{
 		return paymentDao.endPayment(sqlSession, ticket);
 	}
 	
+	//좌석 상태 변경 (구매가능)
+	@Transactional
+	@Override
+	public int deleteTicket(String buyListId) {
+		return paymentDao.deleteTicket(sqlSession, buyListId);
+	}
+	
 
 }

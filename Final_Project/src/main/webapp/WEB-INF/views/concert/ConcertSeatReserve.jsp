@@ -348,7 +348,7 @@ body {
         
         
         //좌석 상태 변경 (구매불가)
-        function endPayment() {
+        function endPayment(uid) {
         	let concertDateId = 1;
         	let seatId = [1, 2]
         	
@@ -360,7 +360,8 @@ body {
             		type: "post",
             		data: {
             			cid: concertDateId,
-            			sid: seatId[i]
+            			sid: seatId[i],
+            			buyListId: uid
             		},
             		success: function(result) {
             			if(result > 0) {
@@ -443,7 +444,7 @@ body {
 		     	            	success: function(result) {
 		     	            		if(result == "success") {
 		     	            			//좌석 상태 구매 불가로 변경
-		     	            			endPayment();
+		     	            			endPayment(rsp.merchant_uid);
 		     	            			
 		     	            			console.log("결제정보 저장 성공");
 		     	            			alert("결제 완료되었습니다.");
@@ -485,7 +486,7 @@ body {
             				console.log("좌석 상태 결제중으로 변경 성공");
             				if(resultSum >= seatId.length) {
             	        		console.log("좌석 상태 결제중으로 변경 모두 완료");
-            	        		//pay();
+            	        		pay();
             	        	}
             			}
             			else {
