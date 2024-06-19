@@ -24,6 +24,7 @@ public class BuyList {
 	private String userId;				//	USER_ID				VARCHAR2(30 BYTE)
 	private int status;
 	
+	
 	public void BuyList() {}
 	public BuyList(String buyListId, String reserveCode, String reserveConcertId, int reserveTicket, int reserveSum,
 			Date reservePayment, Date reserveRefund, String userId, int status) {
