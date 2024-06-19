@@ -122,9 +122,10 @@ public class ConcertController {
 	        return "관심 공연 삭제에 실패했습니다.";
 	    }
 	}
-	    @GetMapping(value = "/isInWishlist", produces = "application/json; charset=UTF-8")
+	    @GetMapping(value = "isInWishlist", produces = "application/json; charset=UTF-8")
 	    @ResponseBody
 	    public boolean isInWishlist(@RequestParam("userId") String userId, @RequestParam("concertId") int concertId) {
+	    	System.out.println(concertService.isInWishlist(userId, concertId));
 	        return concertService.isInWishlist(userId, concertId);
 	    }
 	    

@@ -73,7 +73,7 @@ public class ConcertDao {
 	
 	// 관심공연 확인용 쿼리문
 	public int isInWishlist(SqlSessionTemplate sqlSession, Map<String, Object> map) {
-	    return sqlSession.selectOne("concertMapper.isInWishlist", map);
+		return sqlSession.selectOne("concertMapper.isInWishlist", map);
 	}
 
 

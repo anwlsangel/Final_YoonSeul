@@ -933,7 +933,6 @@
 	    let selectedElement = null;
 	
 	    $(function() {
-	        drawCalendar(year, month);
 	        initializeLikeIcon();
 	    });
 	
@@ -1054,6 +1053,8 @@
 	    function initializeLikeIcon() {
 	        const userId = "${sessionScope.loginUser.userId}";
 	        const concertId = $("#concertID").val();
+	        console.log(concertId);
+	        console.log(userId);
 	        if (userId) {
 	            $.ajax({
 	                url: "isInWishlist",
