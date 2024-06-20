@@ -248,6 +248,7 @@ public class MemberController {
 			}
 			
 		}
+		
 		@PostMapping(value = "resetPwd.do", consumes = "application/json", produces = "text/plain; charset=UTF-8")
 		@ResponseBody
 		public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> requestData) {
@@ -272,6 +273,7 @@ public class MemberController {
 		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경 중 오류 발생: " + e.getMessage());
 		    }
 		}
+		
 		//예매내역 페이지 포워딩
 		@GetMapping(value="myTicketList.me", produces="application/json; charset=UTF-8")
 		public String myTicketList(Model model, String userId) {
