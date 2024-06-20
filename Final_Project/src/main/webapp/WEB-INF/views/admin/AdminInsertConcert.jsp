@@ -1,34 +1,19 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
 <!DOCTYPE html>
 <html>
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<script src="https://cdn.jsdelivr.net/npm/d3@7"></script>
-<script src="https://d3js.org/d3.v7.min.js"></script>
-<link rel="stylesheet"
-	href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/css/bootstrap.min.css">
-<script
-	src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.1/js/bootstrap.min.js"></script>
-<link
-	href='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.css'
-	rel='stylesheet' />
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.js'></script>
-<script
-	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/locales-all.min.js'></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.14/index.global.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.14/index.global.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.14/index.global.min.js"></script>
-<script
-	src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.14/index.global.min.js"></script>
-<script
-	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+
+<script	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/main.min.js'></script>
+<script	src='https://cdn.jsdelivr.net/npm/fullcalendar@6.1.14/locales-all.min.js'></script>
+<script	src="https://cdn.jsdelivr.net/npm/@fullcalendar/core@6.1.14/index.global.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@fullcalendar/interaction@6.1.14/index.global.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@fullcalendar/daygrid@6.1.14/index.global.min.js"></script>
+<script	src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.14/index.global.min.js"></script>
+<script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
 <title>Document</title>
 
@@ -38,114 +23,129 @@
 </head>
 
 <body>
+	<div id="wrapper">
 
-	<!-- img 확인용 div -->
-	<div id="checkImgModal" style="display: none; position: absolute;">
-		<img id="modalImg" src="" alt="없어요"
-			onclick="document.getElementById('checkImgModal').style.display='none'">
-		<button type="button"
-			onclick="document.getElementById('checkImgModal').style.display='none'">닫기</button>
-	</div>
+		<jsp:include page="../common/adminNav.jsp" />
 
+		<div id="content-wrapper" class="d-flex flex-column">
 
-	<h1>공연 등록</h1>
-	<form action="insertConcert.ic" method="post" id="insertConcertForm"
-		enctype="multipart/form-data">
-		<table class="table" style="width: 500px;">
-			<tr>
-				<td><label for="concertState">상태</label></td>
-				<td><select id="status" name="status" required>
-						<option value="0">오픈</option>
-						<option value="1">히든</option>
-				</select></td>
-			</tr>
-			<!-- 이름 -->
-			<tr>
-				<td><label for="concertName">공연명 :</label></td>
-				<td><input id="concertName" name="concertName" required></td>
-			</tr>
-			<!-- 연령 -->
-			<tr>
-				<td><label for="ageLimit">연령제한 :</label></td>
-				<td><select id="ageLimit" name="ageLimit" required>
-						<option value="0">없음</option>
-						<option value="8">8</option>
-						<option value="12">12</option>
-						<option value="15">15</option>
-						<option value="19">19</option>
-				</select></td>
-			</tr>
-			<!-- 가격 -->
-			<tr>
-				<td><label for="price">가격 :</label></td>
-				<td><input id="price" name="price" type="number" value="10000"
-					step="1000" min="0" requireds><span>원</span></td>
+			<!-- Main Content -->
+			<div id="content">
 
-			</tr>
-			<!-- 카테고리 -->
-			<tr>
-				<td><label for="category">카테고리 :</label></td>
-				<td><select name="category" id="category" required>
-						<option value="콘서트">콘서트</option>
-						<option value="아동">아동</option>
-						<option value="공포">공포</option>
-						<option value="로맨스">로맨스</option>
-						<option value="뮤지컬">뮤지컬</option>
-						<option value="연극">연극</option>
-						<option value="클래식">클래식</option>
-				</select></td>
-			</tr>
-			<!-- 러닝타임 -->
-			<tr>
-				<td><label for="playtime">공연시간 :</label></td>
-				<td><input id="hour" type="number" step="1" max="4" value="1"
-					min="0" onchange="hourValid(this)">시간 <input id="min"
-					type="number" step="5" value="0" max="60" min="-5"
-					onchange="minValid(this)">분<br> <input id="playtime"
-					name="playTime" type="text" value="1:0" name="playtime"
-					style="width: 60px;" readonly required></td>
-			</tr>
-			<!-- 썸네일 -->
-			<tr>
-				<td><label for="thumbnailRoot">썸네일이미지 :</label></td>
-				<td><input id="thumbnailRoot" name="thumbnail" type="file" accept="image/*">
-					<button type="button" onclick="imgCheck('thumbnailRoot')">썸네일확인</button>
-				</td>
-			</tr>
-			<!-- 디테일 -->
-			<tr>
-				<td><label for="detailRoot">설명이미지 :</label></td>
-				<td><input id="detailRoot" name="detail" type="file" accept="image/*">
-					<button type="button" onclick="imgCheck('detailRoot')">설명이미지확인</button>
-				</td>
-			</tr>
-			<!-- 홀 -->
-			<tr>
-				<td><label for="hole">홀선택 :</label></td>
-				<td><select name="holeName" id="hole"
-					oninput="drawScheduleCalendarEI()">
-						<option value="0">선택안함</option>
-						<c:forEach var="list" items="${holeList}">
-			                <option value='${list}'>${list}</option>
-			            </c:forEach>
-					
-				</select></td>
-			</tr>
-		</table>
+				<jsp:include page="../common/adminTop.jsp" />
 
-		<!-- hole 스케쥴용 div-->
-		<div id='calendar' style="width: 50%;"></div>
-		<div id="listDiv">
-			<a href="#listDiv" hidden></a>
-			<button type="button" onclick="submitConcert()">공연등록</button>
-			<h2>
-				총 일정 수 <span id="totalListNum">0</span>
-			</h2>
-			<table id="listTable"></table>
+				
+				<!-- img 확인용 div -->
+				<div id="checkImgModal" style="display: none; position: absolute;">
+					<img id="modalImg" src="" alt="없어요"
+						onclick="document.getElementById('checkImgModal').style.display='none'">
+					<button type="button"
+						onclick="document.getElementById('checkImgModal').style.display='none'">닫기</button>
+				</div>
+
+				<h1 class="h3 mb-4 text-gray-800">공연 등록</h1>
+				
+				<form action="insertConcert.ic" method="post" id="insertConcertForm"
+					enctype="multipart/form-data">
+					<table class="table table-bordered" style="width: 500px;">
+						<tr>
+							<td style="width:150px;"><label for="concertState">상태</label></td>
+							<td><select id="status" name="status" required>
+									<option value="0">오픈</option>
+									<option value="1">히든</option>
+							</select></td>
+						</tr>
+						<!-- 이름 -->
+						<tr>
+							<td><label for="concertName">공연명 :</label></td>
+							<td><input id="concertName" name="concertName" required></td>
+						</tr>
+						<!-- 연령 -->
+						<tr>
+							<td><label for="ageLimit">연령제한 :</label></td>
+							<td><select id="ageLimit" name="ageLimit" required>
+									<option value="0">없음</option>
+									<option value="8">8</option>
+									<option value="12">12</option>
+									<option value="15">15</option>
+									<option value="19">19</option>
+							</select></td>
+						</tr>
+						<!-- 가격 -->
+						<tr>
+							<td><label for="price">가격 :</label></td>
+							<td><input id="price" name="price" type="number"
+								value="10000" step="1000" min="0" requireds><span>원</span></td>
+
+						</tr>
+						<!-- 카테고리 -->
+						<tr>
+							<td><label for="category">카테고리 :</label></td>
+							<td><select name="category" id="category" required>
+									<option value="콘서트">콘서트</option>
+									<option value="아동">아동</option>
+									<option value="공포">공포</option>
+									<option value="로맨스">로맨스</option>
+									<option value="뮤지컬">뮤지컬</option>
+									<option value="연극">연극</option>
+									<option value="클래식">클래식</option>
+							</select></td>
+						</tr>
+						<!-- 러닝타임 -->
+						<tr>
+							<td><label for="playtime">공연시간 :</label></td>
+							<td><input id="hour" type="number" step="1" max="4"
+								value="1" min="0" onchange="hourValid(this)">시간 <input
+								id="min" type="number" step="5" value="0" max="60" min="-5"
+								onchange="minValid(this)">분<br> <input
+								id="playtime" name="playTime" type="text" value="1:0"
+								name="playtime" style="width: 60px;" readonly required></td>
+						</tr>
+						<!-- 썸네일 -->
+						<tr>
+							<td><label for="thumbnailRoot">썸네일이미지 :</label></td>
+							<td><input id="thumbnailRoot" name="thumbnail" type="file"
+								accept="image/*">
+								<button type="button" onclick="imgCheck('thumbnailRoot')">썸네일확인</button>
+							</td>
+						</tr>
+						<!-- 디테일 -->
+						<tr>
+							<td><label for="detailRoot">설명이미지 :</label></td>
+							<td><input id="detailRoot" name="detail" type="file"
+								accept="image/*">
+								<button type="button" onclick="imgCheck('detailRoot')">설명이미지확인</button>
+							</td>
+						</tr>
+						<!-- 홀 -->
+						<tr>
+							<td><label for="hole">홀선택 :</label></td>
+							<td><select name="holeName" id="hole"
+								oninput="drawScheduleCalendarEI()">
+									<option value="0">선택안함</option>
+									<c:forEach var="list" items="${holeList}">
+										<option value='${list}'>${list}</option>
+									</c:forEach>
+
+							</select></td>
+						</tr>
+					</table>
+
+					<!-- hole 스케쥴용 div-->
+					<div id='calendar' style="width: 50%;"></div>
+					<div id="listDiv">
+						<a href="#listDiv" hidden></a>
+						<button type="button" onclick="submitConcert()">공연등록</button>
+						<h2>
+							총 일정 수 <span id="totalListNum">0</span>
+						</h2>
+						<table id="listTable"></table>
+					</div>
+					<input hidden id="forJson" name="forJson">
+				</form>
+			</div>
 		</div>
-		<input hidden id="forJson" name="forJson">
-	</form>
-
+	</div>
 
 
 

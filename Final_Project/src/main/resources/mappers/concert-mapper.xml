@@ -198,8 +198,8 @@
 	</select>
 	<!-- 공연 인포 인서트 기본정보 -->
 	<insert id="incertConcertInfo" parameterType="concert">
-		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status,seatcount)
-			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status},select count(*) from seat where hole_name=#{holeName} )
+		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status)
+			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status} )
 	</insert>
 	<!-- 공연 date 인서트 -->
 	<insert  id="insertConcertDate" parameterType="java.util.List">
