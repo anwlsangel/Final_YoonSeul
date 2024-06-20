@@ -167,7 +167,18 @@
 		    align-items: center;
 		    padding: 0 30px;
 		    float: left;
+   		    position: relative;
 		}
+		.days-left {
+	        position: absolute;
+	        top: 0px;
+	        left: 0px;
+	        background-color: rgba(0, 0, 0, 0.5);
+	        color: white;
+	        padding: 30px;
+	        border-radius: 5px;
+	        font-size: 20px;
+	    }
 		
 		.schedule img {
 		    transition: all 0.3s linear;        
@@ -785,8 +796,8 @@
 			            <input type="button" id="category-button" value="연극" onclick="loadTopConcerts('연극')">
 			            <input type="button" id="category-button" value="클래식" onclick="loadTopConcerts('클래식')">
                     </menu>
-                <div class="schedule-list">여기에 공연이 들어가야됨</div>                
-                <div id="schedule-button"><input type="button" value="공연 목록" id="sc-button" onclick="location.href='<%=request.getContextPath()%>/list.co?category=전체&sort=populer'"></div>
+                <div class="schedule-list"></div>                
+                <div id="schedule-button"><input type="button" value="공연 목록" id="sc-button" onclick="location.href='<%=request.getContextPath()%>/list.co?category=전체&sort=popularity'"></div>
         </div>
     </div>
     
@@ -879,9 +890,16 @@
 	
 	                    let endDate = endyear + "-" + endmonth + "-" + enddate;
 	
+	                    // 현재 날짜와 콘서트 시작 날짜 간의 차이 계산
+	                    let currentDate = new Date();
+	                    let concertDate = new Date(startDate);
+	                    let timeDifference = concertDate - currentDate;
+	                    let daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
+	
 	                    const concertHtml = `
 	                        <div class="schedule">
 	                            <img src="\${concert.thumbnailRoot}" style="width: 100%; height: 100%;">
+	                            <div class="days-left">D-${daysLeft}</div>
 	                            <div class="detail-text">\${concert.concertName}</div>
 	                            <div class="detail-text">\${startDate} 오픈 예정</div>
 	                        </div>
