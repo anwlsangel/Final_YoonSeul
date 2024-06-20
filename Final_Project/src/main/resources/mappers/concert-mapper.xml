@@ -40,6 +40,7 @@
 	    <if test="sort == 'seating'">
 	        AND h.STATUS = 1
 	    </if>
+	    AND c.STATUS = 1
 	    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
 	    <choose>
 	        <when test="sort == 'popularity'">
@@ -72,6 +73,7 @@
 		    <if test="sort == 'seating'">
 		        AND h.STATUS = 1
 		    </if>
+		    AND c.STATUS = 1
 		    ORDER BY
 		    <choose>
 		        <when test="sort == 'popularity'">
@@ -111,9 +113,16 @@
 	    VALUES (src.USER_ID, src.CONCERT_ID)
 	</insert>
 	
+	<!-- 관심공연 확인용 쿼리문 0619 무진 -->  	
+	<select id="isInWishlist" parameterType="map" resultType="int">
+	    SELECT COUNT(*)
+	    FROM WISHLIST
+	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
+	</select>
+	
 	<delete id="deleteWishlist" parameterType="map">
 	    DELETE FROM WISHLIST
-	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}
+	    WHERE USER_ID = #{userId} AND CONCERT_ID = #{concertId}	    
 	</delete>   	
 	
 	<select id="selectHoleStatus" resultType="_int">
@@ -167,6 +176,7 @@
        JOIN WISHLIST w ON c.CONCERT_ID = w.CONCERT_ID
       WHERE w.USER_ID = #{userId}
 		   AND c.END_DATE > SYSDATE
+		   AND c.STATUS = 1
 	</select>
     <!-- 특정 공연의 좋아요 수를 계산하는 쿼리 - 0618 무진 -->
     <select id="selectWishlistCount" parameterType="int" resultType="_int">
@@ -179,6 +189,7 @@
 		FROM CONCERT_INFO CI
 		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
 		WHERE CI.CONCERT_ID = #{concertId}
+		AND CI.STATUS=1
     </select>
 
 
@@ -196,11 +207,13 @@
 		and (cd.concert_date + to_dsinterval('0 ' || ci.playtime || ':00')) >= to_date(#{startDate} ,'YYYY-MM-DD HH24:MI')
 		and to_date(#{lastDate},'YYYY-MM-DD HH24:MI') >= cd.concert_date
 	</select>
+	
 	<!-- 공연 인포 인서트 기본정보 -->
 	<insert id="incertConcertInfo" parameterType="concert">
 		insert into concert_info (concert_id, concert_name,price, age_limit, thumbnail_root, detail_root ,playtime, category, hole_name,status)
 			values(seq_cno.nextval, #{concertName},#{price},#{ageLimit},#{thumbnailRoot},#{detailRoot},#{playTime} ,#{category},#{holeName} ,   #{status} )
 	</insert>
+	
 	<!-- 공연 date 인서트 -->
 	<insert  id="insertConcertDate" parameterType="java.util.List">
 		insert into concert_date (concert_date_id,   concert_id,concert_date)
@@ -235,4 +248,46 @@
 	<select id="getHoleList" resultType="string">
 		select hole_name from hole
 	</select>
+	
+	
+	<!-- 메인페이지용 쿼리문 모음 -->
+	<select id="selectMainTopList" resultMap="concertResultSet">
+		SELECT * FROM (
+		    SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
+		    FROM CONCERT_INFO c
+		    JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+		    LEFT JOIN REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
+		    WHERE c.END_DATE > SYSDATE
+		    AND c.STATUS = 1
+		    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
+		    ORDER BY COUNT(r.REVIEW_ID) DESC
+		) 
+		WHERE ROWNUM &lt;= 3
+	</select>
+	
+	<select id="selectTopConcerts" parameterType="String" resultMap="concertResultSet">
+	    SELECT * FROM (
+	        SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
+	        FROM CONCERT_INFO c
+	        JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+	        LEFT JOIN REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
+	        WHERE c.END_DATE > SYSDATE
+	        AND c.CATEGORY = #{category}
+	        AND c.STATUS = 1
+	        GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
+	        ORDER BY REVIEW_COUNT DESC
+	    ) WHERE ROWNUM &lt;= 5
+	</select>
+	
+	<select id="selectOpenConcerts" resultMap="concertResultSet">
+		SELECT *
+		  FROM (
+		    SELECT *
+		    FROM CONCERT_INFO
+		    WHERE START_DATE > SYSDATE
+		    ORDER BY START_DATE ASC
+		  )
+		  WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
