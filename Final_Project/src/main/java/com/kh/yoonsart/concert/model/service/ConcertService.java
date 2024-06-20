@@ -40,4 +40,6 @@ public interface ConcertService {
 	boolean isInWishlist(String userId, int concertId);
 
 	ArrayList<Concert> selectMainTopList();
+
+	ArrayList<Concert> selectTopConcerts(String category);
 }

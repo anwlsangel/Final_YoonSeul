@@ -55,7 +55,7 @@ public class AdminConcertController {
 
 	}
 
-	@PostMapping("AdMemberUpdate.me")
+	@PostMapping("AdConcertUpdate.co")
 	public ModelAndView AdminConcertUpdate(Concert c, Model model, ModelAndView mv, HttpSession session) {
 
 		int result = adminConcertService.adUpdateConcert(c);

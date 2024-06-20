@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.google.gson.Gson;
 import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
@@ -138,15 +139,26 @@ public class ConcertController {
 	        return DateList;
 	    }
 
-	    @GetMapping("mainTopList.co")
-	    public ArrayList<Concert> selectMainTopList() {
+	    @ResponseBody
+	    @GetMapping(value="mainTopList.co", produces="application/json; charset=UTF-8")
+	    public String selectMainTopList() {
 	    	
-	    	System.out.println("메인페이지 로딩");
+	    	ArrayList<Concert> mainTopList = concertService.selectMainTopList();	    	
 	    	
-	    	ArrayList<Concert> mainTopList = concertService.selectMainTopList();
-	    	
-	    	return mainTopList;
+	    	return new Gson().toJson(mainTopList);
 	    	
 	    }
+	    
+	    @ResponseBody
+	    @GetMapping(value="selectTopConcerts.co", produces="application/json; charset=UTF-8")
+	    public String selectTopConcerts(@RequestParam("category") String category) {
+	    	
+	    	ArrayList<Concert> topConcertList = concertService.selectTopConcerts(category);	    	
+	    	
+	    	return new Gson().toJson(topConcertList);
+	    }
+	    
+	    
+	    
 	    
 }

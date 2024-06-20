@@ -143,7 +143,16 @@
 		    flex-wrap: wrap;
 		    gap: 3px;
 		    margin: 10px;
-		    height: 700px;
+		    height: 400px;
+		}
+		
+		.schedule-list2 {
+		    display: flex;
+		    justify-content: center;
+		    flex-wrap: wrap;
+		    gap: 3px;
+		    margin: 10px;
+		    height: 400px;
 		}
 		
 		.schedule {
@@ -274,30 +283,16 @@
 		    align-items: center;
 		    width: 100%;
 		    height: 50px;
-		    align-self: center;
-		    margin: 50px;
-		    flex-wrap: wrap;
+		    margin: 50px auto; /* 상하 50px, 좌우 자동 */
 		}
 		
 		#sc-button {
-		    margin-top: 10px;
-		    background: #810000;
-		    color: #fff;
-		    font-size: 16px;
-		    padding: 16px 32px;
-		    font-family: 'Roboto';
-		    font-weight: 500;
-		    line-height: 16px;
-		    border-radius: 24px;
-		    display: block;
-		    outline: none;
-		    appearance: none;
+			padding: 10px 20px;
+		    background-color: #810000;
+		    color: white;
 		    border: none;
-		    text-decoration: none;
-		    letter-spacing: .5px;
-		    box-shadow: 0 2px 8px -1px rgba(0, 0, 0, 0.32);
-		    transform: translateY(0) translateZ(0);
-		    transition: transform .44s ease, box-shadow .44s ease;
+		    border-radius: 5px;
+		    cursor: pointer;
 		}
 		
 		#sc-button:hover {
@@ -352,7 +347,7 @@
 		.main-top-img {
 		    width: 100%;
 		    height: 500px;
-		    margin-top: 50px;
+		    margin-top: 80px;
 		    display: flex;
 		    justify-content: center;
 		}
@@ -379,6 +374,10 @@
 		    opacity: 0;
 		}
 		
+		.overlay:hover {
+			cursor: pointer;
+		}
+		
 		.top-img:hover .overlay {
 		    opacity: 1;
 		    color: white;
@@ -391,9 +390,8 @@
 		}
 		
 		.detail-text {
-		    border: 1px solid red;
 		    height: 50px;
-		    margin-top: 13px;
+		    margin-top: 10px;
 		}
 		
 		/* 로그인 및 회원가입 링크 스타일 및 효과 추가 */
@@ -659,121 +657,62 @@
             <div class="swiper-scrollbar"></div>
         </div>    
     </div>
-    
+    	<h1 style="text-align: center; margin-top: 80px;">리뷰 TOP 3</h1>
+        	
 	<script>
-		$(function() {
-		    $.ajax({
-		        url: "mainTopList.co",
-		        method: "GET",
-		        success: function(result) {
-		            let mainTopImg = $("#main-top-img");
-		            mainTopImg.empty();
-		            result.forEach(function(concert) {
-		                let concertHtml = `
-		                    <div class="top-img">
-		                        <img src="${concert.thumbnailRoot}" class="top-img">
-		                        <div class="overlay">
-		                            <p>
-		                                ${concert.concertName}<br>
-		                                ${concert.startDate} ~ ${concert.endDate}<br>
-		                                	연극정보가 들어갈자리
-		                            </p>
-		                        </div>
-		                    </div>
-		                `;
-		                mainTopImg.append(concertHtml);
-		            });
-		        },
-		        error: function() {
-		            console.log("메인 탑이미지 조회용 ajax 실패");
-		        }
-		    });
-		});
-    </script>
-
-    <div class="main-top-img">        
-            <div class="top-img">
-                <img src="resources/image/b2.jpg" class="top-img">
-                <div class="overlay">
-                    <p>
-                        연극어쩌구 저쩌구<br>
-                        2024-05-30<br>
-                        연극 설명이 들어갈 저쩌구
-                        저쩌구 저쩌구 저쩌구 어쩌구
-                    </p>
-                </div>
-            </div>
-            <div class="top-img">
-            <img src="resources/image/b4.jpg" class="top-img">
-            <div class="overlay">
-                <p>
-                    연극어쩌구 저쩌구<br>
-                    2024-05-30<br>
-                    연극 설명이 들어갈 저쩌구
-                    저쩌구 저쩌구 저쩌구 어쩌구
-                </p>
-            </div>
-            </div>
-            <div class="top-img">
-            <img src="resources/image/post1.jpg" class="top-img">
-            <div class="overlay">
-                <p>
-                    연극어쩌구 저쩌구<br>
-                    2024-05-30<br>
-                    연극 설명이 들어갈 저쩌구
-                    저쩌구 저쩌구 저쩌구 어쩌구
-                </p>
-            </div>
-            </div>
-            <div class="top-img">
-                <img src="resources/image/b4.jpg" class="top-img">
-                <div class="overlay">
-                    <p>
-                        연극어쩌구 저쩌구<br>
-                        2024-05-30<br>
-                        연극 설명이 들어갈 저쩌구
-                        저쩌구 저쩌구 저쩌구 어쩌구
-                    </p>
-                </div>
-                </div>
-    </div>
-
-    <div class="main-page-schedule">
-        <div class="schedule-main">
-            <h1 style="text-align: center;">장르별 TOP</h1>
-                <div class="schedule-list">
-                    <menu class="category">
-                        <input type=button id="category-button" value="콘서트">
-                        <input type=button id="category-button" value="아동">
-                        <input type=button id="category-button" value="공포">
-                        <input type=button id="category-button" value="로맨스">
-                        <input type=button id="category-button" value="뮤지컬">
-                        <input type=button id="category-button" value="연극">
-                        <input type=button id="category-button" value="클래식">
-                    </menu>
-                    <div class="schedule"><img src="resources/image/post1.png" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>                    
-                    <div class="schedule"><img src="resources/image/post2.png" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b2.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b4.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b5.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div id="schedule-button"><input type="button" value="자세히보기" id="sc-button"></div>
-                </div>    
-        </div>
-    </div>
-    <div class="main-page-schedule">
-        <div class="schedule-main">
-            <h1 style="text-align: center;">오픈 예정</h1>
-                <div class="schedule-list">
-                    <div class="schedule"><img src="resources/image/b1.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>                    
-                    <div class="schedule"><img src="resources/image/b2.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b3.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b4.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b5.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div id="schedule-button"><input type="button" value="자세히보기" id="sc-button"></div>
-                </div>    
-        </div>
-    </div>
-    <div class="main-notice">
+	    $(function() {	    	
+	    	loadTopConcerts('콘서트');
+	    	
+	        $.ajax({
+	            url: "mainTopList.co",
+	            method: "GET",
+	            success: function(result) {
+	                let mainTopImg = $(".main-top-img"); // 클래스 선택자로 변경
+	                mainTopImg.empty();
+	                result.forEach(function(concert) {
+	                	let month = concert.startDate.split(" ")[0].replace("월", "");
+	                	let date = concert.startDate.split(" ")[1].replace(",", "");
+	                	let year = concert.startDate.split(" ")[2];
+	                	
+	                	if(month < 10) { month = "0" + month; }
+	                	if(date < 10) { date = "0" + date; }
+	                	
+	                	let startDate = year + "-" + month + "-" + date;
+	                	
+	                	let endmonth = concert.endDate.split(" ")[0].replace("월", "");
+	                	let enddate = concert.endDate.split(" ")[1].replace(",", "");
+	                	let endyear = concert.endDate.split(" ")[2];
+	                	
+	                	if(endmonth < 10) { endmonth = "0" + endmonth; }
+	                	if(enddate < 10) { enddate = "0" + enddate; }
+	                	
+	                	let endDate = endyear + "-" + endmonth + "-" + enddate;
+	                	
+	                    let concertHtml = `
+	                        <div class="top-img">
+                            	<img src="\${concert.thumbnailRoot}" class="top-img">
+	                            <div class="overlay" onclick="location.href='<%=request.getContextPath()%>/detail.co?cno=\${concert.concertId}'">
+	                                <p>
+	                                    \${concert.concertName}<br>
+	                                    \${startDate} ~ \${endDate}<br>	                                    
+	                                </p>
+	                            </div>
+	                        </div>
+	                    `;
+	                    mainTopImg.append(concertHtml);
+	                });
+	            },
+	            error: function() {
+	                console.log("메인 탑이미지 조회용 ajax 실패");
+	            }
+	        });
+	    });
+	</script>
+	
+	<div class="main-top-img">
+	</div>
+	
+	<div class="main-notice">
             
             <table class="notice-list">                
                 <thead>
@@ -827,19 +766,97 @@
             </tbody>
             </table>
     </div>
+	
+
     <div class="main-page-schedule">
         <div class="schedule-main">
-            <h1 style="text-align: center;">가장 인기 있는 공연</h1>
-                <div class="schedule-list">
-                    <div class="schedule"><img src="resources/image/b1.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>                    
+            <h1 style="text-align: center;">장르별 TOP 5</h1>
+            		<menu class="category">
+                        <input type="button" id="category-button" value="콘서트" onclick="loadTopConcerts('콘서트')">
+			            <input type="button" id="category-button" value="아동" onclick="loadTopConcerts('아동')">
+			            <input type="button" id="category-button" value="공포" onclick="loadTopConcerts('공포')">
+			            <input type="button" id="category-button" value="로맨스" onclick="loadTopConcerts('로맨스')">
+			            <input type="button" id="category-button" value="뮤지컬" onclick="loadTopConcerts('뮤지컬')">
+			            <input type="button" id="category-button" value="연극" onclick="loadTopConcerts('연극')">
+			            <input type="button" id="category-button" value="클래식" onclick="loadTopConcerts('클래식')">
+                    </menu>
+                <div class="schedule-list">여기에 공연이 들어가야됨</div>                
+                <div id="schedule-button"><input type="button" value="공연 목록" id="sc-button" onclick="location.href='<%=request.getContextPath()%>/list.co?category=전체&sort=populer'"></div>
+        </div>
+    </div>
+    
+    <script>
+    	
+    	
+    </script>
+    
+    <!-- 장르별 TOP 게시물 조회용  -->
+    <script>
+	    function loadTopConcerts(category) {
+	        console.log('Selected category:', category); // 카테고리 값을 콘솔에 출력
+	        $.ajax({
+	            url: 'selectTopConcerts.co', // 서버의 엔드포인트 URL
+	            method: 'GET',
+	            data: { category: category },
+	            success: function(result) {
+	                console.log('AJAX 요청 성공:', result); // 성공 시 응답 출력
+	                const scheduleList = $('.schedule-list'); 
+	                scheduleList.empty();
+	                result.forEach(function(concert) {
+	                	let month = concert.startDate.split(" ")[0].replace("월", "");
+	                	let date = concert.startDate.split(" ")[1].replace(",", "");
+	                	let year = concert.startDate.split(" ")[2];
+	                	
+	                	if(month < 10) { month = "0" + month; }
+	                	if(date < 10) { date = "0" + date; }
+	                	
+	                	let startDate = year + "-" + month + "-" + date;
+	                	
+	                	let endmonth = concert.endDate.split(" ")[0].replace("월", "");
+	                	let enddate = concert.endDate.split(" ")[1].replace(",", "");
+	                	let endyear = concert.endDate.split(" ")[2];
+	                	
+	                	if(endmonth < 10) { endmonth = "0" + endmonth; }
+	                	if(enddate < 10) { enddate = "0" + enddate; }
+	                	
+	                	let endDate = endyear + "-" + endmonth + "-" + enddate;
+	                	
+	                    const concertHtml = `
+	                        <div class="schedule">
+	                            <a href="<%=request.getContextPath()%>/detail.co?cno=\${concert.concertId}">
+	                                <img src="\${concert.thumbnailRoot}" style="width: 100%; height: 100%;">
+	                            </a>
+	                            <div class="detail-text">\${concert.concertName}</div>
+	                            <div class="detail-text">\${startDate} ~ \${endDate}</div>
+	                        </div>
+	                    `;
+	                    scheduleList.append(concertHtml);
+	                    console.log(concertHtml);
+	                });
+	            },
+	            error: function(xhr, status, error) {
+	                console.log('카테고리별 공연 조회용 AJAX 실패');
+	                console.log('Status:', status);
+	                console.log('Error:', error);
+	                console.log('Response:', xhr.responseText);
+	            }
+	        });
+	    }
+	</script>
+    
+    <div class="main-page-schedule">
+        <div class="schedule-main">
+            <h1 style="text-align: center;">오픈 예정</h1>
+                <div class="schedule-list2">
+                    <div class="schedule"><img src="resources/image/b1.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
                     <div class="schedule"><img src="resources/image/b2.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
                     <div class="schedule"><img src="resources/image/b3.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
                     <div class="schedule"><img src="resources/image/b4.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
                     <div class="schedule"><img src="resources/image/b5.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div id="schedule-button"><input type="button" value="자세히보기" id="sc-button"></div>
                 </div>    
         </div>
     </div>
+    
     
     <script>
         $(document).ready(function() {

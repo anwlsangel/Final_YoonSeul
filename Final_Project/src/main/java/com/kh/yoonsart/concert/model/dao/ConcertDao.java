@@ -116,6 +116,10 @@ public class ConcertDao {
 	public ArrayList<Concert> selectMainTopList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectMainTopList");
 	}
+
+	public ArrayList<Concert> selectTopConcerts(SqlSessionTemplate sqlSession, String category) {
+		return (ArrayList)sqlSession.selectList("concertMapper.selectTopConcerts", category);
+	}
 	
 	
 	
