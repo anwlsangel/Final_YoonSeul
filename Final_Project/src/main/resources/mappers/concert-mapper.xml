@@ -180,16 +180,6 @@
 		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
 		WHERE CI.CONCERT_ID = #{concertId}
     </select>
-    <select id="selectDateList" parameterType="int" resultMap="concertDateResultSet">
-	    SELECT
-	        CONCERT_DATE_ID,
-	        CONCERT_DATE,
-	        RUNNINGTIME,
-	        CONCERT_ID,
-	        TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
-	    FROM CONCERT_DATE
-	    WHERE CONCERT_ID = #{concertId}
-	</select>
 
 
 	 <!-- 기존 스케줄 홀이름과 날짜로 조회 용환 -->    
@@ -232,13 +222,6 @@
 			     end_date = (select max(concert_date) from concert_date where concert_id = #{id})
 		where concert_id = #{id}
 	</update>
-	
-	<select id="selectSeatCount" parameterType="int" resultType="int">
-		SELECT SEATCOUNT
-		FROM CONCERT_INFO CI
-		JOIN HOLE H ON CI.HOLE_NAME = H.HOLE_NAME
-		WHERE CI.CONCERT_ID = #{concertId}
-	</select>
 	
 	<select id="selectDateList" parameterType="map" resultMap="concertDateResultSet">
 	    SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
