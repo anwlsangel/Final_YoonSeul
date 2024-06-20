@@ -42,4 +42,6 @@ public interface ConcertService {
 	ArrayList<Concert> selectMainTopList();
 
 	ArrayList<Concert> selectTopConcerts(String category);
+
+	ArrayList<Concert> selectOpenConcerts();
 }

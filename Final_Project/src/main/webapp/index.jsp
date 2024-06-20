@@ -45,7 +45,7 @@
 		
 		#main-header {
 		    width: 100%;
-		    height: 80px; /* 헤더 높이 조정 */
+		    height: 120px; /* 헤더 높이 조정 */
 		    display: flex;        
 		    align-items: center;     
 		    z-index: 2;
@@ -116,7 +116,12 @@
 		    width: 100%;
 		    background: linear-gradient(45deg,#810000, #810000, #630000, #630000, #630000);     
 		    justify-content: space-between;
-		    align-items: center;  
+		    align-items: center;
+		    height: 105px;  
+		}
+		
+		.jbFixed #main-header {
+		    height: 80px; /* 스크롤 시 고정된 상태에서의 헤더 높이 */
 		}
 		
 		div[class^=swiper-button] {
@@ -786,20 +791,20 @@
     </div>
     
     <script>
-    	
-    	
+    	$(function() {
+    		loadOpenConcerts();
+    	});    	
     </script>
     
     <!-- 장르별 TOP 게시물 조회용  -->
     <script>
 	    function loadTopConcerts(category) {
-	        console.log('Selected category:', category); // 카테고리 값을 콘솔에 출력
+	        
 	        $.ajax({
 	            url: 'selectTopConcerts.co', // 서버의 엔드포인트 URL
 	            method: 'GET',
 	            data: { category: category },
 	            success: function(result) {
-	                console.log('AJAX 요청 성공:', result); // 성공 시 응답 출력
 	                const scheduleList = $('.schedule-list'); 
 	                scheduleList.empty();
 	                result.forEach(function(concert) {
@@ -831,14 +836,10 @@
 	                        </div>
 	                    `;
 	                    scheduleList.append(concertHtml);
-	                    console.log(concertHtml);
 	                });
 	            },
 	            error: function(xhr, status, error) {
 	                console.log('카테고리별 공연 조회용 AJAX 실패');
-	                console.log('Status:', status);
-	                console.log('Error:', error);
-	                console.log('Response:', xhr.responseText);
 	            }
 	        });
 	    }
@@ -848,27 +849,65 @@
         <div class="schedule-main">
             <h1 style="text-align: center;">오픈 예정</h1>
                 <div class="schedule-list2">
-                    <div class="schedule"><img src="resources/image/b1.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b2.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b3.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b4.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
-                    <div class="schedule"><img src="resources/image/b5.jpg" style="width: 100%; height: 100%;"><div class="detail-text">공연제목</div></div>
                 </div>    
         </div>
     </div>
     
+    <script>
+	    function loadOpenConcerts() {
+	        $.ajax({
+	            url: 'selectOpenConcerts.co', 
+	            method: 'GET',
+	            success: function(result) {
+	                const scheduleList2 = $('.schedule-list2');
+	                result.forEach(function(concert) {
+	                    let month = concert.startDate.split(" ")[0].replace("월", "");
+	                    let date = concert.startDate.split(" ")[1].replace(",", "");
+	                    let year = concert.startDate.split(" ")[2];
+	
+	                    if(month < 10) { month = "0" + month; }
+	                    if(date < 10) { date = "0" + date; }
+	
+	                    let startDate = year + "-" + month + "-" + date;
+	
+	                    let endmonth = concert.endDate.split(" ")[0].replace("월", "");
+	                    let enddate = concert.endDate.split(" ")[1].replace(",", "");
+	                    let endyear = concert.endDate.split(" ")[2];
+	
+	                    if(endmonth < 10) { endmonth = "0" + endmonth; }
+	                    if(enddate < 10) { enddate = "0" + enddate; }
+	
+	                    let endDate = endyear + "-" + endmonth + "-" + enddate;
+	
+	                    const concertHtml = `
+	                        <div class="schedule">
+	                            <img src="\${concert.thumbnailRoot}" style="width: 100%; height: 100%;">
+	                            <div class="detail-text">\${concert.concertName}</div>
+	                            <div class="detail-text">\${startDate} 오픈 예정</div>
+	                        </div>
+	                    `;
+	                    scheduleList2.append(concertHtml);
+	                });
+	            },
+	            error: function() {
+	                console.log('오픈예정 조회용 AJAX 실패');
+	            }
+	        });
+	    }
+	</script>
+    
     
     <script>
-        $(document).ready(function() {
-            var jbOffset = $('#mainImage').offset().top + $('#mainImage').height();
-            $(window).scroll(function() {
-                if ($(document).scrollTop() > jbOffset) {
-                    $('#main-navi').addClass('jbFixed');
-                } else {
-                    $('#main-navi').removeClass('jbFixed');
-                }
-            });
-        });
+	    $(document).ready(function() {
+	        var jbOffset = $('#mainImage').offset().top + $('#mainImage').height();
+	        $(window).scroll(function() {
+	            if ($(document).scrollTop() > jbOffset) {
+	                $('#main-navi').addClass('jbFixed');
+	            } else {
+	                $('#main-navi').removeClass('jbFixed');
+	            }
+	        });
+	    });
     </script>
 
     <script>

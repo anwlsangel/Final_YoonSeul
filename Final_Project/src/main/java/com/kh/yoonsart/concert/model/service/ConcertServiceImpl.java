@@ -124,5 +124,10 @@ public class ConcertServiceImpl implements ConcertService{
 	@Override
 	public ArrayList<Concert> selectTopConcerts(String category) {
 		return concertDao.selectTopConcerts(sqlSession, category);
+	}
+
+	@Override
+	public ArrayList<Concert> selectOpenConcerts() {
+		return concertDao.selectOpenConcerts(sqlSession);
 	}	
 }

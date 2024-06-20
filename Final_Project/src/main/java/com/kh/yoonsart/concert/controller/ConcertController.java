@@ -158,6 +158,15 @@ public class ConcertController {
 	    	return new Gson().toJson(topConcertList);
 	    }
 	    
+	    @ResponseBody
+	    @GetMapping(value="selectOpenConcerts.co", produces="application/json; charset=UTF-8")
+	    public String selectOpenConcerts() {
+	    	
+	    	ArrayList<Concert> openConcertList = concertService.selectOpenConcerts();	    	
+	    	
+	    	return new Gson().toJson(openConcertList);
+	    }
+	    
 	    
 	    
 	    

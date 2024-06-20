@@ -279,4 +279,15 @@
 	    ) WHERE ROWNUM &lt;= 5
 	</select>
 	
+	<select id="selectOpenConcerts" resultMap="concertResultSet">
+		SELECT *
+		  FROM (
+		    SELECT *
+		    FROM CONCERT_INFO
+		    WHERE START_DATE > SYSDATE
+		    ORDER BY START_DATE ASC
+		  )
+		  WHERE ROWNUM &lt;= 5
+	</select>
+	
 </mapper>
