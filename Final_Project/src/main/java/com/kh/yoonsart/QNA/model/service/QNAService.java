@@ -30,10 +30,10 @@ public interface QNAService {
 
 	QNA selectAnswer(int qnaId);
 
+	
 	ArrayList<QNA> selectQnaCount(int cno, PageInfo pi);
 	
 	int selectQnaCount(int qno);
-
 
 	ArrayList<QNA> selectQnaList(int cno, PageInfo pi);
 

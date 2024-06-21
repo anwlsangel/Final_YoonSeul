@@ -28,6 +28,7 @@ public class QNAController {
 
 	@Autowired
 	private QNAService qnaService;
+	
 //	private int maxPage;
 //	private int startPage;
 //	private int endPage;
@@ -185,7 +186,7 @@ public class QNAController {
         
 		PageInfo pi = Pagination.getPageInfo(listCount, currentPage, pageLimit, boardLimit);
 		ArrayList<QNA> qnaList = qnaService.selectQnaList(cno, pi);
-		
+		//System.out.println(qnaList);
 		JSONArray qList = new JSONArray();
 		for (QNA q : qnaList) {
 			// replyList.add(er); <- 이렇게 VO 를 대놓고 넣으면 안됨
@@ -215,9 +216,10 @@ public class QNAController {
 		JSONObject result = new JSONObject();
 		result.put("qList", qList);
 		result.put("pageInfo", pageInfo);
+		
+		//System.out.println("qnaresult"+result);
 
 		return result;
-		
 	}
 }
 

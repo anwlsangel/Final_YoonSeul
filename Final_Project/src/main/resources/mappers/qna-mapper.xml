@@ -110,13 +110,16 @@
 		   AND STATUS = 1
 	</select>
  	
- 	<!-- 관리자 - 문의사항 전체 조회 -->
+ 	
+ 	<!-- 관리자 -->
+ 	
+ 	<!-- 문의사항 전체 조회 -->
  	<select id="selectQnaAllList" resultMap="qnaResultSet">
  		SELECT * 
 		  FROM QNA
  	</select>
  	
- 	<!-- 관리자 - 쿼리문 -->
+ 	<!-- 문의사항 상세조회 -->
 	<select id="adqnaDetail" parameterType="_int" resultMap="qnaResultSet">
 	SELECT QNA_ID
 	     , USER_ID

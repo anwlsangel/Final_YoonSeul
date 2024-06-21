@@ -33,12 +33,20 @@
                    #{concertId})
 	 </insert>
 	 
-	 <select id="selectCount" resultType="int">
+	 <select id="selectCount" resultType="_int">
 	 	SELECT COUNT(*)
 		  FROM REVIEW
 		 WHERE CONCERT_ID = #{concertId}
 		   AND STATUS = 1
 	 </select>
+	 
+	 <!-- 후기 페이징용 조회 -->
+	    <select id="selectReviewList" parameterType="_int" resultMap="reviewResultSet">
+    	SELECT * 
+		  FROM REVIEW R 
+		 WHERE CONCERT_ID = #{concertId}
+		   AND R.STATUS = 1 
+	</select>
 	 
 	 <!-- 후기 삭제 -->
 	 <update id="deleteReview" parameterType="_int">
