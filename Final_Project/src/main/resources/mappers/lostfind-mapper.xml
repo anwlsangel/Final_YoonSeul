@@ -1,0 +1,198 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="lostfindMapper">
+
+	<!-- 
+		LOSTNFIND 테이블의 조회 결과를
+		자바 LOSTFIND VO 타입으로 뽑아주는 resultMap
+	-->
+	<resultMap id="lostfindResultSet"
+			   type="lostfind">
+		<result column="LOST_ID" property="lostNo" />
+		<result column="LOST_TITLE" property="lostTitle" />
+		<result column="LOST_CONTENT" property="lostContent" />
+		<result column="DATE_FOUND" property="Date" />
+		<result column="LOST_COUNT" property="lostCount" />
+		<result column="STATUS" property="status" />
+	</resultMap>
+	<!-- 
+		LOSTIMG 테이블의 조회 결과를
+		자바 LOSTIMG VO 타입으로 뽑아주는 resultMap
+	-->
+	<resultMap id="lostImgResultSet"
+			   type="lostImg">
+		<result column="LOST_IMG_ID" property="lostImgId" />
+		<result column="FILE_NAME" property="fileName" />
+		<result column="FILE_ROOT" property="fileRoot" />
+		<result column="LOST_ID" property="lostNo" />
+	</resultMap>
+	
+	<!-- 게시글 갯수 구하는 쿼리문 -->
+	<select id="selectListCount"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM LOSTNFIND
+		 WHERE STATUS = '1'
+	</select>
+
+	<!-- 검색 게시글 갯수 구하는 쿼리문 -->
+	<select id="selectSearchListCount"
+			parameterType="String"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM LOSTNFIND
+		 WHERE STATUS = '1'
+		   AND LOST_TITLE LIKE '%' || #{keyword} || '%'
+	</select>
+	
+	<!-- 게시글 목록을 구하는 쿼리문 -->
+	<select id="selectList"
+			resultMap="lostfindResultSet">
+		SELECT LOST_ID
+		     , LOST_TITLE
+		     , LOST_CONTENT
+		     , TO_CHAR(DATE_FOUND, 'YYYY-MM-DD') AS "DATE"
+		     , LOST_COUNT
+		     , STATUS
+		  FROM LOSTNFIND
+		 WHERE STATUS = '1'
+		 ORDER BY LOST_ID DESC
+	</select>
+
+	<!-- 검색 게시글 목록을 구하는 쿼리문 -->
+	<select id="selectSearchList"
+			resultMap="lostfindResultSet">
+		SELECT LOST_ID
+		     , LOST_TITLE
+		     , LOST_CONTENT
+		     , TO_CHAR(DATE_FOUND, 'YYYY-MM-DD') AS "DATE"
+		     , LOST_COUNT
+		     , STATUS
+		  FROM LOSTNFIND
+		 WHERE STATUS = '1'
+		   AND LOST_TITLE LIKE '%' || #{keyword} || '%'
+		 ORDER BY LOST_ID DESC
+	</select>
+	
+	<!-- 게시글 작성용 쿼리문 -->
+	<insert id="insertLostfind"
+			parameterType="lostfind">
+		INSERT INTO LOSTNFIND(LOST_ID
+					        , LOST_TITLE
+					        , LOST_CONTENT)
+		               VALUES(SEQ_SANO.NEXTVAL
+		                    , #{lostTitle}
+		                    , #{lostContent})
+	</insert>
+	
+	<!-- 이미지 업로드용 쿼리문 -->
+    <insert id="insertLostImg" parameterType="LostImg">
+        INSERT INTO LOST_IMG(LOST_IMG_ID
+        				   , FILE_NAME
+					       , FILE_ROOT
+					       , LOST_ID)
+				     VALUES (SEQ_PNO.NEXTVAL
+				     	   , #{fileName}
+				           , #{fileRoot}
+				           , #{lostNo})
+    </insert>
+
+	<!-- 조회수 증가용 쿼리문 -->
+	<update id="increaseCount"
+			parameterType="_int">
+		UPDATE LOSTNFIND
+		   SET LOST_COUNT = LOST_COUNT + 1
+		 WHERE LOST_ID = #{lostNo}
+		   AND STATUS = '1'
+	</update>
+	
+	<!-- 게시글 상세조회용 쿼리문 -->
+	<select id="selectLostfind"
+			parameterType="_int"
+			resultMap="lostfindResultSet">
+		SELECT LOST_ID
+		     , LOST_TITLE
+		     , LOST_CONTENT
+		     , LOST_COUNT
+		     , TO_CHAR(DATE_FOUND, 'YYYY-MM-DD') AS "DATE"
+		     , STATUS
+		  FROM LOSTNFIND
+		 WHERE LOST_ID = #{lostNo}
+		   AND STATUS = '1'
+	</select>
+	
+	<!-- 이미지 상세조회용 쿼리문 -->
+	<select id="selectLostImg"
+			parameterType="_int"
+			resultMap="lostImgResultSet">
+		SELECT LOST_IMG_ID
+        	 , FILE_NAME
+			 , FILE_ROOT
+			 , LOST_ID
+		  FROM LOST_IMG
+		 WHERE LOST_ID = #{lostNo}
+	</select>
+	
+	<!-- 게시글 삭제용 쿼리문 -->
+	<update id="deleteLostfind"
+			parameterType="_int">
+		UPDATE LOSTNFIND
+		   SET STATUS = '0'
+		 WHERE LOST_ID = #{lostNo}
+		   AND STATUS = '1'
+	</update>
+	
+	<!-- 게시글 수정용 쿼리문 -->
+	<update id="updateLostfind"
+			parameterType="lostfind">
+		UPDATE LOSTNFIND
+		   SET LOST_TITLE = #{lostTitle}
+		     , LOST_CONTENT = #{lostContent}
+		 WHERE LOST_ID = #{lostNo}
+		   AND STATUS = '1'
+	</update>
+
+	<!-- 이미지 수정용 쿼리문 -->
+	<update id="updateLostImg"
+			parameterType="lostImg">
+		UPDATE LOST_IMG
+		   SET FILE_NAME = #{fileName}
+		   SET FILE_ROOT = #{fileRoot}
+		 WHERE LOST_IMG_ID = #{lostImgNo}
+	</update>
+	
+		<!-- 업로드된 게시물 번호 구하는 쿼리문 -->
+	<select id="selectUpLostNo"
+			resultType="_int">
+		SELECT LOST_ID
+		  FROM (SELECT * FROM LOSTNFIND ORDER BY LOST_ID DESC)
+		 WHERE ROWNUM = 1
+	</select>
+
+		<!-- 분실물 사진 삭제 쿼리문 -->
+	<delete id="deleteLostImg"
+			parameterType="_int">
+		DELETE
+		  FROM LOST_IMG
+		 WHERE LOST_ID = #{lostNo}
+	</delete>
+	
+		<!-- 기존 분실물 사진 삭제 쿼리문 -->
+	<delete id="deleteExImg"
+			parameterType="java.util.List">
+	DELETE FROM LOST_IMG
+	WHERE LOST_IMG_ID NOT IN
+        <foreach collection="list" item="lI" separator="," open="(" close=")">
+            #{lI.lostImgId}
+        </foreach>
+	</delete>
+	
+	
+	
+
+	
+</mapper>
+
+
+
+

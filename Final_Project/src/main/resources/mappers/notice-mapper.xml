@@ -1,0 +1,149 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "mybatis-3-mapper.dtd" >
+<mapper namespace="noticeMapper">
+
+	<!-- 
+		NOTICE 테이블의 조회 결과를
+		자바 Notice VO 타입으로 뽑아주는 resultMap
+	-->
+	<resultMap id="noticeResultSet"
+			   type="notice">
+		<result column="NOTICE_ID" property="noticeNo" />
+		<result column="NOTICE_TITLE" property="noticeTitle" />
+		<result column="NOTICE_CONTENT" property="noticeContent" />
+		<result column="NOTICE_IMG_NAME" property="noticeImgName" />
+		<result column="NOTICE_IMG" property="noticeImg" />
+		<result column="CREATE_DATE" property="createDate" />
+		<result column="STATUS" property="status" />
+		<result column="NOTICE_COUNT" property="noticeCount" />
+	</resultMap>
+	
+	<!-- 게시글 갯수 구하는 쿼리문 -->
+	<select id="selectListCount"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM NOTICE
+		 WHERE STATUS = '1'
+	</select>
+
+	<!-- 검색 게시글 갯수 구하는 쿼리문 -->
+	<select id="selectSearchListCount"
+			resultType="_int">
+		SELECT COUNT(*)
+		  FROM NOTICE
+		 WHERE STATUS = '1'
+		   AND NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+		 ORDER BY NOTICE_ID DESC
+	</select>
+	
+	<!-- 게시글 목록을 구하는 쿼리문 -->
+	<select id="selectList"
+			resultMap="noticeResultSet">
+		SELECT NOTICE_ID
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		     , NOTICE_IMG_NAME
+		     , NOTICE_IMG
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , STATUS
+		     , NOTICE_COUNT
+		  FROM NOTICE
+		 WHERE STATUS = '1'
+		 ORDER BY NOTICE_ID DESC
+	</select>
+
+	<!-- 검색 게시글 목록을 구하는 쿼리문 -->
+	<select id="selectSearchList"
+			resultMap="noticeResultSet">
+		SELECT NOTICE_ID
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		     , NOTICE_IMG_NAME
+		     , NOTICE_IMG
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , STATUS
+		     , NOTICE_COUNT
+		  FROM NOTICE
+ 		 WHERE STATUS = '1'
+		   AND NOTICE_TITLE LIKE '%' || #{keyword} || '%'
+		 ORDER BY NOTICE_ID DESC
+	</select>
+	
+	<!-- 게시글 작성용 쿼리문 -->
+	<insert id="insertNotice"
+			parameterType="notice">
+		INSERT INTO NOTICE(NOTICE_ID
+					     , NOTICE_TITLE
+					     , NOTICE_CONTENT
+					     , NOTICE_IMG_NAME
+					     , NOTICE_IMG)
+		           VALUES(SEQ_NNO.NEXTVAL
+		                , #{noticeTitle}
+		                , #{noticeContent}
+		                , #{noticeImgName}
+		                , #{noticeImg})
+	</insert>
+	
+	<!-- 조회수 증가용 쿼리문 -->
+	<update id="increaseCount"
+			parameterType="_int">
+		UPDATE NOTICE
+		   SET NOTICE_COUNT = NOTICE_COUNT + 1
+		 WHERE NOTICE_ID = #{noticeNo}
+		   AND STATUS = '1'
+	</update>
+	
+	<!-- 게시글 상세조회용 쿼리문 -->
+	<select id="selectNotice"
+			parameterType="_int"
+			resultMap="noticeResultSet">
+		SELECT NOTICE_ID
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		     , NOTICE_IMG_NAME
+		     , NOTICE_IMG
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , STATUS
+		     , NOTICE_COUNT
+		  FROM NOTICE
+		 WHERE NOTICE_ID = #{noticeNo}
+		   AND STATUS = '1'
+	</select>
+	
+	<!-- 게시글 삭제용 쿼리문 -->
+	<update id="deleteNotice"
+			parameterType="_int">
+		UPDATE NOTICE
+		   SET STATUS = '0'
+		 WHERE NOTICE_ID = #{noticeNo}
+		   AND STATUS = '1'
+	</update>
+	
+	<!-- 게시글 수정용 쿼리문 -->
+	<update id="updateNotice"
+			parameterType="notice">
+		UPDATE NOTICE
+		   SET NOTICE_TITLE = #{noticeTitle}
+		     , NOTICE_CONTENT = #{noticeContent}
+		     , NOTICE_IMG_NAME = #{noticeImgName}
+		     , NOTICE_IMG = #{noticeImg}
+		 WHERE NOTICE_ID = #{noticeNo}
+		   AND STATUS = '1'
+	</update>
+
+	<!-- 이미지 삭제용 쿼리문 -->
+	<update id="deleteNoticeImg"
+			parameterType="_int">
+		UPDATE NOTICE
+		   SET NOTICE_IMG = NULL
+		 WHERE NOTICE_ID = #{noticeNo}
+		   AND STATUS = '1'
+	</update>
+	
+
+	
+</mapper>
+
+
+
+
