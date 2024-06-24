@@ -168,7 +168,14 @@ public class MemberController {
 		public String updateMember(Member m, Model model,
 								HttpSession session) {
 			
-			
+			// STATUS 값이 1 또는 2인지 확인
+		    int status = m.getStatus();
+		    if (status != 1 && status != 2) {
+		        // 잘못된 STATUS 값인 경우
+		        session.setAttribute("alertMsg", "잘못된 STATUS 값입니다.");
+		        return "redirect:/myPage.me";
+		    }
+		    
 			int result = memberService.updateMember(m);
 			if(result > 0) { // 성공
 				// 갱신된 회원의 정보를 다시 조회해와서

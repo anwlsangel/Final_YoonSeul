@@ -237,7 +237,7 @@
                 <tr>
                 <th rowspan="3">주소</th>
                 <td colspan="3">
-                    <input type="text" id="postcode" name="postcode" placeholder="우편번호" value="${sessionScope.loginUser.postcode}">
+                    <input type="text" id="postcode" name="postcode" placeholder="우편번호">
                 </td>
                 <td>
                     <input type="button" onclick="execDaumPostcode()" value="우편번호 찾기"><br>
@@ -245,18 +245,18 @@
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소" value="${sessionScope.loginUser.roadAddress}">
+                    <input type="text" id="roadAddress" name="roadAddress" placeholder="도로명주소">
                 </td>
                 <td colspan="2">
-                    <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" value="${sessionScope.loginUser.jibunAddress}" width="30%">
+                    <input type="text" id="jibunAddress" name="jibunAddress" placeholder="지번주소" width="30%">
                 </td>
             </tr>
             <tr>
                 <td colspan="2">
-                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소" value="${sessionScope.loginUser.detailAddress}">
+                    <input type="text" id="detailAddress" name="detailAddress" placeholder="상세주소">
                 </td>
                 <td colspan="2">
-                    <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목" value="${sessionScope.loginUser.extraAddress}">
+                    <input type="text" id="extraAddress" name="extraAddress" placeholder="참고항목">
                 </td>
             </tr>
                 

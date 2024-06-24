@@ -51,8 +51,8 @@
 						<tr>
 							<td style="width:150px;"><label for="concertState">상태</label></td>
 							<td><select id="status" name="status" required>
-									<option value="0">오픈</option>
-									<option value="1">히든</option>
+									<option value="1">오픈</option>
+									<option value="0">히든</option>
 							</select></td>
 						</tr>
 						<!-- 이름 -->

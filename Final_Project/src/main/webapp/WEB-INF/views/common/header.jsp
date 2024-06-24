@@ -231,6 +231,18 @@
         align-items: center;
         justify-content: space-between;
     }
+
+    .is-invalid {
+        border-color: #dc3545;
+    }
+
+    .is-valid {
+        border-color: #28a745;
+    }
+
+    .invalid-feedback.active {
+        display: block;
+    }
 </style>
 </head>
 <body>
@@ -438,39 +450,41 @@
             </div>
             
             <!-- 비밀번호 변경 모달창 -->
-            <div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="resetPwdModalLabel" aria-hidden="true">
-                <div class="modal-dialog modal-dialog-centered" role="document">
-                    <div class="modal-content">
-                        <!-- Modal Header -->
-                        <div class="modal-header">
-                            <h5 class="modal-title" id="resetPwdModalLabel">비밀번호 변경</h5>
-                            <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                        <form id="resetPwdForm">
-                            <!-- Modal body -->
-                            <div class="modal-body">
-                                <input type="hidden" name="userId" id="resetUserId">
-                                <input type="hidden" name="email" id="resetEmail"> <!-- 추가된 부분 -->
-                                <div class="form-group">
-                                    <label>인증번호:</label>
-                                    <input type="text" class="form-control" name="authKey" placeholder="Enter Auth Key" required>
-                                </div>
-                                <div class="form-group">
-                                    <label>새 비밀번호:</label>
-                                    <input type="password" class="form-control" name="newPwd" placeholder="Enter New Password" required>
-                                </div>
-                            </div>
-                            <!-- Modal footer -->
-                            <div class="modal-footer">
-                                <button type="button" class="btn btn-primary" id="resetPwdButton">비밀번호 변경</button>
-                                <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
-                            </div>
-                        </form>
+<div class="modal fade" id="resetPwdModal" tabindex="-1" role="dialog" aria-labelledby="resetPwdModalLabel" aria-hidden="true">
+    <div class="modal-dialog modal-dialog-centered" role="document">
+        <div class="modal-content">
+            <!-- Modal Header -->
+            <div class="modal-header">
+                <h5 class="modal-title" id="resetPwdModalLabel">비밀번호 변경</h5>
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <form id="resetPwdForm">
+                <!-- Modal body -->
+                <div class="modal-body">
+                    <input type="hidden" name="userId" id="resetUserId">
+                    <input type="hidden" name="email" id="resetEmail"> <!-- 추가된 부분 -->
+                    <div class="form-group">
+                        <label>인증번호:</label>
+                        <input type="text" class="form-control" name="authKey" placeholder="Enter Auth Key" required>
+                        <div class="invalid-feedback">인증번호가 올바르지 않습니다.</div>
+                    </div>
+                    <div class="form-group">
+                        <label>새 비밀번호:</label>
+                        <input type="password" class="form-control" name="newPwd" placeholder="Enter New Password" required>
+                        <div class="invalid-feedback">잘못된 형식의 비밀번호입니다.</div>
                     </div>
                 </div>
-            </div>
+                <!-- Modal footer -->
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-primary" id="resetPwdButton" disabled>비밀번호 변경</button>
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">취소</button>
+                </div>
+            </form>
+        </div>
+    </div>
+</div>
     
 		<!-- 사이드 메뉴바 -->
 		<div id="snb">
@@ -551,11 +565,17 @@
             });
         });
 
+        var isCertRequested = false; // 인증번호 발송 상태를 추적
+
         $('#findPwdButton').click(function() {
+            if (isCertRequested) return; // 이미 발송 요청 중이면 중단
+
             var name = $('#findPwdForm input[name=userName]').val();
             var userId = $('#findPwdForm input[name=userId]').val();
             var email = $('#findPwdForm input[name=email]').val();
             $('#resetEmail').val(email);
+
+            isCertRequested = true; // 발송 요청 시작
 
             $.ajax({
                 type: "POST",
@@ -573,6 +593,9 @@
                 },
                 error: function(xhr, status, error) {
                     alertify.alert("인증번호 발송 실패", "인증번호 발송에 실패했습니다.");
+                },
+                complete: function() {
+                    isCertRequested = false; // 발송 요청 완료
                 }
             });
         });
@@ -582,6 +605,15 @@
             var authKey = $('#resetPwdForm input[name=authKey]').val();
             var newPwd = $('#resetPwdForm input[name=newPwd]').val();
             var email = $('#resetEmail').val();
+
+            // 유효성 검사
+            var checkPwd = /^\S{6,15}$/;
+            if (!checkPwd.test(newPwd)) {
+                $('#resetPwdForm input[name=newPwd]').addClass('is-invalid');
+                return;
+            } else {
+                $('#resetPwdForm input[name=newPwd]').removeClass('is-invalid').addClass('is-valid');
+            }
 
             $.ajax({
                 type: "POST",
@@ -604,6 +636,7 @@
                             }
                         });
                     } else {
+                        $('#resetPwdForm input[name=authKey]').addClass('is-invalid');
                         alertify.alert("인증 실패", "인증번호가 올바르지 않습니다.");
                     }
                 },
@@ -661,6 +694,19 @@
             });
             snb.style.height = `${totalHeight}px`;
         }
+
+        // 유효성 검사
+        $('#resetPwdForm input[name=newPwd], #resetPwdForm input[name=authKey]').on('input', function() {
+            var checkPwd = /^\S{6,15}$/;
+            var newPwd = $('#resetPwdForm input[name=newPwd]').val();
+            var authKey = $('#resetPwdForm input[name=authKey]').val();
+
+            if (checkPwd.test(newPwd) && authKey.length > 0) {
+                $('#resetPwdButton').removeAttr('disabled');
+            } else {
+                $('#resetPwdButton').attr('disabled', true);
+            }
+        });
     });
     </script>
 </body>
