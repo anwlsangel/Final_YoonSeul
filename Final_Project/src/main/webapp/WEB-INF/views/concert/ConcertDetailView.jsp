@@ -1265,58 +1265,63 @@
 
                 // 첫 로딩시 달력 그리기
                 $(document).ready(function() {
+			        initializeLikeIcon(); // 관심공연 아이콘 초기화 구문 추가 (지우지 말것!) - 0624 무진
                     drawCalendar(year, month);
                 });
             
-					// 좋아요 아이콘 초기화 함수
-					function initializeLikeIcon() {
-						const userId = "${sessionScope.loginUser.userId}";
-						const concertId = $("#concertID").val();
-						//console.log(concertId);
-						//console.log(userId);
-						if (userId) {
-							$.ajax({
-								url: "isInWishlist",
-								type: "GET",
-								data: { userId: userId, concertId: concertId },
-								success: function (result) {
-									if (result) {
-										$("#like-icon").html("❤️");
-										$("#like-icon").attr("value", "true");
-									} else {
-										$("#like-icon").html("🤍");
-										$("#like-icon").attr("value", "false");
-									}
-								}
-							});
-						}
-					}
+			    function initializeLikeIcon() {
+			        const userId = "${sessionScope.loginUser.userId}";
+			        const concertId = $("#concertID").val();
+			        console.log(concertId);
+			        console.log(userId);
+			        if (userId) {
+			            $.ajax({
+			                url: "isInWishlist",
+			                type: "GET",
+			                data: { userId: userId, concertId: concertId },
+			                success: function(result) {
+			                    if (result) {
+			                        $("#like-icon").html("❤️");
+			                        $("#like-icon").attr("value", "true");
+			                    } else {
+			                        $("#like-icon").html("🤍");
+			                        $("#like-icon").attr("value", "false");
+			                    }
+			                },
+			                error: function(xhr, status, error) {
+			                    console.error("Error: " + error);
+			                }
+			            });
+			        }
+			    }
 
-					// 좋아요 버튼 클릭 시 실행할 함수
-					function toggleLike() {
-						const userId = "${sessionScope.loginUser.userId}";
-						const concertId = $("#concertID").val();
-						if (!userId) {
-							alert("로그인 후 이용 가능합니다.");
-							return;
-						}
-						const isLiked = $("#like-icon").attr("value") === "true";
-						$.ajax({
-							url: isLiked ? "wishlistremove" : "wishlistadd",
-							type: "POST",
-							data: { userId: userId, concertId: concertId },
-							success: function (response) {
-								if (response) {
-									$("#like-icon").html(isLiked ? "🤍" : "❤️");
-									$("#like-icon").attr("value", isLiked ? "false" : "true");
-									let likeCount = parseInt($("#like-count").text());
-									likeCount = isLiked ? likeCount - 1 : likeCount + 1;
-									$("#like-count").text(likeCount);
-									alert(response);
-								}
-							}
-						});
-					}
+			    function toggleLike() {
+			        const userId = "${sessionScope.loginUser.userId}";
+			        const concertId = $("#concertID").val();
+			        if (!userId) {
+			            alert("로그인 후 이용 가능합니다.");
+			            return;
+			        }
+			        const isLiked = $("#like-icon").attr("value") === "true";
+			        $.ajax({
+			            url: isLiked ? "wishlistremove" : "wishlistadd",
+			            type: "POST",
+			            data: { userId: userId, concertId: concertId },
+			            success: function(response) {
+			                if (response) {
+			                    $("#like-icon").html(isLiked ? "🤍" : "❤️");
+			                    $("#like-icon").attr("value", isLiked ? "false" : "true");
+			                    let likeCount = parseInt($("#like-count").text());
+			                    likeCount = isLiked ? likeCount - 1 : likeCount + 1;
+			                    $("#like-count").text(likeCount);
+			                    alert(response);
+			                }
+			            },
+			            error: function(xhr, status, error) {
+			                console.error("Error: " + error);
+			            }
+			        });
+			    }
 				</script>
 
 				<div class="footer">
