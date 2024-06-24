@@ -118,8 +118,8 @@ public class AdminConcertController {
 		if (insert > 0) {
 			// 파일 메모리에 넣기
 			try {
-				detail.transferTo(new File(thumbnailSaveRoot));
-				thumbnail.transferTo(new File(detailSaveRoot));
+				detail.transferTo(new File(detailSaveRoot));
+				thumbnail.transferTo(new File(thumbnailSaveRoot));
 			} catch (IllegalStateException | IOException e1) {
 				// TODO Auto-generated catch block
 				e1.printStackTrace();
