@@ -895,14 +895,15 @@
 	                    let concertDate = new Date(startDate);
 	                    let timeDifference = concertDate - currentDate;
 	                    let daysLeft = Math.ceil(timeDifference / (1000 * 3600 * 24));
-	
 	                    const concertHtml = `
 	                        <div class="schedule">
+	                    		<a href="<%=request.getContextPath()%>/detail.co?cno=\${concert.concertId}">
 	                            <img src="\${concert.thumbnailRoot}" style="width: 100%; height: 100%;">
-	                            <div class="days-left">D-${daysLeft}</div>
+	                            </a>
+	                            <div class="days-left">D-\${daysLeft}</div>
 	                            <div class="detail-text">\${concert.concertName}</div>
 	                            <div class="detail-text">\${startDate} 오픈 예정</div>
-	                        </div>
+	                        </div>	                        
 	                    `;
 	                    scheduleList2.append(concertHtml);
 	                });
