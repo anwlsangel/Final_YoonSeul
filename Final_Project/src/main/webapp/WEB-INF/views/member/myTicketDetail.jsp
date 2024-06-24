@@ -105,7 +105,7 @@
 					<tr>
 						<th style="text-align: left; padding-left: 25px;">${requestScope.concert.concertName}</th>
 						<th></th>
-						<th style="text-align: right; padding-right: 25px;">/ ${requestScope.concert.ageLimit}</th>
+						<th style="text-align: right; padding-right: 25px;">( ${requestScope.concert.ageLimit}세 관람가 )</th>
 					</tr>
 				</thead>
 				<tbody>
@@ -113,7 +113,7 @@
 						<td colspan="3" height="50"><hr></td>
 					</tr>
 					<tr>
-						<td rowspan="9" width="400" height="500"><img alt="공연썸네일" src="${reauestScope.concert.thumbnailRoot}" style="border: 1px solid black;"></td>
+						<td rowspan="9" width="400" height="500"><img alt="공연썸네일" src="${requestScope.concert.thumbnailRoot}" style="width: 420px; margin-left: 20px; margin-right: 20px;"></td>
 						<td colspan="2"><span class="detail-title">* 공연 정보</span></td>
 					</tr>
 					<tr>
