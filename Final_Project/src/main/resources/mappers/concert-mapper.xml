@@ -47,7 +47,7 @@
 	            ORDER BY REVIEW_COUNT DESC
 	        </when>
 	        <when test="sort == 'date'">
-	            ORDER BY c.CONCERT_NO DESC
+	            ORDER BY c.CONCERT_ID DESC
 	        </when>
 	        <when test="sort == 'price'">
 	            ORDER BY c.PRICE ASC
