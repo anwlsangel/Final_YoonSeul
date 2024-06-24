@@ -309,7 +309,8 @@
                     	let eventArray = JSON.parse(response)
                     	console.log(eventArray)
                     	if(calendar.getEvents().length>0){
-	                        calendar.getEvents().events.forEach(function (event) {	                        	
+                    		console.log(calendar.getEvents())
+	                        calendar.getEvents().forEach(function (event) {	                        	
 	                            if (event.classNames.includes("remove")) {
 	                                event.remove();
 	                            }
@@ -326,6 +327,7 @@
                                 }
                         	console.log(addEventObj);
                         	calendar.addEvent(addEventObj);
+                        	calendar.refetchEvents()
                         }
                     },
                     error: function () {
