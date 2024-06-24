@@ -41,6 +41,10 @@ public class PaymentDao {
 	public int requestRefund(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.update("paymentMapper.requestRefund", buyListId);
 	}
+	
+	public int cancelRefund(SqlSessionTemplate sqlSession, String buyListId) {
+		return sqlSession.update("paymentMapper.cancelRefund", buyListId);
+	}
 
 	public int rejectRefund(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.update("paymentMapper.rejectRefund", buyListId);
@@ -61,5 +65,6 @@ public class PaymentDao {
 	public int deleteTicket(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.delete("paymentMapper.deleteTicket", buyListId);
 	}
+	
 
 }

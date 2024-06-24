@@ -151,6 +151,12 @@ public class PaymentServiceImpl implements PaymentService{
 	public int requestRefund(String buyListId) {
 		return  paymentDao.requestRefund(sqlSession, buyListId);
 	}
+	//마이페이지-환불요청취소
+	@Transactional
+	@Override
+	public int cancelRefund(String buyListId) {
+		return paymentDao.cancelRefund(sqlSession, buyListId);
+	}
 	//환불 거부
 	@Transactional
 	@Override

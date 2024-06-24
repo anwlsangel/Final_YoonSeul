@@ -152,13 +152,13 @@
 			<div id="refundButton" align="center">
 				<c:choose>
 					<c:when test="${requestScope.bl.status eq 1}">
-						<button class="myInfoButton" onclick="requestRefund();">환불 요청</button>
+						<button class="myInfoButton btn-success" onclick="requestRefund();">환불 요청</button>
 					</c:when>
 					<c:when test="${requestScope.bl.status eq 2}">
-						<button class="myInfoButton" disabled>환불 요청 중</button>
+						<button class="myInfoButton btn-primary" onclick="cancelRefund();">환불 요청 중</button>
 					</c:when>
 					<c:otherwise>
-						<button class="myInfoButton" disabled>환불 완료</button>
+						<button class="myInfoButton btn-danger" disabled>환불 완료</button>
 					</c:otherwise>
 				</c:choose>
 				<script>
@@ -172,7 +172,6 @@
 								data: {buyListId: buyListId},
 								success: function(result) {
 									if(result > 0) {
-										console.log("환불 요청 성공");
 										alert("환불 요청되었습니다.");
 										location.reload(true);
 									} else {
@@ -181,6 +180,28 @@
 								},
 								error: function() {
 									console.log("환불 요청 ajax 통신 실패");
+								}
+							});
+						}
+					}
+					
+					//환불요청취소
+					function cancelRefund() {
+						if(confirm("환불 요청을 취소하시겠습니까?")) {
+							$.ajax({
+								url: "cancelRefund.pa",
+								type: "post",
+								data: {buyListId: buyListId},
+								success: function(result) {
+									if(result > 0) {
+										alert("환불 요청이 취소되었습니다.");
+										location.reload(true);
+									} else {
+										console.log("환불 요청 취소 실패");
+									}
+								},
+								error: function() {
+									console.log("환불 요청 취소 ajax 통신 실패");
 								}
 							});
 						}

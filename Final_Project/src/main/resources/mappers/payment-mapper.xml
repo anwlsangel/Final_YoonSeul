@@ -48,6 +48,7 @@
 		   SET RESERVE_REFUND = SYSDATE
 		   	 , STATUS = 0
 		 WHERE BUYLIST_ID = #{merchant_uid}
+		   AND STATUS = 2
 	</update>
 	
 	<!-- 예매내역 상세조회 -->
@@ -93,6 +94,15 @@
 		UPDATE BUYLIST
 		   SET STATUS = 2
 		 WHERE BUYLIST_ID = #{buyListId}
+		   AND STATUS = 1
+	</update>
+	
+	<!-- 마이페이지-환불요청취소 -->
+	<update id="cancelRefund" parameterType="string">
+		UPDATE BUYLIST
+		   SET STATUS = 1
+		 WHERE BUYLIST_ID = #{buyListId}
+		   AND STATUS = 2
 	</update>
 	
 	<!-- 환불 거부 -->
@@ -100,6 +110,7 @@
 		UPDATE BUYLIST
 		   SET STATUS = 1
 		 WHERE BUYLIST_ID = #{buyListId}
+		   AND STATUS = 2
 	</update>
 	
 	<!-- 좌석 상태 변경 (결제중) -->

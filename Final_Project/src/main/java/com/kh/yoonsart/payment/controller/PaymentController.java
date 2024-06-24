@@ -145,6 +145,14 @@ public class PaymentController {
 		int result =  paymentService.requestRefund(buyListId);
 		return result;
 	}
+	
+	//마이페이지-환불요청취소
+	@ResponseBody
+	@PostMapping(value="cancelRefund.pa")
+	public int cancelRefund(String buyListId) {
+		return paymentService.cancelRefund(buyListId);
+	}
+	
 	//환불 거부
 	@ResponseBody
 	@PostMapping(value="rejectRefund.pa")
