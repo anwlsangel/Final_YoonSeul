@@ -1154,129 +1154,120 @@
 
 				<!-- 날짜 선택 관련  -->
 				<script>
-					/* 초기 연도와 월 설정
-					let toDay = new Date();
-					let year = toDay.getFullYear();
-					let month = toDay.getMonth();
-					let selectedElement = null;
-				
-					$(function() {
-						initializeLikeIcon();
-					});
-				
-					// 달력 그리기
-					function drawCalendar(year, month) {
-						const firstDay = new Date(year, month, 1);
-						const lastDay = new Date(year, month + 1, 0);
-						const dayOfWeek = firstDay.getDay();
-				
-						document.getElementById("fullDate").innerHTML = year + "년 " + (month < 9 ? "0" + (month + 1) : (month + 1)) + "월";
-				
-						let forAppend = "<tr>";
-						// 1일과 요일 맞추기 위해 밀어내기
-						for (let i = 0; i < dayOfWeek; i++) {
-							forAppend += "<td class='disable'></td>";
-						}
-						for (; firstDay <= lastDay; firstDay.setDate(firstDay.getDate() + 1)) {
-							let day = firstDay.getDate();
-							forAppend += "<td class='able' onclick='pickTime(this, " + year + "," + (month + 1) + "," + day + ")' onmouseover='hoverDate(this)' onmouseout='unhoverDate(this)'>" + (day < 10 ? "0" + day : day) + "</td>";
-							if (firstDay.getDay() === 6) {
-								forAppend += "</tr><tr>";
-							}
-						}
-						forAppend += "</tr>";
-						document.getElementById("calendarTbody").innerHTML = forAppend;
-					}
-				
-				 // 시간 선택
-					function pickTime(element, year, month, date) {
-						if (selectedElement) {
-							selectedElement.classList.remove("selected-date");
-						}
-						element.classList.add("selected-date");
-						selectedElement = element;
-			
-						let formattedMonth = month < 10 ? '0' + month : month;
-						let formattedDate = date < 10 ? '0' + date : date;
-						let selectedDate = year + formattedMonth + formattedDate;
-			
-			
-						$.ajax({
-							url: 'date.co',
-							type: 'GET',
-							data: {
-								cno: ${cno}, // 콘서트 ID
-								dateString: selectedDate
-							},
-							success: function(response) {
-								updateDateList(response); // DateList 업데이트 함수 호출
-							},
-							error: function(error) {
-								console.error('Error:', error);
-							}
-						});
-					}
-			
-					function updateDateList(dateList) {
-						const tableBody = $("#time-table tbody");
-						tableBody.empty(); // 기존 내용 삭제
-			
-						if (dateList.length === 0) {
-							tableBody.append("<tr><td>상영중인 공연이 없습니다.</td></tr>");
-						} else {
-							dateList.forEach(function(date) {
-								tableBody.append("<tr><td>" + date.timeOnly + "</td></tr>");
-							});
-						}
-					}
-			
-					$(document).ready(function() {
-						drawCalendar(year, month);
-					});
-				    
-					// 날짜 hover 이벤트 ============================
-					function hoverDate(element) {
-						if (!element.classList.contains("selected-date")) {
-							element.classList.add("hover-date");
-						}
-					}
-				
-					function unhoverDate(element) {
-						element.classList.remove("hover-date");
-					}
-				
-					// 달 이동 함수
-					function previousMonth() {
-						$("#nextBtn").removeAttr("disabled");
-						month--;
-						if (month == -1) {
-							year--;
-							month = 11;
-						}
-						drawCalendar(year, month);
-						if (month < new Date().getMonth() - 1) {
-							$("#previousBtn").attr("disabled", "disabled");
-						}
-					}
-				
-					function nextMonth() {
-						month++;
-						$("#previousBtn").removeAttr("disabled");
-						if (month == 12) {
-							year++;
-							month = 0;
-						}
-						drawCalendar(year, month);
-						if (month > new Date().getMonth() + 2/*여기
-			
-			 변경) {
-							$("#nextBtn").attr("disabled", "disabled");
-						}
-					}
-				
-					// 첫로딩시 그려줄 함수
-					drawCalendar(year, month);
-					*/
+                // 초기 연도와 월 설정
+                let toDay = new Date();
+                let year = toDay.getFullYear();
+                let month = toDay.getMonth();
+                let selectedElement = null;
+
+                // 달력 그리기
+                function drawCalendar(year, month) {
+                    const firstDay = new Date(year, month, 1);
+                    const lastDay = new Date(year, month + 1, 0);
+                    const dayOfWeek = firstDay.getDay();
+
+                    document.getElementById("fullDate").innerHTML = year + "년 " + (month < 9 ? "0" + (month + 1) : (month + 1)) + "월";
+
+                    let forAppend = "<tr>";
+                    // 1일과 요일 맞추기 위해 밀어내기
+                    for (let i = 0; i < dayOfWeek; i++) {
+                        forAppend += "<td class='disable'></td>";
+                    }
+                    for (; firstDay <= lastDay; firstDay.setDate(firstDay.getDate() + 1)) {
+                        let day = firstDay.getDate();
+                        forAppend += "<td class='able' onclick='pickTime(this, " + year + "," + (month + 1) + "," + day + ")' onmouseover='hoverDate(this)' onmouseout='unhoverDate(this)'>" + (day < 10 ? "0" + day : day) + "</td>";
+                        if (firstDay.getDay() === 6) {
+                            forAppend += "</tr><tr>";
+                        }
+                    }
+                    forAppend += "</tr>";
+                    document.getElementById("calendarTbody").innerHTML = forAppend;
+                }
+
+                // 시간 선택
+                function pickTime(element, year, month, date) {
+                    if (selectedElement) {
+                        selectedElement.classList.remove("selected-date");
+                    }
+                    element.classList.add("selected-date");
+                    selectedElement = element;
+
+                    let formattedMonth = month < 10 ? '0' + month : month;
+                    let formattedDate = date < 10 ? '0' + date : date;
+                    let selectedDate = year + formattedMonth + formattedDate;
+
+                    $.ajax({
+                        url: 'date.co',
+                        type: 'GET',
+                        data: {
+                            cno: ${cno}, // 콘서트 ID
+                            dateString: selectedDate
+                        },
+                        success: function(response) {
+                            updateDateList(response); // DateList 업데이트 함수 호출
+                        },
+                        error: function(error) {
+                            console.error('Error:', error);
+                        }
+                    });
+                }
+
+                function updateDateList(dateList) {
+                    const tableBody = $("#time-table tbody");
+                    tableBody.empty(); // 기존 내용 삭제
+
+                    if (dateList.length === 0) {
+                        tableBody.append("<tr><td>상영중인 공연이 없습니다.</td></tr>");
+                    } else {
+                        dateList.forEach(function(date) {
+                            tableBody.append("<tr><td>" + date.timeOnly + "</td></tr>");
+                        });
+                    }
+                }
+
+                // 날짜 hover 이벤트
+                function hoverDate(element) {
+                    if (!element.classList.contains("selected-date")) {
+                        element.classList.add("hover-date");
+                    }
+                }
+
+                function unhoverDate(element) {
+                    element.classList.remove("hover-date");
+                }
+
+                // 달 이동 함수
+                function previousMonth() {
+                    $("#nextBtn").removeAttr("disabled");
+                    month--;
+                    if (month == -1) {
+                        year--;
+                        month = 11;
+                    }
+                    drawCalendar(year, month);
+                    if (month < new Date().getMonth() - 1) {
+                        $("#previousBtn").attr("disabled", "disabled");
+                    }
+                }
+
+                function nextMonth() {
+                    month++;
+                    $("#previousBtn").removeAttr("disabled");
+                    if (month == 12) {
+                        year++;
+                        month = 0;
+                    }
+                    drawCalendar(year, month);
+                    if (month > new Date().getMonth() + 2) {
+                        $("#nextBtn").attr("disabled", "disabled");
+                    }
+                }
+
+                // 첫 로딩시 달력 그리기
+                $(document).ready(function() {
+                    drawCalendar(year, month);
+                });
+            
 					// 좋아요 아이콘 초기화 함수
 					function initializeLikeIcon() {
 						const userId = "${sessionScope.loginUser.userId}";
