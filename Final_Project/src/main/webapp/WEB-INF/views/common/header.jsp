@@ -26,7 +26,17 @@
     <script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
     <!-- Bootstrap JavaScript -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@4.6.2/dist/js/bootstrap.bundle.min.js"></script>
-     
+     <style>
+        @font-face {
+            font-family: 'Gmarket Sans Medium';
+            src: url('${pageContext.request.contextPath}/resources/css/GmarketSansTTFMedium.ttf') format('truetype');
+            font-weight: 700;
+        }
+
+        * {
+            font-family: 'Gmarket Sans Medium', sans-serif;
+        }
+    </style>
 <style>
     html, body {
         margin: 0;

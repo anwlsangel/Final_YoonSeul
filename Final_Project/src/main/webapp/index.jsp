@@ -9,6 +9,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>윤슬아트홀</title>
 </head>
+	<style>
+        @font-face {
+            font-family: 'Gmarket Sans Medium';
+            src: url('${pageContext.request.contextPath}/resources/css/GmarketSansTTFMedium.ttf') format('truetype');
+            font-weight: 700;
+        }
+
+        * {
+            font-family: 'Gmarket Sans Medium', sans-serif;
+        }
+    </style>
 <!-- jQuery library -->
     <!-- 온라인 방식 -->
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
@@ -34,6 +45,7 @@
 	<!-- Semantic UI theme -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
+	
 		html, body {
 		    margin: 0;
 		    padding: 0;
