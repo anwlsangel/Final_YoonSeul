@@ -14,6 +14,8 @@ public interface AdminConcertService {
 
 	int adUpdateConcert(Concert c);
 	
+	int adDeleteConcert();
+	
 	//용환
 	ArrayList<ConcertDateByKwon> getScheduleWihtHoleName(HashMap<String,String> m);
 	int insertConcertInfo(Concert c,ArrayList<String> list);

@@ -1,6 +1,7 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
+<%@ taglib prefix="fn" uri="http://java.sun.com/jsp/jstl/functions" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -10,6 +11,12 @@
 	#dataTable {
 		text-align: center;
 	}	
+	.button-container {
+        display: flex;
+        justify-content: flex-end;
+        margin-top: 10px;
+        margin-bottom: 10px;
+    }
 </style>
 </head>
 <body>
@@ -53,8 +60,26 @@
 	                    <td>${co.concertName}</td>
 	                    <td>${co.ageLimit}</td>
 	                    <td>${co.price}</td>
-	                    <td>${co.thumbnailRoot}</td>
-	                    <td>${co.detailRoot}</td>
+	                    <td>
+	                        <c:choose>
+	                            <c:when test="${fn:length(co.thumbnailRoot) > 15}">
+	                                ${fn:substring(co.thumbnailRoot, 0, 15)}...
+	                            </c:when>
+	                            <c:otherwise>
+	                                ${co.thumbnailRoot}
+	                            </c:otherwise>
+	                        </c:choose>
+	                    </td>
+	                    <td>
+	                        <c:choose>
+	                            <c:when test="${fn:length(co.detailRoot) > 15}">
+	                                ${fn:substring(co.detailRoot, 0, 15)}...
+	                            </c:when>
+	                            <c:otherwise>
+	                                ${co.detailRoot}
+	                            </c:otherwise>
+	                        </c:choose>
+	                    </td>
 	                    <td>${co.playTime}</td>
 	                    <td>${co.startDate}</td>
 	                    <td>${co.endDate}</td>
@@ -65,9 +90,12 @@
 	            </c:forEach>			
 	                
 	            </tbody>
+	            <div class="button-container">
+                    <a href="<%=request.getContextPath()%>/AdDelete.co"><button class="btn btn-small btn-danger" id="deleteConcert">종료된 공연 상태값 변경</button></a>
+                </div>
 	        </table>
-			</div>
-    	</div>            
+			</div>			
+    	</div>    	            
     </div>
     
     <script>
