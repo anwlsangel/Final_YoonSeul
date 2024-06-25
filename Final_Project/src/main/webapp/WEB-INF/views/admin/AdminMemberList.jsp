@@ -12,6 +12,7 @@
     }   
     #content{
         margin-left: 50px;
+        margin-right: 50px;
     }
 </style>
 </head>
@@ -34,13 +35,13 @@
             <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
-                        <th>회원ID</th>
-                        <th>이름</th>
-                        <th>생년월일</th>
+                        <th style="width: 70px;">회원ID</th>
+                        <th style="width: 50px;">이름</th>
+                        <th style="width: 100px;">생년월일</th>
                         <th>이메일</th>
                         <th>전화번호</th>
-                        <th>회원 가입일</th>
-                        <th>회원 상태</th>
+                        <th style="width: 100px;">회원 가입일</th>
+                        <th style="width: 70px;">회원 상태</th>
                         <th>주소</th>
                     </tr>
                 </thead>
