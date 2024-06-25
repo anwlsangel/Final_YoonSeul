@@ -271,6 +271,10 @@ body {
     <!-- 좌석관련 스크립트-->
 
     <script>
+    	//좌석관련변수
+    	let concertDateId = 1;
+        let seatId = [1, 2]
+    
         // 이거 디비에서 땡겨오는 값이여야함 range랑 규격 맞춰서 그려줘야 하기에 지금은 하드 코딩이지만...
         let gapx = 39;
         let gapy = 35;
@@ -349,8 +353,6 @@ body {
         
         //좌석 상태 변경 (구매불가)
         function endPayment(uid) {
-        	let concertDateId = 1;
-        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	
@@ -469,8 +471,6 @@ body {
         
         //좌석 상태 변경 (결제중)
         function startPayment() {
-        	let concertDateId = 1;
-        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	
@@ -504,8 +504,6 @@ body {
         
         //결제 취소
         function cancelPayment() {
-        	let concertDateId = 1;
-        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	
