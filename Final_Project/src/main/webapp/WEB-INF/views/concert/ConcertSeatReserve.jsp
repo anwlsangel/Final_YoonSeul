@@ -397,7 +397,7 @@ body {
 		    //const myAmount = Number(document.getElementById("amount").value);
 		    const myAmount = totalPrice; //결제금액
 		    let userId = "${sessionScope.loginUser.userId}";
-		    let concertName = "${concert.concertName}";
+		    let concertName = "${requestScope.concert.concertName}";
 		    
 		    const IMP = window.IMP; // 생략 가능
 		    IMP.init("imp84822672"); // 상점 식별코드
@@ -466,10 +466,6 @@ body {
 		      	
 		   		});
 		}
-        
-        $(function() {
-        	console.log("${requestScope.concert.concertName}");
-        });
         
         //좌석 상태 변경 (결제중)
         function startPayment() {
