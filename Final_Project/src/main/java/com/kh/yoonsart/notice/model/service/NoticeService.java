@@ -33,6 +33,9 @@ public interface NoticeService {
 	// 이미지 삭제
 	int deleteNoticeImg(int noticeNo);
 	
+	// 메인페이지 공지사항 조회
+	ArrayList<Notice> selectMainNoticeList();
+	
 }
 
 

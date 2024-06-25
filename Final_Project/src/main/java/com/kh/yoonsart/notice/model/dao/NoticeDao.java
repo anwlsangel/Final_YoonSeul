@@ -72,6 +72,11 @@ public class NoticeDao {
 		return sqlSession.update("noticeMapper.deleteNoticeImg", noticeNo);
 	}
 
+	public ArrayList<Notice> selectMainNoticeList(SqlSessionTemplate sqlSession) {
+
+		return (ArrayList)sqlSession.selectList("noticeMapper.selectMainNoticeList");
+	}
+
 }
 
 

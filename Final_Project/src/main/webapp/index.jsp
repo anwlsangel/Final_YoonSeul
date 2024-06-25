@@ -349,26 +349,30 @@
 		    width: 80%;
 		    height: 500px;
 		    margin: auto;
-		    border: 1px solid #630000;
 		    margin-top: 150px;
+		}
+		
+		#notice-list tbody tr:hover {
+			background-color: lightgray;
+			cursor: pointer;
 		}
 		
 		.main-notice h1 {
 		    text-align: center;    
 		}
 		
-		.notice-list {
+		#notice-list {
 		    width: 100%;
 		    text-align: center;  
 		    height: 100%;     
 		    position: relative;
 		}
 		
-		.notice-list tbody {
+		#notice-list tbody {
 		    height: 80%;
 		}
 		
-		.notice-list thead {
+		#notice-list thead {
 		    height: 20%;
 		}
 		
@@ -418,7 +422,7 @@
 		}
 		
 		.detail-text {
-		    height: 50px;
+		    height: 30px;
 		    margin-top: 10px;
 		}
 		
@@ -751,8 +755,8 @@
 	
 	<div class="main-notice">
             
-            <table class="notice-list">                
-                <thead>
+           <table class="table" id="notice-list">
+    		<thead class="thead-light">
                 <tr>
                     <td colspan="5"><h1>공지 사항</h1></td>
                 </tr>
@@ -764,43 +768,8 @@
                     <th style="width: 10%;">작성일자</th>                    
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-            </tbody>
+                <tbody class="main-notice-tbody">
+            	</tbody>
             </table>
     </div>
 	
@@ -822,11 +791,53 @@
         </div>
     </div>
     
+    
+    
     <script>
     	$(function() {
     		loadOpenConcerts();
-    	});    	
+    	});  
+    	$(function() {
+    		loadMainNotice();
+    	});
     </script>
+    
+    <!-- 메인 공지사항 조회용 -->
+	<script>
+	    function loadMainNotice() {    		
+	        $.ajax({
+	            url: 'loadMainNotice.no',
+	            method: 'GET',
+	            success: function(result) {
+	                const noticeList = $('.main-notice-tbody');
+	                console.log("공지사항 조회용 ajax 통신 성공!");
+	                console.log(result);
+	                noticeList.empty();  // 기존 내용을 지워줍니다
+	                
+	                result.forEach(function(notice) {
+	                    let shortContent = notice.noticeContent;
+	                    if (shortContent.length > 20) {
+	                        shortContent = shortContent.substring(0, 20) + '...';
+	                    }
+	                    
+	                    const noticeHtml = `
+	                        <tr>
+	                            <td>\${notice.noticeNo}</td>
+	                            <td>\${notice.noticeTitle}</td>
+	                            <td>\${shortContent}</td>
+	                            <td>\${notice.noticeCount}</td>
+	                            <td>\${notice.createDate}</td>
+	                        </tr>                            
+	                    `;
+	                    noticeList.append(noticeHtml);
+	                });
+	            },
+	            error: function() {
+	                console.log("공지사항 조회용 ajax 통신 실패");
+	            }
+	        });
+	    }
+	</script>
     
     <!-- 장르별 TOP 게시물 조회용  -->
     <script>
