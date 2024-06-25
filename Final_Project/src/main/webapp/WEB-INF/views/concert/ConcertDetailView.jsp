@@ -1333,17 +1333,18 @@
 					//결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
 					function payment() {
 						//주문번호(BUYLIST_ID) 랜덤생성
-						let concertName = $("#concertID").val();
+						let concertId = $("#concertID").val();
 						let formattedDate = moment().format('YYYYMMDD');
 						let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
-						let randomUid = concertName + formattedDate + randomNum;
+						let buylistId = concertId + formattedDate + randomNum;
 
 						let ticketPrice = ${ concert.price };
 						let ticketCount = $("#ticketCount").val();
 
 						const myAmount = ticketPrice * ticketCount; //총 결제금액
 						let userId = "${sessionScope.loginUser.userId}";
-						let concertId = $("#concertID").val();
+						let concertName = "${concert.concertName}";
+						
 
 						const IMP = window.IMP; // 생략 가능
 						IMP.init("imp84822672"); // 상점 식별코드
@@ -1352,8 +1353,8 @@
 								// param
 								pg: "html5_inicis",
 								pay_method: "card",
-								merchant_uid: randomUid, //주문번호 == BUYLIST_ID
-								name: "공연이름", //공연이름 == RESERVE_CONCERT_NAME
+								merchant_uid: buylistId, //주문번호 == BUYLIST_ID
+								name: concertName, //공연이름 == RESERVE_CONCERT_NAME
 								amount: myAmount,
 								buyer_email: "gildonggmailcom",
 								buyer_name: "HongGildong",
@@ -1383,8 +1384,8 @@
 											data: {
 												buyListId: rsp.merchant_uid, //주문번호
 												reserveCode: rsp.pg_tid, //결제코드
-												reserveConcertId: concertId, //예약된 공연 이름
-												reserveTicket: 1, //예약된 티켓 수
+												reserveConcertId: concertName, //예약된 공연 이름
+												reserveTicket: ticketCount, //예약된 티켓 수
 												reserveSum: myAmount, //결제 금액 합
 												userId: userId //회원ID
 											},
