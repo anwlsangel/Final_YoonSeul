@@ -35,7 +35,7 @@
 
     .chart {
         display: inline-block;
-        width: 40%;
+        width: 90%;
         margin: 30px;
         vertical-align: top;
     }
@@ -75,9 +75,7 @@
                     <div class="charts" align="center">
                         <div class="chart">
                             <h1>판매량 통계</h1>
-                            <div id="sales_volume"></div>
-                            <br><br>
-                            <div id="sales"></div>
+                            <div id="concert_sales"></div>
                             <br><br>
     
                         </div>
@@ -85,10 +83,127 @@
                             <h1>회원 통계</h1>
                             <div id="member_age"></div>
                             <br><br>
-                            <div id="member_gender"></div>
+                            <div id="member_enroll"></div>
                             <br><br>
                         </div>
                     </div>
+                    
+                    <script>
+                    	$(function() {
+                    		console.log(${mlist});
+                    		console.log(${slist});
+                    	});
+                    
+                        window.onload = function() {
+                            // ---------- 회원 연령대 ----------
+                            // ----- 파이그래프 그리기 -----
+                            google.charts.load('current', {'packages':['corechart']});
+                            google.charts.setOnLoadCallback(drawPie1);
+
+                            function drawPie1() {
+                                // 그래프 상에 표현할 데이터
+                                var data = google.visualization.arrayToDataTable([
+                                    ['연령대', '비율'],
+                                    ['20대', ${age20}],
+                                    ['30대', ${age30}],
+                                    ['40대', ${age40}],
+                                    ['기타', ${ageEtc}]
+                                ]);
+
+                                // 그래프 그리기 옵션
+                                var options = {
+                                    title: '회원 연령대 비율'
+                                };
+
+                                // 그래프를 그려넣을 요소 선택 후 데이터, 옵션을 매개변수로 넣어 그리기
+                                var chart = new google.visualization.PieChart(document.getElementById('member_age'));
+                                chart.draw(data, options);
+                            }
+                            
+                            
+                         // ----- 세로막대그래프 그리기 -----
+                            google.charts.load('current', {'packages':['bar']});
+                            google.charts.setOnLoadCallback(drawBar1);
+
+                            function drawBar1() {
+                            	
+                                // 그래프 상에 표현할 데이터
+                                var data = google.visualization.arrayToDataTable([
+                                    ['월', '회원가입 수'],
+                                    ['1', ${empty mlist[0].enrollCount ? 0 :mlist[0].enrollCount}],
+                                    ['2', ${empty mlist[1].enrollCount ? 0 :mlist[1].enrollCount}],
+                                    ['3', ${empty mlist[2].enrollCount ? 0 :mlist[2].enrollCount}],
+                                    ['4', ${empty mlist[3].enrollCount ? 0 :mlist[3].enrollCount}],
+                                    ['5', ${empty mlist[4].enrollCount ? 0 :mlist[4].enrollCount}],
+                                    ['6', ${empty mlist[5].enrollCount ? 0 :mlist[5].enrollCount}],
+                                    ['7', ${empty mlist[6].enrollCount ? 0 :mlist[6].enrollCount}],
+                                    ['8', ${empty mlist[7].enrollCount ? 0 :mlist[7].enrollCount}],
+                                    ['9', ${empty mlist[8].enrollCount ? 0 :mlist[8].enrollCount}],
+                                    ['10',${empty mlist[9].enrollCount ? 0 :mlist[9].enrollCount}],
+                                    ['11',${empty mlist[10].enrollCount ? 0 :mlist[10].enrollCount}],
+                                    ['12',${empty mlist[11].enrollCount ? 0 :mlist[11].enrollCount}]
+                                ]);
+									
+                                // 월별 회원 가입 수 
+                                // 그래프 그리기 옵션
+                                var options = {
+                                    chart: {
+                                        title: '월별 회원가입 수',
+                                        subtitle: '2024년',
+                                    },
+                                    bars: 'vertical',
+                                    vAxis: {format: 'decimal'},
+                                    height: 300,
+                                    colors: ['#1b9e77', '#d95f02']
+                                };
+
+                                // 그래프를 그려넣을 요소 선택 후 데이터, 옵션을 매개변수로 넣어 그리기
+                                var chart = new google.charts.Bar(document.getElementById('member_enroll'));
+                                chart.draw(data, google.charts.Bar.convertOptions(options));
+                            }
+                            
+                         // ----- 세로막대그래프 그리기 -----
+                            google.charts.load('current', {'packages':['bar']});
+                            google.charts.setOnLoadCallback(drawBar2);
+
+                            function drawBar2() {
+                                // 그래프 상에 표현할 데이터
+                                var data = google.visualization.arrayToDataTable([
+                                    ['월', '매출(원)'],
+                                    ['1', ${empty slist[0].enrollCount ? 0 :slist[0].enrollCount}],
+                                    ['2', ${empty slist[1].enrollCount ? 0 :slist[1].enrollCount}],
+                                    ['3', ${empty slist[2].enrollCount ? 0 :slist[2].enrollCount}],
+                                    ['4', ${empty slist[3].enrollCount ? 0 :slist[3].enrollCount}],
+                                    ['5', ${empty slist[4].enrollCount ? 0 :slist[4].enrollCount}],
+                                    ['6', ${empty slist[5].enrollCount ? 0 :slist[5].enrollCount}],
+                                    ['7', ${empty slist[6].enrollCount ? 0 :slist[6].enrollCount}],
+                                    ['8', ${empty slist[7].enrollCount ? 0 :slist[7].enrollCount}],
+                                    ['9', ${empty slist[8].enrollCount ? 0 :slist[8].enrollCount}],
+                                    ['10', ${empty slist[9].enrollCount ? 0 :slist[9].enrollCount}],
+                                    ['11', ${empty slist[10].enrollCount ? 0 :slist[10].enrollCount}],
+                                    ['12', ${empty slist[11].enrollCount ? 0 :slist[11].enrollCount}]
+                                ]);
+
+                                // 그래프 그리기 옵션
+                                var options = {
+                                    chart: {
+                                        title: '월별 매출 현황',
+                                        subtitle: '2024년',
+                                    },
+                                    bars: 'vertical',
+                                    vAxis: {format: 'decimal'},
+                                    height: 300,
+                                    colors: ['#1b9e77', '#d95f02']
+                                };
+
+                                // 그래프를 그려넣을 요소 선택 후 데이터, 옵션을 매개변수로 넣어 그리기
+                                var chart = new google.charts.Bar(document.getElementById('concert_sales'));
+                                chart.draw(data, google.charts.Bar.convertOptions(options));
+                            } 
+                            
+                            
+                        };
+                    </script>
                     
 
                 </div>
@@ -155,17 +270,6 @@
 
     <!-- Page level custom scripts -->
     <script src="js/demo/datatables-demo.js"></script>
-    
-    <script>
-    	$(function(){
-    		$(".delete-parking").click(function () {
-    			let carNo = $(this).parent().prev().prev().children().text().trim();
-    			$(".modal-body>.carNo").attr("value", carNo);
-				
-			});
-    		
-    	});
-    </script>
 
 </body>
 </html>
