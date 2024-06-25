@@ -51,7 +51,10 @@ public class AdminController {
 		//int ageEtc = memCount - (age20 + age30 + age40);
 		
 		for(int i = 0; i < list.size(); i++) {
-			if(list.get(i) >= 20 && list.get(i) < 30) {
+			
+			if (list.get(i) == null) {
+				ageEtc++;
+			} else if(list.get(i) >= 20 && list.get(i) < 30) {
 				//age20.add(list.get(i));
 				age20++;
 			} else if (list.get(i) >= 30 && list.get(i) < 40) {
