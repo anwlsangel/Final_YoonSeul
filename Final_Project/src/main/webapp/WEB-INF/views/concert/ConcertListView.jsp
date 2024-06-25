@@ -62,7 +62,7 @@
     }
 
     .detail-text {
-        font-size: 14px;
+        font-size: 10px;
         color: #555;
         text-align: center;
     }
@@ -230,6 +230,7 @@
             <a href="list.co?category=뮤지컬&sort=${sort}">뮤지컬&#127926;</a>
             <a href="list.co?category=로맨스&sort=${sort}">로맨스&#128149;</a>
             <a href="list.co?category=아동&sort=${sort}">아동&#128118;</a>
+            <a href="list.co?category=공포&sort=${sort}">공포👻</a>
         </div>                     
     </div>
     <form action="search.co">
