@@ -121,7 +121,7 @@
 		                 , SEAT_ID
 		                 , BUYLIST_ID)
 		            VALUES(SEQ_SNO.NEXTVAL
-		            	 , 2
+		            	 , 1
 		                 , #{concertDateId}
 		                 , #{seatId}
 		                 , 0)
