@@ -132,8 +132,8 @@
             <div class="slider">
                 <div class="slides">
                     <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/아트홀낮.png" alt="Image 1"></div>
-                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/소극장1.png" alt="Image 2"></div>
-                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/소극장2.jpg" alt="Image 3"></div>
+                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/아트홀밤.png" alt="Image 2"></div>
+                    <div class="slide"><img src="${pageContext.request.contextPath}/resources/image/c12.jpg" alt="Image 3"></div>
                 </div>
                 <button class="nav-button left">&#10094;</button>
                 <button class="nav-button right">&#10095;</button>
