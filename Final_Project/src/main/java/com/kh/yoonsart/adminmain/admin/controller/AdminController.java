@@ -35,14 +35,15 @@ public class AdminController {
 		
 		ArrayList<Integer> list = adminService.admemberAge();
 		
-		//System.out.println(list);
+		// System.out.println(list);
 		
 		mv.addObject("list", list);
 		
 		int age20 = 0;
 		int age30 = 0;
 		int age40 = 0;
-		int ageEtc = 0;
+		int nullCount = 0;
+		int ageEtc = 0 + nullCount;
 		
 //		ArrayList<Integer> age20 = new ArrayList<>();
 //		ArrayList<Integer> age30 = new ArrayList<>();
@@ -50,10 +51,10 @@ public class AdminController {
 //		ArrayList<Integer> ageEtc = new ArrayList<>();
 		//int ageEtc = memCount - (age20 + age30 + age40);
 		
+		
 		for(int i = 0; i < list.size(); i++) {
-			
-			if (list.get(i) == null) {
-				ageEtc++;
+			if(list.get(i) == null) {
+				nullCount++;
 			} else if(list.get(i) >= 20 && list.get(i) < 30) {
 				//age20.add(list.get(i));
 				age20++;
