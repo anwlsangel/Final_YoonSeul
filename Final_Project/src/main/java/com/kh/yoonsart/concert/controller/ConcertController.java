@@ -97,8 +97,8 @@ public class ConcertController {
 	    }
 	
 	@GetMapping("seat.co")
-	public String ConcertSeatReserve() {
-				
+	public String ConcertSeatReserve(int cno, Model model) {
+		model.addAttribute("concert", concertService.concertDetail(cno));
 		return "concert/ConcertSeatReserve";
 		
 	}

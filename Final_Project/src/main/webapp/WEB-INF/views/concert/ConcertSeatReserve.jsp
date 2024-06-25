@@ -392,11 +392,12 @@ body {
 	  		let concertId = $("#concertId").val();
 	  		let formattedDate = moment().format('YYYYMMDD');
 	  		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
-	  		let randomUid = concertId + formattedDate + randomNum;
+	  		let buylistId = concertId + formattedDate + randomNum;
 	  		
 		    //const myAmount = Number(document.getElementById("amount").value);
 		    const myAmount = totalPrice; //결제금액
 		    let userId = "${sessionScope.loginUser.userId}";
+		    let concertName = "${concert.concertName}";
 		    
 		    const IMP = window.IMP; // 생략 가능
 		    IMP.init("imp84822672"); // 상점 식별코드
@@ -405,8 +406,8 @@ body {
 		      	// param
 		         pg: "html5_inicis",
 		         pay_method: "card",
-		         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
-		         name: "공연이름", //결제 시 보이는 상품명
+		         merchant_uid: buylistId, //주문번호 == BUYLIST_ID
+		         name: concertName, //결제 시 보이는 상품명
 		         amount: myAmount,
 		         buyer_email: "gildonggmailcom",
 		         buyer_name: "HongGildong",
@@ -436,7 +437,7 @@ body {
 		     	            	data: {
 		     	            		buyListId: rsp.merchant_uid, //주문번호
 		     	            		reserveCode: rsp.pg_tid, //결제코드
-		     	            		reserveConcertId: concertId, //예약된 공연 이름
+		     	            		reserveConcertId: concertName, //예약된 공연 이름
 		     	      	            reserveTicket: ticketQuantity, //예약된 티켓 수
 		     	      	            reserveSum: myAmount, //결제 금액 합
 		     	      	            userId: userId //회원ID
@@ -465,6 +466,10 @@ body {
 		      	
 		   		});
 		}
+        
+        $(function() {
+        	console.log("${requestScope.concert.concertName}");
+        });
         
         //좌석 상태 변경 (결제중)
         function startPayment() {
