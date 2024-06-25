@@ -23,7 +23,7 @@
 <body>
         
     <jsp:include page="../common/header.jsp" />
-
+<div class="container">
     <div id="contentForm">
         <br><br>
         <div class="innerOuter">
@@ -100,6 +100,7 @@
 
     </div>
   </div>  
+  </div>
     <jsp:include page="../common/footer.jsp" />
     
 </body>

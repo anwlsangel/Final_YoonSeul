@@ -17,22 +17,14 @@
     <link rel="stylesheet" href="https://unpkg.com/swiper@8/swiper-bundle.min.css" />
     <script src="https://unpkg.com/swiper@8/swiper-bundle.min.js"></script>
     <style>
-    	.container {
-        max-width: 1000px;
-        margin: 20px auto;
-        margin-top: 100px;
-        padding: 20px;
-        background-color: #fff;
-        box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-        min-height: calc(100vh - 160px);
-    }
+    
     	#img{width: 200px;}
 		#contentForm {
 			padding-top : 100px;
 			
 		}
         .file-table {
-            width: 65%;
+            width: 90%;
             margin-top: 10px;
             border-collapse: collapse;
             border: 1px solid;
@@ -42,7 +34,6 @@
             border: 1px solid;
         }
         .file-table td {
-            width: %;
             vertical-align: top;
         }
         .file-name {
@@ -94,12 +85,13 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp" />
-    <div class="cotainer" id="contentForm" align="center">
+<div class="container">
+    <div id="contentForm" align="center">
         <input type="hidden" name="id" value="${l.lostNo}">
         <table align="center" class="file-table">
             <tr>
-                <th><label for="title">제목</label></th>
-                <td><input type="text" id="title" class="form-control" name="title" value="${l.lostTitle}" required></td>
+                <th>제목</label></th>
+                <td colspan="3">${l.lostTitle}</td>
             </tr>
         <tr>
                     <th>작성일</th>
@@ -122,7 +114,7 @@
                             </div>
                         </c:forEach>
                     </table>
-                    <textarea id="content" class="form-control" name="content" required>${l.lostContent}</textarea>
+                    <span>${l.lostContent}</span>
                 </td>
             </tr>
         </table>
@@ -164,7 +156,7 @@
 	            </script>
 	            
 			</c:if>
-    </div>
-
+    </div>    
+</div>
 </body>
 </html>
