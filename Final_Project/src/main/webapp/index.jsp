@@ -636,8 +636,8 @@
                     <div><a href=""><img src="resources/image/8px+텍스트.png"id="logo"></a></div>                    
                     <div class="navi"><a href="list.co?category=전체&sort=date">공연정보</a></div>
                     <div class="navi"><a href="<%=request.getContextPath()%>/infohall">소개</a></div>
-                    <div class="navi"><a href="">공지사항</a></div>                      
-                    <div class="navi"><a href="">유실물센터</a></div>    
+                    <div class="navi"><a href="list.no">공지사항</a></div>                      
+                    <div class="navi"><a href="list.lo">유실물센터</a></div>    
                     <!-- 로그인 전후 화면 변경 0603 -무진 -->
                      <div class="main-login">
 			            <c:choose>

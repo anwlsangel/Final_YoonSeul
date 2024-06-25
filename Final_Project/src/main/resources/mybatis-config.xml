@@ -16,6 +16,9 @@
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.Ticket" alias="ticket" />
     	<typeAlias type="com.kh.yoonsart.concert.model.vo.ConcertDateByKwon" alias="ConcertDateByKwon" />
 		<typeAlias type="com.kh.yoonsart.adminmain.admin.model.vo.AdminCount" alias="enrollCount" />
+		<typeAlias type="com.kh.yoonsart.notice.model.vo.Notice" alias="notice" />
+		<typeAlias type="com.kh.yoonsart.lostfind.model.vo.Lostfind" alias="lostfind" />
+		<typeAlias type="com.kh.yoonsart.lostfind.model.vo.LostImg" alias="lostImg" />
     </typeAliases>
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>
@@ -23,6 +26,8 @@
         <mapper resource="/mappers/concert-mapper.xml"/>
         <mapper resource="/mappers/qna-mapper.xml"/>
         <mapper resource="/mappers/review-mapper.xml" />
+        <mapper resource="/mappers/notice-mapper.xml" />
+		<mapper resource="/mappers/lostfind-mapper.xml" />
     </mappers>
    
 </configuration>
