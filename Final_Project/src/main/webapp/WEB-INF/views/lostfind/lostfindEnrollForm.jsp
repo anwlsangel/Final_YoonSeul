@@ -72,6 +72,7 @@
 </head>
 <body>
 	<jsp:include page="../common/header.jsp" />
+<div class="container">
 <div id="contentForm">
     <form id="enrollForm" method="post" action="insert.lost" enctype="multipart/form-data">
         <table align="center" class="file-table">
@@ -108,6 +109,7 @@
             <button type="button" class="btn btn-danger" onclick="clearFileList()">파일 초기화</button>
         </div>
     </form>
+</div>
 </div>
     <script>
         let uploadedFiles = []; // 업로드된 파일 목록을 저장할 배열

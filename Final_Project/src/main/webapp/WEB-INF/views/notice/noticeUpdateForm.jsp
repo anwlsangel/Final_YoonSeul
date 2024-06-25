@@ -40,10 +40,7 @@
             border: none;
             cursor: pointer;
         }
-        .image-preview img {
-            max-width: 100%;
-            height: auto;
-        }
+
         #content, #title, #fileList {
             width: 98%;
             border: none;
@@ -52,35 +49,25 @@
             height: 500px;
         }
         .image-item {
-            border: 1px solid #ddd;
-            padding: 5px;
-            margin: 5px;
-            display: inline-block;
-            width: 98%;
+            display: inline-block; /* 이미지가 가운데 정렬되도록 inline-block으로 설정 */
+            text-align: center; /* 내부 요소들을 가운데 정렬하기 위한 스타일 */
+            mega-width: 100%;
+            height: auto;
+            margin-bottom: 30px;
         }
         .image-container {
-            display: flex;
-            flex-direction: column;
-            width: 98%;
-            height: 500px;
+             width: 100%;
+            height: auto;
             text-align: center; 
             margin-bottom: 30px;
         }
-        .image-item img {
-            display: block;
-            margin: 0 auto;
-            max-width : 100% ;
-            height: auto;
-        }
-        .image-container{
-        	
-            width: 100%;
 
-        }
+
     </style>
 </head>
 <%@ include file="../common/header.jsp" %>
 <body>
+<div class="container">
 <div id="contentForm">
     <form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
         <input type="hidden" name="noticeImg" value="${n.noticeImg}">
@@ -134,6 +121,7 @@
         </div>
     </form>
 </div>
+</div>
 
 <script>
     window.onload = function() {
@@ -144,7 +132,7 @@
         if (noticeImg) {
             let imgPreview = document.createElement('img');
             imgPreview.src = noticeImg;
-            imgPreview.style.width = '100px';
+            imgPreview.style.width = '500px';
             imgPreview.alt = '기존 이미지 미리보기';
             document.getElementById('contentPreview').appendChild(imgPreview);
             document.getElementById('fileName').innerHTML = noticeImgName;
@@ -161,7 +149,7 @@
         reader.onload = function(e) {
             let imgPreview = document.createElement('img');
             imgPreview.src = e.target.result;
-            imgPreview.style.width = '100px';
+            imgPreview.style.width = '500px';
             imgPreview.alt = '이미지 미리보기';
             contentPreview.appendChild(imgPreview);
         }

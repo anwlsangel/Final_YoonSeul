@@ -232,7 +232,7 @@ public class LostfindController {
 		String alertMsg = "";
         ObjectMapper mapper = new ObjectMapper();
         
-        
+        System.out.println(existingFilesData);
         List<LostImg> existingFiles = mapper.readValue(modifiedString, new TypeReference<List<LostImg>>(){});
         
 		if(existingFiles.size()==0) {
@@ -245,10 +245,12 @@ public class LostfindController {
 		}
 		
 		int result1 = lostfindService.updateLostfind(l);
+		System.out.println(result1);
+		System.out.println(reupfiles.length);
+		System.out.println(l);
 		ArrayList<String> list = new ArrayList<>();
 		if(result1 > 0) { 
-			
-			int lno = lostfindService.selectUpLostNo();
+
 			
 			if(reupfiles != null) {
 				
@@ -265,7 +267,7 @@ public class LostfindController {
 					String changeName = savePath(reupfiles[i], session);
 					li.setFileName(fileName);
 					li.setFileRoot("resources/uploadFiles/" + changeName);
-					li.setLostNo(lno);
+					li.setLostNo(l.getLostNo());
 					result += lostfindService.insertLostImg(li);
 				}
 				for(int i=(result2+1);i<reupfiles.length;i++) {
@@ -273,21 +275,20 @@ public class LostfindController {
 					String changeName = savePath(reupfiles[i], session);
 					li.setFileName(fileName);
 					li.setFileRoot("resources/uploadFiles/" + changeName);
-					li.setLostNo(lno);
+					li.setLostNo(l.getLostNo());
 					result += lostfindService.insertLostImg(li);
 				}}
 				
 				if(result!=(reupfiles.length-1)) {
 					
 					alertMsg="첨부파일 수정 및 업로드에 실패하였습니다.";
-				} else { alertMsg="게시글 수정에 성공했습니다.";
-			}
+				} 
 		}
 
 			
 			session.setAttribute("alertMsg", alertMsg);
 				
-			return "redirect:/detail.no?nno=" + l.getLostNo();
+			return "redirect:/list.lo";
 				
 			} else {
 				

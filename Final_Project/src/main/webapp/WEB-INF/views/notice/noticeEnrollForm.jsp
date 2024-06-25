@@ -6,7 +6,7 @@
     <meta charset="UTF-8">
     <title>파일 업로드 및 목록</title>
     <style>
-    #contentForm {
+    	#contentForm {
 			padding-top : 100px;
 			
 		}
@@ -61,7 +61,7 @@
         .image-item {
             display: inline-block; /* 이미지가 가운데 정렬되도록 inline-block으로 설정 */
             text-align: center; /* 내부 요소들을 가운데 정렬하기 위한 스타일 */
-            mega-width: 100%;
+            max-width: 100%;
             height: auto;
             margin-bottom: 30px;
         }
@@ -69,6 +69,7 @@
 </head>
 <body>
 <jsp:include page="../common/header.jsp" />
+<div class="container">
 <div id="contentForm">
     <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
         <table align="center" class="file-table">
@@ -101,6 +102,7 @@
             <button type="button" class="btn btn-danger" onclick="clearFile()">파일 초기화</button>
         </div>
     </form>
+</div>
 </div>
     <script>
         

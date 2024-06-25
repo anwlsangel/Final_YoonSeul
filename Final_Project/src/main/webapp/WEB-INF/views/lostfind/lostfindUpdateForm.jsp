@@ -75,6 +75,7 @@
 </head>
 <body>
    <%@ include file="../common/header.jsp" %>
+<div class="container">
 <div id="contentForm">
     <form id="updateForm" method="post" action="update.lo" enctype="multipart/form-data">
         <input type="hidden" name="lostNo" id="lostNo" value="${l.lostNo}">
@@ -124,7 +125,7 @@
         
     </form>
 </div>
-
+</div>
 <script>
 // 기존 파일 목록을 저장합니다.
 let existingFiles = [];
@@ -335,13 +336,10 @@ function submitForm(event) {
     const xhr = new XMLHttpRequest();
     xhr.open('POST', form.action, true);
     xhr.onload = function() {
-        if (xhr.status >= 200 && xhr.status < 300) {
+
             alert('게시물이 성공적으로 업로드되었습니다.');
             window.location.href = "list.lo";
-            // 성공 후 필요한 동작을 추가합니다.
-        } else {
-            alert('파일 업로드에 실패했습니다.');
-        }
+     
     };
     xhr.send(formData);  // FormData 객체 전송
 }

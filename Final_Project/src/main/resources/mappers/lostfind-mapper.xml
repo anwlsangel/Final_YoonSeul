@@ -181,7 +181,8 @@
 	<delete id="deleteExImg"
 			parameterType="java.util.List">
 	DELETE FROM LOST_IMG
-	WHERE LOST_IMG_ID NOT IN
+	WHERE LOST_NO = #{lI.lostNo}
+	AND LOST_IMG_ID NOT IN
         <foreach collection="list" item="lI" separator="," open="(" close=")">
             #{lI.lostImgId}
         </foreach>
