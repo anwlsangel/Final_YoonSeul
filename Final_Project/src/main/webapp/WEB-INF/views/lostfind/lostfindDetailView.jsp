@@ -27,11 +27,11 @@
             width: 90%;
             margin-top: 10px;
             border-collapse: collapse;
-            border: 1px solid;
         }
         .file-table th, .file-table td {
             padding: 8px;
-            border: 1px solid;
+            border-top: 2px solid #dee2e6;
+            border-bottom: 2px solid #dee2e6;
         }
         .file-table td {
             vertical-align: top;
@@ -80,6 +80,9 @@
         .image-item img {
             max-width: 100%;
             height: auto;
+        }
+        th {
+        	width : 20%;
         }
     </style>
 </head>

@@ -28,7 +28,7 @@
 <body>
     
     <jsp:include page="../common/header.jsp" />
-
+<div class="container">
     <div class="content">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
@@ -152,7 +152,7 @@
         <br><br>
 
     </div>
-
+</div>
     <jsp:include page="../common/footer.jsp" />
 
 </body>

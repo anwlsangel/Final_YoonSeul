@@ -28,11 +28,11 @@
 <body>
     
     <jsp:include page="../common/header.jsp" />
-
+<div class="container">
     <div class="content">
         <br><br>
         <div class="innerOuter" style="padding:5% 10%;">
-            <h2>게시판</h2>
+            <h2>공지사항</h2>
             <br>
             
             <c:if test="${ (not empty sessionScope.loginUser) and (sessionScope.loginUser.userId eq 'admin')}">
@@ -152,7 +152,7 @@
         <br><br>
 
     </div>
-
+</div>
     <jsp:include page="../common/footer.jsp" />
 
 </body>
