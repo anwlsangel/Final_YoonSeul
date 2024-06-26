@@ -24,6 +24,7 @@ public class ReviewDao {
 
 	public int updateReview(SqlSessionTemplate sqlSession, Review r) {
 
+		System.out.println("dao test");
 		return sqlSession.update("reviewMapper.updateReview", r);
 	}
 

@@ -746,14 +746,15 @@
 
 						<script>
 							$(document).on("click", ".updateBtn", function () {
+								console.log("test");
 								var reviewContent = $(this).data('id');
 								var reviewId = $(this).data('rno');
 								var concertId = $(this).data('cno');
 								$("#newReviewContent").html(reviewContent);
 								$("#reviewId").val(reviewId);
 								$("#concertId").val(concertId);
-								//console.log("rno : " + reviewId);
-								//console.log("cno : " + concertId);
+								console.log("rno : " + reviewId);
+								console.log("cno : " + concertId);
 							});
 
 							function deleteReview() {
@@ -939,54 +940,9 @@
 							});
 						}
 
-						/*
-						function review(star, userId, writeDate, reviewContent) {
-							//console.log(star, userId, writeDate, reviewContent)
-							
-							switch (star) {
-								case 5: stars = '★★★★★'; break;
-								case 4: stars = '★★★★☆'; break;
-								case 3: stars = '★★★☆☆'; break;
-								case 2: stars = '★★☆☆☆'; break;
-								case 1: stars = '★☆☆☆☆'; break;
-							}
-
-							let review = '<div class="review">';
-
-							review += '<div class="review-star">';
-							review += stars;
-							review += '</div>';
-
-							review += ' <div class="review-content">';
-							review += reviewContent;
-							review += '</div> ';
-
-							review += '<div class="review-info">';
-							review += '<div class="review-writer">';
-							review += userId;
-							review += '</div>';
-							review += '<div class="review-createDate">';
-							review += new Date(writeDate).toLocaleString().slice(0, -13);
-							review += '</div>';
-							review += ' </div>';
-
-							if (${sessionScope.loginUser.userId ne userId}) {
-								review += '<div class="review-update">';
-								review += ' <a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>';
-								review += '  <a onclick="deleteReview();">삭제</a>';
-								review += '  <br clear="both"> ';
-								review += ' </div>';
-
-							}
-
-							review += '<div class="review-line"></div>';
-							console.log(review)
-							$(document.getElementById('review')).append(review);
-						}
-						*/
-						
 						function review(star, userId, writeDate, reviewContent) {
 						    let stars;
+						    console.log(reviewId)
 						    switch (star) {
 						        case 5: stars = '★★★★★'; break;
 						        case 4: stars = '★★★★☆'; break;
@@ -1013,8 +969,9 @@
 						    review += '<br>';
 						    
 						    if ('${sessionScope.loginUser.userId}' === userId) {
+						    	
 						        review += '<div class="review-update">';
-						        review += '<a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="' + reviewContent + '" data-rno="' + reviewId + '" data-cno="' + concertId + '">수정</a>';
+						        review += '<a href="#" class="updateBtn" onclick="fixReviewId()" data-toggle="modal" data-target="#updateReview" data-id="' + reviewContent + '" data-rno="' + reviewId + '" data-cno="' + concertId + '">수정</a>';
 						        review += '<a onclick="deleteReview();">삭제</a>';
 						        review += '<br clear="both">';
 						        review += '</div>';
@@ -1028,7 +985,10 @@
 						    review += '</div>';
 						    $('#review').append(review);
 						}
-
+						function fixReviewId(x){
+							
+							console.dir(x)
+						}
 						/*
 						function paging (currentPage, startPage, endPage, maxPage) {
 
@@ -1324,8 +1284,8 @@
 			    function initializeLikeIcon() {
 			        const userId = "${sessionScope.loginUser.userId}";
 			        const concertId = $("#concertID").val();
-			        console.log(concertId);
-			        console.log(userId);
+			        //console.log(concertId);
+			        //console.log(userId);
 			        if (userId) {
 			            $.ajax({
 			                url: "isInWishlist",

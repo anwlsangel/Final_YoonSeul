@@ -100,17 +100,18 @@ public class ReviewController {
 	}
 	
 	// 후기 수정 
-	@PostMapping("update.re")
+	@PostMapping("/update.re")
 	public String updateReview(@RequestParam("reviewId") int reviewId,
 			   				 @RequestParam("concertId") int concertId, 
 			   				 String newReviewContent, Model model, HttpSession session) {
 		
-		// System.out.println("update test");
+		System.out.println("update test");
+		
 		Review r = new Review();
 		r.setReviewId(reviewId);
 		r.setReviewContent(newReviewContent);
 		int result = reviewService.updateReview(r);
-		
+		System.out.println("update test2");
 		if(result > 0) {
 			return "redirect:/detail.co?cno=" + concertId +"#review";
 		} else {
