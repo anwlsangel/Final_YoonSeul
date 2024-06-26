@@ -60,7 +60,8 @@
 		  FROM QNA Q 
 		  JOIN CONCERT_INFO C USING(CONCERT_ID)
 		 WHERE CONCERT_ID = #{concertId}
-		   AND Q.STATUS = 1 
+		   AND Q.STATUS = 1
+		 ORDER BY QNA_ID DESC
 	</select>
 	
 	<!-- 상세조회 쿼리문 -->
