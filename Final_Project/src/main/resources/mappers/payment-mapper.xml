@@ -154,7 +154,7 @@
 		 WHERE BUYLIST_ID = #{buyListId}
 	</delete>
 	
-	<select id="getTicket" parameterType="string" resuletType="com.kh.yoonsart.payment.model.vo.Tickets">
+	<select id="getTicket" parameterType="string" resultType="com.kh.yoonsart.payment.model.vo.Tickets">
 		SELECT t.ticket_qr AS qr, TO_CHAR(cd.concert_date, 'YYYY-MM-DD HH24:MI') AS "date",  s.seat_name AS seat
 		FROM  ticket t
 		JOIN concert_date cd ON t.concert_date_id = cd.concert_date_id
