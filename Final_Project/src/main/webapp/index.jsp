@@ -828,6 +828,43 @@
     	});    	
     </script>
     
+    <!-- 메인 공지사항 조회용 -->
+	<script>
+	    function loadMainNotice() {    		
+	        $.ajax({
+	            url: 'loadMainNotice.no',
+	            method: 'GET',
+	            success: function(result) {
+	                const noticeList = $('.main-notice-tbody');
+	                console.log("공지사항 조회용 ajax 통신 성공!");
+	                console.log(result);
+	                noticeList.empty();  // 기존 내용을 지워줍니다
+	                
+	                result.forEach(function(notice) {
+	                    let shortContent = notice.noticeContent;
+	                    if (shortContent.length > 20) {
+	                        shortContent = shortContent.substring(0, 20) + '...';
+	                    }
+	                    
+	                    const noticeHtml = `
+	                        <tr>
+	                    		<td>\${notice.noticeNo}</td>
+	                            <td>\${notice.noticeTitle}</td>
+	                            <td>\${shortContent}</td>
+	                            <td>\${notice.noticeCount}</td>
+	                            <td>\${notice.createDate}</td>
+	                        </tr>                            
+	                    `;
+	                    noticeList.append(noticeHtml);
+	                });
+	            },
+	            error: function() {
+	                console.log("공지사항 조회용 ajax 통신 실패");
+	            }
+	        });
+	    }
+	</script>
+    
     <!-- 장르별 TOP 게시물 조회용  -->
     <script>
 	    function loadTopConcerts(category) {
@@ -1132,6 +1169,15 @@
         });
     });
 	</script>
+	
+	<script>
+    	$(document).ready(function(){
+    	    $(".main-notice-tbody").on("click", "tr", function(){
+    	        let nno = $(this).find("td:eq(0)").text().trim();
+    	        location.href = "detail.no?nno=" + nno + "&cpage=1";
+    	    });    	
+    	});
+    </script>
 	
     
 
