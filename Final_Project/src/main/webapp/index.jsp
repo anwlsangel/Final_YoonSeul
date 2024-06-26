@@ -822,7 +822,7 @@
 	                    
 	                    const noticeHtml = `
 	                        <tr>
-	                            <td>\${notice.noticeNo}</td>
+	                    		<td>\${notice.noticeNo}</td>
 	                            <td>\${notice.noticeTitle}</td>
 	                            <td>\${shortContent}</td>
 	                            <td>\${notice.noticeCount}</td>
@@ -1143,6 +1143,15 @@
         });
     });
 	</script>
+	
+	<script>
+    	$(document).ready(function(){
+    	    $(".main-notice-tbody").on("click", "tr", function(){
+    	        let nno = $(this).find("td:eq(0)").text().trim();
+    	        location.href = "detail.no?nno=" + nno + "&cpage=1";
+    	    });    	
+    	});
+    </script>
 	
     
 
