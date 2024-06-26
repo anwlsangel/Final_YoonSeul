@@ -91,6 +91,7 @@
                 </th>
                 <td>
                     <input type="file" id="upfile" class="form-control-file border" accept="image/*" name="reupfile" style="display:none;" onchange="handleFileChange(event)">
+                    <input type="hidden" name="noticeImgName" value="${n.noticeImgName}">
                     <table id="fileList" class="file-table">
                         <tr>
                             <td class="file-name">
