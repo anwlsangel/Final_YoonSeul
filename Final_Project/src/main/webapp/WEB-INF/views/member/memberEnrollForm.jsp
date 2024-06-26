@@ -469,6 +469,37 @@
         }
 
         $(document).ready(function() {
+            // 모든 유효성 검사와 체크박스 확인을 통합하는 함수
+            function updateFormState() {
+                let isValid = true;
+
+                // 필수 체크박스가 모두 체크되었는지 확인
+                $('.checkbox[required]').each(function() {
+                    if (!$(this).prop('checked')) {
+                        isValid = false;
+                        return false;
+                    }
+                });
+
+                // '가입하기' 버튼 활성화 상태 설정
+                $('#enrollBtn').prop('disabled', !isValid);
+            }
+
+            // 각 입력 필드 및 체크박스 상태 변경에 대한 이벤트 핸들러 등록
+            $('#enroll-form input, #enroll-form select, .checkbox').on('change blur keyup', function() {
+                updateFormState();
+            });
+
+            // 초기 상태 업데이트
+            updateFormState();
+
+            // '전체 동의' 체크박스 로직
+            $('#checkAll').change(function() {
+                var isChecked = $(this).is(':checked');
+                $('.checkbox').prop('checked', isChecked);
+                updateFormState(); // 전체 동의 체크박스 상태 변경 후 폼 상태 업데이트
+            });
+
             $('#enroll-form').on('submit', function(e) {
                 e.preventDefault();
                 let isValid = true;
@@ -539,6 +570,7 @@
                 }
             });
         });
+        
     </script>
 </body>
 </html>
