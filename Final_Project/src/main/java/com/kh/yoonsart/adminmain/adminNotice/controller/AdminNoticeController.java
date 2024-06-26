@@ -1,4 +1,4 @@
-package com.kh.yoonsart.notice.controller;
+package com.kh.yoonsart.adminmain.adminNotice.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -25,12 +25,12 @@ import com.kh.yoonsart.notice.model.service.NoticeService;
 import com.kh.yoonsart.notice.model.vo.Notice;
 
 @Controller
-public class NoticeController {
+public class AdminNoticeController {
 
 	@Autowired
 	private NoticeService noticeService;
 	
-	@GetMapping("list.no")
+	@GetMapping("list.adno")
 	public String selectList(
 			@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword,Model model) {
 		
@@ -66,21 +66,21 @@ public class NoticeController {
 		model.addAttribute("list", list);
 		
 		// 응답페이지 포워딩
-		return "notice/noticeListView";
+		return "admin/adminNoticeList";
 	}
 	
-	@GetMapping("enrollForm.no")
+	@GetMapping("enrollForm.adno")
 	public ModelAndView enrollForm(ModelAndView mv) {
 		
 		// 게시글 작성하기 페이지 포워딩
 		// /WEB-INF/views/.jsp
-		mv.setViewName("notice/noticeEnrollForm");
+		mv.setViewName("admin/adminNoticeEnrollForm");
 		
 		return mv;
 	}
 	
 
-	@PostMapping("insert.no")
+	@PostMapping("insert.adno")
 	public ModelAndView insertNotice(Notice n, 
 									MultipartFile upfile,
 									HttpSession session,
@@ -103,7 +103,7 @@ public class NoticeController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 등록되었습니다.");
 			
-			mv.setViewName("redirect:/list.no");
+			mv.setViewName("redirect:/list.adno");
 			
 		} else { // 실패
 			
@@ -116,7 +116,7 @@ public class NoticeController {
 		
 	}
 	
-	@GetMapping("detail.no")
+	@GetMapping("detail.adno")
 	public ModelAndView selectNotice( int nno, int cpage, ModelAndView mv) {
 		
 		int result = noticeService.increaseCount(nno);
@@ -127,7 +127,7 @@ public class NoticeController {
 			System.out.println(n.getNoticeCount());
 			mv.addObject("n", n)
 			  .addObject("currentPage", cpage)
-			  .setViewName("notice/noticeDetailView");
+			  .setViewName("admin/adminNoticeDetail");
 			
 		} else { 
 			
@@ -138,7 +138,7 @@ public class NoticeController {
 		return mv;
 	}
 	
-	@PostMapping("delete.no")
+	@PostMapping("delete.adno")
 	public String deleteNotice(int nno,
 							  String filePath,
 							  Model model,
@@ -158,7 +158,7 @@ public class NoticeController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
 			
-			return "redirect:/list.no";
+			return "redirect:/list.adno";
 			
 		} else { 
 			
@@ -168,7 +168,7 @@ public class NoticeController {
 		}
 	}
 	
-	@PostMapping("updateForm.no")
+	@PostMapping("updateForm.adno")
 	public String updateForm(int nno, int cpage, Model model) {
 	
 		Notice n = noticeService.selectNotice(nno);
@@ -176,10 +176,10 @@ public class NoticeController {
 		model.addAttribute("n", n)
 			 .addAttribute("currentPage", cpage);
 		
-		return "notice/noticeUpdateForm";
+		return "admin/adminNoticeUpdateForm";
 	}
 	
-	@PostMapping("update.no")
+	@PostMapping("update.adno")
 	public String updateNotice(Notice n,
 							  int cpage,
 							  MultipartFile reupfile,
@@ -223,7 +223,7 @@ public class NoticeController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
 			
-			return "redirect:/list.no?cpage=" + cpage;
+			return "redirect:/list.adno?cpage=" + cpage;
 			
 		} else { 
 			
@@ -232,17 +232,6 @@ public class NoticeController {
 			return "common/errorPage";
 		}
 	}
-	
-	@ResponseBody
-	@GetMapping(value="loadMainNotice.no", produces="application/json; charset=UTF-8")
-	public String loadMainNotice() {
-				
-		ArrayList<Notice> mainNoticeList = noticeService.selectMainNoticeList();		
-    	
-    	return new Gson().toJson(mainNoticeList);
-		
-	}
-	
 	
 	
 	// ---------------- 일반메소드 ---------------------

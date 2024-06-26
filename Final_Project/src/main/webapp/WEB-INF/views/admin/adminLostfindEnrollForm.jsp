@@ -72,10 +72,19 @@
     </style>
 </head>
 <body>
-	<jsp:include page="../common/header.jsp" />
+	<div id="wrapper">
+	
+	    <jsp:include page="../common/adminNav.jsp" />
+		
+		<div id="content-wrapper" class="d-flex flex-column">
+	        	
+	    	<!-- Main Content -->
+	        <div id="content">
+	        
+	        <jsp:include page="../common/adminTop.jsp" />
 <div class="container">
 <div id="contentForm">
-    <form id="enrollForm" method="post" action="insert.lost" enctype="multipart/form-data">
+    <form id="enrollForm" method="post" action="insert.adlost" enctype="multipart/form-data">
         <table align="center" class="file-table">
             <tr>
                 <th><label for="title">제목</label></th>
@@ -112,7 +121,9 @@
     </form>
 </div>
 </div>
- <jsp:include page="../common/footer.jsp" />
+</div>
+</div>
+</div>
     <script>
         let uploadedFiles = []; // 업로드된 파일 목록을 저장할 배열
 
@@ -272,7 +283,7 @@
             xhr.onload = function() {
                
                     alert('게시물이 성공적으로 업로드되었습니다.');
-                    window.location.href = "list.lo";
+                    window.location.href = "list.adlo";
          
             };
             xhr.send(formData);

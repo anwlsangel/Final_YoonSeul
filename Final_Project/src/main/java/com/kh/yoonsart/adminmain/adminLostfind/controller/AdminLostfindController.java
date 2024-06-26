@@ -1,4 +1,4 @@
-package com.kh.yoonsart.lostfind.controller;
+package com.kh.yoonsart.adminmain.adminLostfind.controller;
 
 import java.io.File;
 import java.io.IOException;
@@ -31,12 +31,12 @@ import com.kh.yoonsart.lostfind.model.vo.LostImg;
 import com.kh.yoonsart.lostfind.model.vo.Lostfind;
 
 @Controller
-public class LostfindController {
+public class AdminLostfindController {
 
 	@Autowired
 	private LostfindService lostfindService;
 	
-	@GetMapping("list.lo")
+	@GetMapping("list.adlo")
 	public String selectList(
 			@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, Model model) {
 		int listCount=0;
@@ -71,21 +71,21 @@ public class LostfindController {
 		model.addAttribute("list", list);
 		
 		// 응답페이지 포워딩
-		return "lostfind/lostfindListView";
+		return "admin/adminLostfindList";
 	}
 	
-	@GetMapping("enrollForm.lo")
+	@GetMapping("enrollForm.adlo")
 	public ModelAndView enrollForm(ModelAndView mv) {
 		
 		// 게시글 작성하기 페이지 포워딩
 		// /WEB-INF/views/.jsp
-		mv.setViewName("lostfind/lostfindEnrollForm");
+		mv.setViewName("admin/adminLostfindEnrollForm");
 		
 		return mv;
 	}
 	
 
-	@PostMapping("insert.lost")
+	@PostMapping("insert.adlost")
 	public ModelAndView insertLostfind(Lostfind l,
 									LostImg li,
 									MultipartFile[] upfiles,
@@ -148,7 +148,7 @@ public class LostfindController {
 		
 	}
 	
-	@GetMapping("detail.lo")
+	@GetMapping("detail.adlo")
 	public ModelAndView selectNotice(int lno, int cpage,
 									ModelAndView mv) {
 		
@@ -161,7 +161,7 @@ public class LostfindController {
 			mv.addObject("l", l)
 			  .addObject("arrLi", arrLi)
 			  .addObject("currentPage", cpage)
-			  .setViewName("lostfind/lostfindDetailView");
+			  .setViewName("admin/adminLostfindDetail");
 			
 		} else { 
 			
@@ -172,7 +172,7 @@ public class LostfindController {
 		return mv;
 	}
 	
-	@PostMapping("delete.lo")
+	@PostMapping("delete.adlo")
 	public String deleteLostfind(int lno,
 							  String filePath,
 							  Model model,
@@ -192,7 +192,7 @@ public class LostfindController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
 			
-			return "redirect:/list.lo";
+			return "redirect:/list.adlo";
 			
 		} else { 
 			
@@ -202,7 +202,7 @@ public class LostfindController {
 		}
 	}
 	
-	@PostMapping("updateForm.lo")
+	@PostMapping("updateForm.adlo")
 	public String updateForm(int lno, Model model, int cpage) {
 	
 		Lostfind l = lostfindService.selectLostfind(lno);
@@ -211,10 +211,10 @@ public class LostfindController {
 		  .addAttribute("arrLi", arrLi)
 		  .addAttribute("currentPage", cpage);
 		
-		return "lostfind/lostfindUpdateForm";
+		return "admin/adminLostfindUpdateForm";
 	}
 	
-	@PostMapping("update.lo")
+	@PostMapping("update.adlo")
 	public String updateLostfind(Lostfind l,
 							  LostImg lI,
 							  MultipartFile[] reupfiles,
@@ -288,7 +288,7 @@ public class LostfindController {
 			
 			session.setAttribute("alertMsg", alertMsg);
 				
-			return "redirect:/list.lo";
+			return "redirect:/list.adlo";
 				
 			} else {
 				
