@@ -349,26 +349,30 @@
 		    width: 80%;
 		    height: 500px;
 		    margin: auto;
-		    border: 1px solid #630000;
 		    margin-top: 150px;
+		}
+		
+		#notice-list tbody tr:hover {
+			background-color: lightgray;
+			cursor: pointer;
 		}
 		
 		.main-notice h1 {
 		    text-align: center;    
 		}
 		
-		.notice-list {
+		#notice-list {
 		    width: 100%;
 		    text-align: center;  
 		    height: 100%;     
 		    position: relative;
 		}
 		
-		.notice-list tbody {
+		#notice-list tbody {
 		    height: 80%;
 		}
 		
-		.notice-list thead {
+		#notice-list thead {
 		    height: 20%;
 		}
 		
@@ -418,7 +422,7 @@
 		}
 		
 		.detail-text {
-		    height: 50px;
+		    height: 30px;
 		    margin-top: 10px;
 		}
 		
@@ -460,11 +464,7 @@
 		
 		.logged-in-links a {
 		    margin-left: 0;
-		}
-			
-		.logged-in-links a:last-child {
-		    margin-left: 8px; 
-		    margin-top: -2px;
+		    margin-top: 5px;
 		}
 
 </style>
@@ -755,8 +755,8 @@
 	
 	<div class="main-notice">
             
-            <table class="notice-list">                
-                <thead>
+           <table class="table" id="notice-list">
+    		<thead class="thead-light">
                 <tr>
                     <td colspan="5"><h1>공지 사항</h1></td>
                 </tr>
@@ -768,43 +768,8 @@
                     <th style="width: 10%;">작성일자</th>                    
                 </tr>
                 </thead>
-                <tbody>
-                <tr>
-                    <td>1</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>2</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>3</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>4</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-                <tr>
-                    <td>5</td>
-                    <td>공지사항제목</td>
-                    <td>공지사항 내용</td>
-                    <td>1</td>
-                    <td>2024/05/22</td>
-                </tr>
-            </tbody>
+                <tbody class="main-notice-tbody">
+            	</tbody>
             </table>
     </div>
 	
@@ -826,10 +791,15 @@
         </div>
     </div>
     
+    
+    
     <script>
     	$(function() {
     		loadOpenConcerts();
-    	});    	
+    	});  
+    	$(function() {
+    		loadMainNotice();
+    	});
     </script>
     
     <!-- 메인 공지사항 조회용 -->
