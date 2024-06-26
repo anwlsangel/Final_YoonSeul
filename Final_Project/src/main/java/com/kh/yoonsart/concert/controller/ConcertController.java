@@ -1,12 +1,16 @@
 package com.kh.yoonsart.concert.controller;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
@@ -15,6 +19,7 @@ import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.concert.model.service.ConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDate;
+import com.kh.yoonsart.concert.model.vo.SeatInfo;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Controller
@@ -93,15 +98,78 @@ public class ConcertController {
 	        model.addAttribute("seatCount", seatCount);
 	        // System.out.println(qnaList);
 	        
-	        return "concert/ConcertDetailView"; // 상세보기 페이지 JSP 이름
+	        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm");
+			LocalDateTime startDate = LocalDateTime.parse(concert.getFullDate(), formatter);
+			LocalDateTime nowDate = LocalDateTime.now();
+			HashMap<String, String> dataBox = new HashMap<String, String>();
+			dataBox.put("cno", ""+cno);
+			ArrayList<String> concertDays;
+			if(nowDate.isBefore(startDate)) {
+				dataBox.put("date",concert.getFullDate());			
+			}else {
+				dataBox.put("date",nowDate.format(formatter));
+			}
+			
+			concertDays = concertService.getConcertDays(dataBox);
+			System.out.println(concertDays);
+			model.addAttribute("firstDay",dataBox.get("date"));
+			model.addAttribute("concertDays",concertDays);
+			model.addAttribute("totalTicket",concertService.getHoleSeatCount(concert.getHoleName()));
+	        
+	        if(concert.getHoleName().equals("별빛홀")) {
+	        	
+	        	return "concert/ConcertDetailViewSeat";
+	        }
+	        return "concert/ConcertDetailViewStanding"; // 상세보기 페이지 JSP 이름
 	    }
 	
-	@GetMapping("seat.co")
-	public String ConcertSeatReserve(int cno, Model model) {
-		model.addAttribute("concert", concertService.concertDetail(cno));
-		return "concert/ConcertSeatReserve";
-		
-	}
+		@GetMapping("seat.co")
+		public String ConcertSeatReserve(int cno, Model m) {
+			Concert concert = concertService.concertDetail(cno);
+			m.addAttribute("Concert",concert);
+			
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm");
+			LocalDateTime startDate = LocalDateTime.parse(concert.getFullDate(), formatter);
+			LocalDateTime nowDate = LocalDateTime.now();
+			HashMap<String, String> dataBox = new HashMap<String, String>();
+			dataBox.put("cno", ""+cno);
+			ArrayList<String> concertDays;
+			System.out.println(nowDate);
+			System.out.println(startDate);
+			if(nowDate.isBefore(startDate)) {
+				dataBox.put("date",concert.getFullDate());			
+			}else {
+				dataBox.put("date",nowDate.format(formatter));
+			}
+			
+			concertDays = concertService.getConcertDays(dataBox);
+			System.out.println(concertDays);
+			m.addAttribute("firstDay",dataBox.get("date"));
+			m.addAttribute("concertDays",concertDays);
+			m.addAttribute("totalTicket",concertService.getHoleSeatCount(concert.getHoleName()));
+			if(concert.getHoleName().equals("별빛홀")) {
+				return "concert/ConcertDetailViewSeat";	
+			}else {
+				return "concert/ConcertDetailViewSeat";
+			}
+		}
+		@RequestMapping(value="getMonthScheduleWithCno", produces = "text/html; charset=UTF-8")
+		@ResponseBody
+		public String getDaysAjax(String cno, String dateString) {
+			DateTimeFormatter formatter = DateTimeFormatter.ofPattern("yyyy-M-d HH:mm");
+			LocalDateTime startDate = LocalDateTime.parse(dateString, formatter);
+			LocalDateTime nowDate = LocalDateTime.now();
+			ArrayList<String> concertDays;
+			HashMap<String, String> dataBox = new HashMap<String, String>();
+			dataBox.put("cno", cno);
+			if(nowDate.isBefore(startDate)) {
+				dataBox.put("date",startDate.format(formatter));			
+			}else {
+				dataBox.put("date",nowDate.format(formatter));
+			}		
+			concertDays = concertService.getConcertDays(dataBox);
+			return new Gson().toJson(concertDays);
+		}
 	
 	@PostMapping(value = "/wishlistadd", produces = "text/html; charset=UTF-8")
 	@ResponseBody
@@ -167,7 +235,12 @@ public class ConcertController {
 	    	return new Gson().toJson(openConcertList);
 	    }
 	    
-	    
+	    @RequestMapping("getSeatInfo")
+	    @ResponseBody
+	    public ArrayList<SeatInfo> getSeatInfo(String id) {
+	    	ArrayList<SeatInfo> list = concertService.getSeatInfo(id);
+	    	return list;
+	    }
 	    
 	    
 }

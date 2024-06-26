@@ -14,6 +14,7 @@
 		<result column="CATEGORY" property="category"/>
 		<result column="HOLE_NAME" property="holeName"/>
 		<result column="STATUS" property="status"/>
+		<result column="FULLDATE" property="fullDate"/>
 	</resultMap>
 	
 	<resultMap type="concertDate" id="concertDateResultSet">
@@ -92,7 +93,7 @@
 		</select>
     <!-- 상세조회용 쿼리문 -->
     <select id="concertDetail" parameterType="int" resultMap="concertResultSet">
-	    SELECT *
+	    SELECT CONCERT_ID,CONCERT_NAME,AGE_LIMIT,PRICE,THUMBNAIL_ROOT,DETAIL_ROOT,PLAYTIME,START_DATE,END_DATE,CATEGORY,HOLE_NAME,STATUS, TO_CHAR(START_DATE,'YYYY-MM-DD HH24:MI') AS FULLDATE
         FROM CONCERT_INFO
         WHERE CONCERT_ID = #{concertId}
     </select>
@@ -237,7 +238,7 @@
 	</update>
 	
 	<select id="selectDateList" parameterType="map" resultMap="concertDateResultSet">
-	    SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY
+	    SELECT TO_CHAR(CONCERT_DATE, 'HH24:MI') AS TIME_ONLY, CONCERT_DATE_ID , (select count(*) from ticket where concert_date_id=CONCERT_DATE.CONCERT_DATE_ID) as CONCERT_ID
 	    FROM CONCERT_DATE
 	    WHERE CONCERT_ID = #{concertId}
 	      AND CONCERT_DATE &gt;= TO_DATE(#{dateString} || ' 00:00', 'YYYY-MM-DD HH24:MI')
@@ -290,4 +291,23 @@
 	    WHERE ROWNUM &lt;= 5
 	</select>
 	
+	<select id="getConcertDays" parameterType="map" resultType="string">
+		SELECT to_char(concert_date,'FMDD') AS days
+		FROM concert_date
+		WHERE concert_id = #{cno}
+		AND concert_date >= to_date(#{date}, 'YYYY-MM-DD HH24:MI')
+		AND to_date(to_char(last_day(to_date(#{date}, 'YYYY-MM-DD HH24:MI')), 'YYYY-MM-DD') || ' 23:59', 'YYYY-MM-DD HH24:MI') >= concert_date
+		GROUP BY to_char(concert_date,'FMDD')
+		ORDER BY days
+	</select>
+	
+	<select id="getHoleSeatCount" parameterType="string" resultType="int">
+		select seatcount from hole where hole_name = #{holeName}
+	</select>
+	
+	<select id="getSeatInfo" parameterType="string" resultType="SeatInfo">
+		select seat.seat_x as x, seat.seat_y as y, seat.seat_name as name, seat.seat_id as id, nvl2(ticket.seat_id,'disable','able') as able
+		from seat
+		left join ticket on seat.seat_id = ticket.seat_id and concert_date_id =#{id}
+	</select>
 </mapper>

@@ -25,5 +25,5 @@ public class Concert {
 	private String category;		//	CATEGORY	VARCHAR2(10 BYTE)
 	private String holeName;		//	HOLE_NAME	VARCHAR2(20 BYTE)
 	private int status;
-	
+	private String fullDate;		//  시간과 날짜까지 받기 위해서 컬럼한개 추가함
 }

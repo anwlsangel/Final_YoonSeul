@@ -9,10 +9,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
-import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.dao.ConcertDao;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDate;
+import com.kh.yoonsart.concert.model.vo.SeatInfo;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Service
@@ -129,5 +129,20 @@ public class ConcertServiceImpl implements ConcertService{
 	@Override
 	public ArrayList<Concert> selectOpenConcerts() {
 		return concertDao.selectOpenConcerts(sqlSession);
-	}	
+	}
+	
+	@Override
+	public ArrayList<String> getConcertDays(HashMap<String,String> data) {		
+		return concertDao.getConcertDays(sqlSession,data);
+	}
+
+	@Override
+	public int getHoleSeatCount(String holeName) {		
+		return concertDao.getHoleSeatCount(sqlSession,holeName);
+	}
+	
+	@Override
+	public ArrayList<SeatInfo> getSeatInfo(String id) {
+		return concertDao.getSeatInfo(sqlSession,id);
+	}
 }

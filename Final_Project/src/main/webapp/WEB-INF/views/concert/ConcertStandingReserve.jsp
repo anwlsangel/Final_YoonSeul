@@ -271,10 +271,6 @@ body {
     <!-- 좌석관련 스크립트-->
 
     <script>
-    	//좌석관련변수
-    	let concertDateId = 1;
-        let seatId = [1, 2]
-    
         // 이거 디비에서 땡겨오는 값이여야함 range랑 규격 맞춰서 그려줘야 하기에 지금은 하드 코딩이지만...
         let gapx = 39;
         let gapy = 35;
@@ -283,10 +279,10 @@ body {
         const numPoints = 10;
 
 
-        function drawSeat(re) {
+        function drawSeat() {
             //clear Seat() 좌석 정보 삭제
             removeSeatDiv()
-            const data = re;
+            const data = [];
             for (let i = 0; i < numPoints; i++) {
                 for (let j = 0; j < numPoints; j++) {
                     if (i > 4) {
@@ -305,14 +301,14 @@ body {
                 .selectAll("seat")
                 .data(data).enter()
                 .append("rect")
-                .attr("x", function (d) { return d.x; })        // x 좌표
-                .attr("y", function (d) { return d.y; })        // y 좌표
+                .attr("x", function (d) { return d[0]; })        // x 좌표
+                .attr("y", function (d) { return d[1]; })        // y 좌표
                 .attr("rx", 4)
                 .attr("ry", 4)
                 .attr("width", 20)   // 너비
                 .attr("height", 20) // 높이
                 .attr("active", false)
-                .attr("seatname", function (d) { return d.name })
+                .attr("seatname", function (d) { return d[2] })
                 .style("fill", "lightGray")
                 .on('click', function (x, d) {
                     var isActive = $(this).attr("active") === 'true';
@@ -340,7 +336,7 @@ body {
         function removeAll() {
             numOfTicket = 0;
             $("#buylist").html("");
-            $("rect[active='true']").attr("active", false).attr("style", "fill:red");
+            $("rect[active='true']").attr("active", false).attr("style", "fill:lightGray");
             $("#totalPrice").html(numOfTicket);
         }
         // removeSeatDiv() 좌석 지우기
@@ -353,6 +349,8 @@ body {
         
         //좌석 상태 변경 (구매불가)
         function endPayment(uid) {
+        	let concertDateId = 1;
+        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	
@@ -394,12 +392,11 @@ body {
 	  		let concertId = $("#concertId").val();
 	  		let formattedDate = moment().format('YYYYMMDD');
 	  		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
-	  		let buylistId = concertId + formattedDate + randomNum;
+	  		let randomUid = concertId + formattedDate + randomNum;
 	  		
 		    //const myAmount = Number(document.getElementById("amount").value);
 		    const myAmount = totalPrice; //결제금액
 		    let userId = "${sessionScope.loginUser.userId}";
-		    let concertName = "${requestScope.concert.concertName}";
 		    
 		    const IMP = window.IMP; // 생략 가능
 		    IMP.init("imp84822672"); // 상점 식별코드
@@ -408,8 +405,8 @@ body {
 		      	// param
 		         pg: "html5_inicis",
 		         pay_method: "card",
-		         merchant_uid: buylistId, //주문번호 == BUYLIST_ID
-		         name: concertName, //결제 시 보이는 상품명
+		         merchant_uid: randomUid, //주문번호 == BUYLIST_ID
+		         name: "공연이름", //결제 시 보이는 상품명
 		         amount: myAmount,
 		         buyer_email: "gildonggmailcom",
 		         buyer_name: "HongGildong",
@@ -439,7 +436,7 @@ body {
 		     	            	data: {
 		     	            		buyListId: rsp.merchant_uid, //주문번호
 		     	            		reserveCode: rsp.pg_tid, //결제코드
-		     	            		reserveConcertId: concertName, //예약된 공연 이름
+		     	            		reserveConcertId: concertId, //예약된 공연 이름
 		     	      	            reserveTicket: ticketQuantity, //예약된 티켓 수
 		     	      	            reserveSum: myAmount, //결제 금액 합
 		     	      	            userId: userId //회원ID
@@ -471,6 +468,8 @@ body {
         
         //좌석 상태 변경 (결제중)
         function startPayment() {
+        	let concertDateId = 1;
+        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	
@@ -504,6 +503,8 @@ body {
         
         //결제 취소
         function cancelPayment() {
+        	let concertDateId = 1;
+        	let seatId = [1, 2]
         	
         	let resultSum = 0;
         	

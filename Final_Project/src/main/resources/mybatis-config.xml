@@ -19,6 +19,7 @@
 		<typeAlias type="com.kh.yoonsart.notice.model.vo.Notice" alias="notice" />
 		<typeAlias type="com.kh.yoonsart.lostfind.model.vo.Lostfind" alias="lostfind" />
 		<typeAlias type="com.kh.yoonsart.lostfind.model.vo.LostImg" alias="lostImg" />
+		<typeAlias type="com.kh.yoonsart.concert.model.vo.SeatInfo" alias="seatInfo"/>
     </typeAliases>
     <mappers>
         <mapper resource="/mappers/member-mapper.xml"/>

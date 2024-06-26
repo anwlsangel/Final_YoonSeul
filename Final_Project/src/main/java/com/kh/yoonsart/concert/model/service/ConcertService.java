@@ -1,11 +1,12 @@
 package com.kh.yoonsart.concert.model.service;
 
 import java.util.ArrayList;
+import java.util.HashMap;
 
 import com.kh.yoonsart.QNA.model.vo.QNA;
-import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDate;
+import com.kh.yoonsart.concert.model.vo.SeatInfo;
 import com.kh.yoonsart.review.model.vo.Review;
 
 public interface ConcertService {
@@ -44,4 +45,10 @@ public interface ConcertService {
 	ArrayList<Concert> selectTopConcerts(String category);
 
 	ArrayList<Concert> selectOpenConcerts();
+	
+	ArrayList<String> getConcertDays(HashMap<String, String> data);
+	
+	int getHoleSeatCount(String holeName);
+	
+	ArrayList<SeatInfo> getSeatInfo(String id);
 }

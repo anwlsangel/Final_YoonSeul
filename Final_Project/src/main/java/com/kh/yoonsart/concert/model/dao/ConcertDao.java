@@ -12,6 +12,7 @@ import com.kh.yoonsart.QNA.model.vo.QNA;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDate;
+import com.kh.yoonsart.concert.model.vo.SeatInfo;
 import com.kh.yoonsart.review.model.vo.Review;
 
 @Repository
@@ -125,6 +126,15 @@ public class ConcertDao {
 		return (ArrayList)sqlSession.selectList("concertMapper.selectOpenConcerts");
 	}
 	
+	public ArrayList<String> getConcertDays(SqlSessionTemplate sqlSession, HashMap data){
+		return (ArrayList)sqlSession.selectList("concertMapper.getConcertDays",data);
+	}
 	
+	public int getHoleSeatCount(SqlSessionTemplate sqlSession, String holeName) {
+		return sqlSession.selectOne("concertMapper.getHoleSeatCount",holeName);
+	}
 	
+	public ArrayList<SeatInfo> getSeatInfo(SqlSessionTemplate sqlSession, String id){
+		return (ArrayList)sqlSession.selectList("concertMapper.getSeatInfo",id);
+	}
 }
