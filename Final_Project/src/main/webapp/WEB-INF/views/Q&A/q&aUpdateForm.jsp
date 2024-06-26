@@ -106,31 +106,32 @@
 
             <h1 align="center" style="color: #810000">문의글 수정</h1>
 
-            <form action="update.qa" method="post">
-            <input type="hidden" id="hidden" name="qnaId" value="${cno}">
-                <table align="center">
-                  <tr>
-                     <td>
-                        <input type="text" id="userId" class="form-control" value="${q.userId}" name="userId" readonly>
-                     </td>
-                    </tr>
-                    <tr>
-                       <td>
-                          <input type="text" id="title" name="qnaTitle" value="${q.qnaTitle}" required>
-                       </td>
-                    </tr>
-                    <tr>
-                        <td colspan="2">
-                            <textarea id="content" name="qnaContent" > ${q.qnaContent}</textarea>
-                            <!-- <input type="text" placeholder="문의 사항"> -->
-                        </td>
-                    </tr>
-                </table>
-                <br>
-                <div class="button-container">
-                <button type="submit">수정</button> 
-                <button type="reset">취소</button>
-                </div>
+            <form action="<%= request.getContextPath() %>/update.qa" method="post">
+	            <input type="hidden" id="hidden" name="qnaId" value="${q.qnaId}">
+	            <input type="hidden" id="hidden" name="concertId" value="${q.concertId}">
+	                <table align="center">
+	                  <tr>
+	                     <td>
+	                        <input type="text" id="userId" class="form-control" value="${q.userId}" name="userId" readonly>
+	                     </td>
+	                    </tr>
+	                    <tr>
+	                       <td>
+	                          <input type="text" id="title" name="qnaTitle" value="${q.qnaTitle}" required>
+	                       </td>
+	                    </tr>
+	                    <tr>
+	                        <td colspan="2">
+	                            <textarea id="content" name="qnaContent" >${q.qnaContent}</textarea>
+	                            <!-- <input type="text" placeholder="문의 사항"> -->
+	                        </td>
+	                    </tr>
+	                </table>
+	                <br>
+	                <div class="button-container">
+		                <button type="submit">수정</button> 
+		                <button type="reset">취소</button>
+                	</div>
             </form>
         </div>
     </div>

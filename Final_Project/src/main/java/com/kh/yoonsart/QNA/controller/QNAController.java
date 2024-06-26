@@ -125,13 +125,16 @@ public class QNAController {
 		// 게시글 한건 조회 
 		QNA q = qnaService.selecteQNA(qno);
 		
-		model.addAttribute("q", q);
+		mv.addObject("q", q);
 		mv.setViewName("Q&A/q&aUpdateForm");
 		return mv;
 	}
 	
-	@PostMapping("update.qa")
+	@PostMapping("/update.qa")
 	public String updateQNA(QNA q, HttpSession session, Model model) {
+		
+		System.out.println("여기호출되나?");
+		System.out.println(q);
 		
 		int result = qnaService.updateQNA(q);
 		
