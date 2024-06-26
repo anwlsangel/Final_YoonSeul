@@ -117,13 +117,17 @@ div {
 }
 
 .review-update {
-	float: right;
+	float: center;
 }
 
 .review-update>a {
 	color: #810000;
 	text-decoration: none;
 	margin-right: 10px;
+}
+
+.review-update>a:hover{
+	cursor : pointer;
 }
 
 .-green {
@@ -711,10 +715,10 @@ div {
 								<div class="modal-body">
 									<form action="update.re" method="post" class="modal-center">
 										<div align="center">
-											<input type="hidden" name="reviewId" id="reviewId"> <input
-												type="hidden" name="concertId" id="concertId">
+											<input type="hidden" name="reviewId" id="rreviewId"> <input
+												type="hidden" name="concertId" id="rconcertId">
 											<textarea name="newReviewContent" id="newReviewContent"
-												rows="4" cols="50" required></textarea>
+												rows="4" cols="43" required></textarea>
 										</div>
 										<div align="center" style="margin: 10px;">
 											<button type="submit"
@@ -796,7 +800,6 @@ div {
 				<!-- 후기 페이징 -->
 				<script>
 						$(function () {
-
 							ajaxReviewList(1);
 						});
 
@@ -809,7 +812,7 @@ div {
 										cno: ' ${requestScope.cno} '
 									 },
 								success: function (result) {
-
+									console.log("호출됨");
 									// console.log(result);	
 									$(document.getElementById('review')).html("")
 									if (result.rList.length > 0) {
@@ -817,15 +820,17 @@ div {
 										for (let i in result.rList) {
 
 											let writeDate = new Date(result.rList[i].writeDate).toLocaleString().slice(0, -13);
-											let reviewContent = result.rList[i].reviewContent;
+		  									let reviewContent = result.rList[i].reviewContent;
 											let userId = result.rList[i].userId;
 											let star = result.rList[i].reviewPoint;
+											let reviewId = result.rList[i].reviewId;
+											let content = result.rList[i].reviewContent;
 											// console.log(star);
 											// console.log(userId);
 											// console.log(writeDate);
 											// console.log(reviewContent);
 											// console.log(i);
-											review(star, userId, writeDate, reviewContent)
+											review(star, userId, writeDate, reviewContent, reviewId, content)
 										}
 										
 									} else {
@@ -881,8 +886,8 @@ div {
 							});
 						}
 
-						function review(star, userId, writeDate, reviewContent) {
-							//console.log(star, userId, writeDate, reviewContent)
+						function review(star, userId, writeDate, reviewContent, reviewId, reviewContent) {
+							//console.log(star, userId, writeDate, reviewContent)							
 							
 							switch (star) {
 								case 5: stars = '★★★★★'; break;
@@ -913,16 +918,23 @@ div {
 
 							if (${sessionScope.loginUser.userId ne userId}) {
 								review += '<div class="review-update">';
-								review += ' <a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>';
+								review += ' <a href="#" data-toggle="modal" onclick="upbtn('+concertId+','+reviewId+',\''+reviewContent+'\')" data-target="#updateReview" class="updateBtn" >수정</a>';
 								review += '  <a onclick="deleteReview();">삭제</a>';
 								review += '  <br clear="both"> ';
 								review += ' </div>';
 
 							}
 
-							review += '<div class="review-line"></div>';
+							review += '<div class="review-line"></div>';							
 							console.log(review)
 							$(document.getElementById('review')).append(review);
+						}
+						
+						function upbtn(x,y,z) {
+							document.getElementById("rconcertId").value=x;
+							document.getElementById("rreviewId").value=y;
+							console.log(z)
+							document.getElementById("newReviewContent").value=z;
 						}
 
 					</script>
@@ -1066,6 +1078,7 @@ div {
 		        let ticketAmount;
 		        let concertDateId;
 		        let seatId =[];
+		        let concertId=${concert.concertId}
 		
 		        //날짜 관련 변수
 		        let firstDay = '${firstDay}'
