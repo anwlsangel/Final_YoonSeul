@@ -73,7 +73,8 @@ public class PaymentController {
 	@ResponseBody
 	@PostMapping(value="insertPaymentInfo.pa", produces="text/html; charset=UTF-8")
 	public String insertPaymentInfo(BuyList bl) {
-		//System.out.println(bl);
+		System.out.println("insertBuyList");
+		System.out.println(bl);
 		
 		int result = paymentService.insertPaymentInfo(bl);
 		
@@ -164,10 +165,17 @@ public class PaymentController {
 	//좌석 상태 변경 (결제중)
 	@ResponseBody
 	@PostMapping(value="startPayment.pa")
-	public int startPayment(int cid, int sid) {
+	public int startPayment(int cid, int sid, int price, String buylistId) {
+		//qr
+		int qrNum = (int)(Math.random() * 90000) + 10000;
+  		String qr = "QR-" + cid + qrNum;
+		
 		Ticket ticket = new Ticket();
 		ticket.setConcertDateId(cid);
 		ticket.setSeatId(sid);
+		ticket.setTicketQr(qr);
+		ticket.setTicketPrice(price);
+		ticket.setBuyListId(buylistId);
 		return paymentService.startPayment(ticket);
 	}
 	
@@ -185,10 +193,10 @@ public class PaymentController {
 	//좌석 상태 변경 (결제취소)
 	@ResponseBody
 	@PostMapping(value="cancelPayment.pa")
-	public int cancelPayment(int cid, int sid) {
+	public int cancelPayment(int cid, String buylistId) {
 		Ticket ticket = new Ticket();
 		ticket.setConcertDateId(cid);
-		ticket.setSeatId(sid);
+		ticket.setBuyListId(buylistId);;
 		return paymentService.cancelPayment(ticket);
 	}
 	

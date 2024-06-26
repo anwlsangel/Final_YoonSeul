@@ -563,7 +563,7 @@ div {
 													<!-- 로그인 후 -->
 													<button
 														style="width: 200px; height: 50px; font-size: 23px; font-weight: 900; color: white; background-color: #810000; border: none; border-radius: 5px;"
-														onclick="payment();">예매하기</button>
+														onclick="startPayment();">예매하기</button>
 												</c:otherwise>
 											</c:choose>
 								</div>
@@ -1402,6 +1402,188 @@ div {
             $("rect[active='true']").attr("active", false).attr("style", "fill:red");
             $("#totalPrice").html(numOfTicket);
         }
+        
+        /* -------- 결제 -------- */
+        //좌석 상태 변경 (구매불가)
+        function endPayment(uid) {
+        	
+        	let resultSum = 0;
+        	
+        	for(let i in seatId) {
+        		$.ajax({
+            		url: "endPayment.pa",
+            		type: "post",
+            		data: {
+            			cid: concertDateId,
+            			sid: seatId[i],
+            			buyListId: uid
+            		},
+            		success: function(result) {
+            			if(result > 0) {
+            				resultSum++;
+            				console.log("좌석 상태 구매불가로 변경 성공");
+            				if(resultSum >= seatId.length) {
+            	        		console.log("좌석 상태 구매불가로 변경 모두 완료");
+            	        	}
+            			}
+            			else {
+            				console.log("좌석 상태 구매불가로 변경 실패");
+            			}
+            		},
+            		error: function() {
+            			console.log("좌석 상태 구매불가로 변경 ajax 통신 실패")
+            		}
+            	});
+        	}
+        }
+        
+      	//결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
+        function payment(buylistId) {
+      		
+		    const myAmount = $("#totalPrice").text(); //결제금액
+		    let userId = "${sessionScope.loginUser.userId}";
+		    let concertName = "${requestScope.concert.concertName}";
+		    
+		    const IMP = window.IMP; // 생략 가능
+		    IMP.init("imp84822672"); // 상점 식별코드
+		    IMP.request_pay(
+		      {
+		      	// param
+		         pg: "html5_inicis",
+		         pay_method: "card",
+		         merchant_uid: buylistId, //주문번호 == BUYLIST_ID
+		         name: concertName, //결제 시 보이는 상품명
+		         amount: myAmount,
+		         buyer_email: "gildonggmailcom",
+		         buyer_name: "HongGildong",
+		         buyer_tel: "01042424242",
+		         buyer_addr: "Seoul",
+		         buyer_postcode: "01181",
+		         
+		         //m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소
+		      }, function(rsp) {
+		      	console.log(rsp);
+		      	$.ajax({
+		      		url: "checkAmount",
+		                 type: "POST",
+		                 data: { imp_uid: rsp.imp_uid}
+		             }).done(function(data) {
+		             	console.log(data);
+		             	console.log("rsp.paid_amount : " + rsp.paid_amount);
+		             	console.log("data.response.amount : " + data.response.amount);
+		             	console.log("--------------------");
+		                 if(rsp.paid_amount === data.response.amount){
+		                     console.log("결제 성공");
+		                     
+		                     //결제정보 db에 저장
+		                     $.ajax({
+		     	            	url: "insertPaymentInfo.pa",
+		     	            	type: "post",
+		     	            	data: {
+		     	            		buyListId: rsp.merchant_uid, //주문번호
+		     	            		reserveCode: rsp.pg_tid, //결제코드
+		     	            		reserveConcertId: ${concert.concertId}, //예약된 공연 이름
+		     	      	            reserveTicket: ticketQuantity, //예약된 티켓 수
+		     	      	            reserveSum: myAmount, //결제 금액 합
+		     	      	            userId: userId //회원ID
+		     	            	},
+		     	            	success: function(result) {
+		     	            		if(result == "success") {
+		     	            			//좌석 상태 구매 불가로 변경
+		     	            			endPayment(rsp.merchant_uid);
+		     	            			
+		     	            			console.log("결제정보 저장 성공");
+		     	            			alertify.alert('알림', '결제 완료되었습니다.', function() {
+		     	            				location.href="detail.co?cno=${param.cno}";
+		     	            			});
+		     	            		} else {
+		     	            			console.log("결제정보 저장 실패");
+		     	            		}
+		     	            	},
+		     	            	error: function() {
+		     	            		console.log("결제정보 저장 AJAX 통신 실패");
+		     	            	}
+		     	            });
+		                 } else {
+		                     console.log("결제 실패");
+		                     cancelPayment(rsp.merchant_uid);
+		                 }
+		             });
+		      	
+		   		});
+		}
+        
+        //좌석 상태 변경 (결제중)
+        function startPayment() {
+        	//주문번호(BUYLIST_ID) 랜덤생성
+	  		let concertId = ${concert.concertId};
+	  		let formattedDate = moment().format('YYYYMMDD');
+	  		let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
+	  		let buylistId = concertId + formattedDate + randomNum;
+        	
+	  		//price
+	  		let price = ${concert.price};
+        	
+        	let resultSum = 0;
+        	
+        	for(let i in seatId) {
+        		$.ajax({
+            		url: "startPayment.pa",
+            		type: "post",
+            		data: {
+            			cid: concertDateId,
+            			sid: seatId[i],
+            			price: price,
+            			buylistId: buylistId
+            		},
+            		success: function(result) {
+            			if(result > 0) {
+            				resultSum++;
+            				console.log("좌석 상태 결제중으로 변경 성공");
+            				if(resultSum >= seatId.length) {
+            	        		console.log("좌석 상태 결제중으로 변경 모두 완료");
+            	        		payment(buylistId);
+            	        	}
+            			}
+            			else {
+            				console.log("좌석 상태 결제중으로 변경 실패");
+            			}
+            		},
+            		error: function() {
+            			console.log("좌석 상태 결제중으로 변경 ajax 통신 실패")
+            		}
+            	});
+        	}
+        }
+        
+        //결제 취소
+        function cancelPayment(buylistId) {
+        	
+        	for(let i in seatId) {
+        		$.ajax({
+            		url: "cancelPayment.pa",
+            		type: "post",
+            		data: {
+            			cid: concertDateId,
+            			buylistId: buylistId
+            		},
+            		success: function(result) {
+            			if(result > 0) {
+            				console.log("결제 취소 처리 완료");
+            			}
+            			else {
+            				console.log("결제 취소 처리 실패");
+            			}
+            		},
+            		error: function() {
+            			console.log("결제 취소 처리 ajax 통신 실패")
+            		}
+            	});
+        	}
+        }
+        
+        
+        
         </script>
 
 			<!-- 날짜 선택 관련  -->
@@ -1474,86 +1656,7 @@ div {
 				</p>
 			</div>
 
-			<script>
-
-					//결제 전 검증 후 결제, 결제 완료 시 결제정보 DB에 저장
-					function payment() {
-						//주문번호(BUYLIST_ID) 랜덤생성
-						let concertId = $("#concertID").val();
-						let formattedDate = moment().format('YYYYMMDD');
-						let randomNum = Math.floor(Math.random() * (90000) + 10000); //10000 ~ 99999
-						let buylistId = concertId + formattedDate + randomNum;
-
-						let ticketPrice = ${ concert.price };
-						let ticketCount = $("#ticketCount").val();
-
-						const myAmount = ticketPrice * ticketCount; //총 결제금액
-						let userId = "${sessionScope.loginUser.userId}";
-						let concertName = "${concert.concertName}";
-						
-
-						const IMP = window.IMP; // 생략 가능
-						IMP.init("imp84822672"); // 상점 식별코드
-						IMP.request_pay(
-							{
-								// param
-								pg: "html5_inicis",
-								pay_method: "card",
-								merchant_uid: buylistId, //주문번호 == BUYLIST_ID
-								name: concertName, //공연이름 == RESERVE_CONCERT_NAME
-								amount: myAmount,
-								buyer_email: "gildonggmailcom",
-								buyer_name: "HongGildong",
-								buyer_tel: "01042424242",
-								buyer_addr: "Seoul",
-								buyer_postcode: "00000",
-
-								//m_redirect_url: "", // 모바일 결제후 리다이렉트될 주소
-							}, function (rsp) {
-								console.log(rsp);
-								$.ajax({
-									url: "checkAmount",
-									type: "POST",
-									data: { imp_uid: rsp.imp_uid }
-								}).done(function (data) {
-									console.log(data);
-									console.log("rsp.paid_amount : " + rsp.paid_amount);
-									console.log("data.response.amount : " + data.response.amount);
-									console.log("--------------------");
-									if (rsp.paid_amount === data.response.amount) {
-										console.log("결제 성공");
-
-										//결제정보 db에 저장
-										$.ajax({
-											url: "insertPaymentInfo.pa",
-											type: "post",
-											data: {
-												buyListId: rsp.merchant_uid, //주문번호
-												reserveCode: rsp.pg_tid, //결제코드
-												reserveConcertId: concertName, //예약된 공연 이름
-												reserveTicket: ticketCount, //예약된 티켓 수
-												reserveSum: myAmount, //결제 금액 합
-												userId: userId //회원ID
-											},
-											success: function (result) {
-												if (result == "success") {
-													console.log("결제정보 저장 성공");
-												} else {
-													console.log("결제정보 저장 실패");
-												}
-											},
-											error: function () {
-												console.log("결제정보 저장 AJAX 통신 실패");
-											}
-										});
-									} else {
-										console.log("결제 실패");
-									}
-								});
-
-							});
-					}
-				</script>
+			
 		</div>
 </body>
 
