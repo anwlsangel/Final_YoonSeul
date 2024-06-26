@@ -460,7 +460,11 @@
 		
 		.logged-in-links a {
 		    margin-left: 0;
-		    margin-top: 5px;
+		}
+			
+		.logged-in-links a:last-child {
+		    margin-left: 8px; 
+		    margin-top: -2px;
 		}
 
 </style>
