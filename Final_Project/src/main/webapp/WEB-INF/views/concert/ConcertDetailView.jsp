@@ -113,7 +113,7 @@
 				}
 
 				.review-update {
-					float: right;
+					float: center;
 				}
 
 				.review-update>a {
@@ -122,6 +122,10 @@
 					margin-right: 10px;
 				}
 
+				.review-update>a:hover {
+					cursor : pointer;
+				}
+				
 				.-green {
 					width: 70px;
 					height: 30px;
@@ -327,6 +331,7 @@
 
 				#newReviewContent {
 					resize: none;
+					width : 90%;
 				}
 
 				.ticketContainer {
@@ -934,6 +939,7 @@
 							});
 						}
 
+						/*
 						function review(star, userId, writeDate, reviewContent) {
 							//console.log(star, userId, writeDate, reviewContent)
 							
@@ -976,6 +982,51 @@
 							review += '<div class="review-line"></div>';
 							console.log(review)
 							$(document.getElementById('review')).append(review);
+						}
+						*/
+						
+						function review(star, userId, writeDate, reviewContent) {
+						    let stars;
+						    switch (star) {
+						        case 5: stars = '★★★★★'; break;
+						        case 4: stars = '★★★★☆'; break;
+						        case 3: stars = '★★★☆☆'; break;
+						        case 2: stars = '★★☆☆☆'; break;
+						        case 1: stars = '★☆☆☆☆'; break;
+						    }
+						    
+						    let review = '<div class="review">';
+						    review += '<div class="review-star">';
+						    review += stars;
+						    review += '</div>';
+						    review += '<div class="review-content">';
+						    review += reviewContent;
+						    review += '</div>';
+						    review += '<div class="review-info">';
+						    review += '<div class="review-writer">';
+						    review += userId;
+						    review += '</div>';
+						    review += '<div class="review-createDate">';
+						    review += writeDate;
+						    review += '</div>';
+						    
+						    review += '<br>';
+						    
+						    if ('${sessionScope.loginUser.userId}' === userId) {
+						        review += '<div class="review-update">';
+						        review += '<a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="' + reviewContent + '" data-rno="' + reviewId + '" data-cno="' + concertId + '">수정</a>';
+						        review += '<a onclick="deleteReview();">삭제</a>';
+						        review += '<br clear="both">';
+						        review += '</div>';
+						    }
+						  
+						    
+						    review += '</div>';
+						 
+						
+						    review += '<div class="review-line"></div>';
+						    review += '</div>';
+						    $('#review').append(review);
 						}
 
 						/*
