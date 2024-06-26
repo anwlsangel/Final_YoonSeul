@@ -2,14 +2,13 @@ package com.kh.yoonsart.payment.model.dao;
 
 import java.util.ArrayList;
 
-import org.apache.ibatis.session.RowBounds;
 import org.mybatis.spring.SqlSessionTemplate;
 import org.springframework.stereotype.Repository;
 
-import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.vo.BuyList;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 @Repository
 public class PaymentDao {
@@ -66,5 +65,7 @@ public class PaymentDao {
 		return sqlSession.delete("paymentMapper.deleteTicket", buyListId);
 	}
 	
-
+	public ArrayList<Tickets> getTicket(SqlSessionTemplate sqlSession, String bId){
+		return (ArrayList)sqlSession.selectList("paymentMapper.deleteTicket",bId);
+	}
 }

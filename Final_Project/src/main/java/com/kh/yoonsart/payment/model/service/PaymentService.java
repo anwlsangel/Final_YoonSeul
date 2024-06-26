@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.vo.BuyList;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 public interface PaymentService {
 
@@ -47,5 +48,5 @@ public interface PaymentService {
 	int cancelPayment(Ticket ticket);
 	//좌석 상태 변경 (구매가능)
 	int deleteTicket(String buyListId);
-	
+	ArrayList<Tickets> getTicket(String bId);
 }

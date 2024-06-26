@@ -22,6 +22,7 @@ import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.dao.PaymentDao;
 import com.kh.yoonsart.payment.model.vo.BuyList;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
@@ -193,4 +194,8 @@ public class PaymentServiceImpl implements PaymentService{
 	}
 
 
+	@Override
+	public ArrayList<Tickets> getTicket(String bId) {
+		return paymentDao.getTicket(sqlSession, bId);
+	}
 }

@@ -16,6 +16,7 @@ import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.service.PaymentService;
 import com.kh.yoonsart.payment.model.vo.BuyList;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 import com.siot.IamportRestClient.IamportClient;
 import com.siot.IamportRestClient.exception.IamportResponseException;
 import com.siot.IamportRestClient.response.IamportResponse;
@@ -118,7 +119,12 @@ public class PaymentController {
 		BuyList bl = paymentService.selectBuyList(tno);
 		//공연정보
 		Concert concert = paymentService.selectConcert(bl.getReserveConcertId());
-		mv.addObject("bl", bl).addObject("concert", concert);
+		ArrayList<Tickets> ticketList = paymentService.getTicket(bl.getBuyListId());
+		for(int i = 0;ticketList.size()>i;i++) {
+			ticketList.get(i).setHoleName(concert.getHoleName());
+			ticketList.get(i).setConcertName(concert.getConcertName());
+		}
+		mv.addObject("bl", bl).addObject("concert", concert).addObject("ticketList",ticketList);
 		mv.setViewName("member/myTicketDetail");
 		return mv;
 	}
