@@ -22,7 +22,16 @@
 </head>
 <body>
         
-    <jsp:include page="../common/header.jsp" />
+	<div id="wrapper">
+	
+	    <jsp:include page="../common/adminNav.jsp" />
+		
+		<div id="content-wrapper" class="d-flex flex-column">
+	        	
+	    	<!-- Main Content -->
+	        <div id="content">
+	        
+	        <jsp:include page="../common/adminTop.jsp" />
 <div class="container">
     <div id="contentForm">
         <br><br>
@@ -63,7 +72,7 @@
 
 				
 	            <div align="center">
-	                <a class="btn btn-primary" href="list.no?cpage=${ currentPage }">목록가기</a>
+	                <a class="btn btn-primary" href="list.adno?cpage=${ currentPage }">목록가기</a>
 	                <c:if test="${ (not empty sessionScope.loginUser) and (sessionScope.loginUser.userId eq 'admin') }">
 	                <a class="btn btn-primary" onclick="postFormSubmit(2);">수정하기</a>
 	                <a class="btn btn-danger" onclick="postFormSubmit(3);">삭제하기</a>
@@ -77,7 +86,7 @@
 	            	
 	            	<input type="hidden" name="filePath" value="${ n.noticeImg }" >
 	            </form>
-
+	            
 	            <script>
 	            	function postFormSubmit(num) {
 	            		
@@ -85,12 +94,12 @@
 	            		
 	            		if(num == 2) { // 수정하기 클릭 시
 	            			
-	            			$("#postForm").attr("action", "updateForm.no")
+	            			$("#postForm").attr("action", "updateForm.adno")
 	            						  .submit();
 	            			
 	            		} else { // 삭제하기 클릭 시
 	            			
-	            			$("#postForm").attr("action", "delete.no")
+	            			$("#postForm").attr("action", "delete.adno")
 	            						  .submit();
 	            		}
 	            		
@@ -103,7 +112,8 @@
     </div>
   </div>  
   </div>
-    <jsp:include page="../common/footer.jsp" />
-    
+</div>
+</div>
+</div>
 </body>
 </html>

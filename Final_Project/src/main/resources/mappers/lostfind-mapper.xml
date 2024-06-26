@@ -86,7 +86,7 @@
 	</insert>
 	
 	<!-- 이미지 업로드용 쿼리문 -->
-    <insert id="insertLostImg" parameterType="LostImg">
+    <insert id="insertLostImg" parameterType="lostImg">
         INSERT INTO LOST_IMG(LOST_IMG_ID
         				   , FILE_NAME
 					       , FILE_ROOT
@@ -181,7 +181,7 @@
 	<delete id="deleteExImg"
 			parameterType="java.util.List">
 	DELETE FROM LOST_IMG
-	WHERE LOST_NO = #{lI.lostNo}
+	WHERE LOST_ID = #{list[0].lostNo}
 	AND LOST_IMG_ID NOT IN
         <foreach collection="list" item="lI" separator="," open="(" close=")">
             #{lI.lostImgId}

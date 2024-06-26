@@ -68,10 +68,19 @@
     </style>
 </head>
 <body>
-<jsp:include page="../common/header.jsp" />
+	<div id="wrapper">
+	
+	    <jsp:include page="../common/adminNav.jsp" />
+		
+		<div id="content-wrapper" class="d-flex flex-column">
+	        	
+	    	<!-- Main Content -->
+	        <div id="content">
+	        
+	        <jsp:include page="../common/adminTop.jsp" />
 <div class="container">
 <div id="contentForm">
-    <form id="enrollForm" method="post" action="insert.no" enctype="multipart/form-data">
+    <form id="enrollForm" method="post" action="insert.adno" enctype="multipart/form-data">
         <table align="center" class="file-table">
             <tr>
                 <th><label for="noticeTitle">제목</label></th>
@@ -104,7 +113,9 @@
     </form>
 </div>
 </div>
- <jsp:include page="../common/footer.jsp" />
+</div>
+</div>
+</div>
     <script>
         
         // 파일 초기화

@@ -33,7 +33,16 @@
 </head>
 <body>
     
-    <jsp:include page="../common/header.jsp" />
+	<div id="wrapper">
+	
+	    <jsp:include page="../common/adminNav.jsp" />
+		
+		<div id="content-wrapper" class="d-flex flex-column">
+	        	
+	    	<!-- Main Content -->
+	        <div id="content">
+	        
+	        <jsp:include page="../common/adminTop.jsp" />
 <div class="container">
     <div class="content">
         <br><br>
@@ -78,7 +87,7 @@
             			let lno = $(this).children().eq(0).text();
             			let currentPage = "${pi.currentPage}";
             			
-            			location.href = "detail.lo?lno=" + lno + "&cpage=" + currentPage;
+            			location.href = "detail.adlo?lno=" + lno + "&cpage=" + currentPage;
             		});
             		
             	});
@@ -96,7 +105,7 @@
                     <c:otherwise>
                     	<li class="page-item">
                     		<a class="page-link" 
-                    		   href="list.lo?cpage=${ pi.currentPage - 1 }">
+                    		   href="list.adlo?cpage=${ pi.currentPage - 1 }">
                     			Previous
                     		</a>
                     	</li>
@@ -110,7 +119,7 @@
                     	<c:choose>	   
                     	<c:when test="${ pi.currentPage ne p }">
                     		<li class="page-item">
-		                    	<a class="page-link" href="list.lo?cpage=${ p }">
+		                    	<a class="page-link" href="list.adlo?cpage=${ p }">
 									${ p }
 								</a>
 		                    </li>
@@ -136,7 +145,7 @@
                     <c:otherwise>
 	                    <li class="page-item">
 	                    	<a class="page-link" 
-	                    	   href="list.lo?cpage=${ pi.currentPage + 1 }">
+	                    	   href="list.adlo?cpage=${ pi.currentPage + 1 }">
 	                    		Next
 	                    	</a>
 	                    </li>
@@ -148,7 +157,7 @@
             <br clear="both"><br>
 
 			<div style="width:100%; height: 50px;">
-				<form id="searchForm" action="list.lo" method="get">
+				<form id="searchForm" action="list.adlo" method="get">
 					<div class="searchDiv">
 						<input type="text" class="form-control" name="keyword" placeholder="제목">                
 	                	<button type="submit" class="searchBtn btn btn-secondary">검색</button>
@@ -161,7 +170,9 @@
 
     </div>
 </div>
-    <jsp:include page="../common/footer.jsp" />
+</div>
+</div>
+</div>
 
 </body>
 </html>

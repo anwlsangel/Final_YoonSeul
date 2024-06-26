@@ -11,18 +11,23 @@
         #noticeList>tbody>tr:hover {cursor:pointer;}
 
         #pagingArea {width:fit-content; margin:auto;}
-        
-        #searchForm {
-            width:80%;
-            margin:auto;
-        }
-        #searchForm>* {
-            float:left;
-            margin:5px;
-        }
-        .select {width:20%;}
-        .text {width:53%;}
-        .searchBtn {width:20%;}
+                
+                
+       	.searchDiv {
+       		display: flex;
+       		box-sizing: border-box;
+       		margin: auto;
+       		display: flex;
+  			justify-content: center;
+       	}
+       	
+       	.searchDiv>input {
+       		width: 30%;
+       	}
+       	
+       	.searchDiv>button {
+       		width: 10%;
+       	} 
     </style>
 </head>
 <body>
@@ -136,17 +141,23 @@
 	                    </li>
 	                </c:otherwise>
                     </c:choose>
-                </ul>
+                </ul>                
             </div>
 
-            <br clear="both"><br>
+			<br clear="both"><br>
+			
+			<div style="width:100%; height: 50px;">
+				<form id="searchForm" action="list.no" method="get">
+					<div class="searchDiv">
+						<input type="text" class="form-control" name="keyword" placeholder="제목">                
+	                	<button type="submit" class="searchBtn btn btn-secondary">검색</button>
+					</div>
+				</form>
+			</div>
 
-            <form id="searchForm" action="list.no" method="get" align="center">
-                <div class="text">
-                    <input type="text" class="form-control" name="keyword">
-                </div>
-                <button type="submit" class="searchBtn btn btn-secondary">검색</button>
-            </form>
+
+            
+	                        
             <br><br>
         </div>
         <br><br>

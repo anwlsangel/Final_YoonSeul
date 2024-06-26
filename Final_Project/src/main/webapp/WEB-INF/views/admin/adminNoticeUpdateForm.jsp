@@ -65,11 +65,20 @@
 
     </style>
 </head>
-<%@ include file="../common/header.jsp" %>
+	<div id="wrapper">
+	
+	    <jsp:include page="../common/adminNav.jsp" />
+		
+		<div id="content-wrapper" class="d-flex flex-column">
+	        	
+	    	<!-- Main Content -->
+	        <div id="content">
+	        
+	        <jsp:include page="../common/adminTop.jsp" />
 <body>
 <div class="container">
 <div id="contentForm">
-    <form id="updateForm" method="post" action="update.no" enctype="multipart/form-data">
+    <form id="updateForm" method="post" action="update.adno" enctype="multipart/form-data">
         <input type="hidden" name="noticeImg" value="${n.noticeImg}">
         <input type="hidden" name="noticeNo" value="${n.noticeNo}">
         <input type="hidden" name="cpage" value="${currentPage}">
@@ -123,7 +132,10 @@
     </form>
 </div>
 </div>
- <jsp:include page="../common/footer.jsp" />
+</div>
+</div>
+</div>
+
 <script>
     window.onload = function() {
         // 기존 이미지 정보를 가져와서 미리보기

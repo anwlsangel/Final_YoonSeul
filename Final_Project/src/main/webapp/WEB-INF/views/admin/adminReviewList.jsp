@@ -26,7 +26,7 @@
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
 	
-			 <h1 class="h3 mb-4 text-gray-800">Q&A 리스트 조회</h1>
+			 <h1 class="h3 mb-4 text-gray-800">REVIEW 리스트 조회</h1>
 	
 	        <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
 	            <thead>
