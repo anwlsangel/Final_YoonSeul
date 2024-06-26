@@ -1158,7 +1158,7 @@ div {
 
         //@@@ 
         function pickTime(day,id,time){
-            //id 아직 어디 넣을지못정함
+            concertDateId = id;
             let appendString = year+"/"+month+"/"+day+" "+time+" ";
             appendString += "<button class='able' style='width:30px' type='button' onclick='ticketAdd(1)'>+</button> <button type='button' style='width:30px' class='able' onclick='ticketAdd(0)'>-</button>"
             console.log(appendString)
@@ -1269,9 +1269,6 @@ div {
         ticketQuantity
       	//좌석 상태 변경 (구매불가)
         function endPayment(uid) {
-        	
-        	let resultSum = 0;
-        	
         	$.ajax({
         		url: "endPayment.pa",
         		type: "post",
@@ -1282,11 +1279,7 @@ div {
         		},
         		success: function(result) {
         			if(result > 0) {
-        				resultSum++;
         				console.log("좌석 상태 구매불가로 변경 성공");
-        				if(resultSum >= seatId.length) {
-        	        		console.log("좌석 상태 구매불가로 변경 모두 완료");
-        	        	}
         			}
         			else {
         				console.log("좌석 상태 구매불가로 변경 실패");
