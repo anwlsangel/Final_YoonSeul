@@ -96,6 +96,7 @@ public class ConcertDao {
     }
 
 	public int selectHoleStatus(SqlSessionTemplate sqlSession, int cno) {
+		System.out.println("홀 상태값");
 		return sqlSession.selectOne("concertMapper.selectHoleStatus", cno);
 	}
 

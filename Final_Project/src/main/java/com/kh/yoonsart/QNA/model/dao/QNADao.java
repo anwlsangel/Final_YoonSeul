@@ -45,6 +45,7 @@ public class QNADao {
 	// 삭제 
 	public int deleteQNA(SqlSessionTemplate sqlSession, int qnaId) {
 		
+		System.out.println("여기dao");
 		return sqlSession.update("qnaMapper.deleteQna", qnaId);
 	}
 

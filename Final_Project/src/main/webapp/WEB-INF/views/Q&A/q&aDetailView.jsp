@@ -238,7 +238,7 @@
             </a>
             <script>
             	function deleteQna() {
-            		location.href = "delete.qa?qno=${q.qnaId}";
+            		location.href = "delete.qa?qno=${q.qnaId}&cno=${q.concertId}";
             	}
             	
             	function updateQna() {

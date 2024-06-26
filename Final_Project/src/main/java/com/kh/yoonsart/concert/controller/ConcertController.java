@@ -62,6 +62,11 @@ public class ConcertController {
 	        Concert concert = concertService.concertDetail(cno);
 	        model.addAttribute("concert", concert); 
 
+	        System.out.println("-------");
+	        System.out.println(cno);
+	        System.out.println(currentPage);
+	        System.out.println("-------");
+	        
 	        // 콘서트장 상태값 조회용 
 	        int holeStatus = concertService.selectHoleStatus(cno);	        
 	        

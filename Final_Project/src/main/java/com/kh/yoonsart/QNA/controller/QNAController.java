@@ -93,21 +93,15 @@ public class QNAController {
 	
 	// 게시글 삭제 
 	@GetMapping("delete.qa")
-	public String deleteQNA(@RequestParam("qno") int qno, QNA q, Model model, HttpSession session) {
+	public String deleteQNA(@RequestParam("qno") int qno, int cno, Model model, HttpSession session) {
 		
-		// System.out.println("확인1 : " + qno);
 		
 		 int result = qnaService.deleteQNA(qno);
 		 
 		 if(result > 0) {
 			 
-			 // System.out.println("확인2 : " +  qno);
-			 
 			 session.setAttribute("alertMsg", "문의글 삭제 성공!");
-			 //model.addAttribute("alertMsg", "문의글 삭제 성공!");
-			 // System.out.println(q.getConcertId());
-			 return "redirect:/detail.co?cno="+ q.getConcertId() +"#text";
-			 // > q.getConcertId() 값 가져와서 redirect 완성시켜야함
+			 return "redirect:/detail.co?cno="+ cno + "#text";
 			 
 		 } else { // 실패
 				
