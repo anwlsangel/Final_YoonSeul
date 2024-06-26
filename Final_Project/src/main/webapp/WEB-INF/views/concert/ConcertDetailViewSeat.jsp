@@ -1558,28 +1558,25 @@ div {
         
         //결제 취소
         function cancelPayment(buylistId) {
-        	
-        	for(let i in seatId) {
-        		$.ajax({
-            		url: "cancelPayment.pa",
-            		type: "post",
-            		data: {
-            			cid: concertDateId,
-            			buylistId: buylistId
-            		},
-            		success: function(result) {
-            			if(result > 0) {
-            				console.log("결제 취소 처리 완료");
-            			}
-            			else {
-            				console.log("결제 취소 처리 실패");
-            			}
-            		},
-            		error: function() {
-            			console.log("결제 취소 처리 ajax 통신 실패")
-            		}
-            	});
-        	}
+        	$.ajax({
+        		url: "cancelPayment.pa",
+        		type: "post",
+        		data: {
+        			cid: concertDateId,
+        			buylistId: buylistId
+        		},
+        		success: function(result) {
+        			if(result > 0) {
+        				console.log("결제 취소 처리 완료");
+        			}
+        			else {
+        				console.log("결제 취소 처리 실패");
+        			}
+        		},
+        		error: function() {
+        			console.log("결제 취소 처리 ajax 통신 실패")
+        		}
+        	});
         }
         
         
