@@ -1039,7 +1039,7 @@
 						success: function(result) {
 
 							if (result.qList.length > 0) {
-
+								
 								let str = "";
 
 								for (let i in result.qList) {
