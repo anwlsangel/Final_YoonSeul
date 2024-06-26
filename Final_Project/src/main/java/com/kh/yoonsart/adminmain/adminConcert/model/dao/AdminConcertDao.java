@@ -52,4 +52,8 @@ public class AdminConcertDao {
 	public ArrayList<String> getHoleList(SqlSessionTemplate sqlSession){
 		return (ArrayList)sqlSession.selectList("concertMapper.getHoleList");
 	}
+
+	public int adDeleteConcert(SqlSessionTemplate sqlSession) {
+		return sqlSession.update("concertMapper.adDeleteConcert");
+	}
 }

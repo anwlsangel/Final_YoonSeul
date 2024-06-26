@@ -65,7 +65,7 @@
             height: 100px;
         }
         .image-item {
-            border: 1px solid #ddd;
+            border: none;
             padding: 5px;
             margin: 5px;
             display: inline-block;
@@ -117,7 +117,7 @@
                             </div>
                         </c:forEach>
                     </table>
-                    <span>${l.lostContent}</span>
+                    <pre>${l.lostContent}</pre>
                 </td>
             </tr>
         </table>

@@ -10,12 +10,13 @@
 <script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script> <!-- 구글차트 api 라이브러리 연동 (cdn) -->
 <style>
 #content {
-	width : 90%;  
+	width : 100%;  
 	margin-left : 60px;
 }     
 
 #member_age {
 	height : 400px;
+	width
 }
  
 #member_enroll {
@@ -51,6 +52,7 @@
                     
                     
                     <script>
+                    
                         window.onload = function() {
                             // ---------- 회원 연령대 ----------
                             // ----- 파이그래프 그리기 -----
@@ -87,12 +89,12 @@
                                 // 그래프 상에 표현할 데이터
                                 var data = google.visualization.arrayToDataTable([
                                     ['월', '회원가입 수'],
-                                    ['1', ${mlist[0].enrollCount}],
-                                    ['2', ${mlist[1].enrollCount}],
-                                    ['3', ${mlist[2].enrollCount}],
-                                    ['4', ${mlist[3].enrollCount}],
-                                    ['5', ${mlist[4].enrollCount}],
-                                    ['6', ${mlist[5].enrollCount}],
+                                    ['1', ${empty mlist[0].enrollCount ? 0 :mlist[0].enrollCount}],
+                                    ['2', ${empty mlist[1].enrollCount ? 0 :mlist[1].enrollCount}],
+                                    ['3', ${empty mlist[2].enrollCount ? 0 :mlist[2].enrollCount}],
+                                    ['4', ${empty mlist[3].enrollCount ? 0 :mlist[3].enrollCount}],
+                                    ['5', ${empty mlist[4].enrollCount ? 0 :mlist[4].enrollCount}],
+                                    ['6', ${empty mlist[5].enrollCount ? 0 :mlist[5].enrollCount}],
                                     ['7', ${empty mlist[6].enrollCount ? 0 :mlist[6].enrollCount}],
                                     ['8', ${empty mlist[7].enrollCount ? 0 :mlist[7].enrollCount}],
                                     ['9', ${empty mlist[8].enrollCount ? 0 :mlist[8].enrollCount}],

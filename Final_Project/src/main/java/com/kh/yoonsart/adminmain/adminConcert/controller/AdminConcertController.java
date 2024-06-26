@@ -54,6 +54,25 @@ public class AdminConcertController {
 		return "admin/AdminConcertDetail";
 
 	}
+	
+	@GetMapping("AdDelete.co")
+	public ModelAndView AdminDeleteConcert(ModelAndView mv, HttpSession session) {
+		
+		int result = adminConcertService.adDeleteConcert();
+		
+		if (result > 0) { // 성공
+
+			session.setAttribute("alertMsg", "종료된 공연 삭제 성공!");
+			mv.setViewName("redirect:/AdConcertList.co");
+
+		} else { // 실패
+
+			mv.addObject("errorMsg", "삭제 실패").setViewName("common/errorPage");
+		}
+
+		return mv;
+		
+	}
 
 	@PostMapping("AdConcertUpdate.co")
 	public ModelAndView AdminConcertUpdate(Concert c, Model model, ModelAndView mv, HttpSession session) {

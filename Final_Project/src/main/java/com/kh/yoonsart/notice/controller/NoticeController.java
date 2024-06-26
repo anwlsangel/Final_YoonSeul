@@ -15,11 +15,14 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.common.template.Pagination;
+import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.notice.model.service.NoticeService;
 import com.kh.yoonsart.notice.model.vo.Notice;
 
@@ -230,6 +233,16 @@ public class NoticeController {
 			
 			return "common/errorPage";
 		}
+	}
+	
+	@ResponseBody
+	@GetMapping(value="loadMainNotice.no", produces="application/json; charset=UTF-8")
+	public String loadMainNotice() {
+				
+		ArrayList<Notice> mainNoticeList = noticeService.selectMainNoticeList();		
+    	
+    	return new Gson().toJson(mainNoticeList);
+		
 	}
 	
 	

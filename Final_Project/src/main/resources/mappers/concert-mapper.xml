@@ -170,6 +170,13 @@
 		WHERE CONCERT_ID = #{concertId}
 	</update>
 	
+	<!-- 공연 상태변경용 쿼리문 -->
+	<update id="adDeleteConcert">
+		UPDATE CONCERT_INFO
+		   SET STATUS = 0
+		 WHERE END_DATE &lt; SYSDATE
+	</update>
+	
 	<!-- 위시리스트 조회용 쿼리문 -->
 	<select id="selectWishList" parameterType="String" resultMap="concertResultSet">
 		SELECT c.*

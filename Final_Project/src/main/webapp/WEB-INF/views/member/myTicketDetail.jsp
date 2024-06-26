@@ -12,7 +12,6 @@
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/4.5.2/js/bootstrap.min.js"></script>
     <!-- JavaScript -->
 	<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
-	
 	<!-- CSS -->
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/alertify.min.css"/>
 	<!-- Default theme -->
@@ -161,50 +160,61 @@
 						<button class="myInfoButton btn-danger" disabled>환불 완료</button>
 					</c:otherwise>
 				</c:choose>
+				
 				<script>
-					//환불요청
 					let buyListId = "${requestScope.bl.buyListId}";
+					
+					//환불요청
 					function requestRefund() {
-						if(confirm("환불 요청하시겠습니까?")) {
-							$.ajax({
-								url: "requestRefund.pa",
-								type: "post",
-								data: {buyListId: buyListId},
-								success: function(result) {
-									if(result > 0) {
-										alert("환불 요청되었습니다.");
-										location.reload(true);
-									} else {
-										console.log("환불 요청 실패");
-									}
-								},
-								error: function() {
-									console.log("환불 요청 ajax 통신 실패");
-								}
+						alertify.confirm('', '환불 요청하시겠습니까?', 
+							  function() {
+									$.ajax({
+										url: "requestRefund.pa",
+										type: "post",
+										data: {buyListId: buyListId},
+										success: function(result) {
+											if(result > 0) {
+												alertify.alert('알림', '환불 요청되었습니다.', function() {
+				     	            				location.href="myTicketList.me";
+				     	            			});
+											} else {
+												console.log("환불 요청 실패");
+											}
+										},
+										error: function() {
+											console.log("환불 요청 ajax 통신 실패");
+										}
+									});
+							  },
+							  function() {
 							});
-						}
+						
 					}
 					
 					//환불요청취소
 					function cancelRefund() {
-						if(confirm("환불 요청을 취소하시겠습니까?")) {
-							$.ajax({
-								url: "cancelRefund.pa",
-								type: "post",
-								data: {buyListId: buyListId},
-								success: function(result) {
-									if(result > 0) {
-										alert("환불 요청이 취소되었습니다.");
-										location.reload(true);
-									} else {
-										console.log("환불 요청 취소 실패");
-									}
-								},
-								error: function() {
-									console.log("환불 요청 취소 ajax 통신 실패");
-								}
-							});
-						}
+						alertify.confirm('', '환불 요청을 취소하시겠습니까?', 
+							  function() {
+									$.ajax({
+										url: "cancelRefund.pa",
+										type: "post",
+										data: {buyListId: buyListId},
+										success: function(result) {
+											if(result > 0) {
+												alertify.alert('알림', '환불 요청이 취소되었습니다.', function() {
+				     	            				location.href="myTicketList.me";
+				     	            			});
+											} else {
+												console.log("환불 요청 취소 실패");
+											}
+										},
+										error: function() {
+											console.log("환불 요청 취소 ajax 통신 실패");
+										}
+									});
+							  },
+							  function() {
+						});
 					}
 			    </script>
 			</div>

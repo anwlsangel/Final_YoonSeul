@@ -10,6 +10,7 @@
 			<script type="text/javascript" src="https://cdn.iamport.kr/js/iamport.payment-1.2.0.js"></script>
 			<script type="text/javascript" src="https://unpkg.com/axios/dist/axios.min.js"></script>
 			<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
+			<script src="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/alertify.min.js"></script>
 			<script src="https://code.jquery.com/jquery-3.3.1.min.js"
 				integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
 			<style>
@@ -112,7 +113,7 @@
 				}
 
 				.review-update {
-					float: right;
+					float: center;
 				}
 
 				.review-update>a {
@@ -121,6 +122,10 @@
 					margin-right: 10px;
 				}
 
+				.review-update>a:hover {
+					cursor : pointer;
+				}
+				
 				.-green {
 					width: 70px;
 					height: 30px;
@@ -326,6 +331,7 @@
 
 				#newReviewContent {
 					resize: none;
+					width : 90%;
 				}
 
 				.ticketContainer {
@@ -933,6 +939,7 @@
 							});
 						}
 
+						/*
 						function review(star, userId, writeDate, reviewContent) {
 							//console.log(star, userId, writeDate, reviewContent)
 							
@@ -975,6 +982,51 @@
 							review += '<div class="review-line"></div>';
 							console.log(review)
 							$(document.getElementById('review')).append(review);
+						}
+						*/
+						
+						function review(star, userId, writeDate, reviewContent) {
+						    let stars;
+						    switch (star) {
+						        case 5: stars = '★★★★★'; break;
+						        case 4: stars = '★★★★☆'; break;
+						        case 3: stars = '★★★☆☆'; break;
+						        case 2: stars = '★★☆☆☆'; break;
+						        case 1: stars = '★☆☆☆☆'; break;
+						    }
+						    
+						    let review = '<div class="review">';
+						    review += '<div class="review-star">';
+						    review += stars;
+						    review += '</div>';
+						    review += '<div class="review-content">';
+						    review += reviewContent;
+						    review += '</div>';
+						    review += '<div class="review-info">';
+						    review += '<div class="review-writer">';
+						    review += userId;
+						    review += '</div>';
+						    review += '<div class="review-createDate">';
+						    review += writeDate;
+						    review += '</div>';
+						    
+						    review += '<br>';
+						    
+						    if ('${sessionScope.loginUser.userId}' === userId) {
+						        review += '<div class="review-update">';
+						        review += '<a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="' + reviewContent + '" data-rno="' + reviewId + '" data-cno="' + concertId + '">수정</a>';
+						        review += '<a onclick="deleteReview();">삭제</a>';
+						        review += '<br clear="both">';
+						        review += '</div>';
+						    }
+						  
+						    
+						    review += '</div>';
+						 
+						
+						    review += '<div class="review-line"></div>';
+						    review += '</div>';
+						    $('#review').append(review);
 						}
 
 						/*
@@ -1038,7 +1090,7 @@
 						success: function(result) {
 
 							if (result.qList.length > 0) {
-
+								
 								let str = "";
 
 								for (let i in result.qList) {
@@ -1384,7 +1436,7 @@
 											data: {
 												buyListId: rsp.merchant_uid, //주문번호
 												reserveCode: rsp.pg_tid, //결제코드
-												reserveConcertId: concertName, //예약된 공연 이름
+												reserveConcertId: concertId, //예약된 공연 이름
 												reserveTicket: ticketCount, //예약된 티켓 수
 												reserveSum: myAmount, //결제 금액 합
 												userId: userId //회원ID
@@ -1392,6 +1444,9 @@
 											success: function (result) {
 												if (result == "success") {
 													console.log("결제정보 저장 성공");
+													alertify.alert('알림', '결제 완료되었습니다.', function() {
+													    location.reload(true);
+													});
 												} else {
 													console.log("결제정보 저장 실패");
 												}

@@ -85,4 +85,9 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.deleteNoticeImg(sqlSession, noticeNo);
 	}
 
+	@Override
+	public ArrayList<Notice> selectMainNoticeList() {
+		return noticeDao.selectMainNoticeList(sqlSession);
+	}
+
 }

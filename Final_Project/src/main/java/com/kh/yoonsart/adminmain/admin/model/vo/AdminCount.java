@@ -1,12 +1,14 @@
 package com.kh.yoonsart.adminmain.admin.model.vo;
 
 
+import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 
 @NoArgsConstructor // 기본생성자
+@AllArgsConstructor
 @Setter // 세터 메소드
 @Getter //게터메소드
 @ToString // 투스트링 메소드 오버라이딩
