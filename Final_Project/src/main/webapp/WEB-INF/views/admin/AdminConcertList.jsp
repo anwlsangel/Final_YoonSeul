@@ -17,6 +17,11 @@
         margin-top: 10px;
         margin-bottom: 10px;
     }
+    
+    #content{
+        margin-left: 50px;
+        margin-right: 50px;
+    }
 </style>
 </head>
 <body>
