@@ -47,7 +47,7 @@
 	            ORDER BY REVIEW_COUNT DESC
 	        </when>
 	        <when test="sort == 'date'">
-	            ORDER BY c.START_DATE DESC
+	            ORDER BY c.CONCERT_NO DESC
 	        </when>
 	        <when test="sort == 'price'">
 	            ORDER BY c.PRICE ASC
@@ -280,14 +280,14 @@
 	</select>
 	
 	<select id="selectOpenConcerts" resultMap="concertResultSet">
-		SELECT *
-		  FROM (
-		    SELECT *
-		    FROM CONCERT_INFO
-		    WHERE START_DATE > SYSDATE
-		    ORDER BY START_DATE ASC
-		  )
-		  WHERE ROWNUM &lt;= 5
+	    SELECT *
+	    FROM (
+	        SELECT *
+	        FROM CONCERT_INFO
+	        WHERE TRUNC(START_DATE) > TRUNC(SYSDATE)
+	        ORDER BY START_DATE ASC
+	    )
+	    WHERE ROWNUM <= 5
 	</select>
 	
 </mapper>
