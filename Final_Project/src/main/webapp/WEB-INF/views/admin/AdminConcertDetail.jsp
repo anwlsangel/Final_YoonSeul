@@ -62,7 +62,7 @@
                                 		<tr>
                                 			<th colspan="2">공연 시간</th>
                                 			<td>
-                                				<input type="number" class="form-control form-control-user" name="playTime" value="${c.playTime}">
+                                				<input type="text" class="form-control form-control-user" name="playTime" value="${c.playTime}">
                                				</td>
                                 		</tr>
                                 		<tr>
