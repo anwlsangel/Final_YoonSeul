@@ -141,7 +141,7 @@
     
      <!-- 비밀번호 변경 쿼리 -->
 	<update id="updatePassword" parameterType="map">
-	    UPDATE MEMBER
+	    UPDATE MEMBER 
 	    SET USER_PWD = #{encPwd}
 	    WHERE USER_ID = #{userId}
 	</update>
@@ -222,9 +222,8 @@
 		SELECT EXTRACT(MONTH FROM RESERVE_PAYMENT) AS "DATE",
 		       SUM(RESERVE_SUM) AS "COUNT"
 		  FROM BUYLIST
-		  WHERE STATUS = 1
-		  GROUP BY EXTRACT(MONTH FROM RESERVE_PAYMENT)
-		  ORDER BY "DATE"
+		GROUP BY EXTRACT(MONTH FROM RESERVE_PAYMENT)
+		ORDER BY EXTRACT(MONTH FROM RESERVE_PAYMENT)
 	</select>
 	
 </mapper>
