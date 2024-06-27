@@ -121,7 +121,7 @@ public class PaymentController {
 		BuyList bl = paymentService.selectBuyList(tno);
 		//공연정보
 		Concert concert = paymentService.selectConcert(bl.getReserveConcertId());
-		ArrayList<Tickets> ticketList = paymentService.getTicket(bl.getBuyListId());
+		ArrayList<Tickets> ticketList = paymentService.getTicket(bl.getBuyListId(),concert.getHoleName());
 		for(int i = 0;ticketList.size()>i;i++) {
 			ticketList.get(i).setHoleName(concert.getHoleName());
 			ticketList.get(i).setConcertName(concert.getConcertName());

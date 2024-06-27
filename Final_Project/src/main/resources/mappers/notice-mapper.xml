@@ -118,7 +118,14 @@
 		UPDATE NOTICE
 		   SET STATUS = '0'
 		 WHERE NOTICE_ID = #{noticeNo}
-		   AND STATUS = '1'
+	</update>
+	
+		<!-- 게시글 삭제용 쿼리문 -->
+	<update id="restoreNotice"
+			parameterType="_int">
+		UPDATE NOTICE
+		   SET STATUS = '1'
+		 WHERE NOTICE_ID = #{noticeNo}
 	</update>
 	
 	<!-- 게시글 수정용 쿼리문 -->
@@ -130,7 +137,6 @@
 		     , NOTICE_IMG_NAME = #{noticeImgName}
 		     , NOTICE_IMG = #{noticeImg}
 		 WHERE NOTICE_ID = #{noticeNo}
-		   AND STATUS = '1'
 	</update>
 
 	<!-- 이미지 삭제용 쿼리문 -->
@@ -152,8 +158,25 @@
 		WHERE ROWNUM &lt;= 4
 	</select>
 	
-
+	 <select id="adNoticeList" resultMap="noticeResultSet">
+	 	SELECT *
+	 	  FROM NOTICE
+	 </select>
 	
+	<select id="adSelectNotice"
+			parameterType="_int"
+			resultMap="noticeResultSet">
+		SELECT NOTICE_ID
+		     , NOTICE_TITLE
+		     , NOTICE_CONTENT
+		     , NOTICE_IMG_NAME
+		     , NOTICE_IMG
+		     , TO_CHAR(CREATE_DATE, 'YYYY-MM-DD') AS "CREATE_DATE"
+		     , STATUS
+		     , NOTICE_COUNT
+		  FROM NOTICE
+		 WHERE NOTICE_ID = #{noticeNo}
+	</select>
 </mapper>
 
 

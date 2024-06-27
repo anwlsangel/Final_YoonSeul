@@ -125,6 +125,14 @@ public class LostfindController {
 					li.setFileRoot("resources/uploadFiles/" + changeName);
 					li.setLostNo(lno);
 					result += lostfindService.insertLostImg(li);
+				}} else { result = (result-1);
+					for(int i=0;i<upfiles.length;i++) {
+						String fileName = upfiles[i].getOriginalFilename();
+						String changeName = savePath(upfiles[i], session);
+						li.setFileName(fileName);
+						li.setFileRoot("resources/uploadFiles/" + changeName);
+						li.setLostNo(lno);
+						result += lostfindService.insertLostImg(li);
 				}}
 				
 				if(result!=(upfiles.length)) {

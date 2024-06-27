@@ -86,6 +86,13 @@ public class LostfindServiceImpl implements LostfindService {
 		
 		return lostfindDao.deleteLostfind(sqlSession, lostNo);
 	}
+	
+	@Override
+	@Transactional
+	public int restoreLostfind(int lostNo) {
+		
+		return lostfindDao.restoreLostfind(sqlSession, lostNo);
+	}
 
 	@Override
 	@Transactional
@@ -120,5 +127,9 @@ public class LostfindServiceImpl implements LostfindService {
 	}
 
 
-
+	@Override
+	public ArrayList<Lostfind> adSelectList() {
+		
+		return lostfindDao.adSelectList(sqlSession);
+	}
 }

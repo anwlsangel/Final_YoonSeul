@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.notice.model.vo.Notice;
+import com.kh.yoonsart.review.model.vo.Review;
 
 @Repository
 public class NoticeDao {
@@ -61,6 +62,11 @@ public class NoticeDao {
 		
 		return sqlSession.update("noticeMapper.deleteNotice", noticeNo);
 	}
+
+	public int restoreNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		
+		return sqlSession.update("noticeMapper.restoreNotice", noticeNo);
+	}
 	
 	public int updateNotice(SqlSessionTemplate sqlSession, Notice n) {
 		
@@ -77,6 +83,14 @@ public class NoticeDao {
 		return (ArrayList)sqlSession.selectList("noticeMapper.selectMainNoticeList");
 	}
 
+	public ArrayList<Notice> adNoticeList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("noticeMapper.adNoticeList");
+	}
+
+	public Notice adSelectNotice(SqlSessionTemplate sqlSession, int noticeNo) {
+		
+		return sqlSession.selectOne("noticeMapper.adSelectNotice", noticeNo);
+	}
 }
 
 

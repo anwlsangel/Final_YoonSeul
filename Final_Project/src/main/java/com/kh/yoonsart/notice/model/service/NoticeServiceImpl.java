@@ -10,6 +10,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.notice.model.dao.NoticeDao;
 import com.kh.yoonsart.notice.model.vo.Notice;
+import com.kh.yoonsart.review.model.vo.Review;
 
 @Service
 public class NoticeServiceImpl implements NoticeService {
@@ -73,6 +74,13 @@ public class NoticeServiceImpl implements NoticeService {
 
 	@Override
 	@Transactional
+	public int restoreNotice(int noticeNo) {
+		
+		return noticeDao.restoreNotice(sqlSession, noticeNo);
+	}
+
+	@Override
+	@Transactional
 	public int updateNotice(Notice n) {
 		
 		return noticeDao.updateNotice(sqlSession, n);
@@ -90,4 +98,16 @@ public class NoticeServiceImpl implements NoticeService {
 		return noticeDao.selectMainNoticeList(sqlSession);
 	}
 
+	@Override
+	public ArrayList<Notice> adNoticeList() {
+
+		return noticeDao.adNoticeList(sqlSession);
+	}
+	
+	@Override
+	public Notice adSelectNotice(int noticeNo) {
+		
+		return noticeDao.adSelectNotice(sqlSession, noticeNo);
+	}
+	
 }

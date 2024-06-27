@@ -168,6 +168,13 @@
 		where t.concert_date_id = cd.concert_date_id
 		and t.ticket_qr = #{qr}
 	</select>
+	
+	<select id="getTicketStanding" parameterType="string" resultType="com.kh.yoonsart.payment.model.vo.Tickets">
+		SELECT t.ticket_qr AS qr, TO_CHAR(cd.concert_date, 'YYYY-MM-DD HH24:MI') AS "date"
+		FROM  ticket t
+		JOIN concert_date cd ON t.concert_date_id = cd.concert_date_id
+		WHERE t.buylist_id = #{bId}
+	</select>
 </mapper>
 
 	

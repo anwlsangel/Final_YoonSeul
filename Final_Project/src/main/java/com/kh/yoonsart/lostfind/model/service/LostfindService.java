@@ -33,6 +33,9 @@ public interface LostfindService {
 	// 게시글 삭제 서비스
 	int deleteLostfind(int LostNo);
 	
+	// 게시글 복구 서비스
+	int restoreLostfind(int LostNo);
+	
 	// 게시글 수정 서비스
 	int updateLostfind(Lostfind l);
 	int updateLostImg(LostImg li);
@@ -46,7 +49,7 @@ public interface LostfindService {
 	// 분실물 사진 삭제2
 	int deleteExImg(List<LostImg> list);
 	
-	
+	ArrayList<Lostfind> adSelectList();
 
 }
 

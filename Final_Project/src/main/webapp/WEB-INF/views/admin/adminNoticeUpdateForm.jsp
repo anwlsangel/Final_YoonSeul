@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -29,12 +30,7 @@
             padding-right: 10px;
         }
         .delete-button {
-            width: 25%;
-            text-align: center;
-        }
-        .delete-button button {
             width: 100%;
-            padding: 5px;
             background-color: #007bff;
             color: white;
             border: none;
@@ -61,10 +57,27 @@
             text-align: center; 
             margin-bottom: 30px;
         }
+        
+        #fileList td{
+        	width:100px;
+        	height: 70px;
+        	border: none;
+        }
+        
+        #fileList tr {
+        	border: none;
+        }
+        
+        #fileList {
+        	width:100%;
+        	height: 100px;
+        	border: none;
+        }
 
 
     </style>
 </head>
+<body>
 	<div id="wrapper">
 	
 	    <jsp:include page="../common/adminNav.jsp" />
@@ -75,46 +88,49 @@
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
-<body>
+
 <div class="container">
 <div id="contentForm">
     <form id="updateForm" method="post" action="update.adno" enctype="multipart/form-data">
         <input type="hidden" name="noticeImg" value="${n.noticeImg}">
         <input type="hidden" name="noticeNo" value="${n.noticeNo}">
-        <input type="hidden" name="cpage" value="${currentPage}">
-        <table align="center" class="file-table">
+        <table align="center" class="table table-bordered">
             <tr>
-                <th><label for="noticeTitle">제목</label></th>
-                <td><input type="text" id="title" class="form-control" name="noticeTitle" value="${n.noticeTitle}" required></td>
+                <th colspan="2">제목</th>
+                <td><input type="text" id="title" class="form-control form-control-user" name="noticeTitle" value="${n.noticeTitle}" required></td>
             </tr>
+           
             <tr>
-                <th>작성일</th>
-                <td colspan="3">
-                    ${n.createDate}
-                </td>
+            	<th colspan="2">작성일</th>
+				<td><input type="text"
+				class="form-control form-control-user" name="createDate" readonly
+				value="${n.createDate}"></td>
             </tr>
+          
             <tr>
-                <th>
+                <th colspan="2">
                     <label>첨부파일</label><br>
                     <button type="button" class="btn btn-secondary" onclick="document.getElementById('upfile').click()">파일 추가</button>
                 </th>
                 <td>
                     <input type="file" id="upfile" class="form-control-file border" accept="image/*" name="reupfile" style="display:none;" onchange="handleFileChange(event)">
                     <input type="hidden" name="noticeImgName" value="${n.noticeImgName}">
-                    <table id="fileList" class="file-table">
-                        <tr>
-                            <td class="file-name">
-                                <span class="fileName" id="fileName"></span>
-                            </td>
-                            <td>
-                                <button type="button" class="btn btn-danger delete-button" onclick="clearFile()">삭제</button>
-                            </td>
-                        </tr>
-                    </table>
+	                    <table id="fileList" class="form-control form-control-user">
+	                        <tr>
+	                        <c:if test="${not empty n.noticeImgName}">
+	                            <td class="form-control form-control-user">
+	                                <span class="fileName" id="fileName"></span>
+	                            </td>
+	                            <td>
+	                                <button type="button" class="btn btn-danger delete-button" onclick="clearFile()">삭제</button>
+	                            </td>
+	                        </c:if>
+	                        </tr>
+	                    </table>
                 </td>
             </tr>
             <tr>
-                <th><label for="noticeContent">내용</label></th>
+                <th colspan="2"><label for="noticeContent">내용</label></th>
                 <td>
                     <div id="contentPreview" class="image-container">
                         <!-- 기존 파일 미리보기를 여기에 추가할 예정 -->
@@ -125,10 +141,40 @@
         </table>
         <br>
         <div align="center">
-            <a class="btn btn-primary" href="list.no?cpage= ${currentPage}">목록가기</a>
-            <button type="submit" class="btn btn-primary">수정하기</button>
-            <button type="button" class="btn btn-danger" onclick="clearFile()">파일 삭제</button>
-        </div>
+	                <a class="btn btn-secondary" href="list.adno">목록가기</a>
+	                <button type="submit" class="btn btn-secondary">수정하기</button>
+	                <c:choose>
+	                <c:when test="${ n.status eq 1}">
+	                <a class="btn btn-danger" onclick="postFormSubmit(1);">삭제하기</a>
+	                </c:when>
+	                <c:otherwise>
+	                <a class="btn btn-primary" onclick="postFormSubmit(2);">활성화하기</a>
+	                </c:otherwise>
+	                </c:choose>
+	            </div>
+	            <br><br>
+	            
+
+	            <script>
+	            	function postFormSubmit(num) {
+	            		
+	            		if(num == 1) { // 삭제하기 클릭 시
+	            			
+	            			$("#updateForm").attr("action", "delete.adno")
+  						  .submit();
+	            			
+	            		} else { // 활성화하기 클릭 시
+	            			
+	            			$("#updateForm").attr("action", "restore.adno")
+	  						  .submit();
+	            		} 
+	            		
+	            		
+	            	}
+	            </script>
+	            
+
+    </div>    
     </form>
 </div>
 </div>

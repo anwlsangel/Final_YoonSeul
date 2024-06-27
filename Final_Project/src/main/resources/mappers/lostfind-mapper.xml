@@ -118,7 +118,6 @@
 		     , STATUS
 		  FROM LOSTNFIND
 		 WHERE LOST_ID = #{lostNo}
-		   AND STATUS = '1'
 	</select>
 	
 	<!-- 이미지 상세조회용 쿼리문 -->
@@ -142,6 +141,15 @@
 		   AND STATUS = '1'
 	</update>
 	
+	<!-- 게시글 복구용 쿼리문 -->
+	<update id="restoreLostfind"
+			parameterType="_int">
+		UPDATE LOSTNFIND
+		   SET STATUS = '1'
+		 WHERE LOST_ID = #{lostNo}
+		   AND STATUS = '0'
+	</update>
+	
 	<!-- 게시글 수정용 쿼리문 -->
 	<update id="updateLostfind"
 			parameterType="lostfind">
@@ -149,7 +157,6 @@
 		   SET LOST_TITLE = #{lostTitle}
 		     , LOST_CONTENT = #{lostContent}
 		 WHERE LOST_ID = #{lostNo}
-		   AND STATUS = '1'
 	</update>
 
 	<!-- 이미지 수정용 쿼리문 -->
@@ -187,8 +194,17 @@
             #{lI.lostImgId}
         </foreach>
 	</delete>
-	
-	
+	<!-- 관리자용 게시글 리스트 -->
+		<select id="adSelectList"
+			resultMap="lostfindResultSet">
+		SELECT LOST_ID
+		     , LOST_TITLE
+		     , LOST_CONTENT
+		     , TO_CHAR(DATE_FOUND, 'YYYY-MM-DD') AS "DATE"
+		     , LOST_COUNT
+		     , STATUS
+		  FROM LOSTNFIND
+	</select>
 	
 
 	
