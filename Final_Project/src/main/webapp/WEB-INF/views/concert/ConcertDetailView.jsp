@@ -746,15 +746,15 @@
 
 						<script>
 							$(document).on("click", ".updateBtn", function () {
-								console.log("test");
+								//console.log("test");
 								var reviewContent = $(this).data('id');
 								var reviewId = $(this).data('rno');
 								var concertId = $(this).data('cno');
 								$("#newReviewContent").html(reviewContent);
 								$("#reviewId").val(reviewId);
 								$("#concertId").val(concertId);
-								console.log("rno : " + reviewId);
-								console.log("cno : " + concertId);
+								//console.log("rno : " + reviewId);
+								//console.log("cno : " + concertId);
 							});
 
 							function deleteReview() {
@@ -775,7 +775,7 @@
 												<input type="hidden" name="reviewId" id="reviewId">
 												<input type="hidden" name="concertId" id="concertId">
 												<textarea name="newReviewContent" id="newReviewContent" rows="4"
-													cols="50" required></textarea>
+													cols="40" required></textarea>
 											</div>
 											<div align="center" style="margin: 10px;">
 												<button type="submit" style="background: linear-gradient(0deg, #630000, #810000); border:none; 
@@ -973,8 +973,9 @@
 						        review += '<div class="review-update">';
 						        review += '<a href="#" class="updateBtn" onclick="fixReviewId()" data-toggle="modal" data-target="#updateReview" data-id="' + reviewContent + '" data-rno="' + reviewId + '" data-cno="' + concertId + '">수정</a>';
 						        review += '<a onclick="deleteReview();">삭제</a>';
-						        review += '<br clear="both">';
 						        review += '</div>';
+						        review += '<br clear="both">';
+						       
 						    }
 						  
 						    
@@ -987,7 +988,8 @@
 						}
 						function fixReviewId(x){
 							
-							console.dir(x)
+							 console.dir(x)
+							 console.log("${sessionScope.loginUser.userId}");
 						}
 						/*
 						function paging (currentPage, startPage, endPage, maxPage) {
@@ -1047,7 +1049,7 @@
 								data: {
 									currentPage: num,
 									cno: ${ requestScope.cno } },
-						success: function(result) {
+							 success: function(result) {
 
 							if (result.qList.length > 0) {
 								

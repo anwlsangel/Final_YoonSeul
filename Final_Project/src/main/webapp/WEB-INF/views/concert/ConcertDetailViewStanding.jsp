@@ -718,7 +718,7 @@ div {
 											<input type="hidden" name="reviewId" id="rreviewId"> <input
 												type="hidden" name="concertId" id="rconcertId">
 											<textarea name="newReviewContent" id="newReviewContent"
-												rows="4" cols="43" required></textarea>
+												rows="4" cols="40" required></textarea>
 										</div>
 										<div align="center" style="margin: 10px;">
 											<button type="submit"
@@ -916,7 +916,7 @@ div {
 							review += '</div>';
 							review += ' </div>';
 
-							if (${sessionScope.loginUser.userId ne userId}) {
+							if ('${sessionScope.loginUser.userId}' == userId) {
 								review += '<div class="review-update">';
 								review += ' <a href="#" data-toggle="modal" onclick="upbtn('+concertId+','+reviewId+',\''+reviewContent+'\')" data-target="#updateReview" class="updateBtn" >수정</a>';
 								review += '  <a onclick="deleteReview();">삭제</a>';

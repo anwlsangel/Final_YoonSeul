@@ -117,7 +117,7 @@ div {
 }
 
 .review-update {
-	float: right;
+	float: center;
 }
 
 .review-update>a {
@@ -166,6 +166,7 @@ div {
 	height: 70px;
 	resize: none;
 }
+
 
 #reply-list>thead button {
 	height: 50px;
@@ -760,7 +761,7 @@ div {
 											<input type="hidden" name="reviewId" id="reviewId"> <input
 												type="hidden" name="concertId" id="concertId">
 											<textarea name="newReviewContent" id="newReviewContent"
-												rows="4" cols="50" required></textarea>
+												rows="4" cols="40" required></textarea>
 										</div>
 										<div align="center" style="margin: 10px;">
 											<button type="submit"
@@ -957,7 +958,7 @@ div {
 							review += '</div>';
 							review += ' </div>';
 
-							if (${sessionScope.loginUser.userId ne userId}) {
+							if ('${sessionScope.loginUser.userId}' == userId) {
 								review += '<div class="review-update">';
 								review += ' <a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>';
 								review += '  <a onclick="deleteReview();">삭제</a>';
