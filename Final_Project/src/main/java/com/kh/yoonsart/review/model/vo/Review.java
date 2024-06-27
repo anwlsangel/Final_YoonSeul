@@ -19,5 +19,5 @@ public class Review {
 	private Date writeDate;//	WRITE_DATE	DATE
 	private String userId;//	USER_ID	VARCHAR2(30 BYTE)
 	private int concertId;//	CONCERT_ID	NUMBER
-	private int status;
+	private String status;
 }

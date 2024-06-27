@@ -78,22 +78,22 @@ public class AdminController {
 		ArrayList<AdminCount> mlist = adminService.enrollMonth();   
 		
 		//비어있는 달 0명으로 채우기
-		for(int i = 1; i <= 12; i++) {
-			if(mlist.get(0).getEnrollDate() == i) {
-				for(int j = 1; j < i; j++) {
-					mlist.add(j-1, new AdminCount(j, 0));
-				}
-				break;
-			}
-		}
-		for(int i = 1; i <= 12; i++) {
-			if(mlist.get(mlist.size()-1).getEnrollDate() == i) {
-				for(int j = i; j < 12; j++) {
-					mlist.add(j, new AdminCount(j+1, 0));
-				}
-				break;
-			}
-		}
+//		for(int i = 1; i <= 12; i++) {
+//			if(mlist.get(0).getEnrollDate() == i) {
+//				for(int j = 1; j < i; j++) {
+//					mlist.add(j-1, new AdminCount(j, 0));
+//				}
+//				break;
+//			}
+//		}
+//		for(int i = 1; i <= 12; i++) {
+//			if(mlist.get(mlist.size()-1).getEnrollDate() == i) {
+//				for(int j = i; j < 12; j++) {
+//					mlist.add(j, new AdminCount(j+1, 0));
+//				}
+//				break;
+//			}
+//		}
 		
 		
 		//System.out.println(mlist);
@@ -105,23 +105,23 @@ public class AdminController {
 		//System.out.println(list);
 		
 		//비어있는 달 0명으로 채우기
-				for(int i = 1; i <= 12; i++) {
-					if(slist.get(0).getEnrollDate() == i) {
-						for(int j = 1; j < i; j++) {
-							slist.add(j-1, new AdminCount(j, 0));
-						}
-						break;
-					}
-				}
-				for(int i = 1; i <= 12; i++) {
-					if(slist.get(slist.size()-1).getEnrollDate() == i) {
-						for(int j = i; j < 12; j++) {
-							slist.add(j, new AdminCount(j+1, 0));
-						}
-						break;
-					}
-				}
-		
+//				for(int i = 1; i <= 12; i++) {
+//					if(slist.get(0).getEnrollDate() == i) {
+//						for(int j = 1; j < i; j++) {
+//							slist.add(j-1, new AdminCount(j, 0));
+//						}
+//						break;
+//					}
+//				}
+//				for(int i = 1; i <= 12; i++) {
+//					if(slist.get(slist.size()-1).getEnrollDate() == i) {
+//						for(int j = i; j < 12; j++) {
+//							slist.add(j, new AdminCount(j+1, 0));
+//						}
+//						break;
+//					}
+//				}
+//		
 		mv.addObject("slist", slist);
 		
 		mv.setViewName("admin/adminPage");
@@ -189,22 +189,22 @@ public class AdminController {
 		ArrayList<AdminCount> mlist = adminService.enrollMonth();   
 		
 		//비어있는 달 0명으로 채우기
-		for(int i = 1; i <= 12; i++) {
-			if(mlist.get(0).getEnrollDate() == i) {
-				for(int j = 1; j < i; j++) {
-					mlist.add(j-1, new AdminCount(j, 0));
-				}
-				break;
-			}
-		}
-		for(int i = 1; i <= 12; i++) {
-			if(mlist.get(mlist.size()-1).getEnrollDate() == i) {
-				for(int j = i; j < 12; j++) {
-					mlist.add(j, new AdminCount(j+1, 0));
-				}
-				break;
-			}
-		}
+//		for(int i = 1; i <= 12; i++) {
+//			if(mlist.get(0).getEnrollDate() == i) {
+//				for(int j = 1; j < i; j++) {
+//					mlist.add(j-1, new AdminCount(j, 0));
+//				}
+//				break;
+//			}
+//		}
+//		for(int i = 1; i <= 12; i++) {
+//			if(mlist.get(mlist.size()-1).getEnrollDate() == i) {
+//				for(int j = i; j < 12; j++) {
+//					mlist.add(j, new AdminCount(j+1, 0));
+//				}
+//				break;
+//			}
+//		}
 		//System.out.println(mlist);
 		
 		mv.addObject("mlist", mlist);
@@ -224,22 +224,22 @@ public class AdminController {
 		//System.out.println(list);
 		
 		//비어있는 달 0명으로 채우기
-				for(int i = 1; i <= 12; i++) {
-					if(list.get(0).getEnrollDate() == i) {
-						for(int j = 1; j < i; j++) {
-							list.add(j-1, new AdminCount(j, 0));
-						}
-						break;
-					}
-				}
-				for(int i = 1; i <= 12; i++) {
-					if(list.get(list.size()-1).getEnrollDate() == i) {
-						for(int j = i; j < 12; j++) {
-							list.add(j, new AdminCount(j+1, 0));
-						}
-						break;
-					}
-				}
+//				for(int i = 1; i <= 12; i++) {
+//					if(list.get(0).getEnrollDate() == i) {
+//						for(int j = 1; j < i; j++) {
+//							list.add(j-1, new AdminCount(j, 0));
+//						}
+//						break;
+//					}
+//				}
+//				for(int i = 1; i <= 12; i++) {
+//					if(list.get(list.size()-1).getEnrollDate() == i) {
+//						for(int j = i; j < 12; j++) {
+//							list.add(j, new AdminCount(j+1, 0));
+//						}
+//						break;
+//					}
+//				}
 		
 		mv.addObject("list", list);
 		

@@ -12,4 +12,6 @@ public interface AdminReviewService {
 
 	Review adreviewDetail(int rno);
 
+	int AdReviewUpdate(Review r);
+
 }

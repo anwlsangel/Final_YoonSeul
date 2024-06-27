@@ -39,6 +39,7 @@ public class AdminReviewController {
 	public String adreviewDetail(@RequestParam("rno") int rno, Model model) {
 		
 		Review r = adminreviewService.adreviewDetail(rno);
+		//System.out.println(r);
 		
 		model.addAttribute("r", r);
 		// System.out.println(q);
@@ -47,26 +48,46 @@ public class AdminReviewController {
 	}
 	
 	// 삭제
-	@PostMapping("AdDelete.re")
-	public ModelAndView AdReviewDelete(Review r, ModelAndView mv, HttpSession session, int status) {
-		
-		
-		System.out.println(status);
+	@PostMapping("/AdDelete.re")
+	public ModelAndView AdReviewDelete(Review r,
+						               ModelAndView mv,
+						               HttpSession session,
+						               int number) {
+		System.out.println(number);
+		//System.out.println(r.getStatus());		
+		System.out.println(r.getReviewId());
 		
 		System.out.println("컨트롤러");
+		int result = 0;
 		
-		int result = adminreviewService.AdReviewDelete(r);
+		if(number == 2) {
 		
+			result = adminreviewService.AdReviewDelete(r);
+			if(result > 0) { // 성공
+				
+				session.setAttribute("alertMsg", "후기 삭제 성공!");
+				mv.setViewName("redirect:/AdReviewList.qa");
+				
+			} else { // 실패
 		
-		if(result > 0) { // 성공
+				mv.addObject("errorMsg", "등록 실패").setViewName("common/errorPage");
+			}
+		} else {
 			
-			session.setAttribute("alertMsg", "후기글 삭제 성공!");
-			mv.setViewName("redirect:/AdReviewList.qa");
-			
-		} else { // 실패
-	
-			mv.addObject("errorMsg", "등록 실패").setViewName("common/errorPage");
+			result = adminreviewService.AdReviewUpdate(r);
+			if(result > 0) { // 성공
+				
+				session.setAttribute("alertMsg", "후기 활성화 성공!");
+				mv.setViewName("redirect:/AdReviewList.qa");
+				
+			} else { // 실패
+		
+				mv.addObject("errorMsg", "등록 실패").setViewName("common/errorPage");
+			}
 		}
+		
+		
+		
 		return mv;
 		
 	}

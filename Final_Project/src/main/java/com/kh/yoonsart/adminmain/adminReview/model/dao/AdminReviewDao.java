@@ -22,8 +22,14 @@ public class AdminReviewDao {
 
 	// 리뷰 삭제
 	public int AdReviewDelete(SqlSessionTemplate sqlSession, Review r) {
-	
+		
 		return sqlSession.update("reviewMapper.AdReviewDelete", r);
+	}
+	
+	// 리뷰 활성화
+	public int AdReviewUpdate(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.AdReviewUpdate", r);
 	}
 
 

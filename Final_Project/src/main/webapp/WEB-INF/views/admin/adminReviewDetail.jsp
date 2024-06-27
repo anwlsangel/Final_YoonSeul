@@ -28,7 +28,7 @@
 	
 			 <h1 class="h3 mb-4 text-gray-800">REVIEW 상세 조회</h1>
 	
-	        <form id="AdDelete" action="AdDelete.re" method="post">
+	        <form id="AdDelete" action="<%=request.getContextPath()%>/AdDelete.re" method="post">
 					<table class="table table-bordered" width="100%" cellspacing="0">
 						<tr>
 							<th colspan="2">회원 아이디</th>
@@ -52,7 +52,7 @@
 						<tr>
 							<th colspan="2">삭제 여부</th>
 							<td>
-                                <select name="status" class="form-control form-control-user">
+                                <select name="number" class="form-control form-control-user">
                                     <option value="1" <c:if test="${r.status == 1}">selected</c:if>>활성화</option>
                                     <option value="2" <c:if test="${r.status == 2}">selected</c:if>>삭제</option>
                                 </select>

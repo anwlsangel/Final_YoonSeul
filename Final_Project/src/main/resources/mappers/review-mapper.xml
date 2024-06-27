@@ -94,11 +94,19 @@
  	</select>
 	 
 	<!-- 리뷰 삭제 -->
-	 	<update id="AdReviewDelete" parameterType="_int">
+ 	<update id="AdReviewDelete" parameterType="_int">
 		UPDATE REVIEW
  		   SET STATUS = 2
  		 WHERE REVIEW_ID = #{reviewId}
  		   AND STATUS = 1
+ 	</update>
+ 	
+ 	<!-- 리뷰 활성화 -->
+ 	<update id="AdReviewUpdate" parameterType="_int">
+		UPDATE REVIEW
+ 		   SET STATUS = 1
+ 		 WHERE REVIEW_ID = #{reviewId}
+ 		   AND STATUS = 2
  	</update>
 	
 </mapper>

@@ -38,4 +38,11 @@ public class AdminReviewServiceImpl  implements AdminReviewService{
 		return adminreviewDao.AdReviewDelete(sqlSession, r);
 	}
 
+	// 리뷰 활성화
+	@Override
+	public int AdReviewUpdate(Review r) {
+		
+		return adminreviewDao.AdReviewUpdate(sqlSession, r);
+	}
+
 }
