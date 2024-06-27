@@ -154,7 +154,7 @@
 		    width: 80%;
 		    height: 650px;
 		    align-items: center;
-		    margin-top: 300px;
+		    margin-top: 100px;
 		    object-fit: cover;
 		    text-align: center;
 		}
@@ -349,7 +349,7 @@
 		#sc-button.reverse:hover span {
 		    margin-top: 32px;
 		}
-		
+		/*
 		.main-notice {
 		    width: 80%;
 		    height: 500px;
@@ -380,7 +380,67 @@
 		#notice-list thead {
 		    height: 20%;
 		}
-		
+		*/
+
+		.main-notice {
+			width: 100%;
+			margin: auto;
+			margin-top: 150px;
+			height: 400px;
+		}
+
+		.notice-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+			justify-content: space-between;
+			width: 80%;
+			margin: auto;
+		}
+
+		.notice-card {
+			flex: 1 1 calc(25% - 20px);
+			box-sizing: border-box;
+			background: #f8f8f8;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;;
+		}
+
+		.notice-card h2 {
+			font-size: 1.2em;
+			margin-bottom: 10px;
+		}
+
+		.notice-card p {
+			font-size: 0.9em;
+			color: #555;
+		}
+
+		.notice-card span {
+			display: block;
+			margin-top: 10px;
+			font-size: 0.8em;
+			color: #888;
+		}
+
+		.notice-card:hover {
+			transform: translateY(-10px);
+		}
+
+		@media (max-width: 768px) {
+			.notice-card {
+				flex: 1 1 calc(50% - 20px); /* 작은 화면에서는 두 개의 카드를 한 줄에 배치 */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.notice-card {
+				flex: 1 1 100%; /* 작은 화면에서는 한 개의 카드를 한 줄에 배치 */
+			}
+		}
+
 		.main-top-img {
 		    width: 100%;
 		    height: 500px;
@@ -533,7 +593,7 @@
 	/* 애니메이션 정의 */
 	@keyframes fadeIn {
 		from { opacity: 0; }
-		to { opacity: 0.8; }
+		to { opacity: 1; }
 	}
 
 	/* 애니메이션 적용 */
@@ -555,52 +615,11 @@
 		100% { opacity: 1; transform: translate3d(0, 0, 0); }
 	}
 
-
-	.scroll-downs {
-		animation: fadeIn 2s ease-in-out forwards;
-		position: absolute;
-		top: 0;
-		right: 0;
-		bottom: 0;
-		left: 0;
-		margin: auto;	
-		width :34px;
-		height: 55px;
-		z-index: 20;
+	.content-wrap li {
+		font-family: 'Noto Sans KR', sans-serif;
+		margin: 0;
+		padding: 0;
 	}
-	.mousey {
-		animation: fadeIn 2s ease-in-out forwards;
-		margin-top: 150px;
-		width: 3px;
-		padding: 10px 15px;
-		height: 35px;
-		border: 2px solid black;
-		border-radius: 25px;
-		opacity: 0.75;
-		box-sizing: content-box;
-		z-index: 20;		
-	}
-	.scroller {
-		animation: fadeIn 2s ease-in-out forwards;
-		width: 3px;
-		height: 10px;
-		border-radius: 25%;
-		background-color: black;
-		animation-name: scroll;
-		animation-duration: 2.2s;
-		animation-timing-function: cubic-bezier(.15,.41,.69,.94);
-		animation-iteration-count: infinite;
-		z-index: 20;
-	}
-	@keyframes scroll {
-	0% { opacity: 0; }
-	10% { transform: translateY(0); opacity: 1; }
-	100% { transform: translateY(15px); opacity: 0;}
-	}
-
-	
-
-
 
 </style>
 <body>    
@@ -615,14 +634,8 @@
 			<li>아</li>
 			<li>트</li>
 			<li>홀</li>
-			<li style="font-size:x-large; margin-left: 45px" >윤슬처럼 반짝이는 당신을 위한 공간</li>
+			<li style="font-size:x-large; margin-left: 12px" >윤슬처럼 반짝이는 당신을 위한 공간</li>
 		  </ul>
-		  <div class="scroll-downs">
-			<div class="mousey">
-			  <div class="scroller"></div>		  			  
-			</div>		
-			<div class="scroll-down">
-			</div>			
 		  </div>
 		</div>
 	  </div>
@@ -909,12 +922,12 @@
 	    });
 	</script>
 
-	<h1 style="text-align: center; margin-top: 10px;">리뷰 TOP 3</h1>m
+	<h1 style="text-align: center; margin-top: 10px;">리뷰 TOP 3</h1>
 	
 	<div class="main-top-img">		
 			
 	</div>
-	
+	<!--
 	<div class="main-notice">
             
            <table class="table" id="notice-list">
@@ -934,6 +947,16 @@
             	</tbody>
             </table>
     </div>
+	-->
+	<div class="main-notice">
+		<div class="main-notic-title">
+			<h2 style="margin-left: 200px;">윤슬 아트홀의 새로운 소식을 확인해보세요.</h2>
+			<br>
+		</div>
+			<div class="notice-list">
+			</div>
+	</div>
+
 	
 
     <div class="main-page-schedule">
@@ -966,39 +989,44 @@
     
     <!-- 메인 공지사항 조회용 -->
 	<script>
-	    function loadMainNotice() {    		
-	        $.ajax({
-	            url: 'loadMainNotice.no',
-	            method: 'GET',
-	            success: function(result) {
-	                const noticeList = $('.main-notice-tbody');
-	                console.log("공지사항 조회용 ajax 통신 성공!");
-	                console.log(result);
-	                noticeList.empty();  // 기존 내용을 지워줍니다
-	                
-	                result.forEach(function(notice) {
-	                    let shortContent = notice.noticeContent;
-	                    if (shortContent.length > 20) {
-	                        shortContent = shortContent.substring(0, 20) + '...';
-	                    }
-	                    
-	                    const noticeHtml = `
-	                        <tr>
-	                    		<td>\${notice.noticeNo}</td>
-	                            <td>\${notice.noticeTitle}</td>
-	                            <td>\${shortContent}</td>
-	                            <td>\${notice.noticeCount}</td>
-	                            <td>\${notice.createDate}</td>
-	                        </tr>                            
-	                    `;
-	                    noticeList.append(noticeHtml);
-	                });
-	            },
-	            error: function() {
-	                console.log("공지사항 조회용 ajax 통신 실패");
-	            }
-	        });
-	    }
+	    function loadMainNotice() {
+			$.ajax({
+				url: 'loadMainNotice.no',
+				method: 'GET',
+				success: function(result) {
+					const noticeList = $('.notice-list');
+					console.log("공지사항 조회용 ajax 통신 성공!");
+					console.log(result); // 응답 데이터를 확인
+					
+					noticeList.empty();  // 기존 내용을 지워줍니다
+					
+					result.forEach(function(notice) {
+						// 응답 데이터에서 noticeContent와 createDate가 제대로 설정되어 있는지 확인
+						console.log(notice.noticeContent, notice.createDate);
+						
+						let shortContent = notice.noticeContent || '';
+						if (shortContent.length > 80) {
+							shortContent = shortContent.substring(0, 80) + '...';
+						}
+						
+						// createDate가 올바르게 설정되었는지 확인하고, 없는 경우 기본값 설정
+						let createDate = notice.createDate || '날짜 없음';
+
+						const noticeHtml = `
+							<div class="notice-card">
+								<h2>\${notice.noticeTitle}</h2>
+								<p>\${shortContent}</p>
+								<span>\${createDate}</span>
+							</div>
+						`;
+						noticeList.append(noticeHtml);
+					});
+				},
+				error: function() {
+					console.log("공지사항 조회용 ajax 통신 실패");
+				}
+			});
+		}
 	</script>
     
     <!-- 장르별 TOP 게시물 조회용  -->
@@ -1127,7 +1155,7 @@
         // 슬라이더 동작 정의
         const swiper = new Swiper('.swiper', {
             autoplay : {
-                delay : 5000 // 5초마다 이미지 변경
+                delay : 7000 // 5초마다 이미지 변경
             },
             loop : true, //반복 재생 여부
             slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
