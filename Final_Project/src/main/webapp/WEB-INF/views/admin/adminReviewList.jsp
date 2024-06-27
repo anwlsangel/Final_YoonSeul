@@ -10,7 +10,7 @@
 	#content {
 			width : 90%;  
 			margin-left : 60px;
-		}
+	}
 </style>
 </head>
 <body>
@@ -57,6 +57,17 @@
 			</div>
     	</div>            
     </div>
+    
+    	
+				<script>
+				$(document).ready(function(){
+		    	    $("#dataTable tbody").on("click", "tr", function(){
+		    	        let rno = $(this).find("td:eq(0)").text().trim();
+		    	        location.href = "AdReUpdateForm.re?rno=" + rno;
+		    	    });    	
+		    	});
+				</script>
+    
 	
 </body>
 </html>

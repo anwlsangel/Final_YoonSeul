@@ -23,7 +23,19 @@ public class AdminReviewServiceImpl  implements AdminReviewService{
 
 		return adminreviewDao.AdReviewList(sqlSession);
 	}
+
+	// 리뷰 상세조회
+	@Override
+	public Review adreviewDetail(int rno) {
+		
+		return adminreviewDao.adreviewDetail(sqlSession, rno);
+	}
 	
-	
+	// 리뷰 삭제
+	@Override
+	public int AdReviewDelete(Review r) {
+		
+		return adminreviewDao.AdReviewDelete(sqlSession, r);
+	}
 
 }

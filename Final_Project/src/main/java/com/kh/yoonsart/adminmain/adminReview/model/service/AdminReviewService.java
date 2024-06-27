@@ -8,4 +8,8 @@ public interface AdminReviewService {
 
 	ArrayList<Review> AdReviewList();
 
+	int AdReviewDelete(Review r);
+
+	Review adreviewDetail(int rno);
+
 }

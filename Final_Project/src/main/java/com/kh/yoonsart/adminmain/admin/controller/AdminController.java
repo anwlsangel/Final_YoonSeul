@@ -94,6 +94,8 @@ public class AdminController {
 				break;
 			}
 		}
+		
+		
 		//System.out.println(mlist);
 		
 		mv.addObject("mlist", mlist);
