@@ -148,14 +148,6 @@ public class NoticeController {
 		
 		if(result > 0) { // 성공
 			
-			if(!filePath.equals("")) {
-				
-				String realPath = session.getServletContext()
-										 .getRealPath(filePath);
-				
-				new File(realPath).delete();
-			}
-			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
 			
 			return "redirect:/list.no";

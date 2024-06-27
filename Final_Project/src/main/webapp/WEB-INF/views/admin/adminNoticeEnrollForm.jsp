@@ -1,15 +1,16 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+    <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>파일 업로드 및 목록</title>
+    <title>공지 수정</title>
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
     <style>
-    	#contentForm {
-			padding-top : 100px;
-			
-		}
+        #contentForm {
+            padding-top: 100px;
+        }
         .file-table {
             width: 70%;
             margin-top: 10px;
@@ -25,22 +26,16 @@
             vertical-align: top;
         }
         .file-name {
-            width: 80%;
+            width: 75%;
             padding-right: 10px;
         }
         .delete-button {
-            width: 20%;
-            text-align: center;
-        }
-        .delete-button button {
             width: 100%;
-            padding: 5px;
             background-color: #007bff;
             color: white;
             border: none;
             cursor: pointer;
         }
-
 
         #content, #title, #fileList {
             width: 98%;
@@ -49,25 +44,39 @@
         textarea {
             height: 500px;
         }
-
-        .preview-image{
-        	
-            width: 100%;
-            height: 500px;
-            text-align: center; 
-            margin-bottom: 30px;
-        }
-
         .image-item {
-            display: inline-block; /* 이미지가 가운데 정렬되도록 inline-block으로 설정 */
+            display: block; /* 이미지가 가운데 정렬되도록 inline-block으로 설정 */
             text-align: center; /* 내부 요소들을 가운데 정렬하기 위한 스타일 */
-            max-width: 100%;
+            mega-width: 100%;
             height: auto;
             margin-bottom: 30px;
         }
+        .image-container {
+             width: 100%;
+            height: auto;
+            text-align: center; 
+            margin-bottom: 30px;
+        }
+        
+        #fileList td{
+        	width:100px;
+        	height: 70px;
+        	border: none;
+        }
+        
+        #fileList tr {
+        	border: none;
+        }
+        
+        #fileList {
+        	width:100%;
+        	height: 100px;
+        	border: none;
+        }
+
+
     </style>
 </head>
-<body>
 	<div id="wrapper">
 	
 	    <jsp:include page="../common/adminNav.jsp" />
@@ -78,24 +87,29 @@
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
+<body>
 <div class="container">
 <div id="contentForm">
     <form id="enrollForm" method="post" action="insert.adno" enctype="multipart/form-data">
-        <table align="center" class="file-table">
+
+        <table align="center" class="table table-bordered">
             <tr>
-                <th><label for="noticeTitle">제목</label></th>
-                <td><input type="text" id="title" class="form-control" name="noticeTitle" required></td>
+                <th colspan="2">제목</th>
+                <td><input type="text" id="title" class="form-control form-control-user" name="noticeTitle" required></td>
             </tr>
+           
+          
             <tr>
-                <th>
+                <th colspan="2">
                     <label>첨부파일</label><br>
                 </th>
                 <td>
                     <input type="file" id="upfile" class="form-control-file border" accept="image/*" name="upfile" onchange="previewImages()">
+
                 </td>
             </tr>
             <tr>
-                <th><label for="noticeContent">내용</label></th>
+                <th colspan="2"><label for="noticeContent">내용</label></th>
                 <td>
                     <div class="preview-image" id="preview-image">
 
@@ -106,10 +120,12 @@
         </table>
         <br>
         <div align="center">
-            <button type="submit" class="btn btn-primary">등록하기</button>
-            <button type="reset" class="btn btn-danger" onclick="clearFile()">초기화</button>
-            <button type="button" class="btn btn-danger" onclick="clearFile()">파일 초기화</button>
-        </div>
+	                <a class="btn btn-secondary" href="list.adno">목록가기</a>
+	                <button type="submit" class="btn btn-primary">등록하기</button>
+	                <button type="reset" class="btn btn-danger" onclick="clearFile()">초기화</button>
+            		<button type="button" class="btn btn-danger" onclick="clearFile()">파일 초기화</button>
+
+    </div>    
     </form>
 </div>
 </div>

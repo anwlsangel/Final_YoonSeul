@@ -4,66 +4,39 @@
 <!DOCTYPE html>
 <html>
 <head>
-    <meta charset="UTF-8">
-    <title>Document</title>
-    <style>
-        #lostfindList {text-align:center;}
-        #lostfindList>tbody>tr:hover {cursor:pointer;}
-
-        #pagingArea {width:fit-content; margin:auto;}
-        
-       	.searchDiv {
-       		display: flex;
-       		box-sizing: border-box;
-       		margin: auto;
-       		display: flex;
-  			justify-content: center;
-       	}
-       	
-       	.searchDiv>input {
-       		width: 30%;
-       	}
-       	
-       	.searchDiv>button {
-       		width: 10%;
-       	} 
-        .select {width:20%;}
-        .text {width:53%;}
-    </style>
+<meta charset="UTF-8">
+<title>유실물 조회</title>
+<style>
+	#content {
+			width : 90%;  
+			margin-left : 60px;
+		}
+</style>
 </head>
 <body>
-    
-	<div id="wrapper">
+	
+		<div id="wrapper">
 	
 	    <jsp:include page="../common/adminNav.jsp" />
 		
 		<div id="content-wrapper" class="d-flex flex-column">
-	        	
+		
 	    	<!-- Main Content -->
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
-<div class="container">
-    <div class="content">
-        <br><br>
-        <div class="innerOuter" style="padding:5% 10%;">
-            <h2>유실물 센터</h2>
-            <br>
-            
-            <c:if test="${ (not empty sessionScope.loginUser) and (sessionScope.loginUser.userId eq 'admin')}">
-	            <!-- 로그인 후 상태일 경우만 보여지는 글쓰기 버튼 -->
-	            <a class="btn btn-secondary" style="float:right;" href="enrollForm.lo">글쓰기</a>
-	            <br>
-	        </c:if>
-            
-            <br>
-            <table id="lostfindList" class="table table-hover" align="center">
+	
+			 <h1 class="h3 mb-4 text-gray-800">유실물 리스트 조회</h1> <br>
+			 <a class="btn btn-secondary" style="float:right;" href="enrollForm.adlo">글쓰기</a>
+	
+            <table class="table table-bordered" id="dataTable" width="100%" cellspacing="0">
                 <thead>
                     <tr>
                         <th>글번호</th>
                         <th>제목</th>
                         <th>조회수</th>
                         <th>작성일</th>
+                        <th>상태값</th>
                     </tr>
                 </thead>
                 <tbody>
@@ -73,106 +46,24 @@
                 			<td>${ l.lostTitle }</td>
                 			<td>${ l.lostCount }</td>
                 			<td>${ l.date }</td>
+                			<td>${ l.status }</td>
                 		</tr>
                 	</c:forEach>
                 </tbody>
-            </table>
-            <br>
-            
-            <script>
-            	$(function() {
-            		
-            		$("#lostfindList>tbody>tr").click(function() {
-            			
-            			let lno = $(this).children().eq(0).text();
-            			let currentPage = "${pi.currentPage}";
-            			
-            			location.href = "detail.adlo?lno=" + lno + "&cpage=" + currentPage;
-            		});
-            		
-            	});
-            </script>
-
-            <div id="pagingArea">
-                <ul class="pagination">
-                
-                	<c:choose>
-                	<c:when test="${ pi.currentPage eq 1 }">	
-                    	<li class="page-item disabled">
-                    		<a class="page-link" href="#">Previous</a>
-                    	</li>
-                    </c:when>
-                    <c:otherwise>
-                    	<li class="page-item">
-                    		<a class="page-link" 
-                    		   href="list.adlo?cpage=${ pi.currentPage - 1 }">
-                    			Previous
-                    		</a>
-                    	</li>
-                    </c:otherwise>
-                    </c:choose>
-                    
-                    <c:forEach var="p" begin="${ pi.startPage }"
-                    		   end="${ pi.endPage }"
-                    		   step="1">
-                    	
-                    	<c:choose>	   
-                    	<c:when test="${ pi.currentPage ne p }">
-                    		<li class="page-item">
-		                    	<a class="page-link" href="list.adlo?cpage=${ p }">
-									${ p }
-								</a>
-		                    </li>
-                    	</c:when>
-                    	<c:otherwise>
-                    		<li class="page-item active">
-		                    	<a class="page-link">
-									${ p }
-								</a>
-		                    </li>
-                    	</c:otherwise>
-	                    </c:choose>
-                    </c:forEach>
-                    
-                    <c:choose>
-                    <c:when test="${ pi.currentPage eq pi.maxPage }">
-	                    <li class="page-item disabled">
-	                    	<a class="page-link" href="#">
-	                    		Next
-	                    	</a>
-	                    </li>
-                    </c:when>
-                    <c:otherwise>
-	                    <li class="page-item">
-	                    	<a class="page-link" 
-	                    	   href="list.adlo?cpage=${ pi.currentPage + 1 }">
-	                    		Next
-	                    	</a>
-	                    </li>
-	                </c:otherwise>
-                    </c:choose>
-                </ul>
-            </div>
-
-            <br clear="both"><br>
-
-			<div style="width:100%; height: 50px;">
-				<form id="searchForm" action="list.adlo" method="get">
-					<div class="searchDiv">
-						<input type="text" class="form-control" name="keyword" placeholder="제목">                
-	                	<button type="submit" class="searchBtn btn btn-secondary">검색</button>
-					</div>
-				</form>
+	        </table>
 			</div>
-            <br><br>
-        </div>
-        <br><br>
-
+    	</div>            
     </div>
-</div>
-</div>
-</div>
-</div>
-
+    
+    	<script>
+    	$(document).ready(function(){
+    	    $("#dataTable tbody").on("click", "tr", function(){
+    	        let lno = $(this).find("td:eq(0)").text().trim();
+    	        console.log(lno);
+    	        location.href = "updateForm.adlo?lno=" + lno;
+    	    });    	
+    	});
+    </script>
+	
 </body>
 </html>

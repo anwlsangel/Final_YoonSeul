@@ -4,6 +4,7 @@ import java.util.ArrayList;
 
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.notice.model.vo.Notice;
+import com.kh.yoonsart.review.model.vo.Review;
 
 public interface NoticeService {
 	
@@ -27,6 +28,9 @@ public interface NoticeService {
 	// 게시글 삭제 서비스
 	int deleteNotice(int noticeNo);
 	
+	// 게시글 복구 서비스
+	int restoreNotice(int noticeNo);
+	
 	// 게시글 수정 서비스
 	int updateNotice(Notice n);
 	
@@ -36,6 +40,10 @@ public interface NoticeService {
 	// 메인페이지 공지사항 조회
 	ArrayList<Notice> selectMainNoticeList();
 	
+	// 관리자페이지 공지사항 조회
+	ArrayList<Notice> adNoticeList();
+	// 관리자 게시글 상세 조회
+	Notice adSelectNotice(int noticeNo);
 }
 
 

@@ -82,18 +82,23 @@
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
+<body>
 <div class="container">
 <div id="contentForm">
-    <form id="enrollForm" method="post" action="insert.adlost" enctype="multipart/form-data">
-        <table align="center" class="file-table">
+    <form id="enrollForm" method="post" action="insert.adlo" enctype="multipart/form-data">
+
+        <table align="center" class="table table-bordered">
             <tr>
-                <th><label for="title">제목</label></th>
-                <td><input type="text" id="title" class="form-control" name="lostTitle" required></td>
+                <th colspan="2">제목</th>
+                <td><input type="text" id="title" class="form-control" name="lostTitle" required></td></td>
             </tr>
+           
+          
             <tr>
-                <th>
-                    <label>첨부파일</label><br>
+                <th colspan="2">
+                    <label>첨부파일</label>
                     <button type="button" class="btn btn-secondary" onclick="document.getElementById('upfile').click()">파일 추가</button>
+                    <br>
                 </th>
                 <td>
                     <input type="file" id="upfile" class="form-control-file border" accept="image/*" name="upfiles" style="display:none;" onchange="handleFileChange(event)">
@@ -103,7 +108,7 @@
                 </td>
             </tr>
             <tr>
-                <th><label for="content">내용</label></th>
+                <th colspan="2"><label for="noticeContent">내용</label></th>
                 <td>
                     <div id="contentPreview" class="image-container">
                         <!-- 여기에 이미지 미리보기가 표시됩니다. -->
@@ -114,10 +119,12 @@
         </table>
         <br>
         <div align="center">
-            <button type="submit" class="btn btn-primary" onclick="submitForm(event)">등록하기</button>
+	                <a class="btn btn-secondary" href="list.adno">목록가기</a>
+	        <button type="submit" class="btn btn-primary" onclick="submitForm(event)">등록하기</button>
             <button type="reset" class="btn btn-danger" onclick="clearFileList()">초기화</button>
             <button type="button" class="btn btn-danger" onclick="clearFileList()">파일 초기화</button>
-        </div>
+
+    </div>    
     </form>
 </div>
 </div>

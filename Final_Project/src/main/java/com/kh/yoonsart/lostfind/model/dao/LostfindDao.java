@@ -10,6 +10,7 @@ import org.springframework.stereotype.Repository;
 import com.kh.yoonsart.common.model.vo.PageInfo;
 import com.kh.yoonsart.lostfind.model.vo.LostImg;
 import com.kh.yoonsart.lostfind.model.vo.Lostfind;
+import com.kh.yoonsart.notice.model.vo.Notice;
 
 @Repository
 public class LostfindDao {
@@ -72,6 +73,11 @@ public class LostfindDao {
 		return sqlSession.update("lostfindMapper.deleteLostfind", lostNo);
 	}
 	
+	public int restoreLostfind(SqlSessionTemplate sqlSession, int lostNo) {
+		
+		return sqlSession.update("lostfindMapper.restoreLostfind", lostNo);
+	}
+	
 	public int updateLostfind(SqlSessionTemplate sqlSession, Lostfind l) {
 		
 		return sqlSession.update("lostfindMapper.updateLostfind", l);
@@ -91,6 +97,9 @@ public class LostfindDao {
 	public int deleteExImg(SqlSessionTemplate sqlSession, List<LostImg> list) {
 		
 		return sqlSession.delete("lostfindMapper.deleteExImg", list);
+	}
+	public ArrayList<Lostfind> adSelectList(SqlSessionTemplate sqlSession) {
+		return (ArrayList)sqlSession.selectList("lostfindMapper.adSelectList");
 	}
 
 }

@@ -29,6 +29,7 @@ import com.kh.yoonsart.common.template.Pagination;
 import com.kh.yoonsart.lostfind.model.service.LostfindService;
 import com.kh.yoonsart.lostfind.model.vo.LostImg;
 import com.kh.yoonsart.lostfind.model.vo.Lostfind;
+import com.kh.yoonsart.notice.model.vo.Notice;
 
 @Controller
 public class AdminLostfindController {
@@ -37,42 +38,17 @@ public class AdminLostfindController {
 	private LostfindService lostfindService;
 	
 	@GetMapping("list.adlo")
-	public String selectList(
-			@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword, Model model) {
-		int listCount=0;
-		if(keyword!=null) {
-			listCount = lostfindService.selectSearchListCount(keyword);
-		} else {
-			listCount = lostfindService.selectListCount();
-		}
-		int pageLimit = 5;
-		int boardLimit = 5;
+	public String adNoticeList(Model model) {
 		
+		ArrayList<Lostfind> list = lostfindService.adSelectList();
 		
-		// PageInfo 객체 만들어내기
-		PageInfo pi 
-			= Pagination.getPageInfo(listCount, 
-								 	 currentPage, 
-								 	 pageLimit, 
-								 	 boardLimit);
-		
-		// System.out.println(pi);
-		
-		// 게시글 목록 조회
-		ArrayList<Lostfind> list = new ArrayList<>();
-		if(keyword!=null) {
-			list = lostfindService.selectSearchList(pi, keyword);
-		} else {
-			list = lostfindService.selectList(pi);
-		}
-		
-		// 응답데이터 담기
-		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
-		// 응답페이지 포워딩
+		//System.out.println(list);
+		
 		return "admin/adminLostfindList";
 	}
+	
 	
 	@GetMapping("enrollForm.adlo")
 	public ModelAndView enrollForm(ModelAndView mv) {
@@ -85,7 +61,7 @@ public class AdminLostfindController {
 	}
 	
 
-	@PostMapping("insert.adlost")
+	@PostMapping("insert.adlo")
 	public ModelAndView insertLostfind(Lostfind l,
 									LostImg li,
 									MultipartFile[] upfiles,
@@ -148,51 +124,20 @@ public class AdminLostfindController {
 		
 	}
 	
-	@GetMapping("detail.adlo")
-	public ModelAndView selectNotice(int lno, int cpage,
-									ModelAndView mv) {
-		
-		int result = lostfindService.increaseCount(lno);
-		
-		if(result > 0) {
-			
-			Lostfind l = lostfindService.selectLostfind(lno);
-			ArrayList<LostImg> arrLi = lostfindService.selectLostImg(lno);
-			mv.addObject("l", l)
-			  .addObject("arrLi", arrLi)
-			  .addObject("currentPage", cpage)
-			  .setViewName("admin/adminLostfindDetail");
-			
-		} else { 
-			
-			mv.addObject("errorMsg", "게시글 상세조회 실패")
-			  .setViewName("common/errorPage");
-		}
-		
-		return mv;
-	}
 	
 	@PostMapping("delete.adlo")
-	public String deleteLostfind(int lno,
+	public String deleteLostfind(Lostfind l,
 							  String filePath,
 							  Model model,
 							  HttpSession session) {
 		
-		int result = lostfindService.deleteLostfind(lno);
+		int result = lostfindService.deleteLostfind(l.getLostNo());
 		
 		if(result > 0) { // 성공
 			
-			if(!filePath.equals("")) {
-				
-				String realPath = session.getServletContext()
-										 .getRealPath(filePath);
-				
-				new File(realPath).delete();
-			}
-			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
 			
-			return "redirect:/list.adlo";
+			return "redirect:/updateForm.adlo?lno=" + l.getLostNo();
 			
 		} else { 
 			
@@ -202,10 +147,31 @@ public class AdminLostfindController {
 		}
 	}
 	
-	@PostMapping("updateForm.adlo")
-	public String updateForm(int lno, Model model, int cpage) {
+	@PostMapping("restore.adlo")
+	public ModelAndView restoreLostfind(Lostfind l,
+			String filePath,
+			HttpSession session,
+			ModelAndView mv) {
+		int result = lostfindService.restoreLostfind(l.getLostNo());
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "게시글이 활성화 되었습니다.");
+			mv.setViewName("redirect:/updateForm.adlo?lno=" + l.getLostNo());		
+			
+		} else { 
+			
+			mv.addObject("errorMsg", "게시글 활성화 실패").setViewName("common/errorPage");			
+		}
+		
+		return mv;
+	}
+	
+	@GetMapping("updateForm.adlo")
+	public String updateForm(int lno, @RequestParam(value = "cpage", defaultValue = "1") int cpage, Model model) {
 	
 		Lostfind l = lostfindService.selectLostfind(lno);
+		System.out.println(l);
 		ArrayList<LostImg> arrLi = lostfindService.selectLostImg(lno);
 		model.addAttribute("l", l)
 		  .addAttribute("arrLi", arrLi)
@@ -226,8 +192,10 @@ public class AdminLostfindController {
             throw new IllegalArgumentException("argument 'content' is null");
         }
         // content를 사용하는 코드
-
+        System.out.println(existingFilesData);
+        
 		String modifiedString = removeFirstCharacter(existingFilesData);
+		System.out.println(modifiedString);
 		int result=0;
 		String alertMsg = "";
         ObjectMapper mapper = new ObjectMapper();
@@ -245,9 +213,7 @@ public class AdminLostfindController {
 		}
 		
 		int result1 = lostfindService.updateLostfind(l);
-		System.out.println(result1);
-		System.out.println(reupfiles.length);
-		System.out.println(l);
+
 		ArrayList<String> list = new ArrayList<>();
 		if(result1 > 0) { 
 

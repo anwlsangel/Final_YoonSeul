@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+     <%@ taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core" %>
 <!DOCTYPE html>
 <html>
 <head>
@@ -84,6 +85,7 @@
 	        <div id="content">
 	        
 	        <jsp:include page="../common/adminTop.jsp" />
+
 <div class="container">
 <div id="contentForm">
     <form id="updateForm" method="post" action="update.adlo" enctype="multipart/form-data">
@@ -127,9 +129,17 @@
         </table>
         <br>
         <div align="center">
-        <a class="btn btn-primary" href="list.lo?cpage=<%= request.getAttribute("currentPage") %>">목록가기</a>
-            <button type="submit" class="btn btn-primary" onclick="submitForm(event)">수정하기</button>
-            <button type="button" class="btn btn-danger" onclick="clearFileList()">모든 파일 삭제</button>
+        <a class="btn btn-secondary" href="list.adlo">목록가기</a>
+            <button type="submit" class="btn btn-secondary" onclick="submitForm(event)">수정하기</button>
+            <button type="button" class="btn btn-secondary" onclick="clearFileList()">모든 파일 삭제</button>
+            <c:choose>
+            	    <c:when test="${ l.status eq 1}">
+	                <a class="btn btn-danger" onclick="postFormSubmit(1);">삭제하기</a>
+	                </c:when>
+	                <c:otherwise>
+	                <a class="btn btn-primary" onclick="postFormSubmit(2);">활성화하기</a>
+	                </c:otherwise>
+	                </c:choose>
         </div>
         
     </form>
@@ -138,6 +148,24 @@
 </div>
 </div>
 </div>
+
+	            <script>
+	            	function postFormSubmit(num) {
+	            		
+	            		if(num == 1) { // 삭제하기 클릭 시
+	            			
+	            			$("#updateForm").attr("action", "delete.adlo")
+  						  .submit();
+	            			
+	            		} else { // 활성화하기 클릭 시
+	            			
+	            			$("#updateForm").attr("action", "restore.adlo")
+	  						  .submit();
+	            		} 
+	            		
+	            		
+	            	}
+	            </script>
 <script>
 // 기존 파일 목록을 저장합니다.
 let existingFiles = [];

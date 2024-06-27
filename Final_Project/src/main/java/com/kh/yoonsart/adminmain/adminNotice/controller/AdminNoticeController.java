@@ -13,14 +13,12 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.multipart.MultipartFile;
 import org.springframework.web.servlet.ModelAndView;
 
-import com.google.gson.Gson;
-import com.kh.yoonsart.common.model.vo.PageInfo;
-import com.kh.yoonsart.common.template.Pagination;
 import com.kh.yoonsart.notice.model.service.NoticeService;
 import com.kh.yoonsart.notice.model.vo.Notice;
 
@@ -31,41 +29,14 @@ public class AdminNoticeController {
 	private NoticeService noticeService;
 	
 	@GetMapping("list.adno")
-	public String selectList(
-			@RequestParam(value="cpage", defaultValue="1") int currentPage, String keyword,Model model) {
+	public String adNoticeList(Model model) {
 		
-		int listCount=0;
-		if(keyword!=null) {
-			listCount = noticeService.selectSearchListCount(keyword);
-		} else {
-			listCount = noticeService.selectListCount();
-		}
+		ArrayList<Notice> list = noticeService.adNoticeList();
 		
-		int pageLimit = 5;
-		int boardLimit = 5;
-		
-		// PageInfo 객체 만들어내기
-		PageInfo pi 
-			= Pagination.getPageInfo(listCount, 
-								 	 currentPage, 
-								 	 pageLimit, 
-								 	 boardLimit);
-		
-		// System.out.println(pi);
-		
-		// 게시글 목록 조회
-		ArrayList<Notice> list = new ArrayList<>();
-		if(keyword!=null) {
-			list = noticeService.selectSearchList(pi, keyword);
-		} else {
-			list = noticeService.selectList(pi);
-		}
-		
-		// 응답데이터 담기
-		model.addAttribute("pi", pi);
 		model.addAttribute("list", list);
 		
-		// 응답페이지 포워딩
+		//System.out.println(list);
+		
 		return "admin/adminNoticeList";
 	}
 	
@@ -116,72 +87,64 @@ public class AdminNoticeController {
 		
 	}
 	
-	@GetMapping("detail.adno")
-	public ModelAndView selectNotice( int nno, int cpage, ModelAndView mv) {
+	
+	@PostMapping("delete.adno")
+	public String deleteNotice(Notice n,
+							  String filePath,
+							  Model model,
+							  HttpSession session) {
 		
-		int result = noticeService.increaseCount(nno);
-		System.out.println(nno);
-		if(result > 0) {
+		int result = noticeService.deleteNotice(n.getNoticeNo());
+		
+		if(result > 0) { // 성공
 			
-			Notice n = noticeService.selectNotice(nno);
-			System.out.println(n.getNoticeCount());
-			mv.addObject("n", n)
-			  .addObject("currentPage", cpage)
-			  .setViewName("admin/adminNoticeDetail");
+			model.addAttribute("nno", n.getNoticeNo());
+			session.setAttribute("alertMsg", "게시글이 비활성화 되었습니다.");
+			
+			return "redirect:/updateForm.adno?nno=" + n.getNoticeNo();
 			
 		} else { 
 			
-			mv.addObject("errorMsg", "게시글 상세조회 실패")
-			  .setViewName("common/errorPage");
+			model.addAttribute("errorMsg", "게시글 비활성화 실패");
+			
+			return "common/errorPage";
+		}
+	}
+	@PostMapping("restore.adno")
+	public ModelAndView restoreNotice(Notice n,
+			String filePath,
+			HttpSession session,
+			ModelAndView mv) {
+
+		int result = noticeService.restoreNotice(n.getNoticeNo());
+		
+		if(result > 0) { // 성공
+			
+			session.setAttribute("alertMsg", "게시글이 활성화 되었습니다.");
+			mv.setViewName("redirect:/updateForm.adno?nno=" + n.getNoticeNo());		
+			
+		} else { 
+			
+			mv.addObject("errorMsg", "게시글 활성화 실패").setViewName("common/errorPage");			
 		}
 		
 		return mv;
 	}
 	
-	@PostMapping("delete.adno")
-	public String deleteNotice(int nno,
-							  String filePath,
-							  Model model,
-							  HttpSession session) {
-		
-		int result = noticeService.deleteNotice(nno);
-		
-		if(result > 0) { // 성공
-			
-			if(!filePath.equals("")) {
-				
-				String realPath = session.getServletContext()
-										 .getRealPath(filePath);
-				
-				new File(realPath).delete();
-			}
-			
-			session.setAttribute("alertMsg", "성공적으로 게시글이 삭제되었습니다.");
-			
-			return "redirect:/list.adno";
-			
-		} else { 
-			
-			model.addAttribute("errorMsg", "게시글 삭제 실패");
-			
-			return "common/errorPage";
-		}
-	}
 	
-	@PostMapping("updateForm.adno")
-	public String updateForm(int nno, int cpage, Model model) {
+	@GetMapping("updateForm.adno")
+	public String updateForm(int nno, @RequestParam(value = "cpage", defaultValue = "1") int cpage, Model model) {
 	
-		Notice n = noticeService.selectNotice(nno);
-		System.out.println(nno);
+		Notice n = noticeService.adSelectNotice(nno);
+		System.out.println(n);
 		model.addAttribute("n", n)
 			 .addAttribute("currentPage", cpage);
-		
+		System.out.println(n.getNoticeNo());
 		return "admin/adminNoticeUpdateForm";
 	}
 	
 	@PostMapping("update.adno")
 	public String updateNotice(Notice n,
-							  int cpage,
 							  MultipartFile reupfile,
 							  HttpSession session,
 							  Model model) {
@@ -223,7 +186,7 @@ public class AdminNoticeController {
 			
 			session.setAttribute("alertMsg", "성공적으로 게시글이 수정되었습니다.");
 			
-			return "redirect:/list.adno?cpage=" + cpage;
+			return "redirect:/updateForm.adno?nno="+n.getNoticeNo();
 			
 		} else { 
 			
