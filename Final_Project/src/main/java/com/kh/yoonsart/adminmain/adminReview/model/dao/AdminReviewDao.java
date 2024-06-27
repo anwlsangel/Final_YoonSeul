@@ -13,5 +13,24 @@ public class AdminReviewDao {
 	public ArrayList<Review> AdReviewList(SqlSessionTemplate sqlSession) {
 		return (ArrayList)sqlSession.selectList("reviewMapper.AdReviewList");
 	}
+	
+	// 리뷰 상세조회
+	public Review adreviewDetail(SqlSessionTemplate sqlSession, int rno) {
+		
+		return sqlSession.selectOne("reviewMapper.adreviewDetail", rno);
+	}
+
+	// 리뷰 삭제
+	public int AdReviewDelete(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.AdReviewDelete", r);
+	}
+	
+	// 리뷰 활성화
+	public int AdReviewUpdate(SqlSessionTemplate sqlSession, Review r) {
+		
+		return sqlSession.update("reviewMapper.AdReviewUpdate", r);
+	}
+
 
 }

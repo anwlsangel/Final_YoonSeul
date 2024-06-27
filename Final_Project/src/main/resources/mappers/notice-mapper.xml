@@ -147,7 +147,7 @@
 		    FROM NOTICE
 		    ORDER BY NOTICE_ID DESC
 		)
-		WHERE ROWNUM &lt;= 5
+		WHERE ROWNUM &lt;= 4
 	</select>
 	
 

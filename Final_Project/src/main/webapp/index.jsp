@@ -46,10 +46,12 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
 	
-		html, body {
-		    margin: 0;
-		    padding: 0;
-		}
+	body, html {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
 		
 		div {
 		    box-sizing: border-box;
@@ -60,7 +62,7 @@
 		    height: 120px; /* 헤더 높이 조정 */
 		    display: flex;        
 		    align-items: center;     
-		    z-index: 2;
+		    z-index: 20;
 		    position: absolute;
 		    top: 0;
 		    left: 0;
@@ -72,6 +74,7 @@
 		    justify-content: space-between;
 		    align-items: center;
 		    padding: 0 30px;
+			z-index: 20;
 		}
 		
 		.navi a, .main-login a, .logged-in-links a {
@@ -113,7 +116,7 @@
 		
 		.swiper-slide > img {
 		    width: 100%;
-		    height: 700px;
+		    height: 920px;
 		}
 		
 		#mainImage {
@@ -141,7 +144,9 @@
 		}  
 		
 		.swiper {
-		    z-index: 2;
+		    position: relative;
+			width: 100%;
+			height: 100%;
 		}
 		
 		.main-page-schedule {
@@ -149,7 +154,7 @@
 		    width: 80%;
 		    height: 650px;
 		    align-items: center;
-		    margin-top: 300px;
+		    margin-top: 100px;
 		    object-fit: cover;
 		    text-align: center;
 		}
@@ -344,7 +349,7 @@
 		#sc-button.reverse:hover span {
 		    margin-top: 32px;
 		}
-		
+		/*
 		.main-notice {
 		    width: 80%;
 		    height: 500px;
@@ -375,11 +380,70 @@
 		#notice-list thead {
 		    height: 20%;
 		}
-		
+		*/
+
+		.main-notice {
+			width: 100%;
+			margin: auto;
+			margin-top: 150px;
+			height: 400px;
+		}
+
+		.notice-list {
+			display: flex;
+			flex-wrap: wrap;
+			gap: 20px;
+			justify-content: space-between;
+			width: 80%;
+			margin: auto;
+		}
+
+		.notice-card {
+			flex: 1 1 calc(25% - 20px);
+			box-sizing: border-box;
+			background: #f8f8f8;
+			padding: 20px;
+			border-radius: 10px;
+			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+			transition: transform 0.3s;;
+		}
+
+		.notice-card h2 {
+			font-size: 1.2em;
+			margin-bottom: 10px;
+		}
+
+		.notice-card p {
+			font-size: 0.9em;
+			color: #555;
+		}
+
+		.notice-card span {
+			display: block;
+			margin-top: 10px;
+			font-size: 0.8em;
+			color: #888;
+		}
+
+		.notice-card:hover {
+			transform: translateY(-10px);
+		}
+
+		@media (max-width: 768px) {
+			.notice-card {
+				flex: 1 1 calc(50% - 20px); /* 작은 화면에서는 두 개의 카드를 한 줄에 배치 */
+			}
+		}
+
+		@media (max-width: 480px) {
+			.notice-card {
+				flex: 1 1 100%; /* 작은 화면에서는 한 개의 카드를 한 줄에 배치 */
+			}
+		}
+
 		.main-top-img {
 		    width: 100%;
 		    height: 500px;
-		    margin-top: 80px;
 		    display: flex;
 		    justify-content: center;
 		}
@@ -452,7 +516,7 @@
 		    margin-right: 20px;
 		    margin-top: 15px;
 		    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
-		    text-align: center;
+		    text-align: center;			
 		}
 		
 		.logged-in-links {
@@ -467,8 +531,119 @@
 		    margin-top: 5px;
 		}
 
+
+
+		.main-wrapper {
+			position: absolute;
+			z-index: 20; /* Swiper 이미지 위로 올리기 위해 높은 값 설정 */
+			color: white; /* 텍스트 색상 변경 (선택 사항) */
+		}
+
+		/* 수정된 .swiper 클래스 */
+		.swiper {
+			position: relative;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+		}
+		.welcome-section {
+			position: absolute;
+			width: 60%;
+			height: 50%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			z-index: 15; /* Swiper 이미지 바로 위로 올리기 위해 설정 */
+		}
+
+	.fly-in-text li {
+		display: inline-block;
+		margin-right: 20px;
+		font-size: 5em;
+		color: black;
+		opacity: 0;
+		animation: flyIn 3s ease forwards;
+		animation-delay: 2s; /* Swiper와 header 애니메이션 이후에 시작 */
+		z-index: 20; /* Swiper 이미지 위로 올리기 위해 높은 값 설정 */
+	}
+	.content-wrap{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+	.fly-in-text{
+		list-style: none;	
+	}
+	.fly-in-text li:nth-child(5){
+		margin-right: 0;	
+	}
+	.content-hidden .fly-in-text li, .content-hidden .enter-button{opacity: 0;}
+	.content-hidden .fly-in-text li:nth-child(1) { transform: translate3d(-60px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(2) { transform: translate3d(-30px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(3) { transform: translate3d(0px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(4) { transform: translate3d(30px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(5) { transform: translate3d(60px, 0, 0); }
+	.content-hidden .enter-button{ transform: translate3d(0, -30px, 0); }
+
+	/* 애니메이션 정의 */
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 1; }
+	}
+
+	/* 애니메이션 적용 */
+	.swiper {
+		animation: fadeIn 2s ease-in-out forwards;
+		animation-delay: 0s; /* 즉시 시작 */
+		opacity: 0; /* 초기 상태를 숨김 */
+	}
+
+	#main-header {
+		animation: fadeIn 2s ease-in-out forwards;
+		animation-delay: 0s; /* 즉시 시작 */
+		opacity: 0; /* 초기 상태를 숨김 */
+	}
+
+	/* 텍스트 애니메이션 정의 */
+	@keyframes flyIn {
+		0% { opacity: 0; transform: translate3d(0, -30px, 0); }
+		100% { opacity: 1; transform: translate3d(0, 0, 0); }
+	}
+
+	.content-wrap li {
+		font-family: 'Noto Sans KR', sans-serif;
+		margin: 0;
+		padding: 0;
+	}
+
 </style>
 <body>    
+
+    <div class="main-wrapper">
+	  </div>
+	  <div class="welcome-section content-hidden">
+		<div class="content-wrap">
+		  <ul class="fly-in-text">
+			<li>윤</li>
+			<li>슬</li>
+			<li>아</li>
+			<li>트</li>
+			<li>홀</li>
+			<li style="font-size:x-large; margin-left: 12px" >윤슬처럼 반짝이는 당신을 위한 공간</li>
+		  </ul>
+		  </div>
+		</div>
+	  </div>
+
+	  
+
+
+
 <!-- index.jsp 일회성 알람문구 처리 script 0604 - 무진 -->
 		<c:if test="${not empty sessionScope.alertMsg }">
 			<script>
@@ -636,16 +811,13 @@
 
 
 
-	<!-- 인덱스 시작 -->
-    <div id="mainPage">
+	<!-- 인덱스 시작 -->    
     <div id="mainImage">
         <div class="swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="resources/image/a10.jpg"></div>
                 <div class="swiper-slide"><img src="resources/image/c11.jpg"></div>
-                <div class="swiper-slide"><img src="resources/image/c12.jpg"></div>
-                <div class="swiper-slide"><img src="resources/image/c13.jpg"></div>
-                
+                <div class="swiper-slide"><img src="resources/image/a10.jpg"></div>
+                <div class="swiper-slide"><img src="resources/image/c12.jpg"></div>                
             </div>                
             <div id="main-header">                                
                 <div id="main-navi">
@@ -698,7 +870,7 @@
             <div class="swiper-scrollbar"></div>
         </div>    
     </div>
-    	<h1 style="text-align: center; margin-top: 80px;">리뷰 TOP 3</h1>
+    	
         	
 	<script>
 	    $(function() {	    	
@@ -749,10 +921,13 @@
 	        });
 	    });
 	</script>
+
+	<h1 style="text-align: center; margin-top: 10px;">리뷰 TOP 3</h1>
 	
-	<div class="main-top-img">
+	<div class="main-top-img">		
+			
 	</div>
-	
+	<!--
 	<div class="main-notice">
             
            <table class="table" id="notice-list">
@@ -772,6 +947,16 @@
             	</tbody>
             </table>
     </div>
+	-->
+	<div class="main-notice">
+		<div class="main-notic-title">
+			<h2 style="margin-left: 200px;">윤슬 아트홀의 새로운 소식을 확인해보세요.</h2>
+			<br>
+		</div>
+			<div class="notice-list">
+			</div>
+	</div>
+
 	
 
     <div class="main-page-schedule">
@@ -804,39 +989,44 @@
     
     <!-- 메인 공지사항 조회용 -->
 	<script>
-	    function loadMainNotice() {    		
-	        $.ajax({
-	            url: 'loadMainNotice.no',
-	            method: 'GET',
-	            success: function(result) {
-	                const noticeList = $('.main-notice-tbody');
-	                console.log("공지사항 조회용 ajax 통신 성공!");
-	                console.log(result);
-	                noticeList.empty();  // 기존 내용을 지워줍니다
-	                
-	                result.forEach(function(notice) {
-	                    let shortContent = notice.noticeContent;
-	                    if (shortContent.length > 20) {
-	                        shortContent = shortContent.substring(0, 20) + '...';
-	                    }
-	                    
-	                    const noticeHtml = `
-	                        <tr>
-	                    		<td>\${notice.noticeNo}</td>
-	                            <td>\${notice.noticeTitle}</td>
-	                            <td>\${shortContent}</td>
-	                            <td>\${notice.noticeCount}</td>
-	                            <td>\${notice.createDate}</td>
-	                        </tr>                            
-	                    `;
-	                    noticeList.append(noticeHtml);
-	                });
-	            },
-	            error: function() {
-	                console.log("공지사항 조회용 ajax 통신 실패");
-	            }
-	        });
-	    }
+	    function loadMainNotice() {
+			$.ajax({
+				url: 'loadMainNotice.no',
+				method: 'GET',
+				success: function(result) {
+					const noticeList = $('.notice-list');
+					console.log("공지사항 조회용 ajax 통신 성공!");
+					console.log(result); // 응답 데이터를 확인
+					
+					noticeList.empty();  // 기존 내용을 지워줍니다
+					
+					result.forEach(function(notice) {
+						// 응답 데이터에서 noticeContent와 createDate가 제대로 설정되어 있는지 확인
+						console.log(notice.noticeContent, notice.createDate);
+						
+						let shortContent = notice.noticeContent || '';
+						if (shortContent.length > 80) {
+							shortContent = shortContent.substring(0, 80) + '...';
+						}
+						
+						// createDate가 올바르게 설정되었는지 확인하고, 없는 경우 기본값 설정
+						let createDate = notice.createDate || '날짜 없음';
+
+						const noticeHtml = `
+							<div class="notice-card">
+								<h2>\${notice.noticeTitle}</h2>
+								<p>\${shortContent}</p>
+								<span>\${createDate}</span>
+							</div>
+						`;
+						noticeList.append(noticeHtml);
+					});
+				},
+				error: function() {
+					console.log("공지사항 조회용 ajax 통신 실패");
+				}
+			});
+		}
 	</script>
     
     <!-- 장르별 TOP 게시물 조회용  -->
@@ -965,7 +1155,7 @@
         // 슬라이더 동작 정의
         const swiper = new Swiper('.swiper', {
             autoplay : {
-                delay : 5000 // 5초마다 이미지 변경
+                delay : 7000 // 5초마다 이미지 변경
             },
             loop : true, //반복 재생 여부
             slidesPerView : 1, // 이전, 이후 사진 미리보기 갯수
@@ -1152,6 +1342,22 @@
     	    });    	
     	});
     </script>
+
+	<script>
+		$(function(){
+			var welcomSection = $('.welcome-section'),
+				enterButton = welcomSection.find('.enter-button');
+			
+			setTimeout(function(){
+				welcomSection.removeClass('content-hidden');
+			},800);
+			
+			enterButton.on('click',function(e){
+				e.preventDefault();
+				welcomSection.addClass('content-hidden').fadeOut();
+			})
+		})
+	</script>
 	
     
 

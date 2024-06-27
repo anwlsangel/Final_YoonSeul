@@ -72,9 +72,41 @@
 		   AND STATUS = 1
 	</select>
 	
-	<!-- 관리자 - 리뷰 전체 조회 -->
+	<!-- 관리자 -->
+	
+	<!-- 리뷰 전체 조회 -->
 	 <select id="AdReviewList" resultMap="reviewResultSet">
 	 	SELECT *
 	 	  FROM REVIEW
 	 </select>
+	 
+	 <!-- 리뷰 상세 조회 -->
+	 <select id="adreviewDetail" parameterType="_int" resultMap="reviewResultSet">
+	  SELECT REVIEW_ID
+		   , REVIEW_CONTENT
+		   , REVIEW_POINT
+		   , TO_CHAR(WRITE_DATE, 'YYYY-MM-DD') AS "WRITE_DATE"
+		   , USER_ID
+		   , CONCERT_ID
+		   , STATUS	    
+	    FROM REVIEW
+	   WHERE REVIEW_ID = #{reviewId}
+ 	</select>
+	 
+	<!-- 리뷰 삭제 -->
+ 	<update id="AdReviewDelete" parameterType="_int">
+		UPDATE REVIEW
+ 		   SET STATUS = 2
+ 		 WHERE REVIEW_ID = #{reviewId}
+ 		   AND STATUS = 1
+ 	</update>
+ 	
+ 	<!-- 리뷰 활성화 -->
+ 	<update id="AdReviewUpdate" parameterType="_int">
+		UPDATE REVIEW
+ 		   SET STATUS = 1
+ 		 WHERE REVIEW_ID = #{reviewId}
+ 		   AND STATUS = 2
+ 	</update>
+	
 </mapper>
