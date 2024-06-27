@@ -40,7 +40,9 @@ body {
 	width: 5%;
 	accent-color: #810000;
 }
-
+.review-update>a:hover{
+	cursor : pointer;
+}
 .title2 {
 	margin-left: 55px;
 }
@@ -758,8 +760,8 @@ div {
 								<div class="modal-body">
 									<form action="update.re" method="post" class="modal-center">
 										<div align="center">
-											<input type="hidden" name="reviewId" id="reviewId"> <input
-												type="hidden" name="concertId" id="concertId">
+											<input type="hidden" name="reviewId" id="rreviewId"> <input
+												type="hidden" name="concertId" id="rconcertId">
 											<textarea name="newReviewContent" id="newReviewContent"
 												rows="4" cols="40" required></textarea>
 										</div>
@@ -864,15 +866,12 @@ div {
 										for (let i in result.rList) {
 
 											let writeDate = new Date(result.rList[i].writeDate).toLocaleString().slice(0, -13);
-											let reviewContent = result.rList[i].reviewContent;
+		  									let reviewContent = result.rList[i].reviewContent;
 											let userId = result.rList[i].userId;
 											let star = result.rList[i].reviewPoint;
-											// console.log(star);
-											// console.log(userId);
-											// console.log(writeDate);
-											// console.log(reviewContent);
-											// console.log(i);
-											review(star, userId, writeDate, reviewContent)
+											let reviewId = result.rList[i].reviewId;
+											let content = result.rList[i].reviewContent;
+											review(star, userId, writeDate, reviewContent, reviewId, content)
 										}
 										
 									} else {
@@ -928,7 +927,7 @@ div {
 							});
 						}
 
-						function review(star, userId, writeDate, reviewContent) {
+						function review(star, userId, writeDate, reviewContent, reviewId, reviewContent) {
 							//console.log(star, userId, writeDate, reviewContent)
 							
 							switch (star) {
@@ -1158,6 +1157,7 @@ div {
 		        let ticketAmount;
 		        let concertDateId;
 		        let seatId =[];
+		        let concertId=${concert.concertId}
 		
 		        //날짜 관련 변수
 		        let firstDay = '${firstDay}'

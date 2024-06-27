@@ -696,7 +696,7 @@ div {
 								$("#reviewId").val(reviewId);
 								$("#concertId").val(concertId);
 								//console.log("rno : " + reviewId);
-								//console.log("cno : " + concertId);
+								console.log("cno : " + concertId)
 							});
 
 							function deleteReview(x,y) {

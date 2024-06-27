@@ -313,7 +313,7 @@
 		
 		function drawTicket(ticket,index) {
 			let appendString="";
-			if(ticket.seat){
+			if(""+ticket.seat){
 				appendString = `
 		            <div class="ticketDiv" id="ticketDiv\${index}">
 		                <div id="qrcode\${index}" class="qrcode"></div>
