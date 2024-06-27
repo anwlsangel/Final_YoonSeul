@@ -427,6 +427,7 @@
 
 		.notice-card:hover {
 			transform: translateY(-10px);
+			cursor: pointer;
 		}
 
 		@media (max-width: 768px) {
@@ -619,6 +620,50 @@
 		font-family: 'Noto Sans KR', sans-serif;
 		margin: 0;
 		padding: 0;
+	}
+
+	.row {
+		height: 300px;
+		margin: auto;
+		padding: 0;
+		width: 80%;
+	}	
+
+	.row div{		
+		margin: 0;
+		padding: 0;
+	}
+
+	.row img {
+		width: 100%;
+		height: 300px;
+	}
+
+	.image-container {
+		position: relative;
+		width: 100%;
+	}
+	.image-container:hover {
+		cursor: pointer;
+	}
+
+	.main-image {
+		width: 100%;
+		height: auto;
+	}
+
+	.main-hole-text {
+		width: 500px;
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%, -50%);
+		color: white;
+		font-size: 1.5em;
+		text-align: center;
+		background-color: rgba(0, 0, 0, 0.5); /* 반투명한 배경 */
+		padding: 10px;
+		border-radius: 5px;
 	}
 
 </style>
@@ -950,7 +995,7 @@
 	-->
 	<div class="main-notice">
 		<div class="main-notic-title">
-			<h2 style="margin-left: 200px;">윤슬 아트홀의 새로운 소식을 확인해보세요.</h2>
+			<h2 style="margin-left: 200px;">윤슬아트홀의 새로운 소식을 확인해보세요.</h2>
 			<br>
 		</div>
 			<div class="notice-list">
@@ -975,6 +1020,30 @@
                 <div id="schedule-button"><input type="button" value="공연 목록" id="sc-button" onclick="location.href='<%=request.getContextPath()%>/list.co?category=전체&sort=popularity'"></div>
         </div>
     </div>
+
+	<div class="main-page-schedule">
+        <div class="schedule-main">
+            <h1 style="text-align: center;">오픈 예정</h1>
+                <div class="schedule-list2">
+                </div>    
+        </div>
+    </div>
+
+	<h2 align="center" style="margin-bottom: 20px;">윤슬아트홀은 최고의 문화시설로 여러분을 기다립니다.</h2>	
+	<div class="row">
+		<div class="col">
+			<div class="image-container">
+				<img src="resources/image/메인 홀 이미지.webp" class="main-image">
+				<div class="main-hole-text" onclick="location.href='starlight'">별빛홀<br><br>전통과 현대를 넘어<br>첨단 전위예술까지 아우르는 다목적 홀.</div>
+			</div>
+		</div>
+		<div class="col">
+			<div class="image-container">
+				<img src="resources/image/메인 홀 이미지2.webp" class="main-image">
+				<div class="main-hole-text" onclick="location.href='moonlight'">달빛마당<br><br>자유로운 분위기의 스탠딩 콘서트홀.</a></div>
+			</div>
+		</div>
+	</div>
     
     
     
@@ -1008,16 +1077,14 @@
 						if (shortContent.length > 80) {
 							shortContent = shortContent.substring(0, 80) + '...';
 						}
-						
-						// createDate가 올바르게 설정되었는지 확인하고, 없는 경우 기본값 설정
-						let createDate = notice.createDate || '날짜 없음';
+						let createDate = notice.createDate ? notice.createDate.substring(0, 10) : '날짜 없음'; 
 
-						const noticeHtml = `
-							<div class="notice-card">
+						const noticeHtml = `						
+							<div class="notice-card" onclick="location.href='detail.no?nno=\${notice.noticeNo}&cpage=1'">							
 								<h2>\${notice.noticeTitle}</h2>
 								<p>\${shortContent}</p>
 								<span>\${createDate}</span>
-							</div>
+							</div>			
 						`;
 						noticeList.append(noticeHtml);
 					});
@@ -1078,13 +1145,7 @@
 	    }
 	</script>
     
-    <div class="main-page-schedule">
-        <div class="schedule-main">
-            <h1 style="text-align: center;">오픈 예정</h1>
-                <div class="schedule-list2">
-                </div>    
-        </div>
-    </div>
+    
     
     <script>
 	    function loadOpenConcerts() {

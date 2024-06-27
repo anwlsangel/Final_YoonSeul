@@ -76,12 +76,14 @@
 					     , NOTICE_TITLE
 					     , NOTICE_CONTENT
 					     , NOTICE_IMG_NAME
-					     , NOTICE_IMG)
+					     , NOTICE_IMG
+					     , CREATE_DATE)
 		           VALUES(SEQ_NNO.NEXTVAL
 		                , #{noticeTitle}
 		                , #{noticeContent}
 		                , #{noticeImgName}
-		                , #{noticeImg})
+		                , #{noticeImg}
+		                , SYSDATE)
 	</insert>
 	
 	<!-- 조회수 증가용 쿼리문 -->
