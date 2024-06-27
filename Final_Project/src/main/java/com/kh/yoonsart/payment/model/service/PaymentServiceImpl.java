@@ -195,8 +195,8 @@ public class PaymentServiceImpl implements PaymentService{
 
 
 	@Override
-	public ArrayList<Tickets> getTicket(String bId) {
-		return paymentDao.getTicket(sqlSession, bId);
+	public ArrayList<Tickets> getTicket(String bId,String holeName) {
+		return paymentDao.getTicket(sqlSession, bId,holeName);
 	}
 	
 	@Override

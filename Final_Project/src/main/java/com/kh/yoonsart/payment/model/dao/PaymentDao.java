@@ -30,17 +30,17 @@ public class PaymentDao {
 	}
 
 	public ArrayList<BuyList> selectPaymentList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("paymentMapper.selectPaymentList");
+		return (ArrayList) sqlSession.selectList("paymentMapper.selectPaymentList");
 	}
 
 	public ArrayList<BuyList> selectRefundList(SqlSessionTemplate sqlSession) {
-		return (ArrayList)sqlSession.selectList("paymentMapper.selectRefundList");
+		return (ArrayList) sqlSession.selectList("paymentMapper.selectRefundList");
 	}
 
 	public int requestRefund(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.update("paymentMapper.requestRefund", buyListId);
 	}
-	
+
 	public int cancelRefund(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.update("paymentMapper.cancelRefund", buyListId);
 	}
@@ -56,7 +56,7 @@ public class PaymentDao {
 	public int endPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
 		return sqlSession.update("paymentMapper.endPayment", ticket);
 	}
-	
+
 	public int cancelPayment(SqlSessionTemplate sqlSession, Ticket ticket) {
 		return sqlSession.delete("paymentMapper.cancelPayment", ticket);
 	}
@@ -64,12 +64,16 @@ public class PaymentDao {
 	public int deleteTicket(SqlSessionTemplate sqlSession, String buyListId) {
 		return sqlSession.delete("paymentMapper.deleteTicket", buyListId);
 	}
-	
-	public ArrayList<Tickets> getTicket(SqlSessionTemplate sqlSession, String bId){
-		return (ArrayList)sqlSession.selectList("paymentMapper.getTicket",bId);
+
+	public ArrayList<Tickets> getTicket(SqlSessionTemplate sqlSession, String bId, String holeName) {
+		if (holeName.equals("별빛홀")) {
+			return (ArrayList) sqlSession.selectList("paymentMapper.getTicket", bId);
+		} else {
+			return (ArrayList) sqlSession.selectList("paymentMapper.getTicketStanding",bId);
+		}
 	}
-	
+
 	public String getCIdWithQr(SqlSessionTemplate sqlSession, String qr) {
-		return sqlSession.selectOne("paymentMapper.getCIdWithQr",qr);
+		return sqlSession.selectOne("paymentMapper.getCIdWithQr", qr);
 	}
 }

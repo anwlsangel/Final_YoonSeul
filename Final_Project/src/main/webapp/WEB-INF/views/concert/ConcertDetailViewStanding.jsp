@@ -825,11 +825,6 @@ div {
 											let star = result.rList[i].reviewPoint;
 											let reviewId = result.rList[i].reviewId;
 											let content = result.rList[i].reviewContent;
-											// console.log(star);
-											// console.log(userId);
-											// console.log(writeDate);
-											// console.log(reviewContent);
-											// console.log(i);
 											review(star, userId, writeDate, reviewContent, reviewId, content)
 										}
 										

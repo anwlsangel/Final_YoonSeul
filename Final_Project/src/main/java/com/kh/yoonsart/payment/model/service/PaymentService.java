@@ -48,7 +48,7 @@ public interface PaymentService {
 	int cancelPayment(Ticket ticket);
 	//좌석 상태 변경 (구매가능)
 	int deleteTicket(String buyListId);
-	ArrayList<Tickets> getTicket(String bId);
+	ArrayList<Tickets> getTicket(String bId,String HoleName);
 	
 	String getCIdWithQr(String qr);
 }
