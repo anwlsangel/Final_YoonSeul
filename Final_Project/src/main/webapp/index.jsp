@@ -46,10 +46,12 @@
 	<link rel="stylesheet" href="//cdn.jsdelivr.net/npm/alertifyjs@1.14.0/build/css/themes/semantic.min.css"/>
 <style>
 	
-		html, body {
-		    margin: 0;
-		    padding: 0;
-		}
+	body, html {
+		width: 100%;
+		height: 100%;
+		margin: 0;
+		padding: 0;
+	}
 		
 		div {
 		    box-sizing: border-box;
@@ -60,7 +62,7 @@
 		    height: 120px; /* 헤더 높이 조정 */
 		    display: flex;        
 		    align-items: center;     
-		    z-index: 2;
+		    z-index: 20;
 		    position: absolute;
 		    top: 0;
 		    left: 0;
@@ -72,6 +74,7 @@
 		    justify-content: space-between;
 		    align-items: center;
 		    padding: 0 30px;
+			z-index: 20;
 		}
 		
 		.navi a, .main-login a, .logged-in-links a {
@@ -113,7 +116,7 @@
 		
 		.swiper-slide > img {
 		    width: 100%;
-		    height: 700px;
+		    height: 920px;
 		}
 		
 		#mainImage {
@@ -141,7 +144,9 @@
 		}  
 		
 		.swiper {
-		    z-index: 2;
+		    position: relative;
+			width: 100%;
+			height: 100%;
 		}
 		
 		.main-page-schedule {
@@ -379,7 +384,6 @@
 		.main-top-img {
 		    width: 100%;
 		    height: 500px;
-		    margin-top: 80px;
 		    display: flex;
 		    justify-content: center;
 		}
@@ -452,7 +456,7 @@
 		    margin-right: 20px;
 		    margin-top: 15px;
 		    white-space: nowrap; /* 텍스트가 줄바꿈되지 않도록 설정 */
-		    text-align: center;
+		    text-align: center;			
 		}
 		
 		.logged-in-links {
@@ -467,8 +471,166 @@
 		    margin-top: 5px;
 		}
 
+
+
+		.main-wrapper {
+			position: absolute;
+			z-index: 20; /* Swiper 이미지 위로 올리기 위해 높은 값 설정 */
+			color: white; /* 텍스트 색상 변경 (선택 사항) */
+		}
+
+		/* 수정된 .swiper 클래스 */
+		.swiper {
+			position: relative;
+			z-index: 10;
+			width: 100%;
+			height: 100%;
+		}
+		.welcome-section {
+			position: absolute;
+			width: 60%;
+			height: 50%;
+			top: 50%;
+			left: 50%;
+			transform: translate(-50%, -50%);
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			overflow: hidden;
+			z-index: 15; /* Swiper 이미지 바로 위로 올리기 위해 설정 */
+		}
+
+	.fly-in-text li {
+		display: inline-block;
+		margin-right: 20px;
+		font-size: 5em;
+		color: black;
+		opacity: 0;
+		animation: flyIn 3s ease forwards;
+		animation-delay: 2s; /* Swiper와 header 애니메이션 이후에 시작 */
+		z-index: 20; /* Swiper 이미지 위로 올리기 위해 높은 값 설정 */
+	}
+	.content-wrap{
+		position: absolute;
+		top: 50%;
+		left: 50%;
+		transform: translate(-50%,-50%);
+	}
+	.fly-in-text{
+		list-style: none;	
+	}
+	.fly-in-text li:nth-child(5){
+		margin-right: 0;	
+	}
+	.content-hidden .fly-in-text li, .content-hidden .enter-button{opacity: 0;}
+	.content-hidden .fly-in-text li:nth-child(1) { transform: translate3d(-60px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(2) { transform: translate3d(-30px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(3) { transform: translate3d(0px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(4) { transform: translate3d(30px, 0, 0); }
+	.content-hidden .fly-in-text li:nth-child(5) { transform: translate3d(60px, 0, 0); }
+	.content-hidden .enter-button{ transform: translate3d(0, -30px, 0); }
+
+	/* 애니메이션 정의 */
+	@keyframes fadeIn {
+		from { opacity: 0; }
+		to { opacity: 0.8; }
+	}
+
+	/* 애니메이션 적용 */
+	.swiper {
+		animation: fadeIn 2s ease-in-out forwards;
+		animation-delay: 0s; /* 즉시 시작 */
+		opacity: 0; /* 초기 상태를 숨김 */
+	}
+
+	#main-header {
+		animation: fadeIn 2s ease-in-out forwards;
+		animation-delay: 0s; /* 즉시 시작 */
+		opacity: 0; /* 초기 상태를 숨김 */
+	}
+
+	/* 텍스트 애니메이션 정의 */
+	@keyframes flyIn {
+		0% { opacity: 0; transform: translate3d(0, -30px, 0); }
+		100% { opacity: 1; transform: translate3d(0, 0, 0); }
+	}
+
+
+	.scroll-downs {
+		animation: fadeIn 2s ease-in-out forwards;
+		position: absolute;
+		top: 0;
+		right: 0;
+		bottom: 0;
+		left: 0;
+		margin: auto;	
+		width :34px;
+		height: 55px;
+		z-index: 20;
+	}
+	.mousey {
+		animation: fadeIn 2s ease-in-out forwards;
+		margin-top: 150px;
+		width: 3px;
+		padding: 10px 15px;
+		height: 35px;
+		border: 2px solid black;
+		border-radius: 25px;
+		opacity: 0.75;
+		box-sizing: content-box;
+		z-index: 20;		
+	}
+	.scroller {
+		animation: fadeIn 2s ease-in-out forwards;
+		width: 3px;
+		height: 10px;
+		border-radius: 25%;
+		background-color: black;
+		animation-name: scroll;
+		animation-duration: 2.2s;
+		animation-timing-function: cubic-bezier(.15,.41,.69,.94);
+		animation-iteration-count: infinite;
+		z-index: 20;
+	}
+	@keyframes scroll {
+	0% { opacity: 0; }
+	10% { transform: translateY(0); opacity: 1; }
+	100% { transform: translateY(15px); opacity: 0;}
+	}
+
+	
+
+
+
 </style>
 <body>    
+
+    <div class="main-wrapper">
+	  </div>
+	  <div class="welcome-section content-hidden">
+		<div class="content-wrap">
+		  <ul class="fly-in-text">
+			<li>윤</li>
+			<li>슬</li>
+			<li>아</li>
+			<li>트</li>
+			<li>홀</li>
+			<li style="font-size:x-large; margin-left: 45px" >윤슬처럼 반짝이는 당신을 위한 공간</li>
+		  </ul>
+		  <div class="scroll-downs">
+			<div class="mousey">
+			  <div class="scroller"></div>		  			  
+			</div>		
+			<div class="scroll-down">
+			</div>			
+		  </div>
+		</div>
+	  </div>
+
+	  
+
+
+
 <!-- index.jsp 일회성 알람문구 처리 script 0604 - 무진 -->
 		<c:if test="${not empty sessionScope.alertMsg }">
 			<script>
@@ -636,16 +798,13 @@
 
 
 
-	<!-- 인덱스 시작 -->
-    <div id="mainPage">
+	<!-- 인덱스 시작 -->    
     <div id="mainImage">
         <div class="swiper">
             <div class="swiper-wrapper">
-                <div class="swiper-slide"><img src="resources/image/a10.jpg"></div>
                 <div class="swiper-slide"><img src="resources/image/c11.jpg"></div>
-                <div class="swiper-slide"><img src="resources/image/c12.jpg"></div>
-                <div class="swiper-slide"><img src="resources/image/c13.jpg"></div>
-                
+                <div class="swiper-slide"><img src="resources/image/a10.jpg"></div>
+                <div class="swiper-slide"><img src="resources/image/c12.jpg"></div>                
             </div>                
             <div id="main-header">                                
                 <div id="main-navi">
@@ -698,7 +857,7 @@
             <div class="swiper-scrollbar"></div>
         </div>    
     </div>
-    	<h1 style="text-align: center; margin-top: 80px;">리뷰 TOP 3</h1>
+    	
         	
 	<script>
 	    $(function() {	    	
@@ -749,8 +908,11 @@
 	        });
 	    });
 	</script>
+
+	<h1 style="text-align: center; margin-top: 10px;">리뷰 TOP 3</h1>m
 	
-	<div class="main-top-img">
+	<div class="main-top-img">		
+			
 	</div>
 	
 	<div class="main-notice">
@@ -1152,6 +1314,22 @@
     	    });    	
     	});
     </script>
+
+	<script>
+		$(function(){
+			var welcomSection = $('.welcome-section'),
+				enterButton = welcomSection.find('.enter-button');
+			
+			setTimeout(function(){
+				welcomSection.removeClass('content-hidden');
+			},800);
+			
+			enterButton.on('click',function(e){
+				e.preventDefault();
+				welcomSection.addClass('content-hidden').fadeOut();
+			})
+		})
+	</script>
 	
     
 
