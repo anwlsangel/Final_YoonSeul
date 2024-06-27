@@ -406,15 +406,16 @@
 			border-radius: 10px;
 			box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
 			transition: transform 0.3s;;
+			height: 300px;
 		}
 
 		.notice-card h2 {
-			font-size: 1.2em;
+			font-size: 1.5em;
 			margin-bottom: 10px;
 		}
 
 		.notice-card p {
-			font-size: 0.9em;
+			font-size: 1.1em;
 			color: #555;
 		}
 
@@ -1201,15 +1202,21 @@
     
     <script>
 	    $(document).ready(function() {
-	        var jbOffset = $('#mainImage').offset().top + $('#mainImage').height();
-	        $(window).scroll(function() {
-	            if ($(document).scrollTop() > jbOffset) {
-	                $('#main-navi').addClass('jbFixed');
-	            } else {
-	                $('#main-navi').removeClass('jbFixed');
-	            }
-	        });
-	    });
+		var jbOffset = $('#mainImage').offset().top + $('#mainImage').height();
+		var textHidden = false;
+
+		$(window).scroll(function() {
+			if ($(document).scrollTop() > jbOffset && !textHidden) {
+				$('.fly-in-text').fadeOut(); // 텍스트를 서서히 숨김
+				textHidden = true; // 텍스트가 숨겨졌음을 기록
+			}
+			if ($(document).scrollTop() > jbOffset) {
+				$('#main-navi').addClass('jbFixed');
+			} else {
+				$('#main-navi').removeClass('jbFixed');
+			}
+		});
+	});
     </script>
 
     <script>
