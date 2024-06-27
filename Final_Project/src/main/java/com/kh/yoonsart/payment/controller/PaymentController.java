@@ -222,7 +222,7 @@ public class PaymentController {
 		Concert c = paymentService.selectConcert(paymentService.getCIdWithQr(qr));
 		m.addAttribute("concert", c);
 		
-		return "concert/ConsertTicketInfo";
+		return "concert/ConcertTicketInfo";
 	}
 	
 }
