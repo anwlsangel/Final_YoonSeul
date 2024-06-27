@@ -1483,7 +1483,7 @@ div {
 		     	            		buyListId: rsp.merchant_uid, //주문번호
 		     	            		reserveCode: rsp.pg_tid, //결제코드
 		     	            		reserveConcertId: ${concert.concertId}, //예약된 공연 이름
-		     	      	            reserveTicket: ticketQuantity, //예약된 티켓 수
+		     	      	            reserveTicket: seatId.length, //예약된 티켓 수
 		     	      	            reserveSum: myAmount, //결제 금액 합
 		     	      	            userId: userId //회원ID
 		     	            	},
