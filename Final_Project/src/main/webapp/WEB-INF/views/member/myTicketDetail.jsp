@@ -352,6 +352,7 @@
 		function ticketDown(){
 			for(let i=0;ticketList.length>i;i++){
 				html2canvas(document.getElementById("ticketDiv"+i)).then(function(canvas) {
+					
 					let a = document.createElement("a");
 					a.href = canvas.toDataURL("image/png")
 				    a.download = "hole_"+ticketList[i].holeName+"_time_"+ticketList[i].date.replace(" ","-");
