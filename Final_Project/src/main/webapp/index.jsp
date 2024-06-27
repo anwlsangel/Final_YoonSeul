@@ -967,7 +967,7 @@
 	    });
 	</script>
 
-	<h1 style="text-align: center; margin-top: 10px;">리뷰 TOP 3</h1>
+	<h1 style="text-align: center; margin-top: 40px;">리뷰 TOP 3</h1>
 	
 	<div class="main-top-img">		
 			
