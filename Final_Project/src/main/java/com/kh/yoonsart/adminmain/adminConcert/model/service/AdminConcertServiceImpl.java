@@ -85,6 +85,14 @@ public class AdminConcertServiceImpl implements AdminConcertService {
 		return adminConcertDao.changeStatusTickt(sqlSession,qr);
 	}
 
+	@Override
+	public Concert ConcertDetail(String id) {
+		return adminConcertDao.ConcertDetail(sqlSession, id);
+	}
 	
-
+	@Override
+	@Transactional
+	public int insertConcertDateById(HashMap map) {
+		return adminConcertDao.insertConcertDateById(sqlSession, map);
+	}
 }

@@ -332,4 +332,15 @@
         set status = 9
         where ticket_qr = #{qr}
     </update>
+    
+    <insert  id="insertConcertDateById" parameterType="map">
+		insert into concert_date (concert_date_id,   concert_id,concert_date)
+		select seq_bano.nextval,#{id} ,dualtable.* from(
+		<foreach collection="list" item="item"  separator="UNION ALL ">
+			select to_date(#{item},'YYYY/MM/DD HH24:MI') 
+			from dual
+		</foreach>
+		) dualtable
+	</insert >
+    
 </mapper>

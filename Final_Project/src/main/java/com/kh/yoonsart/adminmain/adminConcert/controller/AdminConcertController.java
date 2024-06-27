@@ -165,4 +165,33 @@ public class AdminConcertController {
 		
 		return adminConcertService.changeStatusTickt(qr);
 	}
+	
+	@RequestMapping("AdConcertListCal.co")
+	public String AdConcertListCal(Model m) {
+		m.addAttribute("holeList", adminConcertService.getHoleList());
+		return "admin/AdminConcertListCal";
+	}
+	
+	@RequestMapping(value="getConcertInfoAjax",produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public String concertDetail(String id) {
+		
+		return new Gson().toJson(adminConcertService.ConcertDetail(id));
+	}
+	
+	@RequestMapping(value="addEvents",produces="application/json; charset=UTF-8")
+	@ResponseBody
+	public int concertAdd(String id, String adds) {
+		JsonArray Array = JsonParser.parseString(adds).getAsJsonArray();
+		ArrayList<String> dateList = new ArrayList();
+		for (JsonElement date : Array) {
+			dateList.add(date.getAsString());
+		}
+		System.out.println(id);
+		HashMap<String,Object> map = new HashMap();
+		map.put("id", (String)id);
+		map.put("list",(ArrayList)dateList);
+		
+		return adminConcertService.insertConcertDateById(map);
+	}
 }

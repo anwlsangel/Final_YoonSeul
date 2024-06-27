@@ -338,10 +338,10 @@
             // 이벤트 삭제
             eventClick: function (arg) {
                 if (arg.event.classNames == 'add') {
-                    if (confirm(arg.event.start+ "해당 이벤트를 삭제하시겠습니까?")) {
+                    if (confirm(trimDate(arg.event.start)+ "해당 이벤트를 삭제하시겠습니까?")) {
                         arg.event.remove()
                         addMap.delete(Number(arg.event.id))
-                        removeEventBtn(arg.event.id)
+                       
                         document.getElementById("totalListNum").innerHTML=addMap.size;
                     }
                 } else {

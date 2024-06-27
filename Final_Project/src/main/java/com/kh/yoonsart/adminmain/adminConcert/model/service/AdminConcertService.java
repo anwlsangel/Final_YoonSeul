@@ -23,4 +23,7 @@ public interface AdminConcertService {
 	ArrayList<String> getHoleList();
 	Tickets ticketValidation(String qr);
 	int changeStatusTickt(String qr);
+	
+	Concert ConcertDetail(String id);
+	int insertConcertDateById(HashMap map);
 }

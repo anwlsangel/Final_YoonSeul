@@ -65,4 +65,14 @@ public class AdminConcertDao {
 	public int changeStatusTickt(SqlSessionTemplate sqlSession,String qr) {
 		return sqlSession.update("concertMapper.changeStatusTickt",qr);
 	}
+	
+	public Concert ConcertDetail(SqlSessionTemplate sqlSession, String id) {
+		return sqlSession.selectOne("concertMapper.concertDetail",Integer.parseInt(id));
+	}
+	
+	public int insertConcertDateById(SqlSessionTemplate sqlSession,HashMap map) {
+		int x = sqlSession.insert("concertMapper.insertConcertDateById", map);
+		updateConsertStartEnd(sqlSession,Integer.parseInt((String) map.get("id")));
+		return x;
+	}
 }
