@@ -742,8 +742,8 @@ div {
 								//console.log("cno : " + concertId);
 							});
 
-							function deleteReview() {
-								location.href = "delete.re?reviewId=" + ${ rvList[0].reviewId } + "&concertId=" + ${ rvList[0].concertId };
+							function deleteReview(x,y) {
+								location.href = "delete.re?reviewId=" + x + "&concertId=" + y;
 							}
 						</script>
 
@@ -958,12 +958,13 @@ div {
 							review += '</div>';
 							review += ' </div>';
 
-							if ('${sessionScope.loginUser.userId}' == userId) {
+							if (${sessionScope.loginUser.userId} == userId) {
 								review += '<div class="review-update">';
-								review += ' <a href="#" data-toggle="modal" data-target="#updateReview" class="update" data-id="${r.reviewContent}" data-rno="${r.reviewId}" data-cno="${r.concertId}">수정</a>';
-								review += '  <a onclick="deleteReview();">삭제</a>';
-								review += '  <br clear="both"> ';
+								review += ' <a href="#" data-toggle="modal" onclick="upbtn('+concertId+','+reviewId+',\''+reviewContent+'\')" data-target="#updateReview" class="updateBtn" >수정</a>';
+								review += '  <a onclick="deleteReview('+reviewId+','+concertId+');">삭제</a>';
 								review += ' </div>';
+								review += '  <br clear="both"> ';
+								
 
 							}
 
@@ -971,7 +972,13 @@ div {
 							console.log(review)
 							$(document.getElementById('review')).append(review);
 						}
-
+							
+						function upbtn(x,y,z) {
+							document.getElementById("rconcertId").value=x;
+							document.getElementById("rreviewId").value=y;
+							console.log(z)
+							document.getElementById("newReviewContent").value=z;
+						}
 						/*
 						function paging (currentPage, startPage, endPage, maxPage) {
 

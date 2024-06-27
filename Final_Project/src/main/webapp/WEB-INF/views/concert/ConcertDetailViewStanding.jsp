@@ -699,8 +699,8 @@ div {
 								//console.log("cno : " + concertId);
 							});
 
-							function deleteReview() {
-								location.href = "delete.re?reviewId=" + ${ rvList[0].reviewId } + "&concertId=" + ${ rvList[0].concertId };
+							function deleteReview(x,y) {
+								location.href = "delete.re?reviewId=" + x + "&concertId=" + y;
 							}
 						</script>
 
@@ -919,9 +919,10 @@ div {
 							if ('${sessionScope.loginUser.userId}' == userId) {
 								review += '<div class="review-update">';
 								review += ' <a href="#" data-toggle="modal" onclick="upbtn('+concertId+','+reviewId+',\''+reviewContent+'\')" data-target="#updateReview" class="updateBtn" >수정</a>';
-								review += '  <a onclick="deleteReview();">삭제</a>';
-								review += '  <br clear="both"> ';
+								review += '  <a onclick="deleteReview('+reviewId+','+concertId+');">삭제</a>';
 								review += ' </div>';
+								review += '  <br clear="both"> ';
+								
 
 							}
 
@@ -957,7 +958,7 @@ div {
 								data: {
 									currentPage: num,
 									cno: ${ requestScope.cno } },
-						success: function(result) {
+							 success: function(result) {
 
 							if (result.qList.length > 0) {
 

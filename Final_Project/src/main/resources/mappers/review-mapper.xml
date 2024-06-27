@@ -46,6 +46,7 @@
 		  FROM REVIEW R 
 		 WHERE CONCERT_ID = #{concertId}
 		   AND R.STATUS = 1 
+	 	 ORDER BY REVIEW_ID DESC
 	</select>
 	 
 	 <!-- 후기 삭제 -->
