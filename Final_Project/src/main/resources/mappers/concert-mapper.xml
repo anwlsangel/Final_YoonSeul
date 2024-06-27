@@ -317,4 +317,19 @@
 		from seat
 		left join ticket on seat.seat_id = ticket.seat_id and concert_date_id =#{id}
 	</select>
+	
+	<select id="ticketValidation" parameterType="string" resultType="com.kh.yoonsart.payment.model.vo.Tickets">
+		SELECT ci.concert_name as concertName, t.ticket_qr AS qr, TO_CHAR(cd.concert_date, 'YYYY-MM-DD HH24:MI') AS "date",  s.seat_name AS seat,t.status,ci.hole_name as holename
+		FROM  ticket t
+		JOIN concert_date cd ON t.concert_date_id = cd.concert_date_id
+		JOIN seat s ON t.seat_id = s.seat_id
+        JOIN concert_info ci On cd.concert_id = ci.concert_id
+		WHERE t.ticket_qr =  #{qr}
+	</select>
+	
+	<update id="changeStatusTickt" parameterType="string" >
+        update ticket
+        set status = 9
+        where ticket_qr = #{qr}
+    </update>
 </mapper>

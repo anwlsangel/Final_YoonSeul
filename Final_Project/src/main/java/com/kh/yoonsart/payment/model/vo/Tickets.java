@@ -16,4 +16,5 @@ public class Tickets {
 	private String seat;	 //쿼리
 	private String holeName; //concert에서 받아옴
 	private String qr;		 //쿼리
+	private String status;
 }

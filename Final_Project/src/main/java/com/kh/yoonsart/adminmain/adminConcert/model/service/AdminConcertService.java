@@ -5,6 +5,7 @@ import java.util.HashMap;
 
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDateByKwon;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 public interface AdminConcertService {
 
@@ -20,4 +21,6 @@ public interface AdminConcertService {
 	ArrayList<ConcertDateByKwon> getScheduleWihtHoleName(HashMap<String,String> m);
 	int insertConcertInfo(Concert c,ArrayList<String> list);
 	ArrayList<String> getHoleList();
+	Tickets ticketValidation(String qr);
+	int changeStatusTickt(String qr);
 }

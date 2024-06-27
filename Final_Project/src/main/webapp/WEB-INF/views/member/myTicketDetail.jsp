@@ -355,7 +355,7 @@
 					
 					let a = document.createElement("a");
 					a.href = canvas.toDataURL("image/png")
-				    a.download = "hole_"+ticketList[i].holeName+"_time_"+ticketList[i].date.replace(" ","-");
+				    a.download = "hole_"+ticketList[i].holeName+"_time_"+ticketList[i].date.replace(" ","-")+i;
 				    a.click()
 				});
 			}

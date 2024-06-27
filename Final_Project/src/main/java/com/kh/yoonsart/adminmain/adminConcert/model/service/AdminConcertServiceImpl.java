@@ -11,6 +11,7 @@ import org.springframework.transaction.annotation.Transactional;
 import com.kh.yoonsart.adminmain.adminConcert.model.dao.AdminConcertDao;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDateByKwon;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 @Service
 public class AdminConcertServiceImpl implements AdminConcertService {
@@ -69,6 +70,19 @@ public class AdminConcertServiceImpl implements AdminConcertService {
 	@Override
 	public int adDeleteConcert() {
 		return adminConcertDao.adDeleteConcert(sqlSession);
+	}
+
+	@Override
+	public Tickets ticketValidation(String qr) {
+		
+		return adminConcertDao.ticketValidation(sqlSession, qr);
+	}
+
+	@Override
+	@Transactional
+	public int changeStatusTickt(String qr) {
+		
+		return adminConcertDao.changeStatusTickt(sqlSession,qr);
 	}
 
 	

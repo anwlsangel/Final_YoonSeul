@@ -8,6 +8,7 @@ import org.springframework.stereotype.Repository;
 
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.ConcertDateByKwon;
+import com.kh.yoonsart.payment.model.vo.Tickets;
 
 @Repository
 public class AdminConcertDao {
@@ -55,5 +56,13 @@ public class AdminConcertDao {
 
 	public int adDeleteConcert(SqlSessionTemplate sqlSession) {
 		return sqlSession.update("concertMapper.adDeleteConcert");
+	}
+	
+	public Tickets ticketValidation(SqlSessionTemplate sqlSession, String qr) {
+		return sqlSession.selectOne("concertMapper.ticketValidation", qr);
+	}
+	
+	public int changeStatusTickt(SqlSessionTemplate sqlSession,String qr) {
+		return sqlSession.update("concertMapper.changeStatusTickt",qr);
 	}
 }
