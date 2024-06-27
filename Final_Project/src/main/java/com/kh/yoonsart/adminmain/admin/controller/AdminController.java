@@ -1,17 +1,12 @@
 package com.kh.yoonsart.adminmain.admin.controller;
-
 import java.util.ArrayList;
-
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.servlet.ModelAndView;
-
 import com.kh.yoonsart.adminmain.admin.model.service.AdminService;
 import com.kh.yoonsart.adminmain.admin.model.vo.AdminCount;
-
 import lombok.extern.slf4j.Slf4j;
-
 @Slf4j
 @Controller
 public class AdminController {
@@ -19,7 +14,7 @@ public class AdminController {
 	@Autowired
 	private AdminService adminService;
 	
-	// 관리자페이지 요청 메소드 
+	// 관리자페이지 요청 메소드
 	@GetMapping("adminPage.ad")
 	public ModelAndView adminPage(ModelAndView mv) {
 		
@@ -75,7 +70,7 @@ public class AdminController {
 		mv.addObject("age40", age40);
 		mv.addObject("ageEtc", ageEtc);
 		
-		ArrayList<AdminCount> mlist = adminService.enrollMonth();   
+		ArrayList<AdminCount> mlist = adminService.enrollMonth();
 		
 		//비어있는 달 0명으로 채우기
 		for(int i = 1; i <= 12; i++) {
@@ -186,7 +181,7 @@ public class AdminController {
 		mv.addObject("age40", age40);
 		mv.addObject("ageEtc", ageEtc);
 		
-		ArrayList<AdminCount> mlist = adminService.enrollMonth();   
+		ArrayList<AdminCount> mlist = adminService.enrollMonth();
 		
 		//비어있는 달 0명으로 채우기
 		for(int i = 1; i <= 12; i++) {
