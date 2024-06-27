@@ -1288,7 +1288,7 @@ div {
                 year--;
                 month = 11;
             }
-            if (month < toDay.getMonth()) {
+            if (month -1< toDay.getMonth()) {
                 $("#previousBtn").attr("disabled", "disabled")
             }
             moveMonth(year,month)
