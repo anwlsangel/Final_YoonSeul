@@ -170,7 +170,7 @@
             </li>
 			
             <!-- Divider -->
-            <hr class="sidebar-divider d-none d-md-block">
+            <hr class="sidebar-divider d-none d-md-block"/>
             
             <!-- Heading -->
             <div class="sidebar-heading">
@@ -193,8 +193,28 @@
                     </div>
                 </div>
             </li>
+            <hr class="sidebar-divider d-none d-md-block"/>
             
+            <!-- Heading -->
+            <div class="sidebar-heading">
+               	 티켓검수
+            </div>
+            
+            <!-- Nav Item - Pages Collapse Menu -->
+             <li class="nav-item">
+                <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#select-ticket"
+                    aria-expanded="true" aria-controls="collapsePages">
+                    <i class="fas fa-fw fa-chart-bar"></i>
+                    
+                    <span>티켓</span>
+                </a>
+                <div id="select-ticket" class="collapse" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+                    <div class="bg-white py-2 collapse-inner rounded">
+                        <a class="collapse-item" href="adTicketCheck">티켓검수</a>
+                    </div>
+                </div>
             </li>
+            
             <!-- Divider -->
             <hr class="sidebar-divider">
 

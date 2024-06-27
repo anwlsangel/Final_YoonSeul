@@ -26,7 +26,7 @@ public class PaymentDao {
 	}
 
 	public Concert selectConcert(SqlSessionTemplate sqlSession, String concertId) {
-		return sqlSession.selectOne("paymentMapper.selectConcert", concertId);
+		return sqlSession.selectOne("concertMapper.concertDetail", Integer.parseInt(concertId));
 	}
 
 	public ArrayList<BuyList> selectPaymentList(SqlSessionTemplate sqlSession) {
@@ -66,6 +66,10 @@ public class PaymentDao {
 	}
 	
 	public ArrayList<Tickets> getTicket(SqlSessionTemplate sqlSession, String bId){
-		return (ArrayList)sqlSession.selectList("paymentMapper.deleteTicket",bId);
+		return (ArrayList)sqlSession.selectList("paymentMapper.getTicket",bId);
+	}
+	
+	public String getCIdWithQr(SqlSessionTemplate sqlSession, String qr) {
+		return sqlSession.selectOne("paymentMapper.getCIdWithQr",qr);
 	}
 }

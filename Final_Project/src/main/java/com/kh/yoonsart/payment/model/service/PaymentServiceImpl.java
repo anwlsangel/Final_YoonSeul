@@ -198,4 +198,9 @@ public class PaymentServiceImpl implements PaymentService{
 	public ArrayList<Tickets> getTicket(String bId) {
 		return paymentDao.getTicket(sqlSession, bId);
 	}
+	
+	@Override
+	public String getCIdWithQr(String qr) {
+		return paymentDao.getCIdWithQr(sqlSession, qr);
+	}
 }

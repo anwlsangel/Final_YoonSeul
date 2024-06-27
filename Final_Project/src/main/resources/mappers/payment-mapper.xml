@@ -159,9 +159,15 @@
 		FROM  ticket t
 		JOIN concert_date cd ON t.concert_date_id = cd.concert_date_id
 		JOIN seat s ON t.seat_id = s.seat_id
-		WHERE t.buylist_id = #{bId};
+		WHERE t.buylist_id = #{bId}
 	</select>
 	
+	<select id="getCIdWithQr" parameterType="string" resultType="string">
+		select concert_id 
+		from concert_date cd ,ticket t
+		where t.concert_date_id = cd.concert_date_id
+		and t.ticket_qr = #{qr}
+	</select>
 </mapper>
 
 	

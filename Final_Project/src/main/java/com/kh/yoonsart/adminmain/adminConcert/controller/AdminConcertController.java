@@ -26,6 +26,7 @@ import com.google.gson.JsonElement;
 import com.google.gson.JsonParser;
 import com.kh.yoonsart.adminmain.adminConcert.model.service.AdminConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
+import com.kh.yoonsart.member.model.vo.Member;
 
 @Controller
 public class AdminConcertController {
@@ -148,5 +149,12 @@ public class AdminConcertController {
 		return "redirect:/AdInsertConcert.co";
 	}
 	
-
+	@RequestMapping("adTicketCheck")
+	public String adTicketCheck(HttpSession session) {
+		Member m = (Member)session.getAttribute("loginUser");
+		if(m==null || !m.getUserId().equals("admin")) {
+			return "redirect:/";
+		}
+		return "concert/ConcertTicketCheck";
+	}
 }

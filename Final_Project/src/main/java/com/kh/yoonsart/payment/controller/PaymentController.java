@@ -9,9 +9,11 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import com.google.gson.Gson;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.concert.model.vo.Ticket;
 import com.kh.yoonsart.payment.model.service.PaymentService;
@@ -124,7 +126,8 @@ public class PaymentController {
 			ticketList.get(i).setHoleName(concert.getHoleName());
 			ticketList.get(i).setConcertName(concert.getConcertName());
 		}
-		mv.addObject("bl", bl).addObject("concert", concert).addObject("ticketList",ticketList);
+		System.out.println(ticketList);
+		mv.addObject("bl", bl).addObject("concert", concert).addObject("tl",ticketList).addObject("tlJson",new Gson().toJson(ticketList));
 		mv.setViewName("member/myTicketDetail");
 		return mv;
 	}
@@ -211,6 +214,15 @@ public class PaymentController {
 	@PostMapping(value="deleteTicket.pa")
 	public int deleteTicket(String buyListId) {
 		return paymentService.deleteTicket(buyListId);
+	}
+	
+	@RequestMapping("ticketCheck")
+	public String ticketCheckPublic(String qr, Model m) {
+		
+		Concert c = paymentService.selectConcert(paymentService.getCIdWithQr(qr));
+		m.addAttribute("concert", c);
+		
+		return "concert/ConsertTicketInfo";
 	}
 	
 }
