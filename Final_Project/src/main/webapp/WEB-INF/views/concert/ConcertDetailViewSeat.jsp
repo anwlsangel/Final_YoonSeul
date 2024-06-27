@@ -842,10 +842,9 @@ div {
 
 				<!-- 후기 페이징 -->
 				<script>
-						$(function () {
-
+							console.log("xxxx")
 							ajaxReviewList(1);
-						});
+						
 
 						function ajaxReviewList(num) {
 							$.ajax({
@@ -856,7 +855,8 @@ div {
 										cno: ' ${requestScope.cno} '
 									 },
 								success: function (result) {
-
+									console.log("xxxx")
+									console.log(result)
 									// console.log(result);	
 									$(document.getElementById('review')).html("")
 									if (result.rList.length > 0) {
@@ -958,7 +958,7 @@ div {
 							review += '</div>';
 							review += ' </div>';
 
-							if (${sessionScope.loginUser.userId} == userId) {
+							if ("${sessionScope.loginUser.userId}" == userId) {
 								review += '<div class="review-update">';
 								review += ' <a href="#" data-toggle="modal" onclick="upbtn('+concertId+','+reviewId+',\''+reviewContent+'\')" data-target="#updateReview" class="updateBtn" >수정</a>';
 								review += '  <a onclick="deleteReview('+reviewId+','+concertId+');">삭제</a>';
