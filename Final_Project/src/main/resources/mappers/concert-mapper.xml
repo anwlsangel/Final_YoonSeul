@@ -42,6 +42,7 @@
 	        AND h.STATUS = 1
 	    </if>
 	    AND c.STATUS = 1
+	    AND r.STATUS = 1
 	    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
 	    <choose>
 	        <when test="sort == 'popularity'">
@@ -266,6 +267,7 @@
 		    LEFT JOIN REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
 		    WHERE c.END_DATE > SYSDATE
 		    AND c.STATUS = 1
+		    AND r.STATUS = 1
 		    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
 		    ORDER BY COUNT(r.REVIEW_ID) DESC
 		) 
