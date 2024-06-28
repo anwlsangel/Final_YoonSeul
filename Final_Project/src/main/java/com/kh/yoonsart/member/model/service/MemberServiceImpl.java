@@ -82,6 +82,7 @@ public class MemberServiceImpl implements MemberService {
 	}
 
 	@Override
+	@Transactional
 	public boolean resetPassword(String email, String newPwd) {
 
 		int result = memberDao.updatePasswordByEmail(email, newPwd);

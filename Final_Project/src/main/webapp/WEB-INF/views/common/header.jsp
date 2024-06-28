@@ -637,7 +637,14 @@
                             contentType: "application/json",
                             data: JSON.stringify({ userId: userId, newPwd: newPwd }),
                             success: function(response) {
-                                alertify.alert("비밀번호 변경 성공", response);
+                                alertify.alert("비밀번호 변경 성공", response.message, function() {
+                                    if (response.redirect === "true") {
+                                        window.location.href = 'http://${pageContext.request.serverName}:${pageContext.request.serverPort}${pageContext.request.contextPath}'; // 메인 페이지로 리디렉션
+                                        setTimeout(function() {
+                                            $('#loginModal').modal('show'); // 로그인 모달 띄우기
+                                        }, 1000); // 1초 후에 모달 창 띄우기
+                                    }
+                                });
                                 $('#resetPwdModal').modal('hide');
                                 $('.modal-backdrop').remove();
                             },
