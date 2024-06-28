@@ -1576,6 +1576,9 @@ div {
         		success: function(result) {
         			if(result > 0) {
         				console.log("결제 취소 처리 완료");
+        				alertify.alert('알림', '결제가 취소되었습니다.', function() {
+	            				location.href="detail.co?cno=${param.cno}";
+	            		});
         			}
         			else {
         				console.log("결제 취소 처리 실패");

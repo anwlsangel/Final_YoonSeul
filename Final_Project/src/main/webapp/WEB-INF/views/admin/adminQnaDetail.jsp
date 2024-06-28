@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Q&A 상세조회</title>
+<title>윤슬아트홀</title>
 <style>
 	#as-btn {
 		display: flex;

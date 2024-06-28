@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>유실물 조회</title>
+<title>윤슬아트홀</title>
 <style>
 	#content {
 			width : 90%;  

@@ -10,7 +10,7 @@
     <meta name="description" content="">
     <meta name="author" content="">
 
-    <title>DN Admin 2 - Dashboard</title>
+    <title>윤슬아트홀</title>
 
     <!-- Custom fonts for this template-->
     <link href="<%= request.getContextPath() %>/resources/vendor/fontawesome-free/css/all.min.css" rel="stylesheet" type="text/css">

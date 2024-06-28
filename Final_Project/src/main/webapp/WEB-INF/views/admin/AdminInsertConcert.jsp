@@ -15,7 +15,7 @@
 <script	src="https://cdn.jsdelivr.net/npm/@fullcalendar/timegrid@6.1.14/index.global.min.js"></script>
 <script	src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
 
-<title>Document</title>
+<title>윤슬아트홀</title>
 
 <style>
 </style>
