@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>윤슬아트홀</title>
 </head>
 <body>
 	<!-- 에러 페이지 추가 0603 - 무진 -->

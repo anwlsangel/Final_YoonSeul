@@ -6,7 +6,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>윤슬아트홀</title>
 <style>
 	#dataTable {
 		text-align: center;
