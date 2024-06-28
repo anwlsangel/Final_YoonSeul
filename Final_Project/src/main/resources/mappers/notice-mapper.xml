@@ -156,6 +156,7 @@
 		    ORDER BY NOTICE_ID DESC
 		)
 		WHERE ROWNUM &lt;= 4
+		  AND STATUS = '1'
 	</select>
 	
 	 <select id="adNoticeList" resultMap="noticeResultSet">
