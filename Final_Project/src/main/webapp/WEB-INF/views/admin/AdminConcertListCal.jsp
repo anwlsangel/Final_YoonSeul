@@ -49,10 +49,10 @@
 					<label for="${hole}">${hole}</label>
 				</c:forEach>
 				<div id='calendar' style="width: 50%;"></div>
-				<div>
+				<div id="hiddenBtn" style="display:none">
 					선택한 공연명:<span id="concertName">없음</span><br>추가 공연 수: <span
 						id="totalListNum"></span><br>
-					<button type="button" onclick="addBtn()">등록</button>
+						<button type="button" onclick="addBtn()">등록</button><button onclick="totalReset()">취소</button>
 				</div>
 			</div>
 		</div>
@@ -70,6 +70,7 @@
 	let concertName="";
 	let calendar;
 	let title;
+	let canAdd = true;
 	function drawScheduleCalendarEI(holeName) {
 		   var calendarEl = document.getElementById('calendar');
 
@@ -164,6 +165,10 @@
 		            
 		        },
 		        dateClick: function (info) {
+		        	
+		        	if(canAdd){return;}
+		        	console.log(selectId)
+		        	
 		            let yes = confirm(trimDate(info.date) + "에 추가하시겠습니까?")
 		            let dateEnd = new Date(info.date)
 		            let timeSplit = playTime.split(":");
@@ -239,7 +244,9 @@
 		function adds(id){
 			if(confirm("선택한 공연의 일정을 추가하시겠습니까?")){
 				totalReset()
+				canAdd = false;
 				document.getElementById("concertName").innerHTML=concertName
+				document.getElementById("hiddenBtn").style.display="block";
 			}
 		}
 		function addBtn(){
@@ -291,7 +298,14 @@
 		function totalReset(){
 			document.getElementById("concertName").innerHTML=""
 			document.getElementById("totalListNum").innerHTML=""
+			document.getElementById("hiddenBtn").style.display="none"
+			canAdd=true
 			addMap=new Map();
+			calendar.getEvents().forEach(function (event) {
+				if (event.classNames.includes("add")) {			    
+			        event.remove();
+			    }
+			})
 		}
 	</script>
 </body>
