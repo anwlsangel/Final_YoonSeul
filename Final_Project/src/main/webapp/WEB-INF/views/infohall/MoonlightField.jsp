@@ -7,7 +7,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>달빛마당 - 윤슬아트홀</title>
+    <title>윤슬아트홀</title>
     <style>
         html, body {
             width: 100%;

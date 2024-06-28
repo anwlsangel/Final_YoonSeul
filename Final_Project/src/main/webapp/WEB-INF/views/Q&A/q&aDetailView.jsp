@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>내 문의글 보기</title>
+<title>윤슬아트홀</title>
  <style>
    body{
             background-color: #F4F4F4;

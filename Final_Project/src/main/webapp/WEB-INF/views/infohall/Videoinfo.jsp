@@ -4,7 +4,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>영상정보 처리기기 운영/관리 방침 </title>
+<title>윤슬아트홀</title>
 <style>
 body {
         background-color: #F4F4F4;
