@@ -73,6 +73,9 @@
         	height: 100px;
         	border: none;
         }
+        #fileNameTd {
+           width:200px;
+        }
 
 
     </style>
@@ -116,9 +119,9 @@
                     <input type="file" id="upfile" class="form-control-file border" accept="image/*" name="reupfile" style="display:none;" onchange="handleFileChange(event)">
                     <input type="hidden" name="noticeImgName" value="${n.noticeImgName}">
 	                    <table id="fileList" class="form-control form-control-user">
-	                        <tr>
+	                        <tr style="width=100%">
 	                        <c:if test="${not empty n.noticeImgName}">
-	                            <td class="form-control form-control-user">
+	                            <td class="form-control form-control-user" style="width:80%" id="fileNameTd">
 	                                <span class="fileName" id="fileName"></span>
 	                            </td>
 	                            <td>
