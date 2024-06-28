@@ -4,7 +4,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>파일 업로드 및 목록</title>
+    <title>윤슬아트홀</title>
     <style>
     #contentForm{
     padding-top : 100px;

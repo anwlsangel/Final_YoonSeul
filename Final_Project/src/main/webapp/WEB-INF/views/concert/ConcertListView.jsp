@@ -5,7 +5,7 @@
 <html>
 <head>
 <meta charset="UTF-8">
-<title>Insert title here</title>
+<title>윤슬아트홀</title>
 <!-- Google Fonts 링크 추가 -->
      <link href="https://fonts.googleapis.com/css2?family=Nanum+Brush+Script&display=swap" rel="stylesheet">
      <!-- jQuery library -->

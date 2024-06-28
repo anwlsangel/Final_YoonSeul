@@ -5,7 +5,7 @@
 <html>
 <head>
     <meta charset="UTF-8">
-    <title>Document</title>
+    <title>윤슬아트홀</title>
     <style>
     	#contentForm {
 			padding-top : 100px;
