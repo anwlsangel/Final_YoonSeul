@@ -54,12 +54,12 @@
                 // 그래프 상에 표현할 데이터
                 var data = google.visualization.arrayToDataTable([
                     ['월', '매출(원)'],
-                    ['1', ${list[0].enrollCount}],
-                    ['2', ${list[1].enrollCount}],
-                    ['3', ${list[2].enrollCount}],
-                    ['4', ${list[3].enrollCount}],
-                    ['5', ${list[4].enrollCount}],
-                    ['6', ${list[5].enrollCount}],
+                    ['1', ${empty list[0].enrollCount ? 0 :list[0].enrollCount}],
+                    ['2', ${empty list[1].enrollCount ? 0 :list[1].enrollCount}],
+                    ['3', ${empty list[2].enrollCount ? 0 :list[2].enrollCount}],
+                    ['4', ${empty list[3].enrollCount ? 0 :list[3].enrollCount}],
+                    ['5', ${empty list[4].enrollCount ? 0 :list[4].enrollCount}],
+                    ['6', ${empty list[5].enrollCount ? 0 :list[5].enrollCount}],
                     ['7', ${empty list[6].enrollCount ? 0 :list[6].enrollCount}],
                     ['8', ${empty list[7].enrollCount ? 0 :list[7].enrollCount}],
                     ['9', ${empty list[8].enrollCount ? 0 :list[8].enrollCount}],
