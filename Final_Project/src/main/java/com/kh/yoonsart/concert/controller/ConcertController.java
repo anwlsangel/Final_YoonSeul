@@ -5,6 +5,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashMap;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -57,18 +59,22 @@ public class ConcertController {
 	 @GetMapping("detail.co")
 	    public String concertDetail(@RequestParam("cno") int cno, 
 	                                @RequestParam(value="cpage", defaultValue="1") int currentPage, 
-	                                Model model) {      
+	                                Model model,HttpSession session) {      
 	        // 상세 조회
 	        Concert concert = concertService.concertDetail(cno);
-	        model.addAttribute("concert", concert); 
-
-	        System.out.println("-------");
-	        System.out.println(cno);
-	        System.out.println(currentPage);
-	        System.out.println("-------");
+	        model.addAttribute("concert", concert);
 	        
+	        if(concert.getStatus() == 0) {
+	        	session.setAttribute("alertMsg", "삭제되거나 존재하지 않는 공연입니다.");
+	        	
+	        	if(concert.getHoleName().equals("별빛홀")) {
+		        	
+		        	return "concert/ConcertDetailViewSeat";
+		        }	        	
+	        }
+	        	        	        	        
 	        // 콘서트장 상태값 조회용 
-	        int holeStatus = concertService.selectHoleStatus(cno);	        
+	        int holeStatus = concertService.selectHoleStatus(cno);
 	        
 	        // Q&A 조회
 	        ArrayList<QNA> qnaList = concertService.selectQnaList(cno);
@@ -89,8 +95,8 @@ public class ConcertController {
 	        int likeCount = concertService.selectWishlistCount(cno);
 	        
 	        // 잔여 티켓 조회
-	        int seatCount = concertService.selectSeatCount(cno);
-	              
+	        int seatCount = 0;
+	        seatCount = concertService.selectSeatCount(cno);	              
 	        
 	        model.addAttribute("rvList", rvList);
 	        model.addAttribute("qnaList", qnaList);
@@ -116,7 +122,6 @@ public class ConcertController {
 			}
 			
 			concertDays = concertService.getConcertDays(dataBox);
-			System.out.println(concertDays);
 			model.addAttribute("firstDay",dataBox.get("date"));
 			model.addAttribute("concertDays",concertDays);
 			model.addAttribute("totalTicket",concertService.getHoleSeatCount(concert.getHoleName()));
