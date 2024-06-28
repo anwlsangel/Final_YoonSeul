@@ -27,11 +27,25 @@
 	
 	<!-- 첫 리스트 및 필터링 조회용 쿼리문 -->
 	<select id="selectList" parameterType="map" resultMap="concertResultSet">
-	    SELECT c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS, COUNT(r.REVIEW_ID) AS REVIEW_COUNT
-	    FROM CONCERT_INFO c
-	    JOIN HOLE h ON c.HOLE_NAME = h.HOLE_NAME
-	    LEFT JOIN REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
-	    WHERE c.END_DATE > SYSDATE
+	    SELECT 
+	        c.CONCERT_ID, 
+	        c.THUMBNAIL_ROOT, 
+	        c.CONCERT_NAME, 
+	        c.START_DATE, 
+	        c.END_DATE, 
+	        c.CATEGORY, 
+	        c.PRICE, 
+	        h.HOLE_NAME, 
+	        h.STATUS, 
+	        COUNT(CASE WHEN r.STATUS = 1 THEN r.REVIEW_ID ELSE NULL END) AS REVIEW_COUNT
+	    FROM 
+	        CONCERT_INFO c
+	    JOIN 
+	        HOLE h ON c.HOLE_NAME = h.HOLE_NAME
+	    LEFT JOIN 
+	        REVIEW r ON c.CONCERT_ID = r.CONCERT_ID
+	    WHERE 
+	        c.END_DATE > SYSDATE
 	    <if test="category != null and category != '전체'">
 	        AND c.category = #{category}
 	    </if>
@@ -41,11 +55,19 @@
 	    <if test="sort == 'seating'">
 	        AND h.STATUS = 1
 	    </if>
-	    AND c.STATUS = 1
-	    AND r.STATUS = 1
-	    GROUP BY c.CONCERT_ID, c.THUMBNAIL_ROOT, c.CONCERT_NAME, c.START_DATE, c.END_DATE, c.CATEGORY, c.PRICE, h.HOLE_NAME, h.STATUS
+	        AND c.STATUS = 1
+	    GROUP BY 
+	        c.CONCERT_ID, 
+	        c.THUMBNAIL_ROOT, 
+	        c.CONCERT_NAME, 
+	        c.START_DATE, 
+	        c.END_DATE, 
+	        c.CATEGORY, 
+	        c.PRICE, 
+	        h.HOLE_NAME, 
+	        h.STATUS
 	    <choose>
-	        <when test="sort == 'popularity'">
+	        <when test="sort == 'popularity'">	        
 	            ORDER BY REVIEW_COUNT DESC
 	        </when>
 	        <when test="sort == 'date'">
