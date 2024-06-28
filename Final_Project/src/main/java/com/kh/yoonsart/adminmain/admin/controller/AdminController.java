@@ -8,7 +8,7 @@ import com.kh.yoonsart.adminmain.admin.model.service.AdminService;
 import com.kh.yoonsart.adminmain.admin.model.vo.AdminCount;
 import lombok.extern.slf4j.Slf4j;
 @Slf4j
-@Controller
+@Controller("adminController")
 public class AdminController {
 	
 	@Autowired
@@ -97,10 +97,11 @@ public class AdminController {
 		
 		ArrayList<AdminCount> slist = adminService.concertSales();
 		
+		
 		//System.out.println(list);
 		
 		//비어있는 달 0명으로 채우기
-				/*for(int i = 1; i <= 12; i++) {
+				for(int i = 1; i <= 12; i++) {
 					if(slist.get(0).getEnrollDate() == i) {
 						for(int j = 1; j < i; j++) {
 							slist.add(j-1, new AdminCount(j, 0));
@@ -115,7 +116,7 @@ public class AdminController {
 						}
 						break;
 					}
-				}*/
+				}
 		
 		mv.addObject("slist", slist);
 		

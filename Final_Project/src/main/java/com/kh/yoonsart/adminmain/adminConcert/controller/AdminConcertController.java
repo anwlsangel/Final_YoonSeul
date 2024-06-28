@@ -28,7 +28,7 @@ import com.kh.yoonsart.adminmain.adminConcert.model.service.AdminConcertService;
 import com.kh.yoonsart.concert.model.vo.Concert;
 import com.kh.yoonsart.payment.model.vo.Tickets;
 
-@Controller
+@Controller("adminConcertController")
 public class AdminConcertController {
 
 	@Autowired
