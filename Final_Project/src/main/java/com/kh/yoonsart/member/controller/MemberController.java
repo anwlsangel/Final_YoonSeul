@@ -256,11 +256,13 @@ public class MemberController {
 			
 		}
 		
-		@PostMapping(value = "resetPwd.do", consumes = "application/json", produces = "text/plain; charset=UTF-8")
+		@PostMapping(value = "resetPwd.do", consumes = "application/json", produces = "application/json; charset=UTF-8")
 		@ResponseBody
-		public ResponseEntity<String> resetPassword(@RequestBody Map<String, String> requestData) {
+		public ResponseEntity<Map<String, String>> resetPassword(@RequestBody Map<String, String> requestData, HttpSession session) {
 		    String userId = requestData.get("userId");
 		    String newPwd = requestData.get("newPwd");
+
+		    Map<String, String> response = new HashMap<>();
 
 		    try {
 		        // 새 비밀번호 암호화
@@ -270,14 +272,22 @@ public class MemberController {
 		        int result = memberService.updatePassword(userId, encPwd);
 
 		        if (result > 0) {
-		            return ResponseEntity.ok("비밀번호가 성공적으로 변경되었습니다.");
+		            // 비밀번호 변경 성공 시 세션 무효화
+		            session.invalidate();
+		            response.put("message", "비밀번호가 성공적으로 변경되었습니다.");
+		            response.put("redirect", "true");
+		            return ResponseEntity.ok(response);
 		        } else {
-		            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경에 실패했습니다.");
+		            response.put("message", "비밀번호 변경에 실패했습니다.");
+		            response.put("redirect", "false");
+		            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		        }
 		    } catch (Exception e) {
 		        // 예외가 발생하면 스택 트레이스를 출력하고, 에러 메시지를 응답으로 반환
 		        e.printStackTrace();
-		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("비밀번호 변경 중 오류 발생: " + e.getMessage());
+		        response.put("message", "비밀번호 변경 중 오류 발생: " + e.getMessage());
+		        response.put("redirect", "false");
+		        return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(response);
 		    }
 		}
 		
